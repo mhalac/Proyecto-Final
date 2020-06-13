@@ -52,7 +52,7 @@ LightmapSettings:
     m_AlbedoBoost: 1
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
+    m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 10
@@ -188,7 +188,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400002, guid: c6453f8e1f814744d8b94e5a6d1f9942, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.85
+      value: -3.54
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: c6453f8e1f814744d8b94e5a6d1f9942, type: 2}
       propertyPath: m_LocalPosition.y
@@ -306,6 +306,11 @@ Prefab:
       propertyPath: vision
       value: 
       objectReference: {fileID: 1975781617}
+    - target: {fileID: 195436315325887998, guid: 14a9d8d1f622afe4a8821f198debe65d,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14a9d8d1f622afe4a8821f198debe65d, type: 2}
   m_IsPrefabAsset: 0
@@ -323,7 +328,7 @@ GameObject:
   - component: {fileID: 1119203117}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Entorno
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -428,7 +433,7 @@ GameObject:
   - component: {fileID: 1741184261}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Entorno
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -516,7 +521,7 @@ GameObject:
   - component: {fileID: 1753880282}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Entorno
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8

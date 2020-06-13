@@ -5,17 +5,22 @@ using UnityEngine.AI;
 
 public class Fuego1 : MonoBehaviour {
 
-    public Transform vision;
-    
-   
-    public float visionOffset;
+ 
+    private RaycastHit hit;
+    private bool Visto;
+    private Transform UltimaPosicion;
+
     public Transform RayPos;
     private RaycastHit ray;
-    public float velocidad;
-    private float distancia;
+    public Transform VisionDisparo;
+    
     private NavMeshAgent agente;
     public float rotacion;
-    public int radioHuir;
+    
+    
+    public int AlcanzeMaximo;
+    public Transform RangoMinimo;
+
     public int radioDisparar;
     private int PMask;
     private GameObject personaje;
@@ -24,16 +29,29 @@ public class Fuego1 : MonoBehaviour {
 
         agente = GetComponent<NavMeshAgent>();
         PMask = LayerMask.NameToLayer("Personaje");
-        
-           
+        VisionDisparo.position = new Vector3(VisionDisparo.position.x , VisionDisparo.position.y,VisionDisparo.position.z+ radioDisparar);
+        RangoMinimo.position = new Vector3(RangoMinimo.position.x, RangoMinimo.position.y,RangoMinimo.position.z+ AlcanzeMaximo);
+   
     }
 	
 	// Update is called once per frame
 	void Update () {
+     
+        
+        if(BuscarPersonaje())
+        {
+            Estadentro(TengoQueAcercarme());
+        }
+        else
+            agente.isStopped = true;
         
         
-        //Busca a el personaje
-        Collider[] obj = Physics.OverlapSphere(RayPos.position, radioDisparar);
+       
+    }
+    
+    private bool BuscarPersonaje()
+    {
+        Collider[] obj = Physics.OverlapSphere(VisionDisparo.position, radioDisparar);
         for (int i = 0; obj.Length > i;i++)
         {
             if (obj[i].gameObject.layer == PMask)
@@ -41,21 +59,33 @@ public class Fuego1 : MonoBehaviour {
                 personaje = obj[i].gameObject;
                 var direccion = personaje.transform.position - transform.position ;
                 
-                distancia = Vector3.Distance(personaje.transform.position, this.gameObject.transform.position);
-                Debug.DrawRay(RayPos.position,direccion , Color.green);   
-                Estadentro();
+                
+                Debug.DrawRay(transform.position, direccion * hit.distance, Color.yellow); 
+                return true;
             }
-            else
-                agente.isStopped = true;
+            
         }
+        return false;
+    }
+
+    private bool TengoQueAcercarme()
+    {
+        Collider[] objdisparo = Physics.OverlapSphere(RangoMinimo.position, AlcanzeMaximo);
+        
+        for (int i = 0; objdisparo.Length > i;i++)
+        {
+            if (objdisparo[i].gameObject.layer == PMask)
+            {
+                return false;
+            }
+            
+        }
+        return true;
     }
     private void Acercar()
     {
         //gameObject.transform.localPosition = Vector3.MoveTowards(transform.position, personaje.transform.position,velocidad * Time.deltaTime);
-        agente.destination = personaje.transform.position;
-        
-        
-       
+        agente.destination = personaje.transform.position;    
     }
     private void Apuntar(Transform enemigo)
     {
@@ -69,23 +99,29 @@ public class Fuego1 : MonoBehaviour {
         print("bang bang");
     }
 
-    private void Estadentro()
+    private void Estadentro(bool TengoQueAcercarme)
     {
-        var direccion2 = personaje.transform.position - transform.position ;
-        if(!Physics.Raycast(RayPos.position,direccion2,radioDisparar,PMask))
-        {
-            agente.destination = personaje.transform.position;
-        }
-        
+        print(TengoQueAcercarme);
+        var direccion2 = personaje.transform.position - transform.position;
+        Debug.DrawRay(transform.position, direccion2 , Color.yellow);
 
-        if (personaje != null && distancia < radioDisparar && distancia > radioHuir)
+
+       
+        if (TengoQueAcercarme)
         {
             agente.isStopped = false;
             Acercar();
         }
-    
+        if (Physics.Raycast(transform.position, direccion2, out hit, radioDisparar) && hit.collider.gameObject.tag != "Personaje")
+        {  
+            print("No veo me acerco");
+            agente.isStopped = false;
+            Acercar();       
         
-        else if (personaje != null && distancia < radioHuir)
+        }
+
+        
+        else if (personaje != null && !TengoQueAcercarme)
         {
             agente.isStopped = true;
             Disparar();
@@ -95,8 +131,8 @@ public class Fuego1 : MonoBehaviour {
     {
      
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(RayPos.position, radioHuir);
+        Gizmos.DrawWireSphere(RangoMinimo.position, AlcanzeMaximo);
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(RayPos.position, radioDisparar);
+        Gizmos.DrawWireSphere(VisionDisparo.position, radioDisparar);
     }
 }
