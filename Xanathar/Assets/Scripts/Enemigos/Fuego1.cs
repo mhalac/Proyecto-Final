@@ -13,7 +13,7 @@ public class Fuego1 : MonoBehaviour {
     public Transform RayPos;
     private RaycastHit ray;
     public Transform VisionDisparo;
-    private float distancia;
+    
     private NavMeshAgent agente;
     public float rotacion;
     
@@ -59,7 +59,7 @@ public class Fuego1 : MonoBehaviour {
                 personaje = obj[i].gameObject;
                 var direccion = personaje.transform.position - transform.position ;
                 
-                distancia = Vector3.Distance(personaje.transform.position, this.gameObject.transform.position);
+                
                 Debug.DrawRay(transform.position, direccion * hit.distance, Color.yellow); 
                 return true;
             }
