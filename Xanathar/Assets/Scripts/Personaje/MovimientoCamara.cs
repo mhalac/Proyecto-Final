@@ -7,7 +7,7 @@ public class MovimientoCamara : MonoBehaviour {
 	//Script para mover la camara en eje X e Y
 	//Script para limitar el movimiento de la camara en eje Y para evitar que de un giro 360 grados
 
-	public float Sensibilidad = 100f;
+	public float Sensibilidad = 200f;
 	float MouseX;
 	float MouseY;
 	float RotacionX = 0f;
@@ -28,7 +28,7 @@ public class MovimientoCamara : MonoBehaviour {
 
 		RotacionX -= MouseY;
 		RotacionX = Mathf.Clamp(RotacionX , -45f , 45f);
-
+	
 		transform.localRotation = Quaternion.Euler(RotacionX , 0f , 0f);
 		CuerpoJugador.Rotate(Vector3.up * MouseX);
 	}
