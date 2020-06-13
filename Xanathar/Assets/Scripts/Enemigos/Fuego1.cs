@@ -1,20 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Fuego1 : MonoBehaviour {
 
 
+    
+    public float velocidad;
     private float distancia;
-    private Rigidbody rb;
+    private NavMeshAgent agente;
+    public float rotacion;
     public int radioHuir;
     public int radioDisparar;
     private int PMask;
     private GameObject personaje;
 	// Use this for initialization
 	void Start () {
-        rb = GetComponent<Rigidbody>();
 
+        agente = GetComponent<NavMeshAgent>();
         PMask = LayerMask.NameToLayer("Personaje");
     }
 	
@@ -28,37 +32,49 @@ public class Fuego1 : MonoBehaviour {
         {
             if (obj[i].gameObject.layer == PMask)
             {
+                
                 personaje = obj[i].gameObject;
-                 distancia = Vector3.Distance(personaje.transform.position, this.gameObject.transform.position);
+                distancia = Vector3.Distance(personaje.transform.position, this.gameObject.transform.position);
                 Estadentro();
             }
             else
-                personaje = null;
+                agente.isStopped = true;
         }
         
        
 
     }
-    private void Huir()
+    private void Acercar()
     {
-        print("huyo");
+        //gameObject.transform.localPosition = Vector3.MoveTowards(transform.position, personaje.transform.position,velocidad * Time.deltaTime);
+        agente.destination = personaje.transform.position;
+
+    }
+    private void Apuntar(Transform enemigo)
+    {
+        Vector3 direction = (enemigo.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotacion);
+    }
+    private void Disparar()
+    {
+        Apuntar(personaje.transform);
+        print("bang bang");
     }
 
     private void Estadentro()
     {
-        if (personaje != null)
-        {
-            print("EXSISTE");
-        }
-        
+           
         if (personaje != null && distancia < radioDisparar && distancia > radioHuir)
         {
-            print("bang");
+            agente.isStopped = false;
+            Acercar();
         }
 
         else if (personaje != null && distancia < radioHuir)
         {
-            Huir();
+            agente.isStopped = true;
+            Disparar();
         }
     }
     void OnDrawGizmosSelected()
