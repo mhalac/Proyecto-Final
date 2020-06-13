@@ -9,14 +9,12 @@ public class MovimientoPersonaje : MonoBehaviour {
 	//El controlador de personaje
 	public CharacterController Controlador;
 
+	//Referencia para el script que va a tener todas las estadisticas del personaje
+	public EstadisticasDePersonaje Stats;
+
 	// Los ejes X e Z
 	float X;
 	float Z;
-
-	// La velocidad de movimiento , la gravedad y la fuerza de salto
-	public float VelocidadDeMovimiento = 10f;
-	public float Gravedad = -10f;
-	public float FuerzaDeSalto = 3f;
 
 	//Este vector 3 es para la fuerza de gravedad
 	Vector3 Velocidad;
@@ -55,14 +53,14 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 		if(Input.GetButtonDown("Jump") && EstaEnPiso)
 		{
-			Velocidad.y = Mathf.Sqrt(FuerzaDeSalto * -2 * Gravedad);
+			Velocidad.y = Mathf.Sqrt(Stats.FuerzaDeSalto * -2 * Stats.Gravedad);
 		}
 
 		Vector3 Movimiento = transform.right * X + transform.forward * Z;
-		Velocidad.y += Gravedad * Time.deltaTime;
+		Velocidad.y += Stats.Gravedad * Time.deltaTime;
 
 		//Movimiento eje X y Z
-		Controlador.Move(Movimiento * VelocidadDeMovimiento * Time.deltaTime);
+		Controlador.Move(Movimiento * Stats.VelocidadDeMovimiento * Time.deltaTime);
 
 		//Movimiento Y
 		Controlador.Move(Velocidad * Time.deltaTime);

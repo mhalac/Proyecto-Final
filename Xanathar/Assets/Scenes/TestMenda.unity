@@ -826,6 +826,7 @@ GameObject:
   - component: {fileID: 1964833001}
   - component: {fileID: 1964833000}
   - component: {fileID: 1964833002}
+  - component: {fileID: 1964833003}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Untagged
@@ -878,14 +879,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 1964833000}
-  VelocidadDeMovimiento: 10
-  Gravedad: -10
-  FuerzaDeSalto: 3
+  Stats: {fileID: 1964833003}
   CheckDePiso: {fileID: 1968320845}
   DistanciaDePiso: 0.5
   MascaraDePiso:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &1964833003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1964832999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86567f4a7e3d3144985ead8cd6e66cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VidaDePersonaje: 4
+  "Da\xF1oDePersonajeNormal": 10
+  TiempoCooldown: 10
+  Armadura: 4
+  Gravedad: -15
+  VelocidadDeMovimiento: 10
+  VelocidadDeAtaque: 1
+  FuerzaDeSalto: 3
+  "Da\xF1oElementalFuego": 0
+  "Da\xF1oElementalAire": 0
+  "Da\xF1oElementalAgua": 0
+  "Da\xF1oElementalTierra": 0
 --- !u!1 &1968320844
 GameObject:
   m_ObjectHideFlags: 0
