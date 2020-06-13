@@ -48,10 +48,10 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 		if(EstaEnPiso && Velocidad.y < 0)
 		{
-			Velocidad.y = -2f;
+			Velocidad.y =- Stats.VelocidadDeMovimiento;
 		}
 
-		if(Input.GetButtonDown("Jump") && EstaEnPiso)
+		if(Input.GetKeyDown(KeyCode.Space) && EstaEnPiso)
 		{
 			Velocidad.y = Mathf.Sqrt(Stats.FuerzaDeSalto * -2 * Stats.Gravedad);
 		}
@@ -61,6 +61,15 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 		//Movimiento eje X y Z
 		Controlador.Move(Movimiento * Stats.VelocidadDeMovimiento * Time.deltaTime);
+
+		if(Input.GetKeyDown(KeyCode.LeftShift))
+		{
+			Stats.VelocidadDeMovimiento += 6;
+		}
+		else if(Input.GetKeyUp(KeyCode.LeftShift))
+		{
+			Stats.VelocidadDeMovimiento -= 6;
+		}
 
 		//Movimiento Y
 		Controlador.Move(Velocidad * Time.deltaTime);
