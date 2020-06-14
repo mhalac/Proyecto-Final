@@ -10,6 +10,7 @@ public class Fuego1 : MonoBehaviour {
     private bool Visto;
     private Transform UltimaPosicion;
 
+    public float AreaIdle;
     public Transform RayPos;
     private RaycastHit ray;
     public Transform VisionDisparo;
@@ -20,18 +21,24 @@ public class Fuego1 : MonoBehaviour {
     private string[] Estados = {"Idle","Chasing","Searching","Shooting"};
     public int AlcanzeMaximo;
     public Transform RangoMinimo;
+    private Transform posicionSpawn ;
+    private bool Moviendose;
     
+    public Vector3 destino;
+
     public int radioDisparar;
     private int PMask;
     private GameObject personaje;
+    private Vector3 posicionRandom;
 	// Use this for initialization
 	void Start () {
-
+        posicionSpawn = transform;
         agente = GetComponent<NavMeshAgent>();
         PMask = LayerMask.NameToLayer("Personaje");
         VisionDisparo.position = new Vector3(VisionDisparo.position.x , VisionDisparo.position.y,VisionDisparo.position.z+ radioDisparar);
         RangoMinimo.position = new Vector3(RangoMinimo.position.x, RangoMinimo.position.y,RangoMinimo.position.z+ AlcanzeMaximo);
         Estado = Estados[0];
+        posicionRandom = new Vector3(posicionSpawn.transform.position.x,posicionSpawn.transform.position.y,posicionSpawn.transform.position.z);
     }
 	
 	// Update is called once per frame
@@ -73,6 +80,29 @@ public class Fuego1 : MonoBehaviour {
         { 
             agente.isStopped = true;
             Estado = Estados[0];
+        }
+        if(Estado == Estados[0])
+        {
+            print("Idle");
+            Idle();
+        }
+    }
+    
+    private void Idle()
+    {
+        agente.isStopped = false;
+        if(!Moviendose)
+        {
+            float RandomX = Random.Range(posicionRandom.x - AreaIdle,AreaIdle + posicionRandom.z);
+            float RandomZ = Random.Range(posicionRandom.x - AreaIdle,AreaIdle + posicionRandom.z);
+            destino = new Vector3(RandomX,transform.position.y,RandomZ);
+            agente.destination = destino;
+            Moviendose = true;
+        }
+        if(agente.remainingDistance < Mathf.Epsilon)
+        {
+            Moviendose = false;
+            StartCoroutine("Esperar");
         }
     }
     
@@ -185,10 +215,28 @@ public class Fuego1 : MonoBehaviour {
     }
     void OnDrawGizmosSelected()
     {
-     
+        
+        
+        Gizmos.color = Color.blue;
+        
+        Vector3 cubo = new Vector3(AreaIdle, 2,AreaIdle);
+        Gizmos.DrawWireCube(transform.position,cubo);
         Gizmos.color = Color.red;
+        Gizmos.DrawSphere(destino, 2f);
         Gizmos.DrawWireSphere(RangoMinimo.position, AlcanzeMaximo);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(VisionDisparo.position, radioDisparar);
+        
+    }
+     IEnumerator Esperar()
+    {
+        
+        Debug.Log("Started Coroutine at timestamp : " + Time.time);
+
+        
+        yield return new WaitForSeconds(3);
+
+        
+        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
 }
