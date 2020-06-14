@@ -109,7 +109,7 @@ public class Fuego1 : MonoBehaviour {
                 RandomZ = Random.Range(posicionRandom.x - AreaIdle,AreaIdle + posicionRandom.z);
                 destino = new Vector3(RandomX,transform.position.y,RandomZ);
                 // revisas que el punto para ir no este en una pared
-                
+
                 Collider[] obj = Physics.OverlapSphere(destino, 2f);
                 for(int i = 0; i < obj.Length;i++)
                 {
@@ -251,8 +251,8 @@ public class Fuego1 : MonoBehaviour {
         
         Gizmos.color = Color.blue;
         
-        Vector3 cubo = new Vector3(AreaIdle, 2,AreaIdle);
-        Gizmos.DrawWireCube(transform.position,cubo);
+        //Vector3 cubo = new Vector3(AreaIdle, 2,AreaIdle);
+        //Gizmos.DrawWireCube(transform.position,cubo);
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(destino, 2f);
         Gizmos.DrawWireSphere(RangoMinimo.position, AlcanzeMaximo);

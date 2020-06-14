@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4976804319042802}
   m_Layer: 9
   m_Name: ChequeadorDePiso
-  m_TagString: Untagged
+  m_TagString: Personaje
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 33417301456363334}
   - component: {fileID: 23105922061735506}
   - component: {fileID: 65150764395599100}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Brazo1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1387716768184268
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,9 +71,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4943959275383316}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Brazos
-  m_TagString: Untagged
+  m_TagString: Personaje
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 33279913451921968}
   - component: {fileID: 23609849876478692}
   - component: {fileID: 65795511097511914}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Brazo2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 136871318554163072}
   m_Layer: 9
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Personaje
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VidaDePersonaje: 4
   "Da\xF1oDePersonajeNormal": 10
-  TiempoCooldown: 10
+  TiempoCooldown: 1
   Armadura: 4
   Gravedad: -15
   VelocidadDeMovimiento: 10
