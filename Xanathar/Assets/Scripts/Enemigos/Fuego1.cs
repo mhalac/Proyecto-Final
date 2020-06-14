@@ -10,6 +10,8 @@ public class Fuego1 : MonoBehaviour {
     private bool Visto;
     private Transform UltimaPosicion;
 
+    public GameObject balaPrefab;
+
     public float AreaIdle;
     public Transform RayPos;
     private RaycastHit ray;
@@ -24,8 +26,11 @@ public class Fuego1 : MonoBehaviour {
     private Transform posicionSpawn ;
     private bool Moviendose;
     
+    private float DelayInicial;
+    public float BalaVelocidad;
     public Vector3 destino;
 
+    public float delay;
     public int radioDisparar;
     private int PMask;
     private GameObject personaje;
@@ -39,14 +44,12 @@ public class Fuego1 : MonoBehaviour {
         RangoMinimo.position = new Vector3(RangoMinimo.position.x, RangoMinimo.position.y,RangoMinimo.position.z+ AlcanzeMaximo);
         Estado = Estados[0];
         posicionRandom = new Vector3(posicionSpawn.transform.position.x,posicionSpawn.transform.position.y,posicionSpawn.transform.position.z);
+        DelayInicial = delay;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if(personaje != null)
-        {
-            print(personaje.gameObject.name);
-        }
+        
         
         //print(BuscarPersonaje() + "<Buscar - Puedo verlo> " + PuedoVer() +  "estado: "+ Estado);
         if(BuscarPersonaje() && !PuedoVer() && Estado == Estados[3])
@@ -87,7 +90,7 @@ public class Fuego1 : MonoBehaviour {
         }
         if(Estado == Estados[0])
         {
-           print("Idle");
+           
             Idle();
       }
     }
@@ -122,9 +125,7 @@ public class Fuego1 : MonoBehaviour {
                 if(!hayPared)
                 {
                     seCreo = true;
-                }
-                
-               
+                } 
             }
             
             destino = new Vector3(RandomX,transform.position.y,RandomZ);
@@ -134,7 +135,7 @@ public class Fuego1 : MonoBehaviour {
         if(agente.remainingDistance < Mathf.Epsilon)
         {
             Moviendose = false;
-            StartCoroutine("Esperar");
+            
         }
     }
     
@@ -205,6 +206,16 @@ public class Fuego1 : MonoBehaviour {
     {
         Estado = Estados[3];
         Apuntar(personaje.transform);
+        delay -= Time.deltaTime;
+        if(delay <= 0)
+        {
+            
+            delay = DelayInicial;
+            GameObject bala = Instantiate(balaPrefab,RayPos.position,Quaternion.identity);
+            Vector3 PosicionDisparada = personaje.transform.position;
+            bala.GetComponent<ProyectilBase>().Lanzar(PosicionDisparada,BalaVelocidad);
+            print("bang bang");
+        }
     }
 
     private void Estadentro(bool TengoQueAcercarme)
@@ -259,16 +270,5 @@ public class Fuego1 : MonoBehaviour {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(VisionDisparo.position, radioDisparar);
         
-    }
-     IEnumerator Esperar()
-    {
-        
-        Debug.Log("Started Coroutine at timestamp : " + Time.time);
-
-        
-        yield return new WaitForSeconds(3);
-
-        
-        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
 }

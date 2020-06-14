@@ -122,7 +122,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1426670726782492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.3, y: 0.66, z: 3.15}
+  m_LocalPosition: {x: -14.419734, y: 0.49999994, z: -8.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4647298614368330}
@@ -196,13 +196,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28428ccf17d84fe4f8df903242a055c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  balaPrefab: {fileID: 1707792337434530, guid: 449db51a688f0b749b8913a8c07856c9, type: 2}
   AreaIdle: 6.9
   RayPos: {fileID: 4647298614368330}
   VisionDisparo: {fileID: 4474107941582900}
   rotacion: 6
   AlcanzeMaximo: 3
   RangoMinimo: {fileID: 4243976243802354}
+  BalaVelocidad: 3
   destino: {x: 0, y: 0, z: 0}
+  delay: 2
   radioDisparar: 7
 --- !u!195 &195436315325887998
 NavMeshAgent:
