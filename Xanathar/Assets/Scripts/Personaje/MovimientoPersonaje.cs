@@ -35,7 +35,6 @@ public class MovimientoPersonaje : MonoBehaviour {
 	float TiempoActualDeDash = TiempoMaximoDeDash;
 	float DistanciaDeDash = 10f;
 	float VelocidadCuandoElDashPara = 0.1f;
-	float CoolDownDash = 5f;
 	bool YaDasheo = false;
 
 	//Variable que determina la velocidad y distancia del dash
@@ -44,7 +43,7 @@ public class MovimientoPersonaje : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-
+		
 	}
 	
 	// Update is called once per frame
@@ -59,7 +58,7 @@ public class MovimientoPersonaje : MonoBehaviour {
 		//Movimientos
 
 		Saltar();
-		
+
 		Moverse();
 
 	}
@@ -108,12 +107,12 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 		if(YaDasheo == true)
 		{
-			CoolDownDash -= Time.fixedDeltaTime;
+			Stats.CoolDownFlash -= Time.fixedDeltaTime;
 
-			if(CoolDownDash <= 0)
+			if(Stats.CoolDownFlash <= 0)
 			{
 				YaDasheo = false;
-				CoolDownDash = 5f;
+				Stats.CoolDownFlash = 5f;
 			}
 		}
 

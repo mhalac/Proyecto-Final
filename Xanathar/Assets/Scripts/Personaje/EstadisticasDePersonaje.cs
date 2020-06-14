@@ -7,9 +7,10 @@ public class EstadisticasDePersonaje : MonoBehaviour {
 	//Estadisticas Basicas
 	public int VidaDePersonaje = 4;
 	public float DañoDePersonajeNormal = 10f;
-	public float TiempoCooldown = 10f;
+	public float TiempoCooldownActivas = 5f;
 	public int Armadura = 4;
 	public float Gravedad = -15f;
+	public float CoolDownFlash = 5f;
 
 
 	public float VelocidadDeMovimiento = 10f;
@@ -25,9 +26,10 @@ public class EstadisticasDePersonaje : MonoBehaviour {
 
 	void Start()
 	{
+		/*
 		PlayerPrefs.SetInt("Vida", VidaDePersonaje);
 		PlayerPrefs.SetFloat("DañoNormal", DañoDePersonajeNormal);
-		PlayerPrefs.SetFloat("Cooldown", TiempoCooldown);
+		PlayerPrefs.SetFloat("Cooldown", TiempoCooldownActivas);
 		PlayerPrefs.SetInt("Armadura", Armadura);
 		PlayerPrefs.SetFloat("Gravedad", Gravedad);
 
@@ -39,5 +41,7 @@ public class EstadisticasDePersonaje : MonoBehaviour {
 		PlayerPrefs.SetFloat("DañoViento", DañoElementalAire);
 		PlayerPrefs.SetFloat("DañoAgua", DañoElementalAgua);
 		PlayerPrefs.SetFloat("DañoTierra", DañoElementalTierra);
+		*/
+
 	}
 }
