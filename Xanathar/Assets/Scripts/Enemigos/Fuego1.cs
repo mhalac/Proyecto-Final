@@ -43,7 +43,11 @@ public class Fuego1 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-     
+        if(personaje != null)
+        {
+            print(personaje.gameObject.name);
+        }
+        
         //print(BuscarPersonaje() + "<Buscar - Puedo verlo> " + PuedoVer() +  "estado: "+ Estado);
         if(BuscarPersonaje() && !PuedoVer() && Estado == Estados[3])
         {
@@ -83,18 +87,46 @@ public class Fuego1 : MonoBehaviour {
         }
         if(Estado == Estados[0])
         {
-            print("Idle");
+           print("Idle");
             Idle();
-        }
+      }
     }
     
     private void Idle()
     {
         agente.isStopped = false;
+       
         if(!Moviendose)
         {
-            float RandomX = Random.Range(posicionRandom.x - AreaIdle,AreaIdle + posicionRandom.z);
-            float RandomZ = Random.Range(posicionRandom.x - AreaIdle,AreaIdle + posicionRandom.z);
+            float RandomX = 0;
+            float RandomZ = 0;
+            bool seCreo = false;
+            bool hayPared = false;
+            //genera numero random entre tu posicion y el rango espesificado de idle
+            while(!seCreo)
+            {
+                RandomX = Random.Range(posicionRandom.x - AreaIdle,AreaIdle + posicionRandom.z);
+                RandomZ = Random.Range(posicionRandom.x - AreaIdle,AreaIdle + posicionRandom.z);
+                destino = new Vector3(RandomX,transform.position.y,RandomZ);
+                // revisas que el punto para ir no este en una pared
+                
+                Collider[] obj = Physics.OverlapSphere(destino, 2f);
+                for(int i = 0; i < obj.Length;i++)
+                {
+                    if(obj[i].tag == "Obstaculo")
+                    {
+                        hayPared = true;
+                    }
+
+                }
+                if(!hayPared)
+                {
+                    seCreo = true;
+                }
+                
+               
+            }
+            
             destino = new Vector3(RandomX,transform.position.y,RandomZ);
             agente.destination = destino;
             Moviendose = true;
