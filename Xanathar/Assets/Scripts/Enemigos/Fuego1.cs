@@ -13,14 +13,14 @@ public class Fuego1 : MonoBehaviour {
     public Transform RayPos;
     private RaycastHit ray;
     public Transform VisionDisparo;
-    
+    private string Estado;
     private NavMeshAgent agente;
     public float rotacion;
-    
-    
+    private bool PerdidoDeVista;
+    private string[] Estados = {"Idle","Chasing","Searching","Shooting"};
     public int AlcanzeMaximo;
     public Transform RangoMinimo;
-
+    
     public int radioDisparar;
     private int PMask;
     private GameObject personaje;
@@ -31,24 +31,69 @@ public class Fuego1 : MonoBehaviour {
         PMask = LayerMask.NameToLayer("Personaje");
         VisionDisparo.position = new Vector3(VisionDisparo.position.x , VisionDisparo.position.y,VisionDisparo.position.z+ radioDisparar);
         RangoMinimo.position = new Vector3(RangoMinimo.position.x, RangoMinimo.position.y,RangoMinimo.position.z+ AlcanzeMaximo);
-   
+        Estado = Estados[0];
     }
 	
 	// Update is called once per frame
 	void Update () {
      
-        
-        if(BuscarPersonaje())
+        //print(BuscarPersonaje() + "<Buscar - Puedo verlo> " + PuedoVer() +  "estado: "+ Estado);
+        if(BuscarPersonaje() && !PuedoVer() && Estado == Estados[3])
         {
-            Estadentro(TengoQueAcercarme());
+            Estado = Estados[2];
+            print("Se actualizo la ultima posicion");
+            UltimaPosicion = personaje.transform;
+            Buscar();
         }
-        else
-            agente.isStopped = true;
-        
-        
+        if(agente.remainingDistance < Mathf.Epsilon && Estado == Estados[2])
+        {
+            Estado = Estados[0];
+        }
+        if(Estado == Estados[1] && !PuedoVer() && BuscarPersonaje())
+        {
+            Estado = Estados[2];
+        }
+       if(BuscarPersonaje() && Estado == Estados[1] && !PuedoVer())
+        {
+            print("Se actualizo la ultima posicion");
+            UltimaPosicion = personaje.transform;
+            Buscar();
+        }
+
+        if(BuscarPersonaje() && Estado != Estados[2])
+        {
+            if(PuedoVer())
+            {
+                Estadentro(TengoQueAcercarme());
+            }
+        }
        
+    
+        if(!BuscarPersonaje() && Estado != Estados[2])
+        { 
+            agente.isStopped = true;
+            Estado = Estados[0];
+        }
     }
     
+    private void Buscar()
+    {
+        agente.isStopped = false;
+        Estado = Estados[2];
+       
+        agente.destination = UltimaPosicion.position;
+        
+    }
+    protected bool PuedoVer()
+    {
+        var direccion2 = personaje.transform.position - transform.position;
+        if (Physics.Raycast(transform.position, direccion2, out hit, radioDisparar) && hit.collider.gameObject.tag != "Personaje")
+        {
+            return false;
+        }
+        else
+            return true;
+    }
     private bool BuscarPersonaje()
     {
         Collider[] obj = Physics.OverlapSphere(VisionDisparo.position, radioDisparar);
@@ -84,6 +129,7 @@ public class Fuego1 : MonoBehaviour {
     }
     private void Acercar()
     {
+       
         //gameObject.transform.localPosition = Vector3.MoveTowards(transform.position, personaje.transform.position,velocidad * Time.deltaTime);
         agente.destination = personaje.transform.position;    
     }
@@ -95,16 +141,20 @@ public class Fuego1 : MonoBehaviour {
     }
     private void Disparar()
     {
+        Estado = Estados[3];
         Apuntar(personaje.transform);
-        print("bang bang");
     }
 
     private void Estadentro(bool TengoQueAcercarme)
     {
-        print(TengoQueAcercarme);
+       // print("Tengo que acercarme? : " + TengoQueAcercarme);
+        
         var direccion2 = personaje.transform.position - transform.position;
         Debug.DrawRay(transform.position, direccion2 , Color.yellow);
-
+        if(Estado != Estados[2])
+        {
+            Estado = Estados[1];
+        }
 
        
         if (TengoQueAcercarme)
@@ -112,17 +162,23 @@ public class Fuego1 : MonoBehaviour {
             agente.isStopped = false;
             Acercar();
         }
-        if (Physics.Raycast(transform.position, direccion2, out hit, radioDisparar) && hit.collider.gameObject.tag != "Personaje")
+        if(!BuscarPersonaje() && Estado == Estados[1])
+        {
+            Buscar();
+        }
+        
+        /*if (Physics.Raycast(transform.position, direccion2, out hit, radioDisparar) && hit.collider.gameObject.tag != "Personaje")
         {  
             print("No veo me acerco");
             agente.isStopped = false;
             Acercar();       
         
-        }
-
+        }*/
+       
         
         else if (personaje != null && !TengoQueAcercarme)
         {
+            Estado = Estados[0];
             agente.isStopped = true;
             Disparar();
         }
