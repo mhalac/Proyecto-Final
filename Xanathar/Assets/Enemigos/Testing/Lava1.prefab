@@ -83,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1773956396090314}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.005, y: 0, z: 0.502}
+  m_LocalPosition: {x: -0.016, y: -0.006, z: 0.499}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4983554339523400}
@@ -96,7 +96,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1999598427591252}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.502}
+  m_LocalPosition: {x: -0.025, y: -0.032, z: 0.499}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4983554339523400}
@@ -122,7 +122,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1426670726782492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.76, y: 0.522, z: -8.31}
+  m_LocalPosition: {x: 7.3, y: 0.66, z: 0.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4647298614368330}
@@ -196,11 +196,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28428ccf17d84fe4f8df903242a055c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AreaIdle: 6.9
   RayPos: {fileID: 4647298614368330}
   VisionDisparo: {fileID: 4474107941582900}
   rotacion: 3
   AlcanzeMaximo: 3
   RangoMinimo: {fileID: 4243976243802354}
+  destino: {x: 0, y: 0, z: 0}
   radioDisparar: 7
 --- !u!195 &195436315325887998
 NavMeshAgent:
@@ -218,7 +220,7 @@ NavMeshAgent:
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
-  m_AutoRepath: 1
+  m_AutoRepath: 0
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
