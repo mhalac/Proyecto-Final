@@ -16,23 +16,35 @@ public class MovimientoPersonaje : MonoBehaviour {
 	float X;
 	float Z;
 
-	//Este vector 3 es para la fuerza de gravedad
+	//Vector para la fuerza de gravedad
 	Vector3 Velocidad;
+	//Vector 3 para la fuerza del dash
+	Vector3 DireccionDeMovimiento;
 
 	//CheckDePiso es el objeto abajo de nuestro personaje que choca con el piso
 	public Transform CheckDePiso;
 
 	//Distancia de piso es el radio de la esfera
-	public float DistanciaDePiso = 0.5f;
+	float DistanciaDePiso = 0.5f;
 	//Mascara de piso es para que chequee todos los objetos que tengan el tag "piso"
 	public LayerMask MascaraDePiso;
 	bool EstaEnPiso;
-	
+
+	//Variables del Dash
+	const float TiempoMaximoDeDash = 1f;
+	float TiempoActualDeDash = TiempoMaximoDeDash;
+	float DistanciaDeDash = 10f;
+	float VelocidadCuandoElDashPara = 0.1f;
+	float CoolDownDash = 5f;
+	bool YaDasheo = false;
+
+	//Variable que determina la velocidad y distancia del dash
+	float VelocidadDash = 10;
 
 	// Use this for initialization
 	void Start ()
 	{
-		
+
 	}
 	
 	// Update is called once per frame
@@ -46,6 +58,14 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 		//Movimientos
 
+		Saltar();
+		
+		Moverse();
+
+	}
+
+	void Saltar()
+	{
 		if(EstaEnPiso && Velocidad.y < 0)
 		{
 			Velocidad.y =- Stats.VelocidadDeMovimiento;
@@ -56,12 +76,19 @@ public class MovimientoPersonaje : MonoBehaviour {
 			Velocidad.y = Mathf.Sqrt(Stats.FuerzaDeSalto * -2 * Stats.Gravedad);
 		}
 
+		//Movimiento Y
+		Controlador.Move(Velocidad * Time.deltaTime);
+	}
+
+	void Moverse()
+	{
 		Vector3 Movimiento = transform.right * X + transform.forward * Z;
 		Velocidad.y += Stats.Gravedad * Time.deltaTime;
 
 		//Movimiento eje X y Z
 		Controlador.Move(Movimiento * Stats.VelocidadDeMovimiento * Time.deltaTime);
 
+		//Movimiento De Correr
 		if(Input.GetKeyDown(KeyCode.LeftShift))
 		{
 			Stats.VelocidadDeMovimiento += 6;
@@ -71,8 +98,34 @@ public class MovimientoPersonaje : MonoBehaviour {
 			Stats.VelocidadDeMovimiento -= 6;
 		}
 
-		//Movimiento Y
-		Controlador.Move(Velocidad * Time.deltaTime);
+		//Movimiento De Dash
+		//Una vez que se apriete el boton Tiempo actual de Dash vale 0 y se ejecuta el segundo if
+		if(Input.GetKeyDown(KeyCode.LeftControl) && YaDasheo == false)
+		{
+			TiempoActualDeDash = 0;
+			YaDasheo = true;
+		}
 
+		if(YaDasheo == true)
+		{
+			CoolDownDash -= Time.fixedDeltaTime;
+
+			if(CoolDownDash <= 0)
+			{
+				YaDasheo = false;
+				CoolDownDash = 5f;
+			}
+		}
+
+		if(TiempoActualDeDash < TiempoMaximoDeDash)
+		{
+			DireccionDeMovimiento = transform.forward * DistanciaDeDash;
+			TiempoActualDeDash += VelocidadCuandoElDashPara;
+		}
+		else
+		{
+			DireccionDeMovimiento = Vector3.zero;
+		}
+		Controlador.Move(DireccionDeMovimiento * Time.deltaTime * VelocidadDash);
 	}
 }
