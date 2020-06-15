@@ -12,14 +12,16 @@ public class ProyectilBase : MonoBehaviour
     private Vector3 IrPosicion;
     private float velocidad;
     private bool Selecionado = false;
+	private bool Empezo;
 
     // Use this for initialization
     void Start()
     {
-        PMask = LayerMask.NameToLayer("Personaje");
+        StartCoroutine(Esperar());
+		PMask = LayerMask.NameToLayer("Personaje");
         Quaternion lookRotation = Quaternion.LookRotation(IrPosicion);
         transform.rotation = Quaternion.Slerp(lookRotation, transform.rotation, Time.deltaTime);
-		Destroy(gameObject,5);
+        Destroy(gameObject, 5);
     }
 
     // Update is called once per frame
@@ -28,6 +30,9 @@ public class ProyectilBase : MonoBehaviour
         Lanzar(IrPosicion, velocidad);
 
     }
+
+
+    // casteas un rayo al jugador y despues lo amplificas para sacar el punto mas lejano en su direccion 
     private void Seleccionar()
     {
         DisparoPosicion = new Ray(PuntoDisparo.position, IrPosicion);
@@ -38,23 +43,19 @@ public class ProyectilBase : MonoBehaviour
     {
         Debug.DrawRay(PuntoDisparo.position, IrPosicion, Color.green);
     }
-    private bool Colisiono()
-    {
-        Collider[] obj = Physics.OverlapSphere(transform.position, 1f);
-        for (int i = 0; obj.Length > i; i++)
-        {
-            if (obj[i].gameObject.layer == PMask)
-            {
-                return true;
-            }
-        }
+   // Lo del IEnumerator es para que no detecte que colisiono contra si mismo cuando se dispara
+    IEnumerator Esperar()
+	{
+		yield return new WaitForSeconds(0.1f);
+		Empezo = true;
+	}
+	
 
-        return false;
-    }
-
+    //funcion llamada recien se instancia para que la bala tenga los paramentros de la posicion del jugador y la velocidad heredada del enemigo
     public void Lanzar(Vector3 Objetivo, float speed)
     {
-
+        //El if esta para que lo seleccione solo una vez, en la posicion que le dieron en un principio
+		//print(Colisiono());
         Debug.DrawRay(transform.position, Objetivo, Color.magenta);
         Enemigo(Objetivo);
         if (!Selecionado)
@@ -67,12 +68,24 @@ public class ProyectilBase : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, Objetivo, speed * Time.deltaTime);
         }
-        if (Colisiono())
-        {
-            Destroy(gameObject);
-        }
+
     }
-    void OnDrawGizmosSelected()
+    
+	void OnCollisionEnter(Collision collision) {
+        print("Collisione");
+		if(collision.gameObject.tag == "Jugador")
+		{
+			//hacer damage
+			Destroy(gameObject);
+			
+		}
+        else if(collision.gameObject.tag != "Enemigo")
+		{
+			Destroy(gameObject);
+		}
+        
+    }
+	void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(IrPosicion, 3f);
