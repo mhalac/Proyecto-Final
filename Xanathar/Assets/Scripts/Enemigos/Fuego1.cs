@@ -21,7 +21,6 @@ public class Fuego1 : MonoBehaviour
     private string Estado;
     private NavMeshAgent agente;
     public float rotacion;
-    private bool PerdidoDeVista;
     private string[] Estados = { "Idle", "Chasing", "Searching", "Shooting" };
     public int AlcanzeMaximo;
     public Transform RangoMinimo;
@@ -47,8 +46,8 @@ public class Fuego1 : MonoBehaviour
         posicionSpawn = transform;
         agente = GetComponent<NavMeshAgent>();
         PMask = LayerMask.NameToLayer("Personaje");
-        VisionDisparo.position = new Vector3(VisionDisparo.position.x, VisionDisparo.position.y, VisionDisparo.position.z + radioDisparar);
-        RangoMinimo.position = new Vector3(RangoMinimo.position.x, RangoMinimo.position.y, RangoMinimo.position.z + AlcanzeMaximo);
+        VisionDisparo.position = new Vector3(transform.position.x, VisionDisparo.position.y, VisionDisparo.position.z + radioDisparar);
+        RangoMinimo.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + AlcanzeMaximo);
         Estado = Estados[0];
         posicionRandom = new Vector3(posicionSpawn.transform.position.x, posicionSpawn.transform.position.y, posicionSpawn.transform.position.z);
         DelayInicial = delay;
@@ -58,7 +57,8 @@ public class Fuego1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+     
+        
         //Si el personaje esta en rango pero no lo puede ver y previamente estaba disparandole lo empieza a buscar
         if (BuscarPersonaje() && !PuedoVer() && Estado == Estados[3])
         {
@@ -70,13 +70,12 @@ public class Fuego1 : MonoBehaviour
         //Si estaba buscando y llega al punto donde lo iba a buscar se va IDLE de vuelta
         if (agente.remainingDistance < Mathf.Epsilon && Estado == Estados[2])
         {
-            transform.rotation = UltimaPosicion.rotation;
             Estado = Estados[0];
         }
          
         if (Estado == Estados[1] && !PuedoVer() && BuscarPersonaje())
         {
-            print("Corri2");
+            
             Estado = Estados[2];
             UltimaPosicion = personaje.transform;
             Buscar();
