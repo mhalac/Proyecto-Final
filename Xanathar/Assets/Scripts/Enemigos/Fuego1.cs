@@ -10,6 +10,7 @@ public class Fuego1 : MonoBehaviour
     private RaycastHit hit;
     private bool Visto;
     private Transform UltimaPosicion;
+    
 
     public GameObject balaPrefab;
 
@@ -69,6 +70,7 @@ public class Fuego1 : MonoBehaviour
         //Si estaba buscando y llega al punto donde lo iba a buscar se va IDLE de vuelta
         if (agente.remainingDistance < Mathf.Epsilon && Estado == Estados[2])
         {
+            transform.rotation = UltimaPosicion.rotation;
             Estado = Estados[0];
         }
          
