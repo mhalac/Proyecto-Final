@@ -31,19 +31,20 @@ public class MovimientoPersonaje : MonoBehaviour {
 	bool EstaEnPiso;
 
 	//Variables del Dash
-	const float TiempoMaximoDeDash = 1f;
-	float TiempoActualDeDash = TiempoMaximoDeDash;
-	float DistanciaDeDash = 10f;
-	float VelocidadCuandoElDashPara = 0.1f;
-	bool YaDasheo = false;
+	public bool YaDasheo = false;
+	public float tiempoDash;
+
+
+	public Vector3 VectorDash;
 
 	//Variable que determina la velocidad y distancia del dash
-	float VelocidadDash = 10;
+	float VelocidadDash;
+	float DistanciaDeDash = 10;
 
 	// Use this for initialization
 	void Start ()
 	{
-		
+
 	}
 	
 	// Update is called once per frame
@@ -61,6 +62,7 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 		Moverse();
 
+		Dash();
 	}
 
 	void Saltar()
@@ -96,35 +98,45 @@ public class MovimientoPersonaje : MonoBehaviour {
 		{
 			Stats.VelocidadDeMovimiento -= 6;
 		}
+	}
 
-		//Movimiento De Dash
-		//Una vez que se apriete el boton Tiempo actual de Dash vale 0 y se ejecuta el segundo if
+	void Dash()
+	{
+		//Movimiento Dash
+		//3 Estados Inicio Dash , Dasheo , Cooldown Dash
+
 		if(Input.GetKeyDown(KeyCode.LeftControl) && YaDasheo == false)
 		{
-			TiempoActualDeDash = 0;
+			VelocidadDash = Stats.VelocidadDeDash;
 			YaDasheo = true;
+			tiempoDash = Stats.CoolDownFlash;
 		}
 
 		if(YaDasheo == true)
 		{
-			Stats.CoolDownFlash -= Time.fixedDeltaTime;
+			
+			if(VelocidadDash > 0)
+			{
+				EstadisticasDePersonaje.Inmortalidad = true;
+				VectorDash = transform.forward * DistanciaDeDash;
+				VelocidadDash -= 1;
+			}
+			else
+			{
+				EstadisticasDePersonaje.Inmortalidad = false;
+				VectorDash = Vector3.zero;
+			}
 
-			if(Stats.CoolDownFlash <= 0)
+			Controlador.Move(VectorDash * Time.deltaTime * VelocidadDash);
+
+			tiempoDash -= Time.fixedDeltaTime;
+
+			if(tiempoDash <= 0)
 			{
 				YaDasheo = false;
-				Stats.CoolDownFlash = 5f;
+				tiempoDash = Stats.CoolDownFlash;
+				VelocidadDash = Stats.VelocidadDeDash;
 			}
 		}
-
-		if(TiempoActualDeDash < TiempoMaximoDeDash)
-		{
-			DireccionDeMovimiento = transform.forward * DistanciaDeDash;
-			TiempoActualDeDash += VelocidadCuandoElDashPara;
-		}
-		else
-		{
-			DireccionDeMovimiento = Vector3.zero;
-		}
-		Controlador.Move(DireccionDeMovimiento * Time.deltaTime * VelocidadDash);
 	}
 }

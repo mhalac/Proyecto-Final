@@ -10,12 +10,15 @@ public class EstadisticasDePersonaje : MonoBehaviour {
 	public float TiempoCooldownActivas = 5f;
 	public int Armadura = 4;
 	public float Gravedad = -15f;
-	public float CoolDownFlash = 5f;
+	public float CoolDownFlash;
+	public float TiempoInmortal;
+	public static bool Inmortalidad = false;
 
 
 	public float VelocidadDeMovimiento = 10f;
 	public float VelocidadDeAtaque = 1f;
 	public float FuerzaDeSalto = 3f;
+	public float VelocidadDeDash;
 
 
 	//Daños Elementales
