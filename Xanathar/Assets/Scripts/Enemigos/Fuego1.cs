@@ -6,33 +6,42 @@ using UnityEngine.AI;
 public class Fuego1 : MonoBehaviour
 {
 
-
+    public string Elemento;
+    
     private RaycastHit hit;
     private bool Visto;
     private Transform UltimaPosicion;
     
-
+    [Header("Transforms Seleccionables")]
     public GameObject balaPrefab;
-
-    public float AreaIdle;
     public Transform RayPos;
-    private RaycastHit ray;
     public Transform VisionDisparo;
+    public Transform RangoMinimo;
+
+    [Header("Parametros")]
+    public float AreaIdle;
+    public float rotacion;
+    public int AlcanzeMaximo;
+    private RaycastHit ray;
+    public float BalaVelocidad;
+    public int radioDisparar;
+    public float Vida;
+    
     private string Estado;
     private NavMeshAgent agente;
-    public float rotacion;
+    
     private string[] Estados = { "Idle", "Chasing", "Searching", "Shooting" };
-    public int AlcanzeMaximo;
-    public Transform RangoMinimo;
+    
+    
     private Transform posicionSpawn;
     private bool Moviendose;
 
     private float DelayInicial;
-    public float BalaVelocidad;
-    public Vector3 destino;
+   
+    private Vector3 destino;
 
     public float delay;
-    public int radioDisparar;
+    
     private int PMask;
     private GameObject personaje;
     private Vector3 posicionRandom;
@@ -58,7 +67,7 @@ public class Fuego1 : MonoBehaviour
     void Update()
     {
      
-        
+        print(Vida);
         //Si el personaje esta en rango pero no lo puede ver y previamente estaba disparandole lo empieza a buscar
         if (BuscarPersonaje() && !PuedoVer() && Estado == Estados[3])
         {
@@ -269,7 +278,12 @@ public class Fuego1 : MonoBehaviour
             Disparar();
         }
     }
+    public void RecibirDamage(float damage)
+    {
+        Vida -= damage;
+    }
     void OnDrawGizmosSelected()
+
     {
 
 

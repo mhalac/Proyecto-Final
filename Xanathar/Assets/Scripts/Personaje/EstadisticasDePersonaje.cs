@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EstadisticasDePersonaje : MonoBehaviour {
 
-	//Estadisticas Basicas
+	[Header("Estadisitcas Basicas")]
 	public int VidaDePersonaje = 4;
 	public float DañoDePersonajeNormal = 10f;
 	public float TiempoCooldownActivas = 5f;
@@ -21,7 +21,7 @@ public class EstadisticasDePersonaje : MonoBehaviour {
 	public float VelocidadDeDash;
 
 
-	//Daños Elementales
+	[Header("Damages elementales")]
 	public float DañoElementalFuego = 0f;
 	public float DañoElementalAire = 0f;
 	public float DañoElementalAgua = 0f;
