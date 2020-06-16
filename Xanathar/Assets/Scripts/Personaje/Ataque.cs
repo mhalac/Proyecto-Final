@@ -33,14 +33,19 @@ public class Ataque : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon)
         {
             anim.SetBool("atacando",true);
-			print("ataque XD");
             Collider[] ataque = Physics.OverlapSphere(Arma.position, AreaAtaque);
             foreach (Collider a in ataque)
             {
                 if (a.tag == "Enemigo")
                 {
                     if (a.GetComponent<Fuego1>() != null)
-                        a.GetComponent<Fuego1>().RecibirDamage(GetComponent<EstadisticasDePersonaje>().DañoDePersonajeNormal);
+                    {
+
+                        Fuego1 Enemigo = a.GetComponent<Fuego1>();
+                        Enemigo.RecibirDamage();
+                    
+                    }
+                        
 
                 }
             }

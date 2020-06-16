@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Fuego1 : MonoBehaviour
 {
 
-    
+
 
 
 
@@ -22,13 +22,13 @@ public class Fuego1 : MonoBehaviour
 
     [Header("Parametros")]
     public float AreaIdle;
-    public string Elemento; 
+    public string Elemento;
     public string NombreHijo;
     public float rotacion;
     public int AlcanzeMaximo;
     public int radioDisparar;
     public float BalaVelocidad;
-   
+
     public float Vida;
 
     private string Estado;
@@ -77,7 +77,7 @@ public class Fuego1 : MonoBehaviour
         if (transform.Find("Fuego1") != null)
             Heredar = transform.Find("Fuego1").GetComponent<Transform>();
         //Heredar = GetComponentInParent<Transform>();
-        print("Mi vida de: " + gameObject.name + " Es de: " + Vida);
+        
         //Si el personaje esta en rango pero no lo puede ver y previamente estaba disparandole lo empieza a buscar
         if (BuscarPersonaje() && !PuedoVer() && Estado == Estados[3])
         {
@@ -256,6 +256,21 @@ public class Fuego1 : MonoBehaviour
         }
     }
 
+    private void Mori()
+    {
+        if(Vida < Mathf.Epsilon)
+        {
+            Destroy(gameObject);
+        }
+    }
+    private void Ventaja(float damage)
+    {
+        Vida = Vida - damage * 2;
+    }
+    private void Desventaja(float damage)
+    {
+        Vida = Vida - damage * 0.5f;
+    }
     private void Estadentro(bool TengoQueAcercarme)
     {
 
@@ -288,10 +303,106 @@ public class Fuego1 : MonoBehaviour
             Disparar();
         }
     }
-    public void RecibirDamage(float damage)
+    public void RecibirDamage()
     {
-        Vida -= damage;
+        EstadisticasDePersonaje Stats = GameObject.FindGameObjectWithTag("Personaje").GetComponent<EstadisticasDePersonaje>();
+        print(GameObject.FindGameObjectWithTag("Personaje")); 
+        // Tenes que checkear las ventajas o debilidades manualmente, para eso revisas si tiene algun tipo de damage de ese
+        //elemento y si es asi lo aplicas
+
+        //Haces un switch para ir de una a tu elemento asi no laguea y despues te sacas vida en base a los damages que tenes
+        // y las ventajas o desventajas se aplican distinto dependiendo tu elemento
+        Vida -= Stats.DañoDePersonajeNormal;
+        switch (Elemento)
+        {
+            
+            case "Fuego":
+                print("Soy de fuego y me pegaron");
+                if (Stats.DañoElementalAgua > Mathf.Epsilon)
+                {
+                    Ventaja(Stats.DañoElementalAgua);
+                }
+                if (Stats.DañoElementalAire > Mathf.Epsilon)
+                {
+                    Desventaja(Stats.DañoElementalAire);
+                }
+                if (Stats.DañoElementalTierra > Mathf.Epsilon)
+                {
+                    Vida -= Stats.DañoElementalTierra;
+                }
+
+                if (Stats.DañoElementalFuego > Mathf.Epsilon)
+                {
+                    Vida -= Stats.DañoElementalFuego;
+                }
+                break;
+            
+            case "Roca":
+                if (Stats.DañoElementalAgua > Mathf.Epsilon)
+                {
+                    Desventaja(Stats.DañoElementalAgua);
+                }
+                if (Stats.DañoElementalAire > Mathf.Epsilon)
+                {
+                    Vida -= Stats.DañoElementalAire;
+                }
+                if (Stats.DañoElementalTierra > Mathf.Epsilon)
+                {
+                    Vida -= Stats.DañoElementalTierra;
+                }
+
+                if (Stats.DañoElementalFuego > Mathf.Epsilon)
+                {
+                    Ventaja(Stats.DañoElementalFuego);
+                }
+                break;
+             
+             case "Agua":
+                if (Stats.DañoElementalAgua > Mathf.Epsilon)
+                {
+                    Vida -= Stats.DañoElementalAgua;
+                }
+                if (Stats.DañoElementalAire > Mathf.Epsilon)
+                {
+                    Vida -= Stats.DañoElementalAire;
+                }
+                if (Stats.DañoElementalTierra > Mathf.Epsilon)
+                {
+                    Ventaja(Stats.DañoElementalTierra);
+                }
+                if (Stats.DañoElementalFuego > Mathf.Epsilon)
+                {
+                    Desventaja(Stats.DañoElementalFuego);
+                }
+                break;
+
+                case "Tierra":
+                if (Stats.DañoElementalAgua > Mathf.Epsilon)
+                {
+                    Desventaja(Stats.DañoElementalAgua);
+                }
+                if (Stats.DañoElementalAire > Mathf.Epsilon)
+                {
+                    Ventaja(Stats.DañoElementalAire);
+                }
+                if (Stats.DañoElementalTierra > Mathf.Epsilon)
+                {
+                    Vida -= Stats.DañoElementalTierra;
+                }
+                if (Stats.DañoElementalFuego > Mathf.Epsilon)
+                {
+                    Vida -= Stats.DañoElementalFuego;
+                }
+                break;
+            
+            
+        }
+        print("Yo: " + gameObject.name + " Y mi vida es de: " + Vida);
+        Mori();
+
+
     }
+
     void OnDrawGizmosSelected()
 
     {
