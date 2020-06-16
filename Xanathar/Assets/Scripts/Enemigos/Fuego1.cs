@@ -46,8 +46,8 @@ public class Fuego1 : MonoBehaviour
         posicionSpawn = transform;
         agente = GetComponent<NavMeshAgent>();
         PMask = LayerMask.NameToLayer("Personaje");
-        VisionDisparo.position = new Vector3(transform.position.x, VisionDisparo.position.y, VisionDisparo.position.z + radioDisparar);
-        RangoMinimo.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + AlcanzeMaximo);
+        VisionDisparo.position = new Vector3(transform.position.x, VisionDisparo.position.y, VisionDisparo.position.z + radioDisparar );
+        RangoMinimo.position = new Vector3(transform.position.x , transform.position.y, transform.position.z+ AlcanzeMaximo );
         Estado = Estados[0];
         posicionRandom = new Vector3(posicionSpawn.transform.position.x, posicionSpawn.transform.position.y, posicionSpawn.transform.position.z);
         DelayInicial = delay;
