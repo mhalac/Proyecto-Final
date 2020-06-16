@@ -8,17 +8,13 @@ public class ProyectilBase : MonoBehaviour
 
     private Ray DisparoPosicion;
 
-    private int PMask;
     private Vector3 IrPosicion;
     private float velocidad;
     private bool Selecionado = false;
-	private bool Empezo;
 
     // Use this for initialization
     void Start()
     {
-        StartCoroutine(Esperar());
-		PMask = LayerMask.NameToLayer("Personaje");
         Quaternion lookRotation = Quaternion.LookRotation(IrPosicion);
         transform.rotation = Quaternion.Slerp(lookRotation, transform.rotation, Time.deltaTime);
         Destroy(gameObject, 5);
@@ -44,11 +40,7 @@ public class ProyectilBase : MonoBehaviour
         Debug.DrawRay(PuntoDisparo.position, IrPosicion, Color.green);
     }
    // Lo del IEnumerator es para que no detecte que colisiono contra si mismo cuando se dispara
-    IEnumerator Esperar()
-	{
-		yield return new WaitForSeconds(0.1f);
-		Empezo = true;
-	}
+   
 	
 
     //funcion llamada recien se instancia para que la bala tenga los paramentros de la posicion del jugador y la velocidad heredada del enemigo

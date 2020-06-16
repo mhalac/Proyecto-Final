@@ -6,7 +6,9 @@ using UnityEngine.AI;
 public class Fuego1 : MonoBehaviour
 {
 
-    public string Elemento;
+    
+
+
 
     private RaycastHit hit;
     private bool Visto;
@@ -20,11 +22,13 @@ public class Fuego1 : MonoBehaviour
 
     [Header("Parametros")]
     public float AreaIdle;
+    public string Elemento; 
+    public string NombreHijo;
     public float rotacion;
     public int AlcanzeMaximo;
-
-    public float BalaVelocidad;
     public int radioDisparar;
+    public float BalaVelocidad;
+   
     public float Vida;
 
     private string Estado;
@@ -52,7 +56,7 @@ public class Fuego1 : MonoBehaviour
         //Guardas la posicion de spawn, obtenes el navmesh, asignas la FOV del enemigo sumando su radio asi se genera en el borde del enemigo
         //hacemos que su estado sea el [0], que es Idle
         // Y tmb generas un vector3 de las posiciones donde se van a generar los lugares a los que va a ir mientras este en idle
-        if (transform.Find("Fuego1") != null)
+        if (transform.Find(NombreHijo) != null)
             Heredar = transform.Find("Fuego1").GetComponent<Transform>();
         else
             Heredar = transform;
