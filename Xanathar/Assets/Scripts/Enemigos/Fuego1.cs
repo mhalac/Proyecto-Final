@@ -7,11 +7,11 @@ public class Fuego1 : MonoBehaviour
 {
 
     public string Elemento;
-    
+
     private RaycastHit hit;
     private bool Visto;
     private Transform UltimaPosicion;
-    
+
     [Header("Transforms Seleccionables")]
     public GameObject balaPrefab;
     public Transform RayPos;
@@ -22,26 +22,27 @@ public class Fuego1 : MonoBehaviour
     public float AreaIdle;
     public float rotacion;
     public int AlcanzeMaximo;
-    private RaycastHit ray;
+
     public float BalaVelocidad;
     public int radioDisparar;
     public float Vida;
-    
+
     private string Estado;
     private NavMeshAgent agente;
-    
+
     private string[] Estados = { "Idle", "Chasing", "Searching", "Shooting" };
-    
-    
+
+
     private Transform posicionSpawn;
     private bool Moviendose;
 
     private float DelayInicial;
-   
+
+    private Transform Heredar;
     private Vector3 destino;
 
     public float delay;
-    
+
     private int PMask;
     private GameObject personaje;
     private Vector3 posicionRandom;
@@ -51,23 +52,28 @@ public class Fuego1 : MonoBehaviour
         //Guardas la posicion de spawn, obtenes el navmesh, asignas la FOV del enemigo sumando su radio asi se genera en el borde del enemigo
         //hacemos que su estado sea el [0], que es Idle
         // Y tmb generas un vector3 de las posiciones donde se van a generar los lugares a los que va a ir mientras este en idle
-        
-        posicionSpawn = transform;
+        if (transform.Find("Fuego1") != null)
+            Heredar = transform.Find("Fuego1").GetComponent<Transform>();
+        else
+            Heredar = transform;
+        posicionSpawn = Heredar;
         agente = GetComponent<NavMeshAgent>();
         PMask = LayerMask.NameToLayer("Personaje");
-        VisionDisparo.position = new Vector3(transform.position.x, VisionDisparo.position.y, VisionDisparo.position.z + radioDisparar );
-        RangoMinimo.position = new Vector3(transform.position.x , transform.position.y, transform.position.z+ AlcanzeMaximo );
+        VisionDisparo.position = new Vector3(Heredar.position.x, VisionDisparo.position.y, VisionDisparo.position.z + radioDisparar);
+        RangoMinimo.position = new Vector3(Heredar.position.x, Heredar.position.y, transform.position.z + AlcanzeMaximo);
         Estado = Estados[0];
         posicionRandom = new Vector3(posicionSpawn.transform.position.x, posicionSpawn.transform.position.y, posicionSpawn.transform.position.z);
         DelayInicial = delay;
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-     
-        print(Vida);
+        if (transform.Find("Fuego1") != null)
+            Heredar = transform.Find("Fuego1").GetComponent<Transform>();
+        //Heredar = GetComponentInParent<Transform>();
+        print("Mi vida de: " + gameObject.name + " Es de: " + Vida);
         //Si el personaje esta en rango pero no lo puede ver y previamente estaba disparandole lo empieza a buscar
         if (BuscarPersonaje() && !PuedoVer() && Estado == Estados[3])
         {
@@ -75,21 +81,21 @@ public class Fuego1 : MonoBehaviour
             UltimaPosicion = personaje.transform;
             Buscar();
         }
-        
+
         //Si estaba buscando y llega al punto donde lo iba a buscar se va IDLE de vuelta
         if (agente.remainingDistance < Mathf.Epsilon && Estado == Estados[2])
         {
             Estado = Estados[0];
         }
-         
+
         if (Estado == Estados[1] && !PuedoVer() && BuscarPersonaje())
         {
-            
+
             Estado = Estados[2];
             UltimaPosicion = personaje.transform;
             Buscar();
         }
-        
+
         // Si lo estaba persiguiendo
         if (BuscarPersonaje() && Estado == Estados[1] && !PuedoVer())
         {
@@ -173,9 +179,9 @@ public class Fuego1 : MonoBehaviour
     protected bool PuedoVer()
     {
         //hace un raycast al jugador y devuelve true si no hay nada entre el enemigo y el personaje
-        
-        var direccion2 = personaje.transform.position - transform.position;
-        if (Physics.Raycast(transform.position, direccion2, out hit, radioDisparar) && hit.collider.gameObject.tag != "Personaje")
+
+        var direccion2 = personaje.transform.position - Heredar.position;
+        if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar) && hit.collider.gameObject.tag != "Personaje")
         {
             return false;
         }
@@ -185,17 +191,17 @@ public class Fuego1 : MonoBehaviour
     private bool BuscarPersonaje()
     {
         //genera una esfera logica alrededor tuyo para buscar al personaje y devuelve true si lo encontro/
-        
+
         Collider[] obj = Physics.OverlapSphere(VisionDisparo.position, radioDisparar);
         for (int i = 0; obj.Length > i; i++)
         {
             if (obj[i].gameObject.layer == PMask)
             {
                 personaje = obj[i].gameObject;
-                var direccion = personaje.transform.position - transform.position;
+                var direccion = personaje.transform.position - Heredar.position;
 
 
-                Debug.DrawRay(transform.position, direccion * hit.distance, Color.yellow);
+                Debug.DrawRay(RayPos.position, direccion * hit.distance, Color.yellow);
                 return true;
             }
 
@@ -225,9 +231,9 @@ public class Fuego1 : MonoBehaviour
     }
     private void Apuntar(Transform enemigo)
     {
-        Vector3 direction = (enemigo.position - transform.position).normalized;
+        Vector3 direction = (enemigo.position - Heredar.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotacion);
+        Heredar.rotation = Quaternion.Slerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
     }
     private void Disparar()
     {
@@ -236,7 +242,7 @@ public class Fuego1 : MonoBehaviour
         delay -= Time.deltaTime;
         if (delay <= 0)
         {
-            var direccion = personaje.transform.position - transform.position;
+            var direccion = personaje.transform.position - Heredar.position;
             delay = DelayInicial;
             GameObject bala = Instantiate(balaPrefab, RayPos.position, Quaternion.identity);
             //Vector3 PosicionDisparada = personaje.transform.position;
@@ -249,9 +255,9 @@ public class Fuego1 : MonoBehaviour
     private void Estadentro(bool TengoQueAcercarme)
     {
 
-       
-        var direccion2 = personaje.transform.position - transform.position;
-        Debug.DrawRay(transform.position, direccion2, Color.yellow);
+
+        var direccion2 = personaje.transform.position - Heredar.position;
+        Debug.DrawRay(Heredar.position, direccion2, Color.yellow);
         // Cambia tu estado a "Chasing" pq si esta adentro y lo podes ver es que lo tenes que estar periguiendo 
         if (Estado != Estados[2])
         {

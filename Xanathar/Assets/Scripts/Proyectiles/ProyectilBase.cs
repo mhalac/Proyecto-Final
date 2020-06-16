@@ -72,7 +72,6 @@ public class ProyectilBase : MonoBehaviour
     }
     
 	void OnCollisionEnter(Collision collision) {
-        print("Collisione");
 		if(collision.gameObject.tag == "Jugador")
 		{
 			//hacer damage
