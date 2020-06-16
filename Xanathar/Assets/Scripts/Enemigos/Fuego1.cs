@@ -64,7 +64,7 @@ public class Fuego1 : MonoBehaviour
         agente = GetComponent<NavMeshAgent>();
         PMask = LayerMask.NameToLayer("Personaje");
         VisionDisparo.position = new Vector3(Heredar.position.x, VisionDisparo.position.y, VisionDisparo.position.z + radioDisparar);
-        RangoMinimo.position = new Vector3(Heredar.position.x, Heredar.position.y, transform.position.z + AlcanzeMaximo);
+        RangoMinimo.position = new Vector3(RangoMinimo.position.x, RangoMinimo.position.y, RangoMinimo.position.z + AlcanzeMaximo);
         Estado = Estados[0];
         posicionRandom = new Vector3(posicionSpawn.transform.position.x, posicionSpawn.transform.position.y, posicionSpawn.transform.position.z);
         DelayInicial = delay;
@@ -205,7 +205,7 @@ public class Fuego1 : MonoBehaviour
                 var direccion = personaje.transform.position - Heredar.position;
 
 
-                Debug.DrawRay(RayPos.position, direccion * hit.distance, Color.yellow);
+                Debug.DrawRay(RayPos.position, direccion * hit.distance, Color.red);
                 return true;
             }
 
@@ -276,7 +276,7 @@ public class Fuego1 : MonoBehaviour
 
 
         var direccion2 = personaje.transform.position - Heredar.position;
-        Debug.DrawRay(Heredar.position, direccion2, Color.yellow);
+        //Debug.DrawRay(Heredar.position, direccion2, Color.yellow);
         // Cambia tu estado a "Chasing" pq si esta adentro y lo podes ver es que lo tenes que estar periguiendo 
         if (Estado != Estados[2])
         {
@@ -305,8 +305,8 @@ public class Fuego1 : MonoBehaviour
     }
     public void RecibirDamage()
     {
-        EstadisticasDePersonaje Stats = GameObject.FindGameObjectWithTag("Personaje").GetComponent<EstadisticasDePersonaje>();
-        print(GameObject.FindGameObjectWithTag("Personaje")); 
+        EstadisticasDePersonaje Stats = GameObject.Find("Jugador").GetComponent<EstadisticasDePersonaje>();
+        
         // Tenes que checkear las ventajas o debilidades manualmente, para eso revisas si tiene algun tipo de damage de ese
         //elemento y si es asi lo aplicas
 
@@ -317,7 +317,7 @@ public class Fuego1 : MonoBehaviour
         {
             
             case "Fuego":
-                print("Soy de fuego y me pegaron");
+              
                 if (Stats.DañoElementalAgua > Mathf.Epsilon)
                 {
                     Ventaja(Stats.DañoElementalAgua);
@@ -337,10 +337,10 @@ public class Fuego1 : MonoBehaviour
                 }
                 break;
             
-            case "Roca":
+            case "Aire":
                 if (Stats.DañoElementalAgua > Mathf.Epsilon)
                 {
-                    Desventaja(Stats.DañoElementalAgua);
+                    Vida -= Stats.DañoElementalAgua;
                 }
                 if (Stats.DañoElementalAire > Mathf.Epsilon)
                 {
@@ -348,7 +348,7 @@ public class Fuego1 : MonoBehaviour
                 }
                 if (Stats.DañoElementalTierra > Mathf.Epsilon)
                 {
-                    Vida -= Stats.DañoElementalTierra;
+                   Desventaja(Stats.DañoElementalTierra);
                 }
 
                 if (Stats.DañoElementalFuego > Mathf.Epsilon)

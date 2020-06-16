@@ -7,7 +7,7 @@ public class ProyectilBase : MonoBehaviour
     public Transform PuntoDisparo;
 
     private Ray DisparoPosicion;
-
+    private float Timer = 0.1f;
     private Vector3 IrPosicion;
     private float velocidad;
     private bool Selecionado = false;
@@ -39,7 +39,7 @@ public class ProyectilBase : MonoBehaviour
     {
         Debug.DrawRay(PuntoDisparo.position, IrPosicion, Color.green);
     }
-   // Lo del IEnumerator es para que no detecte que colisiono contra si mismo cuando se dispara
+   
    
 	
 
@@ -48,6 +48,7 @@ public class ProyectilBase : MonoBehaviour
     {
         //El if esta para que lo seleccione solo una vez, en la posicion que le dieron en un principio
 		//print(Colisiono());
+        Timer -= Time.deltaTime;
         Debug.DrawRay(transform.position, Objetivo, Color.magenta);
         Enemigo(Objetivo);
         if (!Selecionado)
