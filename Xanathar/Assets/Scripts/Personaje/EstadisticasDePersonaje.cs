@@ -5,10 +5,10 @@ using UnityEngine;
 public class EstadisticasDePersonaje : MonoBehaviour {
 
 	//Estadisticas Basicas
-	public int VidaDePersonaje = 4;
+	public static float VidaDePersonaje = 4;
 	public float DañoDePersonajeNormal = 10f;
 	public float TiempoCooldownActivas = 5f;
-	public int Armadura = 4;
+	public static int Armadura = 4;
 	public float Gravedad = -15f;
 	public float CoolDownFlash;
 	public float TiempoInmortal;

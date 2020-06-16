@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class DañoRecibido : MonoBehaviour {
 
-	public int DañoDeEnemigos(int numero)
+	public void DañoDeEnemigos(float numero)
 	{
-		EstadisticasDePersonaje Stats = null;
-		int Proteccion = Stats.Armadura;
+		int Proteccion = EstadisticasDePersonaje.Armadura;
 
-		int Denominador = numero + Proteccion;
-		int Numerador = numero;
+		float DañoMasArmadura = numero + Proteccion;
+		float Daño = numero;
 
-		int Resultado = Numerador/Denominador;
-		return Resultado;
+		float Resultado = Daño/DañoMasArmadura;
+		EstadisticasDePersonaje.VidaDePersonaje -= Resultado;
+		print(EstadisticasDePersonaje.VidaDePersonaje);
 	}
 }

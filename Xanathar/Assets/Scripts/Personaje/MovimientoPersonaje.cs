@@ -11,6 +11,7 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 	//Referencia para el script que va a tener todas las estadisticas del personaje
 	public EstadisticasDePersonaje Stats;
+	public DañoRecibido xdxd;
 
 	// Los ejes X e Z
 	float X;
@@ -75,6 +76,7 @@ public class MovimientoPersonaje : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Space) && EstaEnPiso)
 		{
 			Velocidad.y = Mathf.Sqrt(Stats.FuerzaDeSalto * -2 * Stats.Gravedad);
+			xdxd.DañoDeEnemigos(1);
 		}
 
 		//Movimiento Y
