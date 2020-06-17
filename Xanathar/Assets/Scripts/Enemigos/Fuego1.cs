@@ -47,7 +47,7 @@ public class Fuego1 : MonoBehaviour
 
     public float delay;
 
-
+    
     private int PMask;
     private GameObject personaje;
     private Vector3 posicionRandom;
@@ -83,13 +83,20 @@ public class Fuego1 : MonoBehaviour
         if (personaje != null)
             Debug.DrawLine(Heredar.position, personaje.transform.position, Color.magenta);
 
-        //Heredar = GetComponentInParent<Transform>();
-        //Primero revisamos si el jugador esta en nuestra area en general
+        
+        //Primero revisamos si el jugador esta en nuestra area en general, de vision y de rango general
         
         if (BuscarPersonaje() && PuedoVer())
         {
+            // En el caso de que este en nuestro rango y lo veamos, tenemos que usar estas dos funciones, TengoQueAcercarme,
+            // como su nombre indica nos dice si esta a rango de disparo o no
+            // y esta dentro recibe como parametro si en efecto tiene que acercarse o no, y actua en base a ello acercandose o no haciendolo.
             Estadentro(TengoQueAcercarme());
         }
+        // Si el personaje no esta en rango o no lo podes ver pueden pasar una de dos cosas
+        // O antes lo estabas persiguiendo o disparando y lo perdiste de vista, en cuyo caso tenes que buscarlo
+        // o por descarte, no estabas haciendo nada y por ende seguis en Idle haciendo nada.
+
         else if (Estado == Estados[1] || Estado == Estados[3])
         {
             Buscar();
@@ -98,6 +105,11 @@ public class Fuego1 : MonoBehaviour
             Idle();
     }
 
+    private void DemasiadoCerca()
+    {
+
+    }
+    
     private void Idle()
     {
         agente.isStopped = false;
