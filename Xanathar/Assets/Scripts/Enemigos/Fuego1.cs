@@ -57,16 +57,16 @@ public class Fuego1 : MonoBehaviour
         //hacemos que su estado sea el [0], que es Idle
         // Y tmb generas un vector3 de las posiciones donde se van a generar los lugares a los que va a ir mientras este en idle
         if (transform.Find(NombreHijo) != null)
-            Heredar = transform.Find("Fuego1").GetComponent<Transform>();
+            Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         else
             Heredar = transform;
         posicionSpawn = Heredar;
         agente = GetComponent<NavMeshAgent>();
         PMask = LayerMask.NameToLayer("Personaje");
         VisionDisparo.position = new Vector3(Heredar.position.x, VisionDisparo.position.y, VisionDisparo.position.z + radioDisparar);
-        RangoMinimo.position = new Vector3(RangoMinimo.position.x, RangoMinimo.position.y, RangoMinimo.position.z + AlcanzeMaximo);
+        RangoMinimo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + AlcanzeMaximo);
         Estado = Estados[0];
-        posicionRandom = new Vector3(posicionSpawn.transform.position.x, posicionSpawn.transform.position.y, posicionSpawn.transform.position.z);
+        posicionRandom = new Vector3(posicionSpawn.transform.position.x, Heredar.transform.position.y, RangoMinimo.transform.position.z);
         DelayInicial = delay;
 
     }
@@ -74,10 +74,15 @@ public class Fuego1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.Find("Fuego1") != null)
-            Heredar = transform.Find("Fuego1").GetComponent<Transform>();
+        if (transform.Find(NombreHijo) != null)
+        {
+            Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
+        }
+        if (personaje != null)
+            Debug.DrawLine(Heredar.position,personaje.transform.position,Color.magenta);
+
         //Heredar = GetComponentInParent<Transform>();
-        
+
         //Si el personaje esta en rango pero no lo puede ver y previamente estaba disparandole lo empieza a buscar
         if (BuscarPersonaje() && !PuedoVer() && Estado == Estados[3])
         {
@@ -258,7 +263,7 @@ public class Fuego1 : MonoBehaviour
 
     private void Mori()
     {
-        if(Vida < Mathf.Epsilon)
+        if (Vida < Mathf.Epsilon)
         {
             Destroy(gameObject);
         }
@@ -305,8 +310,8 @@ public class Fuego1 : MonoBehaviour
     }
     public void RecibirDamage()
     {
-        EstadisticasDePersonaje Stats = GameObject.Find("Jugador").GetComponent<EstadisticasDePersonaje>();
-        
+        EstadisticasDePersonaje Stats = GameObject.Find("Personaje").GetComponent<EstadisticasDePersonaje>();
+
         // Tenes que checkear las ventajas o debilidades manualmente, para eso revisas si tiene algun tipo de damage de ese
         //elemento y si es asi lo aplicas
 
@@ -315,9 +320,9 @@ public class Fuego1 : MonoBehaviour
         Vida -= Stats.DañoDePersonajeNormal;
         switch (Elemento)
         {
-            
+
             case "Fuego":
-              
+
                 if (Stats.DañoElementalAgua > Mathf.Epsilon)
                 {
                     Ventaja(Stats.DañoElementalAgua);
@@ -336,8 +341,8 @@ public class Fuego1 : MonoBehaviour
                     Vida -= Stats.DañoElementalFuego;
                 }
                 break;
-            
-            case "Aire":
+
+            case "Viento":
                 if (Stats.DañoElementalAgua > Mathf.Epsilon)
                 {
                     Vida -= Stats.DañoElementalAgua;
@@ -348,7 +353,7 @@ public class Fuego1 : MonoBehaviour
                 }
                 if (Stats.DañoElementalTierra > Mathf.Epsilon)
                 {
-                   Desventaja(Stats.DañoElementalTierra);
+                    Desventaja(Stats.DañoElementalTierra);
                 }
 
                 if (Stats.DañoElementalFuego > Mathf.Epsilon)
@@ -356,8 +361,8 @@ public class Fuego1 : MonoBehaviour
                     Ventaja(Stats.DañoElementalFuego);
                 }
                 break;
-             
-             case "Agua":
+
+            case "Agua":
                 if (Stats.DañoElementalAgua > Mathf.Epsilon)
                 {
                     Vida -= Stats.DañoElementalAgua;
@@ -376,7 +381,7 @@ public class Fuego1 : MonoBehaviour
                 }
                 break;
 
-                case "Tierra":
+            case "Tierra":
                 if (Stats.DañoElementalAgua > Mathf.Epsilon)
                 {
                     Desventaja(Stats.DañoElementalAgua);
@@ -394,8 +399,8 @@ public class Fuego1 : MonoBehaviour
                     Vida -= Stats.DañoElementalFuego;
                 }
                 break;
-            
-            
+
+
         }
         print("Yo: " + gameObject.name + " Y mi vida es de: " + Vida);
         Mori();
