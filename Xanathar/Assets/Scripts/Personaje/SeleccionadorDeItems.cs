@@ -15,7 +15,7 @@ public class SeleccionadorDeItems : MonoBehaviour {
 	int layerMask = 1 << 9;
 	private int Contador = 0;
 
-
+	string ComparadorDeItem;
 	static int MantenerItemDeFuego = 0;
 
 	RaycastHit DondeToco;
@@ -53,9 +53,7 @@ public class SeleccionadorDeItems : MonoBehaviour {
 				}
 				else if(MantenerItemDeFuego == 1)
 				{
-					print ("Reemplazar Item");
 					SlotDeItemLleno();
-					
 				}
 			}
 		}
@@ -63,19 +61,41 @@ public class SeleccionadorDeItems : MonoBehaviour {
 
 	private void SlotDeItemVacio()
 	{
+		/*
 		if(DondeToco.collider.tag == "ItemDeFuego1")
 		{
-			print("Item 1 agarrado");
+			//print("Item 1 agarrado");
 			Destroy(DondeToco.collider.gameObject);
 			ImagenActivaFuego1.SetActive(true);
 			MantenerItemDeFuego += 1;
 		}
 		if(DondeToco.collider.tag == "ItemDeFuego2")
 		{
-			print("Item 2 Agarrado");
+			//print("Item 2 Agarrado");
 			Destroy(DondeToco.collider.gameObject);
 			ImagenActivaFuego2.SetActive(true);
 			MantenerItemDeFuego += 1;
+		}
+		*/
+
+		ComparadorDeItem = DondeToco.collider.tag;
+		switch (ComparadorDeItem)
+		{
+			case "ItemDeFuego1":
+			Destroy(DondeToco.collider.gameObject);
+			ImagenActivaFuego1.SetActive(true);
+			MantenerItemDeFuego += 1;
+			break;
+
+			case "ItemDeFuego2":
+			Destroy(DondeToco.collider.gameObject);
+			ImagenActivaFuego2.SetActive(true);
+			MantenerItemDeFuego += 1;
+			break;
+
+			default:
+			print("Item Extraño ERROR");
+			break;
 		}
 	}
 
@@ -83,19 +103,22 @@ public class SeleccionadorDeItems : MonoBehaviour {
 	{
 		if(DondeToco.collider.tag == "ItemDeFuego1")
 		{
-			print("Item 1 agarrado");
+			//print("Item 1 agarrado");
 			Destroy(DondeToco.collider.gameObject);
 			ImagenActivaFuego2.SetActive(false);
 			ImagenActivaFuego1.SetActive(true);
 			Instantiate(ActivaDeFuego2 , transform.position , Quaternion.identity);
+			GameObject obj = Instantiate(ActivaDeFuego1 , transform.position , Quaternion.identity);
+			obj.GetComponent<Rigidbody>().AddForce(obj.GetComponent<Transform>().forward * 0.2f);
 		}
 		if(DondeToco.collider.tag == "ItemDeFuego2")
 		{
-			print("Item 2 agarrado");
+			//print("Item 2 agarrado");
 			Destroy(DondeToco.collider.gameObject);
 			ImagenActivaFuego1.SetActive(false);
 			ImagenActivaFuego2.SetActive(true);
-			Instantiate(ActivaDeFuego1 , transform.position , Quaternion.identity);
+			GameObject obj = Instantiate(ActivaDeFuego2 , transform.position , Quaternion.identity);
+			obj.GetComponent<Rigidbody>().AddForce(obj.GetComponent<Transform>().forward * 0.2f);
 		}
 	}
 
