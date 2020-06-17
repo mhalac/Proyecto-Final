@@ -184,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1426670726782492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.341423, y: 0.5, z: -24.725124}
+  m_LocalPosition: {x: -10.036938, y: 9.7035016e-17, z: -12.426715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4168875910062494}
@@ -365,20 +365,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1426670726782492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28428ccf17d84fe4f8df903242a055c7, type: 3}
+  m_Script: {fileID: 11500000, guid: c993e9c87d18f8d4e94cfcca08bc5a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   balaPrefab: {fileID: 1707792337434530, guid: 449db51a688f0b749b8913a8c07856c9, type: 2}
-  AreaIdle: 4.7
   RayPos: {fileID: 4647298614368330}
   VisionDisparo: {fileID: 4474107941582900}
+  RangoMinimo: {fileID: 4243976243802354}
+  AreaIdle: 4.7
+  Elemento: 
+  NombreHijo: xddd
   rotacion: 6
   AlcanzeMaximo: 5
-  RangoMinimo: {fileID: 4243976243802354}
-  BalaVelocidad: 25
-  destino: {x: 0, y: 0, z: 0}
-  delay: 1
   radioDisparar: 8
+  BalaVelocidad: 25
+  Vida: 0
+  delay: 1
 --- !u!195 &195436315325887998
 NavMeshAgent:
   m_ObjectHideFlags: 1

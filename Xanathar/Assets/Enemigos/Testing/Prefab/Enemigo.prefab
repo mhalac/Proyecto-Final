@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114790176847659172}
   - component: {fileID: 195731712996523094}
   - component: {fileID: 135346572585710590}
+  - component: {fileID: 135072766240618300}
   m_Layer: 11
   m_Name: Enemigo
   m_TagString: Enemigo
@@ -210,7 +211,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1101284615493130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28428ccf17d84fe4f8df903242a055c7, type: 3}
+  m_Script: {fileID: 11500000, guid: c993e9c87d18f8d4e94cfcca08bc5a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   balaPrefab: {fileID: 1707792337434530, guid: 449db51a688f0b749b8913a8c07856c9, type: 2}
@@ -226,6 +227,18 @@ MonoBehaviour:
   BalaVelocidad: 10
   Vida: 20
   delay: 1
+--- !u!135 &135072766240618300
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1101284615493130}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.55479157
+  m_Center: {x: 0, y: 1.5299441, z: 0}
 --- !u!135 &135346572585710590
 SphereCollider:
   m_ObjectHideFlags: 1
