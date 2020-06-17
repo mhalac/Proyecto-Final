@@ -11,6 +11,7 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 	//Referencia para el script que va a tener todas las estadisticas del personaje
 	public EstadisticasDePersonaje Stats;
+	public DañoRecibido xdxd;
 
 	// Los ejes X e Z
 	float X;
