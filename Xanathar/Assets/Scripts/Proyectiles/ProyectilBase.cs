@@ -31,6 +31,8 @@ public class ProyectilBase : MonoBehaviour
     // casteas un rayo al jugador y despues lo amplificas para sacar el punto mas lejano en su direccion 
     private void Seleccionar()
     {
+        Quaternion lookRotation = Quaternion.LookRotation(IrPosicion);
+        transform.rotation = Quaternion.Slerp(lookRotation, transform.rotation, Time.deltaTime);
         DisparoPosicion = new Ray(PuntoDisparo.position, IrPosicion);
         IrPosicion = DisparoPosicion.GetPoint(1000);
         Selecionado = true;
