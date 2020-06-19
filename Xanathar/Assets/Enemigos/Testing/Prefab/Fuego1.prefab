@@ -70,14 +70,14 @@ GameObject:
   - component: {fileID: 199206905247798272}
   m_Layer: 11
   m_Name: ps-parent
-  m_TagString: Untagged
+  m_TagString: Enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
 --- !u!1 &1296701208686310
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -85,9 +85,10 @@ GameObject:
   - component: {fileID: 4576919777334166}
   - component: {fileID: 33901079660744750}
   - component: {fileID: 23538466689589834}
+  - component: {fileID: 135998443975522684}
   m_Layer: 11
-  m_Name: PM3D_Sphere3D_1
-  m_TagString: Untagged
+  m_Name: Eje
+  m_TagString: Enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,21 +142,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1724254534261262
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4696053919368656}
-  m_Layer: 0
-  m_Name: Eje
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1782012521444284
 GameObject:
   m_ObjectHideFlags: 1
@@ -200,6 +186,7 @@ GameObject:
   - component: {fileID: 4757360293656914}
   - component: {fileID: 114078071289578676}
   - component: {fileID: 195863233946235810}
+  - component: {fileID: 54574747596138842}
   m_Layer: 11
   m_Name: Fuego1
   m_TagString: Enemigo
@@ -299,12 +286,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1296701208686310}
   m_LocalRotation: {x: 0.00000006657903, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06778574, y: 0.05099988, z: 0.028762817}
+  m_LocalPosition: {x: -0.023785591, y: 2.202, z: 0.0037631989}
   m_LocalScale: {x: 4.656153, y: 4.656153, z: 4.656153}
   m_Children:
   - {fileID: 4064813198294834}
-  m_Father: {fileID: 4696053919368656}
-  m_RootOrder: 0
+  m_Father: {fileID: 4757360293656914}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4608070446388986
 Transform:
@@ -332,20 +319,6 @@ Transform:
   m_Father: {fileID: 4458263003707396}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!4 &4696053919368656
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1724254534261262}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.04400015, y: 2.151, z: -0.024999619}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4576919777334166}
-  m_Father: {fileID: 4757360293656914}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4757360293656914
 Transform:
   m_ObjectHideFlags: 1
@@ -353,11 +326,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980342028790808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.03, y: 2.2461883e-17, z: -10.17}
+  m_LocalPosition: {x: -13.922166, y: 1.3729389e-16, z: -17.582436}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4458263003707396}
-  - {fileID: 4696053919368656}
+  - {fileID: 4576919777334166}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -458,6 +431,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1296701208686310}
   m_Mesh: {fileID: 4300000, guid: b3ddb6959137d0d4e98d0913cb4ef5a3, type: 3}
+--- !u!54 &54574747596138842
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980342028790808}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!114 &114078071289578676
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -473,17 +461,28 @@ MonoBehaviour:
   RayPos: {fileID: 4164151769703966}
   VisionDisparo: {fileID: 4184105832589448}
   RangoMinimo: {fileID: 4608070446388986}
-  AreaMinima: 1
   AreaIdle: 15
   Elemento: Fuego
   NombreHijo: Eje
   rotacion: 2
-  AlcanzeMaximo: 9
-  radioDisparar: 13
-  BalaVelocidad: 35
+  AlcanzeMaximo: 4
+  radioDisparar: 7
+  BalaVelocidad: 35.52
   Vida: 10
   Estado: 
   delay: 1
+--- !u!135 &135998443975522684
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1296701208686310}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.15129876
+  m_Center: {x: 0.007690482, y: -0.0009899884, z: -0.0015044659}
 --- !u!195 &195863233946235810
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -493,9 +492,9 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.65
-  m_Speed: 6
+  m_Speed: 9
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 49
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1

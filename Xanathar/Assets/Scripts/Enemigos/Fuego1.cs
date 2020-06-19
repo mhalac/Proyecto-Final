@@ -22,7 +22,6 @@ public class Fuego1 : MonoBehaviour
 
     [Header("Parametros")]
     
-    public float AreaMinima;
     public float AreaIdle;
     public string Elemento;
     public string NombreHijo;
@@ -77,22 +76,18 @@ public class Fuego1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //print(transform.position);
-        DemasiadoCerca();
-        //print(Heredar.position);
-        //print(agente.destination);
-        //print(Estado);
+        print(agente.steeringTarget);
+
+        Physics.IgnoreLayerCollision(gameObject.layer,PMask,true);
+
         if (transform.Find(NombreHijo) != null)
         {
             Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         }
         if (personaje != null)
-            Debug.DrawLine(Heredar.position, personaje.transform.position, Color.magenta);
+            Debug.DrawLine(Heredar.position, destino, Color.magenta);
 
-        if(Estado == Estados[2])
-        {
-         //   Apuntar(personaje.transform.position);
-        }
+       
         //Primero revisamos si el jugador esta en nuestra area en general, de vision y de rango general
         
         if (BuscarPersonaje() && PuedoVer())
@@ -115,28 +110,13 @@ public class Fuego1 : MonoBehaviour
         }
             
     }
-    private void Alejarse()
-    {
 
-    }
-    private void DemasiadoCerca()
-    {
-        Collider[] objs = Physics.OverlapSphere(RayPos.position,AreaMinima);
-        foreach(Collider c in objs)
-        {
-            //Si en algun momento queres que ignore otro tag agregalo con un or aca
-            if(c.gameObject.tag == "Enemigo")
-            {
-                c.gameObject.GetComponent<Fuego1>().Estado = "Idle";
-            }
-        }
-    }
     
-    private void Idle()
+    
+    private void IrAPosRandom(float AreaI)
     {
-        agente.isStopped = false;
         int i2 = 0; 
-        Estado = Estados[0];
+
         if (!Moviendose)
         {
             float RandomX = 0;
@@ -147,8 +127,8 @@ public class Fuego1 : MonoBehaviour
             while (!seCreo)
             {
                 hayPared = false;
-                RandomX = Random.Range(posicionRandom.x - AreaIdle, AreaIdle + posicionRandom.z);
-                RandomZ = Random.Range(posicionRandom.x - AreaIdle, AreaIdle + posicionRandom.z);
+                RandomX = Random.Range(posicionRandom.x - AreaI, AreaI + posicionRandom.z);
+                RandomZ = Random.Range(posicionRandom.x - AreaI, AreaI + posicionRandom.z);
                 destino = new Vector3(RandomX, transform.position.y + 2, RandomZ);
                 // revisas que el punto para ir no este en una pared
                 i2++;
@@ -161,7 +141,7 @@ public class Fuego1 : MonoBehaviour
                 Collider[] obj = Physics.OverlapSphere(destino, 0.1f);
                 for (int i = 0; i < obj.Length; i++)
                 {
-                    if (obj[i].tag == "Entorno")
+                    if (obj[i].tag == "Entorno" || obj[i].tag == "Enemigo")
                     {
                         hayPared = true;
                     }
@@ -174,7 +154,7 @@ public class Fuego1 : MonoBehaviour
             }
             
             destino = new Vector3(RandomX, transform.position.y, RandomZ);
-            //Apuntar(destino);
+            Apuntar(destino);
             agente.destination = destino;
             Moviendose = true;
         }
@@ -184,6 +164,13 @@ public class Fuego1 : MonoBehaviour
 
         }
     }
+    private void Idle()
+    {
+        agente.isStopped = false;
+        Estado = Estados[0];
+        
+        IrAPosRandom(AreaIdle);
+    }
 
     private void Buscar()
     {
@@ -191,8 +178,15 @@ public class Fuego1 : MonoBehaviour
         UltimaPosicion = personaje.transform;
         agente.isStopped = false;
         Estado = Estados[2];
+        Vector3 direction = (UltimaPosicion.position - Heredar.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        Heredar.rotation = Quaternion.Lerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
         agente.SetDestination(UltimaPosicion.position);
-        //agente.destination = UltimaPosicion.position;
+        
+        //transform.LookAt(UltimaPosicion.position);
+
+        
+        
 
     }
     protected bool PuedoVer()
@@ -256,15 +250,16 @@ public class Fuego1 : MonoBehaviour
     private void Apuntar(Vector3 enemigo)
     {
         agente.SetDestination(enemigo);
-        //Vector3 direction = (enemigo - Heredar.position).normalized;
-       // Quaternion lookRotation = Quaternion.LookRotation(direction);
-       // Heredar.rotation = Quaternion.Slerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
+        
     }
     private void Disparar()
     {
         Estado = Estados[3];
-        Apuntar(personaje.transform.position);
+        //Apuntar(personaje.transform.position);
         delay -= Time.deltaTime;
+        Vector3 direction = (personaje.transform.position - Heredar.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        Heredar.rotation = Quaternion.Slerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
         if (delay <= 0)
         {
             var direccion = personaje.transform.position - Heredar.position;
@@ -430,6 +425,7 @@ public class Fuego1 : MonoBehaviour
 
         //Vector3 cubo = new Vector3(AreaIdle, 2,AreaIdle);
         //Gizmos.DrawWireCube(transform.position,cubo);
+        Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(destino, 0.5f);
         Gizmos.DrawWireSphere(RangoMinimo.position, AlcanzeMaximo);
