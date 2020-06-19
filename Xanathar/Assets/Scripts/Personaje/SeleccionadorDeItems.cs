@@ -41,21 +41,14 @@ public class SeleccionadorDeItems : MonoBehaviour {
 	
 	int layerMask = 1 << 9;
 	private int Contador = 0;
-
-
-	string ComparadorDeItem;
-
-	//Variables para detectar si tiene un item
-	static int MantenerActivaDeFuego = 0;
-	static int MantenerActivaDeAgua = 0;
-	static int MantenerActivaDeViento = 0;
-	static int MantenerActivaDeTierra = 0;
 	
-
-	static int TotalDeItems = 0;
 
 	//Variable que guarda informacion del item del raycast
 	RaycastHit DondeToco;
+
+
+	//Orden de la Array: Fuego , Tierra , Viento , Agua
+	static bool[] ArrayDePrueba = new bool[]{ false, false, false, false };
 
 
 	// Use this for initialization
@@ -103,7 +96,6 @@ public class SeleccionadorDeItems : MonoBehaviour {
 	{
 		if(Input.GetKeyDown(KeyCode.E))
 		{
-			//Instantiate(prueba1 , transform.position , Quaternion.identity);
 			if(Physics.Raycast(Camera.main.transform.position , Camera.main.transform.forward , out DondeToco , Rango , ~layerMask))
 			{
 				CodigoRedentor();
@@ -131,19 +123,22 @@ public class SeleccionadorDeItems : MonoBehaviour {
 	private void CodigoRedentor()
 	{
 		//Cuando se agarra un item, hay que comprobar que el slot esta vacio
-		// Si ya se tiene un item en el slot, se debe "tirar" ese item y reemplazarlo con otro
+		//Si ya se tiene un item en el slot, se debe "tirar" ese item y reemplazarlo con otro
 		//Se deben mostrar o ocultar las imagenes del HUD
 
 		string Comparador = DondeToco.collider.tag;
+		int Buscador = 0;
 
 		switch(Comparador)
 		{
 			case "ActivaDeFuego1":
-			if(MantenerActivaDeFuego == 0)
+
+			Buscador = 0;
+			if(ArrayDePrueba[Buscador] == false)
 			{
 				Destroy(DondeToco.collider.gameObject);
 				ImagenActivaFuego1.SetActive(true);
-				MantenerActivaDeFuego += 1;
+				ArrayDePrueba[Buscador] = true;
 			}
 			else
 			{
@@ -156,11 +151,13 @@ public class SeleccionadorDeItems : MonoBehaviour {
 			break;
 
 			case "ActivaDeFuego2":
-			if(MantenerActivaDeFuego == 0)
+			
+			Buscador = 0;
+			if(ArrayDePrueba[Buscador] == false)
 			{
 				Destroy(DondeToco.collider.gameObject);
 				ImagenActivaFuego2.SetActive(true);
-				MantenerActivaDeFuego += 1;
+				ArrayDePrueba[Buscador] = true;
 			}
 			else
 			{
@@ -173,11 +170,13 @@ public class SeleccionadorDeItems : MonoBehaviour {
 			break;
 
 			case "ActivaDeAgua1":
-			if(MantenerActivaDeAgua == 0)
+
+			Buscador = 1;
+			if(ArrayDePrueba[Buscador] == false)
 			{
 				Destroy(DondeToco.collider.gameObject);
 				ImagenActivaAgua1.SetActive(true);
-				MantenerActivaDeAgua += 1;
+				ArrayDePrueba[Buscador] = true;
 			}
 			else
 			{
@@ -190,11 +189,12 @@ public class SeleccionadorDeItems : MonoBehaviour {
 			break;
 
 			case "ActivaDeAgua2":
-			if(MantenerActivaDeAgua == 0)
+			Buscador = 1;
+			if(ArrayDePrueba[Buscador] == false)
 			{
 				Destroy(DondeToco.collider.gameObject);
 				ImagenActivaAgua2.SetActive(true);
-				MantenerActivaDeAgua += 1;
+				ArrayDePrueba[Buscador] = true;
 			}
 			else
 			{
@@ -207,11 +207,12 @@ public class SeleccionadorDeItems : MonoBehaviour {
 			break;
 
 			case "ActivaDeViento1":
-			if(MantenerActivaDeViento == 0)
+			Buscador = 2;
+			if(ArrayDePrueba[Buscador] == false)
 			{
 				Destroy(DondeToco.collider.gameObject);
 				ImagenActivaViento1.SetActive(true);
-				MantenerActivaDeViento += 1;
+				ArrayDePrueba[Buscador] = true;
 			}
 			else
 			{
@@ -224,11 +225,12 @@ public class SeleccionadorDeItems : MonoBehaviour {
 			break;
 
 			case "ActivaDeViento2":
-			if(MantenerActivaDeViento == 0)
+			Buscador = 2;
+			if(ArrayDePrueba[Buscador] == false)
 			{
 				Destroy(DondeToco.collider.gameObject);
 				ImagenActivaViento2.SetActive(true);
-				MantenerActivaDeViento += 1;
+				ArrayDePrueba[Buscador] = true;
 			}
 			else
 			{
@@ -241,11 +243,13 @@ public class SeleccionadorDeItems : MonoBehaviour {
 			break;
 
 			case "ActivaDeTierra1":
-			if(MantenerActivaDeTierra == 0)
+
+			Buscador = 3;
+			if(ArrayDePrueba[Buscador] == false)
 			{
 				Destroy(DondeToco.collider.gameObject);
 				ImagenActivaTierra1.SetActive(true);
-				MantenerActivaDeTierra += 1;
+				ArrayDePrueba[Buscador] = true;
 			}
 			else
 			{
@@ -258,11 +262,13 @@ public class SeleccionadorDeItems : MonoBehaviour {
 			break;
 
 			case "ActivaDeTierra2":
-			if(MantenerActivaDeTierra == 0)
+
+			Buscador = 3;
+			if(ArrayDePrueba[Buscador] == false)
 			{
 				Destroy(DondeToco.collider.gameObject);
 				ImagenActivaTierra2.SetActive(true);
-				MantenerActivaDeTierra += 1;
+				ArrayDePrueba[Buscador] = true;
 			}
 			else
 			{
@@ -275,5 +281,7 @@ public class SeleccionadorDeItems : MonoBehaviour {
 			break;
 		}
 		
+		
 	}
+
 }

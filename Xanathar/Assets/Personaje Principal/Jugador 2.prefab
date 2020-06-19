@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 54771340327190820}
   - component: {fileID: 114984270598094560}
   - component: {fileID: 114499616465873466}
-  - component: {fileID: 114840950533170346}
+  - component: {fileID: 114821008855101918}
   m_Layer: 9
   m_Name: Jugador 2
   m_TagString: Personaje
@@ -479,7 +479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sensibilidad: 100
   CuerpoJugador: {fileID: 4859663858307650}
---- !u!114 &114840950533170346
+--- !u!114 &114821008855101918
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -487,15 +487,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1722608905681666}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdf9ad9927632fc41aff547aa6303846, type: 3}
+  m_Script: {fileID: 11500000, guid: 1541bc125a2d22643baf7d2007140eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pasivas: {fileID: 0}
-  Estadisticas: {fileID: 0}
-  ImagenActivaFuego1: {fileID: 0}
-  ImagenActivaFuego2: {fileID: 0}
-  ActivaDeFuego1: {fileID: 0}
-  ActivaDeFuego2: {fileID: 0}
+  HUDPasivas: {fileID: 0}
+  HUDEstadisticas: {fileID: 0}
 --- !u!114 &114984270598094560
 MonoBehaviour:
   m_ObjectHideFlags: 1
