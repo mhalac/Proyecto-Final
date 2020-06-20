@@ -24,6 +24,8 @@ public class PositionManager : MonoBehaviour
     public bool EstaOcupado(Vector3 Posicion)
     {
         // Haces un raycast desde el lugar donde queres crear el lugar Idle y lo disparas a todos los idles creados
+        
+        // !cambiar para que haga el laburo del for de abajo
         foreach(Vector3 pos in PosicionesOcupadas)
         {
             float distancia = Vector3.Distance(pos,Posicion);

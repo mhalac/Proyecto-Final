@@ -109,7 +109,7 @@ public class Fuego1 : MonoBehaviour
         {
             Idle();
         }
-        if (agente.hasPath && agente.velocity.magnitude < Mathf.Epsilon)
+        if (/*agente.hasPath && agente.velocity.magnitude < Mathf.Epsilon && Estado != Estados[2]*/ false)
         {
             //print("corri");
             Idle();
@@ -238,9 +238,9 @@ public class Fuego1 : MonoBehaviour
         Estado = Estados[3];
         //Apuntar(personaje.transform.position);
         delay -= Time.deltaTime;
-        Vector3 direction = (personaje.transform.position - Heredar.position).normalized;
+        Vector3 direction = (personaje.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        Heredar.rotation = Quaternion.Slerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotacion);
         if (delay <= 0)
         {
             var direccion = personaje.transform.position - Heredar.position;
@@ -290,10 +290,10 @@ public class Fuego1 : MonoBehaviour
             Disparar();
         }
         //Si se fue de tu rango pero lo estabas persiguiendo lo empezas a buscar
-        if (!BuscarPersonaje() && Estado == Estados[1])
-        {
-            Buscar();
-        }
+        //if (!BuscarPersonaje() && Estado == Estados[1])
+       // {
+          //  Buscar();
+       // }
 
 
     }
