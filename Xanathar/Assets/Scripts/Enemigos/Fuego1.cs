@@ -21,7 +21,7 @@ public class Fuego1 : MonoBehaviour
     public Transform RangoMinimo;
 
     [Header("Parametros")]
-    
+
     public float AreaIdle;
     public string Elemento;
     public string NombreHijo;
@@ -48,7 +48,7 @@ public class Fuego1 : MonoBehaviour
 
     public float delay;
 
-    
+
     private int PMask;
     private GameObject personaje;
     private Vector3 posicionRandom;
@@ -68,17 +68,16 @@ public class Fuego1 : MonoBehaviour
         VisionDisparo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + radioDisparar);
         RangoMinimo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + AlcanzeMaximo);
         Estado = Estados[0];
-        posicionRandom = new Vector3(posicionSpawn.transform.position.x, Heredar.transform.position.y, RangoMinimo.transform.position.z);
+        posicionRandom = new Vector3(posicionSpawn.transform.position.x, posicionSpawn.transform.position.y, posicionSpawn.transform.position.z);
         DelayInicial = delay;
-
+        Time.timeScale = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(agente.steeringTarget);
 
-        Physics.IgnoreLayerCollision(gameObject.layer,PMask,true);
+        Physics.IgnoreLayerCollision(gameObject.layer, PMask, true);
 
         if (transform.Find(NombreHijo) != null)
         {
@@ -87,35 +86,40 @@ public class Fuego1 : MonoBehaviour
         if (personaje != null)
             Debug.DrawLine(Heredar.position, destino, Color.magenta);
 
-       
+
         //Primero revisamos si el jugador esta en nuestra area en general, de vision y de rango general
-        
+
         if (BuscarPersonaje() && PuedoVer())
         {
             Estadentro(TengoQueAcercarme());
             //Apuntar(personaje.transform.position);
         }
-        
+
         // Si el personaje no esta en rango o no lo podes ver pueden pasar una de dos cosas
         // O antes lo estabas persiguiendo o disparando y lo perdiste de vista, en cuyo caso tenes que buscarlo
         // o por descarte, no estabas haciendo nada y por ende seguis en Idle haciendo nada.
 
         else if (Estado == Estados[1] || Estado == Estados[3])
-        { 
+        {
             Buscar();
         }
-        else if(agente.remainingDistance < Mathf.Epsilon)
+
+        else if (agente.remainingDistance < Mathf.Epsilon)
         {
             Idle();
         }
-            
+        if (agente.hasPath && agente.velocity.magnitude < Mathf.Epsilon)
+        {
+            print("corri");
+            Idle();
+        }
     }
 
-    
-    
+
+
     private void IrAPosRandom(float AreaI)
     {
-        int i2 = 0; 
+        int i2 = 0;
 
         if (!Moviendose)
         {
@@ -129,10 +133,10 @@ public class Fuego1 : MonoBehaviour
                 hayPared = false;
                 RandomX = Random.Range(posicionRandom.x - AreaI, AreaI + posicionRandom.z);
                 RandomZ = Random.Range(posicionRandom.x - AreaI, AreaI + posicionRandom.z);
-                destino = new Vector3(RandomX, transform.position.y + 2, RandomZ);
+                destino = new Vector3(RandomX, Heredar.position.y + 2, RandomZ);
                 // revisas que el punto para ir no este en una pared
                 i2++;
-                if(i2 > 200)
+                if (i2 > 200)
                 {
                     Debug.LogError("ERROR GENERANDO IDLE ERROR SALIENDO");
                     return;
@@ -152,7 +156,7 @@ public class Fuego1 : MonoBehaviour
                     seCreo = true;
                 }
             }
-            
+
             destino = new Vector3(RandomX, transform.position.y, RandomZ);
             Apuntar(destino);
             agente.destination = destino;
@@ -168,7 +172,7 @@ public class Fuego1 : MonoBehaviour
     {
         agente.isStopped = false;
         Estado = Estados[0];
-        
+
         IrAPosRandom(AreaIdle);
     }
 
@@ -182,17 +186,17 @@ public class Fuego1 : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         Heredar.rotation = Quaternion.Lerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
         agente.SetDestination(UltimaPosicion.position);
-        
+
         //transform.LookAt(UltimaPosicion.position);
 
-        
-        
+
+
 
     }
     protected bool PuedoVer()
     {
         //hace un raycast al jugador y devuelve true si no hay nada entre el enemigo y el personaje
-        
+
 
         var direccion2 = personaje.transform.position - Heredar.position;
         if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar) && hit.collider.gameObject.tag != "Personaje")
@@ -202,13 +206,13 @@ public class Fuego1 : MonoBehaviour
         }
         else
             //Apuntar(personaje.transform.position);
-        return true;
+            return true;
     }
     private bool BuscarPersonaje()
     {
         //genera una esfera logica alrededor tuyo para buscar al personaje y devuelve true si lo encontro/
 
-        
+
 
         Collider[] obj = Physics.OverlapSphere(VisionDisparo.position, radioDisparar);
         for (int i = 0; obj.Length > i; i++)
@@ -237,7 +241,15 @@ public class Fuego1 : MonoBehaviour
             {
                 return false;
             }
-
+            if (objdisparo[i].gameObject.tag == "Enemigo")
+            {
+                float Dist = Vector3.Distance(objdisparo[i].gameObject.transform.position, Heredar.position);
+                if (Dist < 2f)
+                {
+                    print("No me acerco mas");
+                    return false;
+                }
+            }
         }
         return true;
     }
@@ -250,7 +262,7 @@ public class Fuego1 : MonoBehaviour
     private void Apuntar(Vector3 enemigo)
     {
         agente.SetDestination(enemigo);
-        
+
     }
     private void Disparar()
     {
@@ -431,6 +443,6 @@ public class Fuego1 : MonoBehaviour
         Gizmos.DrawWireSphere(RangoMinimo.position, AlcanzeMaximo);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(VisionDisparo.position, radioDisparar);
-       
+
     }
 }
