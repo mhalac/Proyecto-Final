@@ -7,7 +7,7 @@ public class MovimientoCamara : MonoBehaviour {
 	//Script para mover la camara en eje X e Y
 	//Script para limitar el movimiento de la camara en eje Y para evitar que de un giro 360 grados
 	
-	public float Sensibilidad = 200f;
+	public float Sensibilidad;
 	float MouseX;
 	float MouseY;
 	float RotacionX = 0f;

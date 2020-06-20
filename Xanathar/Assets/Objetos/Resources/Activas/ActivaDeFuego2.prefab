@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 23682960242991052}
   - component: {fileID: 135833567952618258}
   - component: {fileID: 54951496425626592}
-  - component: {fileID: 114864940930062832}
-  m_Layer: 13
+  - component: {fileID: 114108458055213110}
+  m_Layer: 15
   m_Name: ActivaDeFuego2
   m_TagString: ActivaDeFuego2
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 14a2b1219dea86646a76168564d1e957, type: 2}
+  - {fileID: 2100000, guid: c2a077cdba7f7064bb31491ab3ecfee3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,7 +101,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114864940930062832
+--- !u!114 &114108458055213110
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,13 +109,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1342147114154188}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3afd374db16cec14db69b17ab2db74bc, type: 3}
+  m_Script: {fileID: 11500000, guid: cea3ea5e89c05f54293415c35428eccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: Sol de la Patria
-  Descripcion: " Al activarlo, le permite al usuario, en el pr\xF3ximo golpe, hacer
-    una gran cantidad de da\xF1o con un rayo solar que cae del cielo"
-  Tipo: Activa
+  Nombre: Sol De La Patria
+  Descripcion: "Al activarlo, le permite al usuario, en el pr\xF3ximo golpe, hacer
+    una gran cantidad de da\xF1o, con un rayo solar del cielo"
+  Categoria: Activa
   Icono: {fileID: 21300000, guid: f73f68fe6815f5548a6c2a61b9e49add, type: 3}
 --- !u!135 &135833567952618258
 SphereCollider:
