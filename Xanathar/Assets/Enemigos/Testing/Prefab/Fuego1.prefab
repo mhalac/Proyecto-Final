@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 135998443975522684}
   m_Layer: 11
   m_Name: Eje
-  m_TagString: Enemigo
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -326,7 +326,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980342028790808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.51, y: 2.2461883e-17, z: -10.62}
+  m_LocalPosition: {x: -5.88, y: 2.2461883e-17, z: -10.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4458263003707396}
@@ -461,6 +461,7 @@ MonoBehaviour:
   RayPos: {fileID: 4164151769703966}
   VisionDisparo: {fileID: 4184105832589448}
   RangoMinimo: {fileID: 4608070446388986}
+  HitBox: 1
   AreaIdle: 15
   Elemento: Fuego
   NombreHijo: Eje

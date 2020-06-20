@@ -50,7 +50,10 @@ public class Fuego1 : MonoBehaviour
 
     private int PMask;
     private GameObject personaje;
+
+
     private Vector3 posicionRandom;
+
     // Use this for initialization
     void Start()
     {
@@ -69,16 +72,13 @@ public class Fuego1 : MonoBehaviour
         Estado = Estados[0];
         posicionRandom = new Vector3(posicionSpawn.transform.position.x, posicionSpawn.transform.position.y, posicionSpawn.transform.position.z);
         DelayInicial = delay;
-        Time.timeScale = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        Physics.IgnoreLayerCollision(gameObject.layer, PMask, true);
-        
-
+        //Physics.IgnoreLayerCollision(gameObject.layer, PMask, true);
 
         if (transform.Find(NombreHijo) != null)
         {
@@ -87,6 +87,14 @@ public class Fuego1 : MonoBehaviour
         if (personaje != null)
             Debug.DrawLine(Heredar.position, destino, Color.magenta);
 
+
+        
+        if(agente.velocity.magnitude < 2f && Estado != Estados[3])  
+        {
+           
+            FindObjectOfType<PositionManager>().Llegue(destino);
+            Idle();
+        }
 
         //Primero revisamos si el jugador esta en nuestra area en general, de vision y de rango general
 
@@ -109,15 +117,9 @@ public class Fuego1 : MonoBehaviour
         {
             Idle();
         }
-        if (/*agente.hasPath && agente.velocity.magnitude < Mathf.Epsilon && Estado != Estados[2]*/ false)
-        {
-            //print("corri");
-            Idle();
-        }
+
     }
-
-
-
+    
     private void IrAPosRandom()
     {
         if (agente.remainingDistance > Mathf.Epsilon)
@@ -137,6 +139,7 @@ public class Fuego1 : MonoBehaviour
             agente.destination = destino;
         }
     }
+
     private void Idle()
     {
         agente.isStopped = false;
@@ -151,14 +154,10 @@ public class Fuego1 : MonoBehaviour
         UltimaPosicion = personaje.transform;
         agente.isStopped = false;
         Estado = Estados[2];
-        Vector3 direction = (UltimaPosicion.position - Heredar.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        Heredar.rotation = Quaternion.Lerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
+        //Vector3 direction = (UltimaPosicion.position - Heredar.position).normalized;
+        // Quaternion lookRotation = Quaternion.LookRotation(direction);
+        //Heredar.rotation = Quaternion.Lerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
         agente.SetDestination(UltimaPosicion.position);
-
-        //transform.LookAt(UltimaPosicion.position);
-
-
 
 
     }
@@ -268,6 +267,7 @@ public class Fuego1 : MonoBehaviour
     {
         Vida = Vida - damage * 0.5f;
     }
+
     private void Estadentro(bool TengoQueAcercarme)
     {
 
@@ -291,9 +291,9 @@ public class Fuego1 : MonoBehaviour
         }
         //Si se fue de tu rango pero lo estabas persiguiendo lo empezas a buscar
         //if (!BuscarPersonaje() && Estado == Estados[1])
-       // {
-          //  Buscar();
-       // }
+        // {
+        //  Buscar();
+        // }
 
 
     }
@@ -403,6 +403,9 @@ public class Fuego1 : MonoBehaviour
 
 
         Gizmos.color = Color.blue;
+
+        Gizmos.color = Color.cyan;
+        
 
         //Vector3 cubo = new Vector3(AreaIdle, 2,AreaIdle);
         //Gizmos.DrawWireCube(transform.position,cubo);
