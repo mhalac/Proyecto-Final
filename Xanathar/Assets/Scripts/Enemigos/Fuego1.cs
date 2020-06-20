@@ -37,7 +37,7 @@ public class Fuego1 : MonoBehaviour
     private string[] Estados = { "Idle", "Chasing", "Searching", "Shooting" };
 
 
-    private Transform posicionSpawn;
+    private Vector3 posicionSpawn;
     private bool Moviendose;
 
     private float DelayInicial;
@@ -52,7 +52,6 @@ public class Fuego1 : MonoBehaviour
     private GameObject personaje;
 
 
-    private Vector3 posicionRandom;
 
     // Use this for initialization
     void Start()
@@ -64,13 +63,12 @@ public class Fuego1 : MonoBehaviour
             Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         else
             Heredar = transform;
-        posicionSpawn = Heredar;
+        posicionSpawn = Heredar.position;
         agente = GetComponent<NavMeshAgent>();
         PMask = LayerMask.NameToLayer("Personaje");
         VisionDisparo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + radioDisparar);
         RangoMinimo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + AlcanzeMaximo);
         Estado = Estados[0];
-        posicionRandom = new Vector3(posicionSpawn.transform.position.x, posicionSpawn.transform.position.y, posicionSpawn.transform.position.z);
         DelayInicial = delay;
     }
 
@@ -79,7 +77,8 @@ public class Fuego1 : MonoBehaviour
     {
 
         //Physics.IgnoreLayerCollision(gameObject.layer, PMask, true);
-
+        //print(posicionSpawn);
+        
         if (transform.Find(NombreHijo) != null)
         {
             Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
@@ -135,7 +134,7 @@ public class Fuego1 : MonoBehaviour
             {
                 FindObjectOfType<PositionManager>().Llegue(destino);
             }
-            destino = FindObjectOfType<PositionManager>().GenerarPosicionRandom(posicionRandom, AreaIdle, Heredar.position);
+            destino = FindObjectOfType<PositionManager>().GenerarPosicionRandom(posicionSpawn, AreaIdle, Heredar.position);
             agente.destination = destino;
         }
     }
@@ -399,16 +398,12 @@ public class Fuego1 : MonoBehaviour
 
     void OnDrawGizmosSelected()
 
-    {
-
-
-        Gizmos.color = Color.blue;
-
+    {     
         Gizmos.color = Color.cyan;
         
 
-        //Vector3 cubo = new Vector3(AreaIdle, 2,AreaIdle);
-        //Gizmos.DrawWireCube(transform.position,cubo);
+        Vector3 cubo = new Vector3(AreaIdle * 2, 2,AreaIdle* 2);
+        Gizmos.DrawWireCube(posicionSpawn,cubo);
         Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(destino, 0.5f);
