@@ -9,7 +9,6 @@ public class Fuego1 : MonoBehaviour
 
 
 
-
     private RaycastHit hit;
     private bool Visto;
     private Transform UltimaPosicion;
@@ -21,7 +20,7 @@ public class Fuego1 : MonoBehaviour
     public Transform RangoMinimo;
 
     [Header("Parametros")]
-    
+
     public float AreaIdle;
     public string Elemento;
     public string NombreHijo;
@@ -38,7 +37,7 @@ public class Fuego1 : MonoBehaviour
     private string[] Estados = { "Idle", "Chasing", "Searching", "Shooting" };
 
 
-    private Transform posicionSpawn;
+    private Vector3 posicionSpawn;
     private bool Moviendose;
 
     private float DelayInicial;
@@ -48,10 +47,12 @@ public class Fuego1 : MonoBehaviour
 
     public float delay;
 
-    
+
     private int PMask;
     private GameObject personaje;
-    private Vector3 posicionRandom;
+
+
+
     // Use this for initialization
     void Start()
     {
@@ -62,24 +63,22 @@ public class Fuego1 : MonoBehaviour
             Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         else
             Heredar = transform;
-        posicionSpawn = Heredar;
+        posicionSpawn = Heredar.position;
         agente = GetComponent<NavMeshAgent>();
         PMask = LayerMask.NameToLayer("Personaje");
         VisionDisparo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + radioDisparar);
         RangoMinimo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + AlcanzeMaximo);
         Estado = Estados[0];
-        posicionRandom = new Vector3(posicionSpawn.transform.position.x, Heredar.transform.position.y, RangoMinimo.transform.position.z);
         DelayInicial = delay;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(agente.steeringTarget);
 
-        Physics.IgnoreLayerCollision(gameObject.layer,PMask,true);
-
+        //Physics.IgnoreLayerCollision(gameObject.layer, PMask, true);
+        //print(posicionSpawn);
+        
         if (transform.Find(NombreHijo) != null)
         {
             Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
@@ -87,89 +86,65 @@ public class Fuego1 : MonoBehaviour
         if (personaje != null)
             Debug.DrawLine(Heredar.position, destino, Color.magenta);
 
-       
-        //Primero revisamos si el jugador esta en nuestra area en general, de vision y de rango general
+
         
+        if(agente.velocity.magnitude < 2f && Estado != Estados[3])  
+        {
+           
+            FindObjectOfType<PositionManager>().Llegue(destino);
+            Idle();
+        }
+
+        //Primero revisamos si el jugador esta en nuestra area en general, de vision y de rango general
+
         if (BuscarPersonaje() && PuedoVer())
         {
             Estadentro(TengoQueAcercarme());
             //Apuntar(personaje.transform.position);
         }
-        
+
         // Si el personaje no esta en rango o no lo podes ver pueden pasar una de dos cosas
         // O antes lo estabas persiguiendo o disparando y lo perdiste de vista, en cuyo caso tenes que buscarlo
         // o por descarte, no estabas haciendo nada y por ende seguis en Idle haciendo nada.
 
         else if (Estado == Estados[1] || Estado == Estados[3])
-        { 
+        {
             Buscar();
         }
-        else if(agente.remainingDistance < Mathf.Epsilon)
+
+        else if (agente.remainingDistance < Mathf.Epsilon)
         {
             Idle();
         }
-            
+
     }
-
     
-    
-    private void IrAPosRandom(float AreaI)
+    private void IrAPosRandom()
     {
-        int i2 = 0; 
-
-        if (!Moviendose)
+        if (agente.remainingDistance > Mathf.Epsilon)
         {
-            float RandomX = 0;
-            float RandomZ = 0;
-            bool seCreo = false;
-            bool hayPared = false;
-            //genera numero random entre tu posicion y el rango espesificado de idle
-            while (!seCreo)
-            {
-                hayPared = false;
-                RandomX = Random.Range(posicionRandom.x - AreaI, AreaI + posicionRandom.z);
-                RandomZ = Random.Range(posicionRandom.x - AreaI, AreaI + posicionRandom.z);
-                destino = new Vector3(RandomX, transform.position.y + 2, RandomZ);
-                // revisas que el punto para ir no este en una pared
-                i2++;
-                if(i2 > 200)
-                {
-                    Debug.LogError("ERROR GENERANDO IDLE ERROR SALIENDO");
-                    return;
-                }
-                //CUIDADO CON MODIFICAR EL O.1F PUEDE CRASHEAR EL JUEGO
-                Collider[] obj = Physics.OverlapSphere(destino, 0.1f);
-                for (int i = 0; i < obj.Length; i++)
-                {
-                    if (obj[i].tag == "Entorno" || obj[i].tag == "Enemigo")
-                    {
-                        hayPared = true;
-                    }
-
-                }
-                if (!hayPared)
-                {
-                    seCreo = true;
-                }
-            }
-            
-            destino = new Vector3(RandomX, transform.position.y, RandomZ);
             Apuntar(destino);
             agente.destination = destino;
-            Moviendose = true;
-        }
-        if (agente.remainingDistance < Mathf.Epsilon)
-        {
-            Moviendose = false;
 
         }
+        else
+        {
+            //print(posicionRandom + " Rango idle:" + AreaI +  "Posicion actual: " + Heredar.position);
+            if (destino != null || FindObjectOfType<PositionManager>().EstaOcupado(destino))
+            {
+                FindObjectOfType<PositionManager>().Llegue(destino);
+            }
+            destino = FindObjectOfType<PositionManager>().GenerarPosicionRandom(posicionSpawn, AreaIdle, Heredar.position);
+            agente.destination = destino;
+        }
     }
+
     private void Idle()
     {
         agente.isStopped = false;
         Estado = Estados[0];
-        
-        IrAPosRandom(AreaIdle);
+
+        IrAPosRandom();
     }
 
     private void Buscar()
@@ -178,21 +153,17 @@ public class Fuego1 : MonoBehaviour
         UltimaPosicion = personaje.transform;
         agente.isStopped = false;
         Estado = Estados[2];
-        Vector3 direction = (UltimaPosicion.position - Heredar.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        Heredar.rotation = Quaternion.Lerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
+        //Vector3 direction = (UltimaPosicion.position - Heredar.position).normalized;
+        // Quaternion lookRotation = Quaternion.LookRotation(direction);
+        //Heredar.rotation = Quaternion.Lerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
         agente.SetDestination(UltimaPosicion.position);
-        
-        //transform.LookAt(UltimaPosicion.position);
 
-        
-        
 
     }
     protected bool PuedoVer()
     {
         //hace un raycast al jugador y devuelve true si no hay nada entre el enemigo y el personaje
-        
+
 
         var direccion2 = personaje.transform.position - Heredar.position;
         if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar) && hit.collider.gameObject.tag != "Personaje")
@@ -202,13 +173,13 @@ public class Fuego1 : MonoBehaviour
         }
         else
             //Apuntar(personaje.transform.position);
-        return true;
+            return true;
     }
     private bool BuscarPersonaje()
     {
         //genera una esfera logica alrededor tuyo para buscar al personaje y devuelve true si lo encontro/
 
-        
+
 
         Collider[] obj = Physics.OverlapSphere(VisionDisparo.position, radioDisparar);
         for (int i = 0; obj.Length > i; i++)
@@ -237,7 +208,15 @@ public class Fuego1 : MonoBehaviour
             {
                 return false;
             }
-
+            if (objdisparo[i].gameObject.tag == "Enemigo")
+            {
+                float Dist = Vector3.Distance(objdisparo[i].gameObject.transform.position, Heredar.position);
+                if (Dist < 2f)
+                {
+                    print("No me acerco mas");
+                    return false;
+                }
+            }
         }
         return true;
     }
@@ -250,16 +229,16 @@ public class Fuego1 : MonoBehaviour
     private void Apuntar(Vector3 enemigo)
     {
         agente.SetDestination(enemigo);
-        
+
     }
     private void Disparar()
     {
         Estado = Estados[3];
         //Apuntar(personaje.transform.position);
         delay -= Time.deltaTime;
-        Vector3 direction = (personaje.transform.position - Heredar.position).normalized;
+        Vector3 direction = (personaje.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        Heredar.rotation = Quaternion.Slerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotacion);
         if (delay <= 0)
         {
             var direccion = personaje.transform.position - Heredar.position;
@@ -287,6 +266,7 @@ public class Fuego1 : MonoBehaviour
     {
         Vida = Vida - damage * 0.5f;
     }
+
     private void Estadentro(bool TengoQueAcercarme)
     {
 
@@ -310,9 +290,9 @@ public class Fuego1 : MonoBehaviour
         }
         //Si se fue de tu rango pero lo estabas persiguiendo lo empezas a buscar
         //if (!BuscarPersonaje() && Estado == Estados[1])
-        //{
-        //    Buscar();
-        //}
+        // {
+        //  Buscar();
+        // }
 
 
     }
@@ -418,19 +398,18 @@ public class Fuego1 : MonoBehaviour
 
     void OnDrawGizmosSelected()
 
-    {
+    {     
+        Gizmos.color = Color.cyan;
+        
 
-
-        Gizmos.color = Color.blue;
-
-        //Vector3 cubo = new Vector3(AreaIdle, 2,AreaIdle);
-        //Gizmos.DrawWireCube(transform.position,cubo);
+        Vector3 cubo = new Vector3(AreaIdle * 2, 2,AreaIdle* 2);
+        Gizmos.DrawWireCube(posicionSpawn,cubo);
         Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(destino, 0.5f);
         Gizmos.DrawWireSphere(RangoMinimo.position, AlcanzeMaximo);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(VisionDisparo.position, radioDisparar);
-       
+
     }
 }
