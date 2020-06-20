@@ -9,7 +9,6 @@ public class Fuego1 : MonoBehaviour
 
 
 
-
     private RaycastHit hit;
     private bool Visto;
     private Transform UltimaPosicion;
@@ -78,6 +77,8 @@ public class Fuego1 : MonoBehaviour
     {
 
         Physics.IgnoreLayerCollision(gameObject.layer, PMask, true);
+        
+
 
         if (transform.Find(NombreHijo) != null)
         {
@@ -110,62 +111,30 @@ public class Fuego1 : MonoBehaviour
         }
         if (agente.hasPath && agente.velocity.magnitude < Mathf.Epsilon)
         {
-            print("corri");
+            //print("corri");
             Idle();
         }
     }
 
 
 
-    private void IrAPosRandom(float AreaI)
+    private void IrAPosRandom()
     {
-        int i2 = 0;
-
-        if (!Moviendose)
+        if (agente.remainingDistance > Mathf.Epsilon)
         {
-            float RandomX = 0;
-            float RandomZ = 0;
-            bool seCreo = false;
-            bool hayPared = false;
-            //genera numero random entre tu posicion y el rango espesificado de idle
-            while (!seCreo)
-            {
-                hayPared = false;
-                RandomX = Random.Range(posicionRandom.x - AreaI, AreaI + posicionRandom.z);
-                RandomZ = Random.Range(posicionRandom.x - AreaI, AreaI + posicionRandom.z);
-                destino = new Vector3(RandomX, Heredar.position.y + 2, RandomZ);
-                // revisas que el punto para ir no este en una pared
-                i2++;
-                if (i2 > 200)
-                {
-                    Debug.LogError("ERROR GENERANDO IDLE ERROR SALIENDO");
-                    return;
-                }
-                //CUIDADO CON MODIFICAR EL O.1F PUEDE CRASHEAR EL JUEGO
-                Collider[] obj = Physics.OverlapSphere(destino, 0.1f);
-                for (int i = 0; i < obj.Length; i++)
-                {
-                    if (obj[i].tag == "Entorno" || obj[i].tag == "Enemigo")
-                    {
-                        hayPared = true;
-                    }
-
-                }
-                if (!hayPared)
-                {
-                    seCreo = true;
-                }
-            }
-
-            destino = new Vector3(RandomX, transform.position.y, RandomZ);
             Apuntar(destino);
             agente.destination = destino;
-            Moviendose = true;
-        }
-        if (agente.remainingDistance < Mathf.Epsilon)
-        {
-            Moviendose = false;
 
+        }
+        else
+        {
+            //print(posicionRandom + " Rango idle:" + AreaI +  "Posicion actual: " + Heredar.position);
+            if (destino != null || FindObjectOfType<PositionManager>().EstaOcupado(destino))
+            {
+                FindObjectOfType<PositionManager>().Llegue(destino);
+            }
+            destino = FindObjectOfType<PositionManager>().GenerarPosicionRandom(posicionRandom, AreaIdle, Heredar.position);
+            agente.destination = destino;
         }
     }
     private void Idle()
@@ -173,7 +142,7 @@ public class Fuego1 : MonoBehaviour
         agente.isStopped = false;
         Estado = Estados[0];
 
-        IrAPosRandom(AreaIdle);
+        IrAPosRandom();
     }
 
     private void Buscar()
@@ -321,10 +290,10 @@ public class Fuego1 : MonoBehaviour
             Disparar();
         }
         //Si se fue de tu rango pero lo estabas persiguiendo lo empezas a buscar
-        //if (!BuscarPersonaje() && Estado == Estados[1])
-        //{
-        //    Buscar();
-        //}
+        if (!BuscarPersonaje() && Estado == Estados[1])
+        {
+            Buscar();
+        }
 
 
     }
