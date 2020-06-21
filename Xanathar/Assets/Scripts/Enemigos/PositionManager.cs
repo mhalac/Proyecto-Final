@@ -61,9 +61,7 @@ public class PositionManager : MonoBehaviour
         while (!seCreo)
         {
             hayPared = false;
-            print("Entre " + (posicionRandom.x - AreaI) + " Y "+ (posicionRandom.x + AreaI));
             RandomX = Random.Range(posicionRandom.x - AreaI, AreaI + posicionRandom.x);
-            print("Genere: " +RandomX);
             RandomZ = Random.Range(posicionRandom.z - AreaI, AreaI + posicionRandom.z);
             destino = new Vector3(RandomX, Heredar.y, RandomZ);
             // revisas que el punto para ir no este en una pared

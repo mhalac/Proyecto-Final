@@ -47,6 +47,7 @@ public class Fuego1 : MonoBehaviour
 
     public float delay;
 
+    private int EMask;
 
     private int PMask;
     private GameObject personaje;
@@ -70,6 +71,7 @@ public class Fuego1 : MonoBehaviour
         RangoMinimo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + AlcanzeMaximo);
         Estado = Estados[0];
         DelayInicial = delay;
+        EMask = LayerMask.NameToLayer("Enemigo");
     }
 
     // Update is called once per frame
@@ -123,7 +125,7 @@ public class Fuego1 : MonoBehaviour
     {
         if (agente.remainingDistance > Mathf.Epsilon)
         {
-            Apuntar(destino);
+            //Apuntar(destino);
             agente.destination = destino;
 
         }
@@ -166,9 +168,8 @@ public class Fuego1 : MonoBehaviour
 
 
         var direccion2 = personaje.transform.position - Heredar.position;
-        if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar) && hit.collider.gameObject.tag != "Personaje")
+        if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar,EMask) && hit.collider.gameObject.tag != "Personaje")
         {
-
             return false;
         }
         else
@@ -213,7 +214,7 @@ public class Fuego1 : MonoBehaviour
                 float Dist = Vector3.Distance(objdisparo[i].gameObject.transform.position, Heredar.position);
                 if (Dist < 2f)
                 {
-                    print("No me acerco mas");
+                    
                     return false;
                 }
             }
@@ -226,24 +227,23 @@ public class Fuego1 : MonoBehaviour
         //gameObject.transform.localPosition = Vector3.MoveTowards(transform.position, personaje.transform.position,velocidad * Time.deltaTime);
         agente.destination = personaje.transform.position;
     }
-    private void Apuntar(Vector3 enemigo)
-    {
-        agente.SetDestination(enemigo);
-
-    }
+   
+    
     private void Disparar()
     {
         Estado = Estados[3];
         //Apuntar(personaje.transform.position);
         delay -= Time.deltaTime;
-        Vector3 direction = (personaje.transform.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotacion);
+
+        //Vector3 direction = (personaje.transform.position - RayPos.transform.position).normalized;
+        //Quaternion lookRotation = Quaternion.LookRotation(direction);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotacion);
+        
         if (delay <= 0)
         {
-            var direccion = personaje.transform.position - Heredar.position;
+            var direccion = (personaje.transform.position - RayPos.position).normalized;
             delay = DelayInicial;
-            GameObject bala = Instantiate(balaPrefab, RayPos.position, Quaternion.identity);
+            GameObject bala = Instantiate(balaPrefab, RayPos.position,Quaternion.identity);
             //Vector3 PosicionDisparada = personaje.transform.position;
 
             bala.GetComponent<ProyectilBase>().Lanzar(direccion, BalaVelocidad);
@@ -271,8 +271,8 @@ public class Fuego1 : MonoBehaviour
     {
 
 
-        var direccion2 = personaje.transform.position - Heredar.position;
-        //Debug.DrawRay(Heredar.position, direccion2, Color.yellow);
+        var direccion2 = (personaje.transform.position - Heredar.position).normalized;
+       
         //La funcion se llama cuando lo tenes a rango visual y fisico, preguntas si te tenes que acercar o no
         // en el caso de que si, tu estado pasa a chasing y te acercas, caso contrario, lo cagas a tiros. 
 
