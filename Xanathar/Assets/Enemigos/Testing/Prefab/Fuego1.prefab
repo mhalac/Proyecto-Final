@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 4757360293656914}
   - component: {fileID: 114078071289578676}
   - component: {fileID: 195863233946235810}
+  - component: {fileID: 114247390841343884}
   - component: {fileID: 54574747596138842}
   - component: {fileID: 135439352491697076}
   m_Layer: 11
@@ -462,7 +463,7 @@ MonoBehaviour:
   VisionDisparo: {fileID: 4184105832589448}
   RangoMinimo: {fileID: 4608070446388986}
   AreaIdle: 16.8
-  Elemento: Fuego
+  Elemento: Agua
   NombreHijo: Eje
   rotacion: 2
   AlcanzeMaximo: 4
@@ -471,6 +472,19 @@ MonoBehaviour:
   Vida: 10
   Estado: 
   delay: 1
+--- !u!114 &114247390841343884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980342028790808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dab7ecc63d7b7f42a1ca4b2ef4e2432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Vida: 0
+  Elemento: 
 --- !u!135 &135439352491697076
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -41,23 +41,23 @@ public class Ataque : MonoBehaviour
                
                 if (a.tag == "Enemigo")
                 {
-                    if (a.GetComponent<Fuego1>() != null )
+                    if (a.GetComponent<LifeManager>() != null )
                     {
                         
-                        Fuego1 Enemigo = a.GetComponent<Fuego1>();
+                        LifeManager Enemigo = a.GetComponent<LifeManager>();
                         Enemigo.RecibirDamage();
                     
                     }
-                    else if(a.GetComponentInChildren<Fuego1>() != null) 
+                    else if(a.GetComponentInChildren<LifeManager>() != null) 
                     {
                         
-                        Fuego1 Enemigo = GetComponentInChildren<Fuego1>();
+                        LifeManager Enemigo = GetComponentInChildren<LifeManager>();
                         Enemigo.RecibirDamage();
                     }
-                    else if(a.GetComponentInParent<Fuego1>() != null) 
+                    else if(a.GetComponentInParent<LifeManager>() != null) 
                     {
                         
-                        Fuego1 Enemigo = GetComponentInParent<Fuego1>();
+                        LifeManager Enemigo = GetComponentInParent<LifeManager>();
                         Enemigo.RecibirDamage();
                     }      
 

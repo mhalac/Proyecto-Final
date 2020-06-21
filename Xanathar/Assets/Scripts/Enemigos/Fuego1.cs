@@ -260,15 +260,7 @@ public class Fuego1 : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Ventaja(float damage)
-    {
-        Vida = Vida - damage * 2;
-    }
-    private void Desventaja(float damage)
-    {
-        Vida = Vida - damage * 0.5f;
-    }
-
+   
     private void Estadentro(bool TengoQueAcercarme)
     {
 
@@ -298,6 +290,15 @@ public class Fuego1 : MonoBehaviour
 
 
     }
+     private void Ventaja(float damage)
+    {
+        Vida = Vida - damage * 2;
+    }
+    private void Desventaja(float damage)
+    {
+        Vida = Vida - damage * 0.5f;
+    }
+
     public void RecibirDamage()
     {
         
