@@ -16,7 +16,7 @@ public class EstadisticasDePersonaje : MonoBehaviour {
 
 
 	public float VelocidadDeMovimiento = 10f;
-	public float VelocidadDeAtaque = 1f;
+	public float CoolDownAtaque = 1f;
 	public float FuerzaDeSalto = 3f;
 	public float VelocidadDeDash;
 

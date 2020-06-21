@@ -6,19 +6,20 @@ public class Ataque : MonoBehaviour
 {
 
 	public Animator anim;
-    private float CDInicial;
-    private float CDTotal;
+    private float CoolDownInicial;
+    private static float CDTotal;
     public float AreaAtaque;
     public Transform Arma;
     private int EMask;
-
+    private float AnimSpeed;
     // Use this for initialization
     void Start()
     {
-        CDInicial = GetComponent<EstadisticasDePersonaje>().VelocidadDeAtaque;
-        CDTotal = CDInicial;
+        CoolDownInicial = GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
+        CDTotal = 0;
         EMask = LayerMask.NameToLayer("Personaje");
 		anim = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -29,16 +30,17 @@ public class Ataque : MonoBehaviour
     void Atacar()
     {
 
-     // !modificar el tiempo de la anim para  
+        AnimSpeed = 1 / CoolDownInicial;
+        //TODO Entre menos cooldown tenes mas rapido atacas y viceversa, xq la animacion tiene que durar menos
+        //TODO para dar lugar al proximo ataque  
 		CDTotal -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon)
         {
             anim.SetBool("atacando",true);
+            anim.speed = AnimSpeed;
             Collider[] ataque = Physics.OverlapSphere(Arma.position, AreaAtaque);
             foreach (Collider a in ataque)
             {
-                
-               
                 if (a.tag == "Enemigo")
                 {
                     if (a.GetComponent<LifeManager>() != null )
@@ -64,7 +66,7 @@ public class Ataque : MonoBehaviour
                 }
             }
 
-            CDTotal = CDInicial;
+            CDTotal = CoolDownInicial;
         }
 		else
 			anim.SetBool("atacando",false);	

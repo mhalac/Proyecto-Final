@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 20407087004561958}
   - component: {fileID: 81080765078937218}
   - component: {fileID: 114751857480715882}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -88,6 +88,8 @@ GameObject:
   - component: {fileID: 114225078043899536}
   - component: {fileID: 114946133869092594}
   - component: {fileID: 95089294359903252}
+  - component: {fileID: 208104034048609458}
+  - component: {fileID: 114382603257905208}
   m_Layer: 9
   m_Name: Jugador
   m_TagString: Personaje
@@ -142,7 +144,7 @@ GameObject:
   - component: {fileID: 33203662197348602}
   - component: {fileID: 23553762792264088}
   - component: {fileID: 65985271915118586}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,8 +217,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430075857039988}
   m_LocalRotation: {x: -0, y: 0.7701623, z: -0, w: -0.637848}
-  m_LocalPosition: {x: 0.3497959, y: 0.947, z: -0.8428734}
-  m_LocalScale: {x: 0.59693, y: 0.59693, z: 0.59693}
+  m_LocalPosition: {x: 22.45, y: 27.3, z: -1.42}
+  m_LocalScale: {x: 0.59693, y: 0.61537516, z: 0.59693}
   m_Children:
   - {fileID: 4800373830159400}
   - {fileID: 4323153685495320}
@@ -616,21 +618,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86567f4a7e3d3144985ead8cd6e66cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VidaDePersonaje: 4
   "Da\xF1oDePersonajeNormal": 2
   TiempoCooldownActivas: 5
-  Armadura: 4
   Gravedad: -15
   CoolDownFlash: 5
   TiempoInmortal: 0.5
   VelocidadDeMovimiento: 10
   VelocidadDeAtaque: 1
   FuerzaDeSalto: 3
-  VelocidadDeDash: 15
-  "Da\xF1oElementalFuego": 0
+  VelocidadDeDash: 12
+  "Da\xF1oElementalFuego": 3
   "Da\xF1oElementalAire": 0
   "Da\xF1oElementalAgua": 0
   "Da\xF1oElementalTierra": 0
+--- !u!114 &114382603257905208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430075857039988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0def1e9a259e8624c8054ee388825124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PosicionesOcupadas: []
+  destino: {x: 0, y: 0, z: 0}
 --- !u!114 &114748977380680902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -644,6 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Controlador: {fileID: 143524828830951792}
   Stats: {fileID: 114225078043899536}
+  xdxd: {fileID: 0}
   CheckDePiso: {fileID: 4358916066589098}
   MascaraDePiso:
     serializedVersion: 2
@@ -676,7 +690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  AreaAtaque: 0.4
+  AreaAtaque: 0.74
   Arma: {fileID: 4061585216149998}
 --- !u!136 &136433389136296696
 CapsuleCollider:
@@ -708,3 +722,18 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &208104034048609458
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430075857039988}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 1.56, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
