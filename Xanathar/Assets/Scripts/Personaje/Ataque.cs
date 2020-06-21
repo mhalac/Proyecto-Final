@@ -28,7 +28,8 @@ public class Ataque : MonoBehaviour
     }
     void Atacar()
     {
-       
+
+     // !modificar el tiempo de la anim para  
 		CDTotal -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon)
         {
@@ -36,16 +37,29 @@ public class Ataque : MonoBehaviour
             Collider[] ataque = Physics.OverlapSphere(Arma.position, AreaAtaque);
             foreach (Collider a in ataque)
             {
+                
+               
                 if (a.tag == "Enemigo")
                 {
-                    if (a.GetComponent<Fuego1>() != null)
+                    if (a.GetComponent<Fuego1>() != null )
                     {
-
+                        
                         Fuego1 Enemigo = a.GetComponent<Fuego1>();
                         Enemigo.RecibirDamage();
                     
                     }
+                    else if(a.GetComponentInChildren<Fuego1>() != null) 
+                    {
                         
+                        Fuego1 Enemigo = GetComponentInChildren<Fuego1>();
+                        Enemigo.RecibirDamage();
+                    }
+                    else if(a.GetComponentInParent<Fuego1>() != null) 
+                    {
+                        
+                        Fuego1 Enemigo = GetComponentInParent<Fuego1>();
+                        Enemigo.RecibirDamage();
+                    }      
 
                 }
             }

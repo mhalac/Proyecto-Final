@@ -234,10 +234,12 @@ public class Fuego1 : MonoBehaviour
         Estado = Estados[3];
         //Apuntar(personaje.transform.position);
         delay -= Time.deltaTime;
-
-        //Vector3 direction = (personaje.transform.position - RayPos.transform.position).normalized;
-        //Quaternion lookRotation = Quaternion.LookRotation(direction);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotacion);
+        agente.SetDestination(personaje.transform.position);
+        agente.isStopped = true;
+        Vector3 direction = (personaje.transform.position - Heredar.transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
+        
         
         if (delay <= 0)
         {
@@ -298,7 +300,8 @@ public class Fuego1 : MonoBehaviour
     }
     public void RecibirDamage()
     {
-        EstadisticasDePersonaje Stats = GameObject.Find("Personaje").GetComponent<EstadisticasDePersonaje>();
+        
+        EstadisticasDePersonaje Stats = GameObject.Find("Jugador").GetComponent<EstadisticasDePersonaje>();
 
         // Tenes que checkear las ventajas o debilidades manualmente, para eso revisas si tiene algun tipo de damage de ese
         //elemento y si es asi lo aplicas
@@ -400,7 +403,7 @@ public class Fuego1 : MonoBehaviour
 
     {     
         Gizmos.color = Color.cyan;
-        
+        /*
 
         Vector3 cubo = new Vector3(AreaIdle * 2, 2,AreaIdle* 2);
         Gizmos.DrawWireCube(posicionSpawn,cubo);
@@ -410,6 +413,6 @@ public class Fuego1 : MonoBehaviour
         Gizmos.DrawWireSphere(RangoMinimo.position, AlcanzeMaximo);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(VisionDisparo.position, radioDisparar);
-
+        */
     }
 }

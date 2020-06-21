@@ -85,10 +85,9 @@ GameObject:
   - component: {fileID: 4576919777334166}
   - component: {fileID: 33901079660744750}
   - component: {fileID: 23538466689589834}
-  - component: {fileID: 135998443975522684}
   m_Layer: 11
   m_Name: Eje
-  m_TagString: Untagged
+  m_TagString: Enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,7 +170,7 @@ GameObject:
   - component: {fileID: 23890670373548840}
   m_Layer: 11
   m_Name: Object001
-  m_TagString: Untagged
+  m_TagString: Enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -187,6 +186,7 @@ GameObject:
   - component: {fileID: 114078071289578676}
   - component: {fileID: 195863233946235810}
   - component: {fileID: 54574747596138842}
+  - component: {fileID: 135439352491697076}
   m_Layer: 11
   m_Name: Fuego1
   m_TagString: Enemigo
@@ -326,7 +326,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980342028790808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.85, y: 2.2461883e-17, z: -13.23}
+  m_LocalPosition: {x: -20.01, y: -0.51, z: -25.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4458263003707396}
@@ -461,7 +461,7 @@ MonoBehaviour:
   RayPos: {fileID: 4164151769703966}
   VisionDisparo: {fileID: 4184105832589448}
   RangoMinimo: {fileID: 4608070446388986}
-  AreaIdle: 15
+  AreaIdle: 16.8
   Elemento: Fuego
   NombreHijo: Eje
   rotacion: 2
@@ -471,18 +471,18 @@ MonoBehaviour:
   Vida: 10
   Estado: 
   delay: 1
---- !u!135 &135998443975522684
+--- !u!135 &135439352491697076
 SphereCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1296701208686310}
+  m_GameObject: {fileID: 1980342028790808}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.15129876
-  m_Center: {x: 0.007690482, y: -0.0009899884, z: -0.0015044659}
+  m_Radius: 0.7087688
+  m_Center: {x: 0, y: 2.2220354, z: 0}
 --- !u!195 &195863233946235810
 NavMeshAgent:
   m_ObjectHideFlags: 1
