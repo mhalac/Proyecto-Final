@@ -12,6 +12,7 @@ public class Ataque : MonoBehaviour
     public Transform Arma;
     private int EMask;
     private float AnimSpeed;
+    private Vector3 PosAtaque;
     // Use this for initialization
     void Start()
     {
@@ -19,6 +20,7 @@ public class Ataque : MonoBehaviour
         CDTotal = 0;
         EMask = LayerMask.NameToLayer("Personaje");
 		anim = GetComponent<Animator>();
+        PosAtaque = new Vector3(Arma.position.x + AreaAtaque,Arma.position.y,Arma.position.z);
 
     }
 
@@ -74,7 +76,9 @@ public class Ataque : MonoBehaviour
     void OnDrawGizmosSelected()
     {
 		Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(Arma.position, AreaAtaque);
+        PosAtaque = new Vector3(Arma.position.x - AreaAtaque,Arma.position.y,Arma.position.z);
+
+        Gizmos.DrawWireSphere(PosAtaque, AreaAtaque);
     }
 
 }
