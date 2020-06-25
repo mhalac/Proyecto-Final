@@ -9,7 +9,7 @@ public class LifeManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		Elemento = GetComponent<Fuego1>().Elemento;
+		
 	}
 	
 	// Update is called once per frame

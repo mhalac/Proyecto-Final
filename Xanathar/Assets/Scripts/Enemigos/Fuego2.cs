@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Fuego1 : MonoBehaviour
+
+public class Fuego2 : MonoBehaviour
 {
 
-
-
-
     private RaycastHit hit;
-    private bool Visto;
     private Transform UltimaPosicion;
 
     [Header("Transforms Seleccionables")]
-    public GameObject balaPrefab;
+
+    private Animator animator;
     public Transform RayPos;
+    public ParticleSystem FuegoAnim;
     public Transform VisionDisparo;
     public Transform RangoMinimo;
 
@@ -28,7 +27,7 @@ public class Fuego1 : MonoBehaviour
     public int AlcanzeMaximo;
     public int radioDisparar;
     public float BalaVelocidad;
-
+    public float TiempoDisparando;
     public float Vida;
 
     public string Estado;
@@ -39,7 +38,7 @@ public class Fuego1 : MonoBehaviour
 
     private Vector3 posicionSpawn;
     private bool Moviendose;
-
+    private float TiempoDInicial;
     private float DelayInicial;
 
     private Transform Heredar;
@@ -47,7 +46,11 @@ public class Fuego1 : MonoBehaviour
 
     public float delay;
 
+    private float DamagePorTiempo = 0.5f;
+    private float DamagePorTiempoInicial;
     private int EMask;
+
+    private bool Disparando;
 
     private int PMask;
     private GameObject personaje;
@@ -60,6 +63,11 @@ public class Fuego1 : MonoBehaviour
         //Guardas la posicion de spawn, obtenes el navmesh, asignas la FOV del enemigo sumando su radio asi se genera en el borde del enemigo
         //hacemos que su estado sea el [0], que es Idle
         // Y tmb generas un vector3 de las posiciones donde se van a generar los lugares a los que va a ir mientras este en idle
+        DamagePorTiempoInicial = DamagePorTiempo;
+        FuegoAnim.Stop();
+        animator = GetComponentInChildren<Animator>();
+        Elemento = GetComponent<LifeManager>().Elemento;
+        TiempoDInicial = TiempoDisparando;
         if (transform.Find(NombreHijo) != null)
             Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         else
@@ -78,21 +86,20 @@ public class Fuego1 : MonoBehaviour
     void Update()
     {
 
+
         //Physics.IgnoreLayerCollision(gameObject.layer, PMask, true);
-        //print(posicionSpawn);
-        
+        //print(posicionSpawn);    
         if (transform.Find(NombreHijo) != null)
         {
             Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         }
         if (personaje != null)
-            Debug.DrawLine(Heredar.position, destino, Color.magenta);
-
-
-        
-        if(agente.velocity.magnitude < 2f && Estado != Estados[3])  
         {
-           
+            Debug.DrawLine(Heredar.position, destino, Color.magenta);
+        }
+        if (agente.velocity.magnitude < 2f && Estado != Estados[3])
+        {
+
             FindObjectOfType<PositionManager>().Llegue(destino);
             Idle();
         }
@@ -120,7 +127,7 @@ public class Fuego1 : MonoBehaviour
         }
 
     }
-    
+
     private void IrAPosRandom()
     {
         if (agente.remainingDistance > Mathf.Epsilon)
@@ -168,7 +175,7 @@ public class Fuego1 : MonoBehaviour
 
 
         var direccion2 = personaje.transform.position - Heredar.position;
-        if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar,EMask) && hit.collider.gameObject.tag != "Personaje")
+        if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar, EMask) && hit.collider.gameObject.tag != "Personaje")
         {
             return false;
         }
@@ -214,7 +221,7 @@ public class Fuego1 : MonoBehaviour
                 float Dist = Vector3.Distance(objdisparo[i].gameObject.transform.position, Heredar.position);
                 if (Dist < 2f)
                 {
-                    
+
                     return false;
                 }
             }
@@ -227,30 +234,68 @@ public class Fuego1 : MonoBehaviour
         //gameObject.transform.localPosition = Vector3.MoveTowards(transform.position, personaje.transform.position,velocidad * Time.deltaTime);
         agente.destination = personaje.transform.position;
     }
-   
-    
+
+
+
     private void Disparar()
     {
         Estado = Estados[3];
         //Apuntar(personaje.transform.position);
-        delay -= Time.deltaTime;
+        print(animator.speed);
+
+        if (TiempoDisparando < 0 || delay > 0)
+            delay -= Time.deltaTime;
         agente.SetDestination(personaje.transform.position);
         agente.isStopped = true;
         Vector3 direction = (personaje.transform.position - Heredar.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
-        
-        
-        if (delay <= 0)
+        if (DamagePorTiempo < Mathf.Epsilon)
+        {
+            DamagePorTiempo = DamagePorTiempoInicial;
+        }
+        if (Disparando)
+        {
+            DamagePorTiempo -= Time.deltaTime;
+        }
+        else
+            DamagePorTiempo = DamagePorTiempoInicial;
+
+        if (delay <= 0 && TiempoDisparando > 0)
         {
             var direccion = (personaje.transform.position - RayPos.position).normalized;
-            delay = DelayInicial;
-            GameObject bala = Instantiate(balaPrefab, RayPos.position,Quaternion.identity);
-            //Vector3 PosicionDisparada = personaje.transform.position;
+            TiempoDisparando -= Time.deltaTime;
+            Collider[] objs = Physics.OverlapCapsule(RayPos.position, personaje.transform.position, 2f);
+            Disparando = true;
 
-            bala.GetComponent<ProyectilBase>().Lanzar(direccion, BalaVelocidad);
+            animator.Play("Take 001 0", 0, 40f);
+            animator.speed = 1 / Mathf.Infinity;
+
+            foreach (Collider o in objs)
+            {
+                if (o.CompareTag("Personaje") && DamagePorTiempo == DamagePorTiempoInicial)
+                {
+                    print("Te hice damage y " + DamagePorTiempo);
+					DamagePorTiempo -= Time.deltaTime;
+					animator.speed = 1;
+                }
+            }
+
+
+            if (!FuegoAnim.isPlaying) FuegoAnim.Play();
+
 
         }
+        else if (TiempoDisparando < 0 && delay < 0)
+        {
+            Disparando = false;
+            TiempoDisparando = TiempoDInicial;
+            delay = DelayInicial;
+            print("reinicie");
+            animator.speed = 1;
+            FuegoAnim.Stop();
+        }
+
     }
 
     private void Mori()
@@ -260,13 +305,13 @@ public class Fuego1 : MonoBehaviour
             Destroy(gameObject);
         }
     }
-   
+
     private void Estadentro(bool TengoQueAcercarme)
     {
 
 
         var direccion2 = (personaje.transform.position - Heredar.position).normalized;
-       
+
         //La funcion se llama cuando lo tenes a rango visual y fisico, preguntas si te tenes que acercar o no
         // en el caso de que si, tu estado pasa a chasing y te acercas, caso contrario, lo cagas a tiros. 
 
@@ -282,15 +327,10 @@ public class Fuego1 : MonoBehaviour
             agente.isStopped = true;
             Disparar();
         }
-        //Si se fue de tu rango pero lo estabas persiguiendo lo empezas a buscar
-        //if (!BuscarPersonaje() && Estado == Estados[1])
-        // {
-        //  Buscar();
-        // }
-
+ 
 
     }
-     private void Ventaja(float damage)
+    private void Ventaja(float damage)
     {
         Vida = Vida - damage * 2;
     }
@@ -301,7 +341,7 @@ public class Fuego1 : MonoBehaviour
 
     public void RecibirDamage()
     {
-        
+
         EstadisticasDePersonaje Stats = GameObject.Find("Jugador").GetComponent<EstadisticasDePersonaje>();
 
         // Tenes que checkear las ventajas o debilidades manualmente, para eso revisas si tiene algun tipo de damage de ese
@@ -402,18 +442,18 @@ public class Fuego1 : MonoBehaviour
 
     void OnDrawGizmosSelected()
 
-    {     
+    {
         Gizmos.color = Color.cyan;
-        
 
-        Vector3 cubo = new Vector3(AreaIdle * 2, 2,AreaIdle* 2);
-        Gizmos.DrawWireCube(posicionSpawn,cubo);
+
+        Vector3 cubo = new Vector3(AreaIdle * 2, 2, AreaIdle * 2);
+        Gizmos.DrawWireCube(posicionSpawn, cubo);
         Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(destino, 0.5f);
         Gizmos.DrawWireSphere(RangoMinimo.position, AlcanzeMaximo);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(VisionDisparo.position, radioDisparar);
-        
+
     }
 }
