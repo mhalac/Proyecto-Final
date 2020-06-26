@@ -23,28 +23,46 @@ public class ManejadorDeItems : MonoBehaviour {
 	public CanvasGroup HUDEstadisticas;
 	public CanvasGroup MensajeNotificador;
 
-	//Referencias a los slots de Activas del HUD
+	//Referencias a los slots de Activas, pasivas y estadisticas del HUD
 	private GameObject SlotActivaDeFuego;
 	private GameObject SlotActivaDeViento;
 	private GameObject SlotActivaDeTierra;
 	private GameObject SlotActivaDeAgua;
+	private GameObject SlotPasivaDeFuego;
+	private GameObject SlotPasivaDeViento;
+	private GameObject SlotPasivaDeTierra;
+	private GameObject SlotPasivaDeAgua;
+	private GameObject SlotEstadisticaDeFuego;
+	private GameObject SlotEstadisticaDeViento;
+	private GameObject SlotEstadisticaDeTierra;
+	private GameObject SlotEstadisticaDeAgua;
 
 	//Notifico las variables para reemplazar su texto mas adelante
 	private GameObject NombreNotificador;
 	private GameObject CategoriaNotificador;
 	private GameObject DescripcionNotificador;
 
+	int OrdenDeLayers = 0;
+
+	GameObject[] Objetos;
+
+	GameObject[] ItemsEquipados = new GameObject[12];
+
+	GameObject ContenedorDeGameObjects;
 
 	//Instanciador de donde nuestros objetos apareceran
 	private GameObject Instanciador;
 
-	//Lista De Activas que nos permite chequear si los slots estan llenos
-	//Fuego , Viento , Tierra, Agua
-	static bool[] ArrayDeActivas = new bool[]{ false, false, false, false };
+	//Variables para notificar al ususario de los objetos que agarro
+	Text TextoNombre;
+	Text TextoCategoria;
+	Text TextoDescripcion;
 
-	int OrdenDeLayers = 0;
 
-	GameObject[] Activas;
+
+	public Sprite[] BarraDeVida;
+	int OrdenDeVida = 8;
+	private GameObject SlotVida;
 
 	// Use this for initialization
 	void Start ()
@@ -54,7 +72,7 @@ public class ManejadorDeItems : MonoBehaviour {
 		layermaskFinal = layerMask1 | layerMask2 | layerMask3 | layerMask4;
 
 		//Lleno mi Array de los items activos
-		Activas = Resources.LoadAll<GameObject>("Activas");
+		Objetos = Resources.LoadAll<GameObject>("Objetos");
 
 		//Encuentro el Slot para referenciarlo y acceder a sus variables mas adelante
 		SlotActivaDeFuego = GameObject.Find("ActivaFuego");
@@ -62,17 +80,43 @@ public class ManejadorDeItems : MonoBehaviour {
 		SlotActivaDeTierra = GameObject.Find("ActivaTierra");
 		SlotActivaDeAgua = GameObject.Find("ActivaAgua");
 
+		SlotPasivaDeFuego = GameObject.Find("PasivaFuego");
+		SlotPasivaDeViento = GameObject.Find("PasivaViento");
+		SlotPasivaDeTierra = GameObject.Find("PasivaTierra");
+		SlotPasivaDeAgua = GameObject.Find("PasivaAgua");
+
+		SlotEstadisticaDeFuego = GameObject.Find("EstadisticaFuego");
+		SlotEstadisticaDeViento = GameObject.Find("EstadisticaViento");
+		SlotEstadisticaDeTierra = GameObject.Find("EstadisticaTierra");
+		SlotEstadisticaDeAgua = GameObject.Find("EstadisticaAgua");
+
 		//Encuentro los campos notifcadores para acceder a sus variables mas adelante
 		NombreNotificador = GameObject.Find("NombreDelItem");
 		CategoriaNotificador = GameObject.Find("CategoriaDelItem");
 		DescripcionNotificador = GameObject.Find("DescripcionDelItem");
 
 		Instanciador = GameObject.Find("Instanciador");
+
+		ContenedorDeGameObjects = null;
+
+		TextoNombre = NombreNotificador.GetComponent<Text>();
+		TextoCategoria = CategoriaNotificador.GetComponent<Text>();
+		TextoDescripcion = DescripcionNotificador.GetComponent<Text>();
+
+		SlotVida = GameObject.Find("Vida");
+
+		SlotVida.GetComponent<Image>().sprite = BarraDeVida[8];
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		if(Input.GetKeyDown(KeyCode.F))
+		{
+			OrdenDeVida -=1;
+			SlotVida.GetComponent<Image>().sprite = BarraDeVida[OrdenDeVida];
+		}
+
 		ActivadorDeHUD();
 		RaycastItems();
 	}
@@ -113,8 +157,83 @@ public class ManejadorDeItems : MonoBehaviour {
 	{
 		if(Input.GetKeyDown(KeyCode.E) && Physics.Raycast(Camera.main.transform.position , Camera.main.transform.forward , out DondeToco , Rango , layermaskFinal))
 		{
-			EquipadorActivas();
+			EquipadorObjetos();
 		}
+	}
+
+	private void EquipadorObjetos()
+	{
+		GameObject[] GuardadorDeItems = new GameObject[2];
+
+		string TagDelObjeto = DondeToco.collider.tag;
+		int LayerDelObjeto = DondeToco.collider.gameObject.layer;
+		string Categoria = "";
+
+		BuscadorDeLayer();
+
+		for(int i = 0; i < Objetos.Length; i++)
+		{
+			if(Objetos[i].tag == TagDelObjeto)
+			{
+				ContenedorDeGameObjects = Objetos[i];
+				Categoria = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Categoria;
+				break;
+			}
+		}
+
+
+		for(int i = 0; i < Objetos.Length; i++)
+		{
+			if(Objetos[i].layer == LayerDelObjeto && TagDelObjeto != Objetos[i].tag && Objetos[i].GetComponent<InformacionDeItems>().Categoria == Categoria)
+			{
+				GuardadorDeItems[1] = Objetos[i];
+				print(GuardadorDeItems[1]);
+			}
+
+			if(GuardadorDeItems[1] != null)
+			{
+				break;
+			}
+		}
+
+		for(int i = 0; i < ItemsEquipados.Length; i++)
+		{
+			if(ItemsEquipados[i] == null)
+			{
+				ItemsEquipados[i] = ContenedorDeGameObjects;
+				EquipadorSlotsDeItems();
+				Destroy(DondeToco.collider.gameObject);
+				break;
+			}
+			
+			string BuscadorCategoria = ItemsEquipados[i].GetComponent<InformacionDeItems>().Categoria;
+
+			if(ItemsEquipados[i].layer == LayerDelObjeto && BuscadorCategoria == Categoria)
+			{
+				ItemsEquipados[i] = ContenedorDeGameObjects;
+				EquipadorSlotsDeItems();
+				Destroy(DondeToco.collider.gameObject);
+				Instantiate(GuardadorDeItems[1] , Instanciador.transform.position , Quaternion.identity);
+				break;
+			}
+		}
+		
+		/*
+		for(int i = 0; i < ItemsEquipados.Length; i++)
+		{
+			print(ItemsEquipados[i]);
+		}
+		*/
+		
+		TextoNombre.text = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Nombre;
+
+		TextoCategoria.text = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Categoria;
+
+		TextoDescripcion.text = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Descripcion;
+
+		OcultadorDeMensaje = true;
+
+		MensajeNotificador.alpha = 1f;
 	}
 
 	private void BuscadorDeLayer()
@@ -123,18 +242,22 @@ public class ManejadorDeItems : MonoBehaviour {
 
 		switch (BuscadorDeLayer)
 		{
+			//Agua
 			case 14:
 			OrdenDeLayers = 3;
 			break;
-
+			
+			//Fuego
 			case 15:
 			OrdenDeLayers = 0;
 			break;
 
+			//Tierra
 			case 16:
 			OrdenDeLayers = 2;
 			break;
 
+			//Viento
 			case 17:
 			OrdenDeLayers = 1;
 			break;
@@ -145,174 +268,87 @@ public class ManejadorDeItems : MonoBehaviour {
 		}
 	}
 
-	private void EquipadorActivas()
+	private void EquipadorSlotsDeItems()
 	{
-		GameObject[] GuardadorDeItems = new GameObject[2];
-		BuscadorDeLayer();
-
-		string Buscador = DondeToco.collider.tag;
-		GameObject ContenedorDeGameObjects = null;
-
-		for(int i = 0; i < Activas.Length; i++)
+		string Categoria = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Categoria;
+		
+		switch(Categoria)
 		{
-			if(Activas[i].tag != DondeToco.collider.gameObject.tag && Activas[i].layer == DondeToco.collider.gameObject.layer)
-			{
-				GuardadorDeItems[1] = Activas[i];
-			}
-		}
+			case "Activa":
+			BuscadorDeSlotsActiva();
+			break;
 
-		for(int i = 0; i < Activas.Length; i++)
+			case "Pasiva":
+			BuscadorDeSlotsPasivas();
+			break;
+
+			case "Estadistica":
+			BuscadorDeSlotsEstadistica();
+			break;
+		}
+	}
+
+	private void BuscadorDeSlotsEstadistica()
+	{
+		switch (OrdenDeLayers)
 		{
-			if(Activas[i].tag == DondeToco.collider.tag)
-			{
-				ContenedorDeGameObjects = Activas[i];
-			}
-		}
+			case 0:
+			SlotEstadisticaDeFuego.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
+			break;
 
-		switch (Buscador)
+			case 1:
+			SlotEstadisticaDeViento.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
+			break;
+
+			case 2:
+			SlotEstadisticaDeTierra.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
+			break;
+
+			case 3:
+			SlotEstadisticaDeAgua.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
+			break;
+		}
+	}
+	private void BuscadorDeSlotsPasivas()
+	{
+		switch (OrdenDeLayers)
 		{
-			case "ActivaDeFuego1":
-
-			if(ArrayDeActivas[OrdenDeLayers] == false)
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeFuego.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				ArrayDeActivas[OrdenDeLayers] = true;
-			}
-			else
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeFuego.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				Instantiate(GuardadorDeItems[1] , Instanciador.transform.position , Quaternion.identity);
-			}
+			case 0:
+			SlotPasivaDeFuego.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 
-			case "ActivaDeFuego2":
-
-			if(ArrayDeActivas[OrdenDeLayers] == false)
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeFuego.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				ArrayDeActivas[OrdenDeLayers] = true;
-			}
-			else
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeFuego.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				Instantiate(GuardadorDeItems[1] , Instanciador.transform.position , Quaternion.identity);
-			}
+			case 1:
+			SlotPasivaDeViento.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 
-			case "ActivaDeViento1":
-
-			if(ArrayDeActivas[OrdenDeLayers] == false)
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeViento.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				ArrayDeActivas[OrdenDeLayers] = true;
-			}
-			else
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeViento.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				Instantiate(GuardadorDeItems[1] , Instanciador.transform.position , Quaternion.identity);
-			}
+			case 2:
+			SlotPasivaDeTierra.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 
-			case "ActivaDeViento2":
-
-			if(ArrayDeActivas[OrdenDeLayers] == false)
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeViento.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				ArrayDeActivas[OrdenDeLayers] = true;
-			}
-			else
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeViento.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				Instantiate(GuardadorDeItems[1] , Instanciador.transform.position , Quaternion.identity);
-			}
+			case 3:
+			SlotPasivaDeAgua.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
-
-			case "ActivaDeTierra1":
-
-			if(ArrayDeActivas[OrdenDeLayers] == false)
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeTierra.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				ArrayDeActivas[OrdenDeLayers] = true;
-			}
-			else
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeTierra.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				Instantiate(GuardadorDeItems[1] , Instanciador.transform.position , Quaternion.identity);
-			}
-			break;
-
-			case "ActivaDeTierra2":
-
-			if(ArrayDeActivas[OrdenDeLayers] == false)
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeTierra.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				ArrayDeActivas[OrdenDeLayers] = true;
-			}
-			else
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeTierra.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				Instantiate(GuardadorDeItems[1] , Instanciador.transform.position , Quaternion.identity);
-			}
-			break;
-
-			case "ActivaDeAgua1":
-
-			if(ArrayDeActivas[OrdenDeLayers] == false)
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeAgua.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				ArrayDeActivas[OrdenDeLayers] = true;
-			}
-			else
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeAgua.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				Instantiate(GuardadorDeItems[1] , Instanciador.transform.position , Quaternion.identity);
-			}
-			break;
-
-			case "ActivaDeAgua2":
-
-			if(ArrayDeActivas[OrdenDeLayers] == false)
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeAgua.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				ArrayDeActivas[OrdenDeLayers] = true;
-			}
-			else
-			{
-				Destroy(DondeToco.collider.gameObject);
-				SlotActivaDeAgua.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
-				Instantiate(GuardadorDeItems[1] , Instanciador.transform.position , Quaternion.identity);
-			}
-			break;
-
 		}
+	}
+	private void BuscadorDeSlotsActiva()
+	{
+		switch (OrdenDeLayers)
+		{
+			case 0:
+			SlotActivaDeFuego.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
+			break;
 
-		Text TextoNombre = NombreNotificador.GetComponent<Text>();
-		TextoNombre.text = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Nombre;
+			case 1:
+			SlotActivaDeViento.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
+			break;
 
-		Text TextoCategoria = CategoriaNotificador.GetComponent<Text>();
-		TextoCategoria.text = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Categoria;
+			case 2:
+			SlotActivaDeTierra.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
+			break;
 
-		Text TextoDescripcion = DescripcionNotificador.GetComponent<Text>();
-		TextoDescripcion.text = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Descripcion;
-
-		OcultadorDeMensaje = true;
-
-		MensajeNotificador.alpha = 1f;
-
+			case 3:
+			SlotActivaDeAgua.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
+			break;
+		}
 	}
 }
