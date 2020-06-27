@@ -204,7 +204,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1997378637270398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.12, y: 5.1, z: 0.542}
+  m_LocalPosition: {x: -0.1, y: 5.1, z: 0.438}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4396600986643914}
@@ -216,8 +216,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430075857039988}
-  m_LocalRotation: {x: -0, y: 0.7701623, z: -0, w: -0.637848}
-  m_LocalPosition: {x: 22.45, y: 27.3, z: -1.42}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.9, y: 1.9, z: 7.2}
   m_LocalScale: {x: 0.59693, y: 0.61537516, z: 0.59693}
   m_Children:
   - {fileID: 4800373830159400}
@@ -225,7 +225,7 @@ Transform:
   - {fileID: 4358916066589098}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 259.263, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4323153685495320
 Transform:
   m_ObjectHideFlags: 1
@@ -624,7 +624,7 @@ MonoBehaviour:
   CoolDownFlash: 5
   TiempoInmortal: 0.5
   VelocidadDeMovimiento: 10
-  VelocidadDeAtaque: 1
+  CoolDownAtaque: 0.3
   FuerzaDeSalto: 3
   VelocidadDeDash: 12
   "Da\xF1oElementalFuego": 3
@@ -690,7 +690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  AreaAtaque: 0.74
+  AreaAtaque: 0.92
   Arma: {fileID: 4061585216149998}
 --- !u!136 &136433389136296696
 CapsuleCollider:

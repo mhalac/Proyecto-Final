@@ -41,7 +41,6 @@ public class ProyectilBase : MonoBehaviour
     {
         Debug.DrawRay(PuntoDisparo.position, IrPosicion, Color.green);
     }
-   // Lo del IEnumerator es para que no detecte que colisiono contra si mismo cuando se dispara
    
 	
 

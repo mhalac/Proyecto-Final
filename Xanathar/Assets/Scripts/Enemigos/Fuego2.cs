@@ -47,11 +47,12 @@ public class Fuego2 : MonoBehaviour
 
     public float delay;
 
-    private float DamagePorTiempo = 0.5f;
+    public float DamagePorTiempo;
     private float DamagePorTiempoInicial;
     private int EMask;
 
-    private bool Disparando;
+
+    public bool Disparando;
 
     private int PMask;
     private GameObject personaje;
@@ -94,10 +95,7 @@ public class Fuego2 : MonoBehaviour
         {
             Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         }
-        if (personaje != null)
-        {
-            Debug.DrawLine(Heredar.position, destino, Color.magenta);
-        }
+
         if (agente.velocity.magnitude < 2f && Estado != Estados[3])
         {
 
@@ -119,6 +117,7 @@ public class Fuego2 : MonoBehaviour
 
         else if (Estado == Estados[1] || Estado == Estados[3])
         {
+            FuegoAnim.Stop();
             Buscar();
         }
 
@@ -245,30 +244,38 @@ public class Fuego2 : MonoBehaviour
 
         if (TiempoDisparando < 0 || delay > 0)
             delay -= Time.deltaTime;
-        agente.SetDestination(personaje.transform.position);
+
+        //agente.SetDestination(personaje.transform.position);
         agente.isStopped = true;
-        Vector3 direction = (personaje.transform.position - RayPos.transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
+        if(!Disparando)
+        {
+             Vector3 direction = (personaje.transform.position - RayPos.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
+            Vector3 direction2 = (personaje.transform.position - Cabeza.transform.position).normalized;
+            Cabeza.rotation = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction2), Time.deltaTime);
+        }
+
         if (DamagePorTiempo < Mathf.Epsilon)
         {
+            print("reset");
             DamagePorTiempo = DamagePorTiempoInicial;
         }
-        if (Disparando)
-        {
-            DamagePorTiempo -= Time.deltaTime;
-        }
+
         else
-            DamagePorTiempo = DamagePorTiempoInicial;
+        {
+            //Cabeza.LookAt(personaje.transform.position);
+           
+
+        }
 
         if (delay <= 0 && TiempoDisparando > 0)
         {
-            var direccion = (personaje.transform.position - RayPos.position).normalized;
             TiempoDisparando -= Time.deltaTime;
             Collider[] objs = Physics.OverlapCapsule(RayPos.position, personaje.transform.position, 2f);
             Disparando = true;
 
-            animator.Play("Take 001 0", 0, 40f);
+            animator.enabled = false;
             animator.speed = 1 / Mathf.Infinity;
 
             foreach (Collider o in objs)
@@ -277,26 +284,28 @@ public class Fuego2 : MonoBehaviour
                 {
                     print("Te hice damage y " + DamagePorTiempo);
                     DamagePorTiempo -= Time.deltaTime;
-                    animator.speed = 1;
+                    //animator.speed = 1;
                 }
             }
+            DamagePorTiempo -= Time.deltaTime;
 
 
             if (!FuegoAnim.isPlaying) FuegoAnim.Play();
 
 
         }
-        else if (TiempoDisparando < 0 && delay < 0)
+        else if (TiempoDisparando < Mathf.Epsilon && delay < Mathf.Epsilon)
         {
             Disparando = false;
             TiempoDisparando = TiempoDInicial;
             delay = DelayInicial;
+            //animator.enabled = true;
+
             animator.speed = 1;
             FuegoAnim.Stop();
         }
 
     }
-
     private void Mori()
     {
         if (Vida < Mathf.Epsilon)
@@ -324,9 +333,6 @@ public class Fuego2 : MonoBehaviour
         {
             Estado = Estados[3];
             agente.isStopped = true;
-            //Vector3 direction = (personaje.transform.position - Cabeza.transform.position).normalized;
-            //Quaternion lookRotation = Quaternion.LookRotation(direction);
-            //Cabeza.rotation = Quaternion.Lerp(Cabeza.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
             Disparar();
         }
 

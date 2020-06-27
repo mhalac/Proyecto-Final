@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ataque : MonoBehaviour
 {
 
-	public Animator anim;
+    public Animator anim;
     private float CoolDownInicial;
     private static float CDTotal;
     public float AreaAtaque;
@@ -19,14 +19,15 @@ public class Ataque : MonoBehaviour
         CoolDownInicial = GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         CDTotal = 0;
         EMask = LayerMask.NameToLayer("Personaje");
-		anim = GetComponent<Animator>();
-        PosAtaque = new Vector3(Arma.position.x + AreaAtaque,Arma.position.y,Arma.position.z);
-
+        anim = GetComponent<Animator>();
+        Arma.position = new Vector3(Arma.position.x, Arma.position.y, Arma.position.z + AreaAtaque);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         Atacar();
     }
     void Atacar()
@@ -35,50 +36,53 @@ public class Ataque : MonoBehaviour
         AnimSpeed = 1 / CoolDownInicial;
         //TODO Entre menos cooldown tenes mas rapido atacas y viceversa, xq la animacion tiene que durar menos
         //TODO para dar lugar al proximo ataque  
-		CDTotal -= Time.deltaTime;
+        CDTotal -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon)
         {
-            anim.SetBool("atacando",true);
+            anim.SetBool("atacando", true);
             anim.speed = AnimSpeed;
             Collider[] ataque = Physics.OverlapSphere(Arma.position, AreaAtaque);
             foreach (Collider a in ataque)
             {
+
                 if (a.tag == "Enemigo")
                 {
-                    if (a.GetComponent<LifeManager>() != null )
+                    print("Hay enemigo");
+                    if (a.GetComponent<LifeManager>() != null)
                     {
-                        
+
                         LifeManager Enemigo = a.GetComponent<LifeManager>();
                         Enemigo.RecibirDamage();
-                    
+
                     }
-                    else if(a.GetComponentInChildren<LifeManager>() != null) 
+                    else if (a.GetComponentInChildren<LifeManager>() != null)
                     {
-                        
+
                         LifeManager Enemigo = GetComponentInChildren<LifeManager>();
                         Enemigo.RecibirDamage();
                     }
-                    else if(a.GetComponentInParent<LifeManager>() != null) 
+                    else if (a.GetComponentInParent<LifeManager>() != null)
                     {
-                        
                         LifeManager Enemigo = GetComponentInParent<LifeManager>();
                         Enemigo.RecibirDamage();
-                    }      
+                    }
+                    else
+                        Debug.LogWarning("NO HAY VIDA EN EL ENEMIGO");
 
                 }
             }
 
             CDTotal = CoolDownInicial;
         }
-		else
-			anim.SetBool("atacando",false);	
+        else
+            anim.SetBool("atacando", false);
     }
     void OnDrawGizmosSelected()
     {
-		Gizmos.color = Color.red;
-        PosAtaque = new Vector3(Arma.position.x - AreaAtaque,Arma.position.y,Arma.position.z);
+        Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere(PosAtaque, AreaAtaque);
+
+        Gizmos.DrawWireSphere(Arma.position, AreaAtaque);
     }
 
 }
