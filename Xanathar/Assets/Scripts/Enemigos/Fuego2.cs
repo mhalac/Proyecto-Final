@@ -51,7 +51,7 @@ public class Fuego2 : MonoBehaviour
     private float DamagePorTiempoInicial;
     private int EMask;
 
-
+    private Vector3 Apuntando;
     public bool Disparando;
 
     private int PMask;
@@ -123,6 +123,8 @@ public class Fuego2 : MonoBehaviour
 
         else if (agente.remainingDistance < Mathf.Epsilon)
         {
+            FuegoAnim.Stop();
+
             Idle();
         }
 
@@ -198,7 +200,7 @@ public class Fuego2 : MonoBehaviour
                 var direccion = personaje.transform.position - Heredar.position;
 
 
-                Debug.DrawRay(RayPos.position, direccion * hit.distance, Color.red);
+                //Debug.DrawRay(RayPos.position, direccion * hit.distance, Color.red);
                 return true;
             }
 
@@ -240,43 +242,48 @@ public class Fuego2 : MonoBehaviour
     private void Disparar()
     {
         Estado = Estados[3];
-        //Apuntar(personaje.transform.position);
-
         if (TiempoDisparando < 0 || delay > 0)
             delay -= Time.deltaTime;
 
-        //agente.SetDestination(personaje.transform.position);
+        Vector3 direction2 = (personaje.transform.position - Cabeza.transform.position).normalized;
+        Cabeza.rotation = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction2), Time.deltaTime);
+        Apuntando = Cabeza.forward;
+
         agente.isStopped = true;
-        if(!Disparando)
+        if (!Disparando && Vector3.Distance(transform.position, personaje.transform.position) > 0.3f)
         {
-             Vector3 direction = (personaje.transform.position - RayPos.transform.position).normalized;
+            Vector3 direction = (personaje.transform.position - RayPos.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
-            Vector3 direction2 = (personaje.transform.position - Cabeza.transform.position).normalized;
-            Cabeza.rotation = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction2), Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
+            Apuntando = direction;
         }
 
         if (DamagePorTiempo < Mathf.Epsilon)
         {
-            print("reset");
             DamagePorTiempo = DamagePorTiempoInicial;
         }
 
         else
         {
             //Cabeza.LookAt(personaje.transform.position);
-           
+
 
         }
 
-        if (delay <= 0 && TiempoDisparando > 0)
+        if (delay <= Mathf.Epsilon && TiempoDisparando > Mathf.Epsilon)
         {
+
             TiempoDisparando -= Time.deltaTime;
-            Collider[] objs = Physics.OverlapCapsule(RayPos.position, personaje.transform.position, 2f);
+            Collider[] objs = null;
+            if (Physics.Raycast(RayPos.position, Apuntando, out hit, Mathf.Infinity))
+            {
+                Debug.DrawRay(RayPos.position, Apuntando * hit.distance, Color.yellow);
+                objs = Physics.OverlapCapsule(RayPos.position, hit.transform.position, 0.2f);
+
+            }
             Disparando = true;
 
-            animator.enabled = false;
-            animator.speed = 1 / Mathf.Infinity;
+            //animator.speed = 1 / Mathf.Infinity;
 
             foreach (Collider o in objs)
             {
@@ -299,7 +306,7 @@ public class Fuego2 : MonoBehaviour
             Disparando = false;
             TiempoDisparando = TiempoDInicial;
             delay = DelayInicial;
-            //animator.enabled = true;
+            animator.enabled = true;
 
             animator.speed = 1;
             FuegoAnim.Stop();
@@ -453,7 +460,7 @@ public class Fuego2 : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
 
-
+        Gizmos.DrawSphere(Apuntando,4f);
         Vector3 cubo = new Vector3(AreaIdle * 2, 2, AreaIdle * 2);
         Gizmos.DrawWireCube(posicionSpawn, cubo);
         Heredar = transform.Find(NombreHijo).GetComponent<Transform>();

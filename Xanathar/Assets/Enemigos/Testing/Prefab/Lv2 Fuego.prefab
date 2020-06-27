@@ -96,7 +96,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1198914416674714
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -220,6 +220,8 @@ GameObject:
   - component: {fileID: 114603621882104992}
   - component: {fileID: 114983600522002902}
   - component: {fileID: 195955704697986246}
+  - component: {fileID: 135884519852546640}
+  - component: {fileID: 136763867558244522}
   m_Layer: 11
   m_Name: Lv2 Fuego
   m_TagString: Enemigo
@@ -483,7 +485,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1852900035405700
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -634,7 +636,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1989810988123862
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -811,8 +813,11 @@ Transform:
   - {fileID: 4901470832468380}
   - {fileID: 4464155627389070}
   - {fileID: 4447127969805990}
+  - {fileID: 4259891092984162}
+  - {fileID: 4565958179531088}
+  - {fileID: 4357430866235938}
   m_Father: {fileID: 4502772767445816}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 34.45975, y: 0, z: 0}
 --- !u!4 &4254731303946688
 Transform:
@@ -834,12 +839,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1198914416674714}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.032, z: 0.554}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.018184945, y: -0, z: -0, w: 0.9998347}
+  m_LocalPosition: {x: 0.00038786686, y: 0.00067526416, z: 0.003289702}
+  m_LocalScale: {x: 0.01779436, y: 0.01779436, z: 0.01779436}
   m_Children: []
-  m_Father: {fileID: 4502772767445816}
-  m_RootOrder: 1
+  m_Father: {fileID: 4241130816174442}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4327015996970326
 Transform:
@@ -890,12 +895,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1852900035405700}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 4.953, z: 1.2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.018184945, y: -0, z: -0, w: 0.9998347}
+  m_LocalPosition: {x: -0.00014597614, y: -0.00031155162, z: 0.014828379}
+  m_LocalScale: {x: 0.01779436, y: 0.01779436, z: 0.01779436}
   m_Children: []
-  m_Father: {fileID: 4502772767445816}
-  m_RootOrder: 3
+  m_Father: {fileID: 4241130816174442}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4395167994577650
 Transform:
@@ -988,9 +993,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4254731303946688}
-  - {fileID: 4259891092984162}
-  - {fileID: 4565958179531088}
-  - {fileID: 4357430866235938}
   - {fileID: 4241130816174442}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1029,12 +1031,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1989810988123862}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.032, z: 0.55400014}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.018184945, y: -0, z: -0, w: 0.9998347}
+  m_LocalPosition: {x: 0.00038786686, y: 0.00067526445, z: 0.0032897105}
+  m_LocalScale: {x: 0.01779436, y: 0.01779436, z: 0.01779436}
   m_Children: []
-  m_Father: {fileID: 4502772767445816}
-  m_RootOrder: 2
+  m_Father: {fileID: 4241130816174442}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4570359381532976
 Transform:
@@ -1963,12 +1965,12 @@ MonoBehaviour:
   AlcanzeMaximo: 6
   radioDisparar: 12
   BalaVelocidad: 6
-  TiempoDisparando: 2
+  TiempoDisparando: 5
   Vida: 8
   Estado: 
   Cabeza: {fileID: 4241130816174442}
-  delay: 3
-  DamagePorTiempo: 1
+  delay: 1
+  DamagePorTiempo: 0.01
   Disparando: 0
 --- !u!114 &114983600522002902
 MonoBehaviour:
@@ -1983,6 +1985,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vida: 20
   Elemento: Agua
+--- !u!135 &135884519852546640
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1377409267225970}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.38689566
+  m_Center: {x: -0.022831917, y: 5.0921493, z: 0.69732845}
+--- !u!136 &136763867558244522
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1377409267225970}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 4.1865363
+  m_Direction: 1
+  m_Center: {x: 0, y: 3.267699, z: 0}
 --- !u!195 &195955704697986246
 NavMeshAgent:
   m_ObjectHideFlags: 1
