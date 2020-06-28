@@ -12,7 +12,7 @@ public class DañoRecibido : MonoBehaviour {
 		float Daño = numero;
 
 		float Resultado = Daño/DañoMasArmadura;
-		EstadisticasDePersonaje.VidaDePersonaje -= Resultado;
-		print(EstadisticasDePersonaje.VidaDePersonaje);
+		EstadisticasDePersonaje.VidaActualPersonaje -= Resultado;
+		print(EstadisticasDePersonaje.VidaActualPersonaje);
 	}
 }

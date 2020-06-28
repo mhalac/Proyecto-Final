@@ -58,11 +58,12 @@ public class ManejadorDeItems : MonoBehaviour {
 	Text TextoCategoria;
 	Text TextoDescripcion;
 
+	//Variables para la barra de Vida
+	public Image Contenido;
 
-
-	public Sprite[] BarraDeVida;
-	int OrdenDeVida = 8;
-	private GameObject SlotVida;
+	public float VelocidadLerp;
+	float RellenoDeVida;
+	public Text TextoDeVida;
 
 	// Use this for initialization
 	void Start ()
@@ -102,21 +103,12 @@ public class ManejadorDeItems : MonoBehaviour {
 		TextoNombre = NombreNotificador.GetComponent<Text>();
 		TextoCategoria = CategoriaNotificador.GetComponent<Text>();
 		TextoDescripcion = DescripcionNotificador.GetComponent<Text>();
-
-		SlotVida = GameObject.Find("Vida");
-
-		SlotVida.GetComponent<Image>().sprite = BarraDeVida[8];
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if(Input.GetKeyDown(KeyCode.F))
-		{
-			OrdenDeVida -=1;
-			SlotVida.GetComponent<Image>().sprite = BarraDeVida[OrdenDeVida];
-		}
-
+		ManejadorDeVida();
 		ActivadorDeHUD();
 		RaycastItems();
 	}
@@ -350,5 +342,20 @@ public class ManejadorDeItems : MonoBehaviour {
 			SlotActivaDeAgua.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 		}
+	}
+
+	public void ManejadorDeVida()
+	{
+		if(EstadisticasDePersonaje.VidaActualPersonaje >= Mathf.Epsilon && EstadisticasDePersonaje.VidaActualPersonaje <= EstadisticasDePersonaje.VidaMaximaPersonaje)
+		{
+			float ValorActualVida = EstadisticasDePersonaje.VidaActualPersonaje;
+			float ValorInicialDeVida = EstadisticasDePersonaje.VidaDePersonajeInicial;
+			float ValorMaximoDeVida = EstadisticasDePersonaje.VidaMaximaPersonaje;
+
+			RellenoDeVida = (ValorActualVida - ValorInicialDeVida) * (1) / (ValorMaximoDeVida - ValorInicialDeVida);
+			TextoDeVida.text = "Vida: " + ValorActualVida.ToString();
+			print(RellenoDeVida);
+		}
+		Contenido.fillAmount = Mathf.Lerp(Contenido.fillAmount , RellenoDeVida , Time.deltaTime * VelocidadLerp);
 	}
 }
