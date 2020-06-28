@@ -53,7 +53,7 @@ public class Fuego2 : MonoBehaviour
 
     private Vector3 Apuntando;
     public bool Disparando;
-
+    private Quaternion RotationDefault;
     private int PMask;
     private GameObject personaje;
 
@@ -80,6 +80,7 @@ public class Fuego2 : MonoBehaviour
         VisionDisparo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + radioDisparar);
         RangoMinimo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + AlcanzeMaximo);
         Estado = Estados[0];
+        RotationDefault = Cabeza.rotation;
         DelayInicial = delay;
         EMask = LayerMask.NameToLayer("Enemigo");
     }
@@ -98,6 +99,7 @@ public class Fuego2 : MonoBehaviour
 
         if (agente.velocity.magnitude < 2f && Estado != Estados[3])
         {
+
 
             FindObjectOfType<PositionManager>().Llegue(destino);
             Idle();
@@ -124,7 +126,6 @@ public class Fuego2 : MonoBehaviour
         else if (agente.remainingDistance < Mathf.Epsilon)
         {
             FuegoAnim.Stop();
-
             Idle();
         }
 
@@ -132,10 +133,17 @@ public class Fuego2 : MonoBehaviour
 
     private void IrAPosRandom()
     {
+        GameObject torso = transform.Find("eje").gameObject;
+        torso = torso.transform.Find("cuerpa").gameObject;      
+        Cabeza.transform.SetParent(torso.transform);
+        Cabeza.localRotation = Quaternion.identity;
+        FuegoAnim.Stop();
         if (agente.remainingDistance > Mathf.Epsilon)
         {
             //Apuntar(destino);
             agente.destination = destino;
+            //Vector3 direction2 = (destino - Cabeza.transform.position).normalized;
+            //Cabeza.rotation = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction2), Time.deltaTime);
 
         }
         else
@@ -147,6 +155,7 @@ public class Fuego2 : MonoBehaviour
             }
             destino = FindObjectOfType<PositionManager>().GenerarPosicionRandom(posicionSpawn, AreaIdle, Heredar.position);
             agente.destination = destino;
+
         }
     }
 
@@ -168,8 +177,8 @@ public class Fuego2 : MonoBehaviour
         // Quaternion lookRotation = Quaternion.LookRotation(direction);
         //Heredar.rotation = Quaternion.Lerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
         agente.SetDestination(UltimaPosicion.position);
-
-
+        Vector3 direction2 = (UltimaPosicion.position - Cabeza.transform.position).normalized;
+        Cabeza.rotation = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction2), Time.deltaTime);
     }
     protected bool PuedoVer()
     {
@@ -247,7 +256,9 @@ public class Fuego2 : MonoBehaviour
 
         Vector3 direction2 = (personaje.transform.position - Cabeza.transform.position).normalized;
         Cabeza.rotation = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction2), Time.deltaTime);
-        Apuntando = Cabeza.forward;
+
+        GameObject Eje = transform.Find("eje").gameObject;
+        Cabeza.transform.SetParent(Eje.transform);
 
         agente.isStopped = true;
         if (!Disparando && Vector3.Distance(transform.position, personaje.transform.position) > 0.3f)
@@ -460,7 +471,7 @@ public class Fuego2 : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
 
-        Gizmos.DrawSphere(Apuntando,4f);
+        Gizmos.DrawSphere(Apuntando, 4f);
         Vector3 cubo = new Vector3(AreaIdle * 2, 2, AreaIdle * 2);
         Gizmos.DrawWireCube(posicionSpawn, cubo);
         Heredar = transform.Find(NombreHijo).GetComponent<Transform>();

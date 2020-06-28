@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 4043673910730638}
   - component: {fileID: 95934507876985888}
   m_Layer: 11
-  m_Name: lv2 fuego es por aca
+  m_Name: cuerpa
   m_TagString: Enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,7 +434,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1779432243654440
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -728,7 +728,7 @@ Transform:
   - {fileID: 4142001714777254}
   - {fileID: 4768871959266168}
   m_Father: {fileID: 4254731303946688}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4062225908149308
 Transform:
@@ -803,9 +803,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1779432243654440}
-  m_LocalRotation: {x: 0.018184945, y: -0, z: -0, w: 0.9998347}
-  m_LocalPosition: {x: -0.02179718, y: 5.0007997, z: 0.3678689}
-  m_LocalScale: {x: 56.19758, y: 56.197586, z: 56.197586}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.02179718, y: 1.7757978, z: 0.3678689}
+  m_LocalScale: {x: 56.197582, y: 56.19759, z: 56.19759}
   m_Children:
   - {fileID: 4016818399468042}
   - {fileID: 4430282668142026}
@@ -816,9 +816,9 @@ Transform:
   - {fileID: 4259891092984162}
   - {fileID: 4565958179531088}
   - {fileID: 4357430866235938}
-  m_Father: {fileID: 4502772767445816}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 34.45975, y: 0, z: 0}
+  m_Father: {fileID: 4254731303946688}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4254731303946688
 Transform:
   m_ObjectHideFlags: 1
@@ -829,6 +829,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 3.2250023, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4241130816174442}
   - {fileID: 4043673910730638}
   m_Father: {fileID: 4502772767445816}
   m_RootOrder: 0
@@ -993,7 +994,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4254731303946688}
-  - {fileID: 4241130816174442}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15637,7 +15637,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1616698697387082}
   serializedVersion: 5
-  lengthInSec: 3
+  lengthInSec: 90
   simulationSpeed: 1
   stopAction: 0
   looping: 1
@@ -51901,7 +51901,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1825575777913114}
   serializedVersion: 5
-  lengthInSec: 3
+  lengthInSec: 30
   simulationSpeed: 1
   stopAction: 0
   looping: 0
@@ -56434,7 +56434,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1736072450327076}
   serializedVersion: 5
-  lengthInSec: 3
+  lengthInSec: 30
   simulationSpeed: 1
   stopAction: 0
   looping: 0
