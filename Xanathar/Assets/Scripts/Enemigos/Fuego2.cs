@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class Fuego2 : MonoBehaviour
 {
-
+    
     private RaycastHit hit;
     private Transform UltimaPosicion;
 
@@ -28,6 +28,9 @@ public class Fuego2 : MonoBehaviour
     public int radioDisparar;
     public float BalaVelocidad;
     public float TiempoDisparando;
+    public float DamagePorTiempo;
+    public float delay;
+
     public float Vida;
 
     public string Estado;
@@ -40,14 +43,14 @@ public class Fuego2 : MonoBehaviour
     private Vector3 posicionSpawn;
     private bool Moviendose;
     private float TiempoDInicial;
+
     private float DelayInicial;
 
     private Transform Heredar;
     private Vector3 destino;
 
-    public float delay;
 
-    public float DamagePorTiempo;
+    
     private float DamagePorTiempoInicial;
     private int EMask;
 
@@ -56,7 +59,6 @@ public class Fuego2 : MonoBehaviour
     private Quaternion RotationDefault;
     private int PMask;
     private GameObject personaje;
-
 
 
     // Use this for initialization
@@ -134,9 +136,11 @@ public class Fuego2 : MonoBehaviour
     private void IrAPosRandom()
     {
         GameObject torso = transform.Find("eje").gameObject;
-        torso = torso.transform.Find("cuerpa").gameObject;      
+        torso = torso.transform.Find("cuerpa").gameObject;
         Cabeza.transform.SetParent(torso.transform);
-        Cabeza.localRotation = Quaternion.identity;
+
+
+
         FuegoAnim.Stop();
         if (agente.remainingDistance > Mathf.Epsilon)
         {
@@ -155,6 +159,8 @@ public class Fuego2 : MonoBehaviour
             }
             destino = FindObjectOfType<PositionManager>().GenerarPosicionRandom(posicionSpawn, AreaIdle, Heredar.position);
             agente.destination = destino;
+            Quaternion zero = new Quaternion(0, 0, 0, 0);
+            Cabeza.rotation = zero;
 
         }
     }
@@ -176,9 +182,12 @@ public class Fuego2 : MonoBehaviour
         //Vector3 direction = (UltimaPosicion.position - Heredar.position).normalized;
         // Quaternion lookRotation = Quaternion.LookRotation(direction);
         //Heredar.rotation = Quaternion.Lerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
+        GameObject torso = transform.Find("eje").gameObject;
+        torso = torso.transform.Find("cuerpa").gameObject;
+        Cabeza.transform.SetParent(torso.transform);
+        //Cabeza.rotation = Quaternion.identity;
         agente.SetDestination(UltimaPosicion.position);
-        Vector3 direction2 = (UltimaPosicion.position - Cabeza.transform.position).normalized;
-        Cabeza.rotation = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction2), Time.deltaTime);
+
     }
     protected bool PuedoVer()
     {
@@ -254,43 +263,43 @@ public class Fuego2 : MonoBehaviour
         if (TiempoDisparando < 0 || delay > 0)
             delay -= Time.deltaTime;
 
+        //obtenemos direcion del jugador y tuya para apuntar la pj
         Vector3 direction2 = (personaje.transform.position - Cabeza.transform.position).normalized;
         Cabeza.rotation = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction2), Time.deltaTime);
-
+        //Sacamos a la cabeza del cuerpo para que pueda rotar libremente
         GameObject Eje = transform.Find("eje").gameObject;
         Cabeza.transform.SetParent(Eje.transform);
+        
+        Apuntando = direction2;
 
         agente.isStopped = true;
+
+        //apuntamos mientras que el jugador no este demasiado cerca
         if (!Disparando && Vector3.Distance(transform.position, personaje.transform.position) > 0.3f)
         {
             Vector3 direction = (personaje.transform.position - RayPos.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
-            Apuntando = direction;
         }
 
+        //reiniciamos el contador de damage por el tiempo
         if (DamagePorTiempo < Mathf.Epsilon)
         {
             DamagePorTiempo = DamagePorTiempoInicial;
         }
 
-        else
-        {
-            //Cabeza.LookAt(personaje.transform.position);
-
-
-        }
-
+        //Shoot shoot mano
         if (delay <= Mathf.Epsilon && TiempoDisparando > Mathf.Epsilon)
         {
-
             TiempoDisparando -= Time.deltaTime;
             Collider[] objs = null;
+            Debug.DrawRay(RayPos.position, Apuntando * hit.distance, Color.yellow);
             if (Physics.Raycast(RayPos.position, Apuntando, out hit, Mathf.Infinity))
             {
-                Debug.DrawRay(RayPos.position, Apuntando * hit.distance, Color.yellow);
                 objs = Physics.OverlapCapsule(RayPos.position, hit.transform.position, 0.2f);
-
+                Apuntando = direction2;
+                Vector3 PointingTarget = hit.transform.position;
+                
             }
             Disparando = true;
 
@@ -470,8 +479,6 @@ public class Fuego2 : MonoBehaviour
 
     {
         Gizmos.color = Color.cyan;
-
-        Gizmos.DrawSphere(Apuntando, 4f);
         Vector3 cubo = new Vector3(AreaIdle * 2, 2, AreaIdle * 2);
         Gizmos.DrawWireCube(posicionSpawn, cubo);
         Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
