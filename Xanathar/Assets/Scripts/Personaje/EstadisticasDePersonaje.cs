@@ -2,36 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EstadisticasDePersonaje : MonoBehaviour {
+public class EstadisticasDePersonaje : MonoBehaviour
+{
 
-	//Estadisticas Basicas
-	public static float VidaDePersonajeInicial = 1;
-	public static float VidaMaximaPersonaje = 8;
-	public static float VidaActualPersonaje = 4;
-	public float DañoDePersonajeNormal = 10f;
-	public float TiempoCooldownActivas = 5f;
-	public static int Armadura = 4;
-	public float Gravedad = -15f;
-	public float CoolDownFlash;
-	public float TiempoInmortal;
-	public static bool Inmortalidad = false;
+    //Estadisticas Basicas
+    [Header("Estadisticas Basicas")]
 
-
-	public float VelocidadDeMovimiento = 10f;
-	public float CoolDownAtaque = 1f;
-	public float FuerzaDeSalto = 3f;
-	public float VelocidadDeDash;
+    public static float VidaDePersonajeInicial = 1;
+    public static float VidaMaximaPersonaje = 8;
+    public static float VidaActualPersonaje = 4;
+    public float DañoDePersonajeNormal = 10f;
+    public float TiempoCooldownActivas = 5f;
+    public static int Armadura = 4;
+    public float Gravedad = -15f;
+    public float CoolDownFlash;
+    public float TiempoInmortal;
+    public static bool Inmortalidad = false;
 
 
-	//Daños Elementales
-	public float DañoElementalFuego = 0f;
-	public float DañoElementalAire = 0f;
-	public float DañoElementalAgua = 0f;
-	public float DañoElementalTierra = 0f;
+    public float VelocidadDeMovimiento = 10f;
+    public float CoolDownAtaque = 1f;
+    public float FuerzaDeSalto = 3f;
+    public float VelocidadDeDash;
 
-	void Start()
-	{
-		/*
+    [Header("Daños Elementales")]
+
+    //Daños Elementales
+    public float DañoElementalFuego = 0f;
+    public float DañoElementalAire = 0f;
+    public float DañoElementalAgua = 0f;
+    public float DañoElementalTierra = 0f;
+
+    void Start()
+    {
+        /*
 		PlayerPrefs.SetInt("Vida", VidaDePersonaje);
 		PlayerPrefs.SetFloat("DañoNormal", DañoDePersonajeNormal);
 		PlayerPrefs.SetFloat("Cooldown", TiempoCooldownActivas);
@@ -48,5 +52,5 @@ public class EstadisticasDePersonaje : MonoBehaviour {
 		PlayerPrefs.SetFloat("DañoTierra", DañoElementalTierra);
 		*/
 
-	}
+    }
 }

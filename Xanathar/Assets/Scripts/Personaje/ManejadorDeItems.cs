@@ -121,13 +121,13 @@ public class ManejadorDeItems : MonoBehaviour {
 
 	private void ActivadorDeHUD()
 	{
-		if(Input.GetKeyDown(KeyCode.P) && OcultadorDeMensaje == true)
+		if(Input.GetKeyDown(KeyCode.E) && OcultadorDeMensaje == true)
 		{
 			OcultadorDeMensaje = false;
 			MensajeNotificador.alpha = 0f;
 		}
 		
-		if(Input.GetKeyDown(KeyCode.I))
+		if(Input.GetKeyDown(KeyCode.Tab))
 		{
 			OcultadorDeHud = !OcultadorDeHud;
 		}
@@ -354,7 +354,7 @@ public class ManejadorDeItems : MonoBehaviour {
 
 			RellenoDeVida = (ValorActualVida - ValorInicialDeVida) * (1) / (ValorMaximoDeVida - ValorInicialDeVida);
 			TextoDeVida.text = "Vida: " + ValorActualVida.ToString();
-			print(RellenoDeVida);
+			
 		}
 		Contenido.fillAmount = Mathf.Lerp(Contenido.fillAmount , RellenoDeVida , Time.deltaTime * VelocidadLerp);
 	}
