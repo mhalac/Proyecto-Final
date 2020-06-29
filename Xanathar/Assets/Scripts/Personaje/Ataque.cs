@@ -7,7 +7,7 @@ public class Ataque : MonoBehaviour
 
     public Animator anim;
     private float CoolDownInicial;
-    private static float CDTotal;
+    public static float CDTotal;
     public float AreaAtaque;
     public Transform Arma;
     private int EMask;
