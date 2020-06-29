@@ -169,6 +169,7 @@ public class ManejadorDeItems : MonoBehaviour {
 			{
 				ContenedorDeGameObjects = Objetos[i];
 				Categoria = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Categoria;
+				//print(Objetos[i]);
 				break;
 			}
 		}
@@ -179,7 +180,6 @@ public class ManejadorDeItems : MonoBehaviour {
 			if(Objetos[i].layer == LayerDelObjeto && TagDelObjeto != Objetos[i].tag && Objetos[i].GetComponent<InformacionDeItems>().Categoria == Categoria)
 			{
 				GuardadorDeItems[1] = Objetos[i];
-				print(GuardadorDeItems[1]);
 			}
 
 			if(GuardadorDeItems[1] != null)
@@ -210,12 +210,10 @@ public class ManejadorDeItems : MonoBehaviour {
 			}
 		}
 		
-		/*
 		for(int i = 0; i < ItemsEquipados.Length; i++)
 		{
 			print(ItemsEquipados[i]);
 		}
-		*/
 		
 		TextoNombre.text = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Nombre;
 
