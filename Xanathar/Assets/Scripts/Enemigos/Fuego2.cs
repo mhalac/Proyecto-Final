@@ -286,26 +286,25 @@ public class Fuego2 : MonoBehaviour
 
 
         Vector3 direction2 = (personaje.transform.position - Cabeza.transform.position).normalized;
-        //Rotacion base, da igual si esta disparando o no
-        //Sacamos a la cabeza del cuerpo para que pueda rotar libremente
 
         Apuntando = direction2;
 
         agente.isStopped = true;
-
-        //apuntamos mientras que el jugador no este demasiado cerca
-        if (!Disparando && Vector3.Distance(transform.position, personaje.transform.position) > 0.3f)
+        print(Vector3.Distance(transform.position, personaje.transform.position));
+       //Mientras no estemos disparando y no este demasiado cerca
+        if (!Disparando && Vector3.Distance(transform.position, personaje.transform.position) > 3)
         {
-            Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 3);
+           Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 3);
             Torso.rotation = Apuntar(ApuntadoTorso, 1f);
 
         }
-        else if (Vector3.Distance(transform.position, personaje.transform.position) > 0.8f)
+        //Mientras estamos disparando y no esta cerca
+        else if (Vector3.Distance(transform.position, personaje.transform.position) > 3)
         {
-            Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 2);
-            Torso.rotation = Apuntar(ApuntadoTorso, 2f);
+            Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 0.78f);
+            Torso.rotation = Apuntar(ApuntadoTorso, 0.78f);
         }
-        else
+        else //si esta muy cerca
         {
             Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, Mathf.Infinity);
             Torso.rotation = Apuntar(ApuntadoTorso, Mathf.Infinity);
