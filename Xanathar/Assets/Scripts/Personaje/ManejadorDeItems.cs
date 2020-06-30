@@ -60,15 +60,12 @@ public class ManejadorDeItems : MonoBehaviour {
 
 	//Variables para la barra de Vida
 	public Image Contenido;
-
 	public float VelocidadLerp;
 	float RellenoDeVida;
+	public Gradient TabletaDeColores;
 	public Text TextoDeVida;
-
-	// Use this for initialization
-	void Start ()
+	void Awake()
 	{
-		MensajeNotificador.alpha = 0f;
 		//Fusiono las layermasks en una sola
 		layermaskFinal = layerMask1 | layerMask2 | layerMask3 | layerMask4;
 
@@ -104,11 +101,29 @@ public class ManejadorDeItems : MonoBehaviour {
 		TextoCategoria = CategoriaNotificador.GetComponent<Text>();
 		TextoDescripcion = DescripcionNotificador.GetComponent<Text>();
 	}
+
+	// Use this for initialization
+	void Start ()
+	{
+		MensajeNotificador.alpha = 0f;
+		ManejadorDeVida();
+	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		ManejadorDeVida();
+		/*
+		if(Input.GetKeyDown(KeyCode.C))
+		{
+			EstadisticasDePersonaje.VidaActualPersonaje += 1;
+			ManejadorDeVida();
+		}
+		if(Input.GetKeyDown(KeyCode.V))
+		{
+			EstadisticasDePersonaje.VidaActualPersonaje -= 1;
+			ManejadorDeVida();
+		}
+		*/
 		ActivadorDeHUD();
 		RaycastItems();
 	}
@@ -344,16 +359,16 @@ public class ManejadorDeItems : MonoBehaviour {
 
 	public void ManejadorDeVida()
 	{
-		if(EstadisticasDePersonaje.VidaActualPersonaje >= Mathf.Epsilon && EstadisticasDePersonaje.VidaActualPersonaje <= EstadisticasDePersonaje.VidaMaximaPersonaje)
+		if(EstadisticasDePersonaje.VidaActualPersonaje >= 0)
 		{
 			float ValorActualVida = EstadisticasDePersonaje.VidaActualPersonaje;
-			float ValorInicialDeVida = EstadisticasDePersonaje.VidaDePersonajeInicial;
 			float ValorMaximoDeVida = EstadisticasDePersonaje.VidaMaximaPersonaje;
 
-			RellenoDeVida = (ValorActualVida - ValorInicialDeVida) * (1) / (ValorMaximoDeVida - ValorInicialDeVida);
-			TextoDeVida.text = "Vida: " + ValorActualVida.ToString();
-			
+			RellenoDeVida = ValorActualVida / ValorMaximoDeVida;
+
+			Contenido.fillAmount = RellenoDeVida;
+			Contenido.color = TabletaDeColores.Evaluate(RellenoDeVida);
+			TextoDeVida.text = "Tu vida es: " + ValorActualVida.ToString();
 		}
-		Contenido.fillAmount = Mathf.Lerp(Contenido.fillAmount , RellenoDeVida , Time.deltaTime * VelocidadLerp);
 	}
 }

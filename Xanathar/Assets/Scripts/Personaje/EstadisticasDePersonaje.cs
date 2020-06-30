@@ -7,10 +7,8 @@ public class EstadisticasDePersonaje : MonoBehaviour
 
     //Estadisticas Basicas
     [Header("Estadisticas Basicas")]
-
-    public static float VidaDePersonajeInicial = 1;
     public static float VidaMaximaPersonaje = 8;
-    public static float VidaActualPersonaje = 4;
+    public static float VidaActualPersonaje = 8;
     public float DañoDePersonajeNormal = 10f;
     public float TiempoCooldownActivas = 5f;
     public static int Armadura = 4;
@@ -51,6 +49,19 @@ public class EstadisticasDePersonaje : MonoBehaviour
 		PlayerPrefs.SetFloat("DañoAgua", DañoElementalAgua);
 		PlayerPrefs.SetFloat("DañoTierra", DañoElementalTierra);
 		*/
+    }
 
+    //Funcion para rexibir daño en bas a la armadura
+    public void RecibirDaño (float Daño)
+    {
+        ManejadorDeItems ActualizadorDeVida;
+        ActualizadorDeVida = FindObjectOfType<ManejadorDeItems>();
+
+        int Armadura = EstadisticasDePersonaje.Armadura;
+
+        float MultiplicadorDeDaño = Daño / (Daño + Armadura);
+        VidaActualPersonaje -= MultiplicadorDeDaño;
+
+        ActualizadorDeVida.ManejadorDeVida();
     }
 }
