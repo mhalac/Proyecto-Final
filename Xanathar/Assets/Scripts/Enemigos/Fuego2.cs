@@ -132,6 +132,11 @@ public class Fuego2 : MonoBehaviour
         else if (agente.remainingDistance < Mathf.Epsilon)
         {
             FuegoAnim.Stop();
+            if (Physics.Raycast(Heredar.position, transform.forward, out hit))
+            {
+                Cabeza.rotation = Apuntar(transform, hit.transform.position, 4f);
+
+            }
             Idle();
         }
 
@@ -143,17 +148,15 @@ public class Fuego2 : MonoBehaviour
         Cabeza.transform.SetParent(Torso.transform);
 
 
-
         FuegoAnim.Stop();
         if (agente.remainingDistance > Mathf.Epsilon)
         {
             //Apuntar(destino);
-            agente.destination = destino;
+
             if (Physics.Raycast(Heredar.position, transform.forward, out hit))
             {
-                var direction = (hit.transform.position - transform.position).normalized;
-                Cabeza.rotation = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction), Time.deltaTime);
-                Debug.DrawRay(Cabeza.position, direction, Color.red);
+                Cabeza.rotation = Apuntar(transform, hit.transform.position, 4f);
+
             }
             //Vector3 direction2 = (destino - Cabeza.transform.position).normalized;
             //Cabeza.rotation = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction2), Time.deltaTime);
@@ -290,19 +293,18 @@ public class Fuego2 : MonoBehaviour
         Apuntando = direction2;
 
         agente.isStopped = true;
-        print(Vector3.Distance(transform.position, personaje.transform.position));
-       //Mientras no estemos disparando y no este demasiado cerca
-        if (!Disparando && Vector3.Distance(transform.position, personaje.transform.position) > 3)
+        //Mientras no estemos disparando y no este demasiado cerca
+        if (!Disparando && Vector3.Distance(transform.position, personaje.transform.position) > 0.8f)
         {
-           Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 3);
+            Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 3);
             Torso.rotation = Apuntar(ApuntadoTorso, 1f);
 
         }
         //Mientras estamos disparando y no esta cerca
-        else if (Vector3.Distance(transform.position, personaje.transform.position) > 3)
+        else if (Vector3.Distance(transform.position, personaje.transform.position) > 0.8f)
         {
-            Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 0.78f);
-            Torso.rotation = Apuntar(ApuntadoTorso, 0.78f);
+            Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 1f);
+            Torso.rotation = Apuntar(ApuntadoTorso, 1);
         }
         else //si esta muy cerca
         {
