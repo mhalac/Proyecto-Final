@@ -11,6 +11,8 @@ public class Fuego2 : MonoBehaviour
     private Transform UltimaPosicion;
 
     [Header("Transforms Seleccionables")]
+    public Transform Torso;
+    public Transform ApuntadoTorso;
 
     private Animator animator;
     public Transform RayPos;
@@ -112,6 +114,7 @@ public class Fuego2 : MonoBehaviour
 
         if (BuscarPersonaje() && PuedoVer())
         {
+
             Estadentro(TengoQueAcercarme());
             //Apuntar(personaje.transform.position);
         }
@@ -136,9 +139,8 @@ public class Fuego2 : MonoBehaviour
 
     private void IrAPosRandom()
     {
-        GameObject torso = transform.Find("eje").gameObject;
-        torso = torso.transform.Find("cuerpa").gameObject;
-        Cabeza.transform.SetParent(torso.transform);
+
+        Cabeza.transform.SetParent(Torso.transform);
 
 
 
@@ -166,7 +168,7 @@ public class Fuego2 : MonoBehaviour
             }
             destino = FindObjectOfType<PositionManager>().GenerarPosicionRandom(posicionSpawn, AreaIdle, Heredar.position);
             agente.destination = destino;
-            Cabeza.rotation = Apuntar(Cabeza,destino,3.4f);
+            Cabeza.rotation = Apuntar(Cabeza, destino, 3.4f);
             //Quaternion zero = new Quaternion(0, 0, 0, 0);
             // Cabeza.rotation = zero;
 
@@ -188,14 +190,13 @@ public class Fuego2 : MonoBehaviour
         agente.isStopped = false;
         Estado = Estados[2];
 
-        GameObject torso = transform.Find("eje").gameObject;
-        torso = torso.transform.Find("cuerpa").gameObject;
-        Cabeza.transform.SetParent(torso.transform);
+
+        //Cabeza.transform.SetParent(torso.transform);
         //Cabeza.rotation = Quaternion.identity;
         agente.SetDestination(UltimaPosicion.position);
         if (Physics.Raycast(Cabeza.position, transform.forward, out hit))
         {
-            Cabeza.rotation = Apuntar(Cabeza,hit.transform.position,3f);
+            Cabeza.rotation = Apuntar(Cabeza, hit.transform.position, 3f);
         }
     }
     protected bool PuedoVer()
@@ -259,7 +260,7 @@ public class Fuego2 : MonoBehaviour
     private void Acercar()
     {
         agente.destination = personaje.transform.position;
-       // Cabeza.rotation = Apuntar(Cabeza,personaje.transform.position,3f);
+        // Cabeza.rotation = Apuntar(Cabeza,personaje.transform.position,3f);
     }
 
 
@@ -267,6 +268,13 @@ public class Fuego2 : MonoBehaviour
     {
         Vector3 direction = (Hasta - Desde.position).normalized;
         Quaternion rotar = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction), Time.deltaTime * velocidad);
+        return rotar;
+    }
+    private Quaternion Apuntar(Transform Desde, float velocidad)
+    {
+        Vector3 direction = (personaje.transform.position - Desde.position).normalized;
+        Quaternion rotar = Quaternion.Lerp(Desde.rotation, Quaternion.LookRotation(direction), Time.deltaTime * velocidad);
+        Debug.DrawRay(Desde.position, direction * Vector3.Distance(personaje.transform.position, Desde.position), Color.green);
         return rotar;
     }
 
@@ -278,20 +286,28 @@ public class Fuego2 : MonoBehaviour
 
 
         Vector3 direction2 = (personaje.transform.position - Cabeza.transform.position).normalized;
-        //Rotacion base, da igual si esta disparando o no
-        Cabeza.rotation = Apuntar(Cabeza, personaje.transform.position, 1);
-        //Sacamos a la cabeza del cuerpo para que pueda rotar libremente
-        GameObject Eje = transform.Find("eje").gameObject;
-        Cabeza.transform.SetParent(Eje.transform);
 
         Apuntando = direction2;
 
         agente.isStopped = true;
-
-        //apuntamos mientras que el jugador no este demasiado cerca
-        if (!Disparando && Vector3.Distance(transform.position, personaje.transform.position) > 0.3f)
+        print(Vector3.Distance(transform.position, personaje.transform.position));
+       //Mientras no estemos disparando y no este demasiado cerca
+        if (!Disparando && Vector3.Distance(transform.position, personaje.transform.position) > 3)
         {
-            Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 3);
+           Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 3);
+            Torso.rotation = Apuntar(ApuntadoTorso, 1f);
+
+        }
+        //Mientras estamos disparando y no esta cerca
+        else if (Vector3.Distance(transform.position, personaje.transform.position) > 3)
+        {
+            Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 0.78f);
+            Torso.rotation = Apuntar(ApuntadoTorso, 0.78f);
+        }
+        else //si esta muy cerca
+        {
+            Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, Mathf.Infinity);
+            Torso.rotation = Apuntar(ApuntadoTorso, Mathf.Infinity);
         }
 
         //reiniciamos el contador de damage por el tiempo
@@ -364,7 +380,7 @@ public class Fuego2 : MonoBehaviour
         {
             Estado = Estados[1];
             agente.isStopped = false;
-            Cabeza.rotation = Apuntar(Cabeza,personaje.transform.position,10f);
+            Cabeza.rotation = Apuntar(Cabeza, personaje.transform.position, 10f);
             Acercar();
         }
         else

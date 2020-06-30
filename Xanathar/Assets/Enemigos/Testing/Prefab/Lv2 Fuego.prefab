@@ -280,6 +280,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1553749336797592
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4452667611418614}
+  m_Layer: 11
+  m_Name: ApuntarTorso
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1608922875752604
 GameObject:
   m_ObjectHideFlags: 1
@@ -727,6 +742,7 @@ Transform:
   - {fileID: 4442411411853512}
   - {fileID: 4142001714777254}
   - {fileID: 4768871959266168}
+  - {fileID: 4452667611418614}
   m_Father: {fileID: 4254731303946688}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -897,7 +913,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1852900035405700}
   m_LocalRotation: {x: -0.018184945, y: -0, z: -0, w: 0.9998347}
-  m_LocalPosition: {x: -0.00014597614, y: -0.00031155162, z: 0.014828379}
+  m_LocalPosition: {x: -0.00014597614, y: -0.00031155263, z: 0.0148283625}
   m_LocalScale: {x: 0.01779436, y: 0.01779436, z: 0.01779436}
   m_Children: []
   m_Father: {fileID: 4241130816174442}
@@ -957,6 +973,19 @@ Transform:
   m_Father: {fileID: 4241130816174442}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!4 &4452667611418614
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1553749336797592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1722, y: 0.056, z: -0.059}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4043673910730638}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4462995102401060
 Transform:
   m_ObjectHideFlags: 1
@@ -990,7 +1019,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1377409267225970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.192385, y: -5.2135745e-17, z: 6.676724}
+  m_LocalPosition: {x: 1.52, y: 16.71, z: 67.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4254731303946688}
@@ -1954,6 +1983,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d955f1072e774bd489b1cfd6d255721d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Torso: {fileID: 4502772767445816}
+  ApuntadoTorso: {fileID: 4452667611418614}
   RayPos: {fileID: 4357430866235938}
   FuegoAnim: {fileID: 198181496812014084}
   VisionDisparo: {fileID: 4565958179531088}
