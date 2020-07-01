@@ -114,9 +114,7 @@ public class Fuego2 : MonoBehaviour
 
         if (BuscarPersonaje() && PuedoVer())
         {
-
             Estadentro(TengoQueAcercarme());
-            //Apuntar(personaje.transform.position);
         }
 
         // Si el personaje no esta en rango o no lo podes ver pueden pasar una de dos cosas
@@ -132,11 +130,6 @@ public class Fuego2 : MonoBehaviour
         else if (agente.remainingDistance < Mathf.Epsilon)
         {
             FuegoAnim.Stop();
-            if (Physics.Raycast(Heredar.position, transform.forward, out hit))
-            {
-                Cabeza.rotation = Apuntar(transform, hit.transform.position, 4f);
-
-            }
             Idle();
         }
 
@@ -145,33 +138,27 @@ public class Fuego2 : MonoBehaviour
     private void IrAPosRandom()
     {
 
-        Cabeza.transform.SetParent(Torso.transform);
-
-
         FuegoAnim.Stop();
         if (agente.remainingDistance > Mathf.Epsilon)
         {
             //Apuntar(destino);
 
-            if (Physics.Raycast(Heredar.position, transform.forward, out hit))
-            {
-                Cabeza.rotation = Apuntar(transform, hit.transform.position, 4f);
+            agente.destination = destino;
 
-            }
             //Vector3 direction2 = (destino - Cabeza.transform.position).normalized;
             //Cabeza.rotation = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction2), Time.deltaTime);
 
         }
         else
         {
-            //print(posicionRandom + " Rango idle:" + AreaI +  "Posicion actual: " + Heredar.position);
             if (destino != null || FindObjectOfType<PositionManager>().EstaOcupado(destino))
             {
                 FindObjectOfType<PositionManager>().Llegue(destino);
             }
             destino = FindObjectOfType<PositionManager>().GenerarPosicionRandom(posicionSpawn, AreaIdle, Heredar.position);
             agente.destination = destino;
-            Cabeza.rotation = Apuntar(Cabeza, destino, 3.4f);
+            Cabeza.rotation = transform.rotation;
+           
             //Quaternion zero = new Quaternion(0, 0, 0, 0);
             // Cabeza.rotation = zero;
 
@@ -193,28 +180,29 @@ public class Fuego2 : MonoBehaviour
         agente.isStopped = false;
         Estado = Estados[2];
 
-
+        Cabeza.rotation = Torso.rotation;
         //Cabeza.transform.SetParent(torso.transform);
         //Cabeza.rotation = Quaternion.identity;
         agente.SetDestination(UltimaPosicion.position);
-        if (Physics.Raycast(Cabeza.position, transform.forward, out hit))
-        {
-            Cabeza.rotation = Apuntar(Cabeza, hit.transform.position, 3f);
-        }
+
     }
     protected bool PuedoVer()
     {
         //hace un raycast al jugador y devuelve true si no hay nada entre el enemigo y el personaje
 
 
-        var direccion2 = personaje.transform.position - Heredar.position;
-        if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar, EMask) && hit.collider.gameObject.tag != "Personaje")
+        var direccion2 = personaje.transform.position - RayPos.position;
+        if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar) && hit.collider.gameObject.tag != "Personaje")
         {
+            print(hit.collider.gameObject.tag);
             return false;
         }
         else
+        {
             return true;
+        }
     }
+
     private bool BuscarPersonaje()
     {
         //genera una esfera logica alrededor tuyo para buscar al personaje y devuelve true si lo encontro/
@@ -271,13 +259,13 @@ public class Fuego2 : MonoBehaviour
     {
         Vector3 direction = (Hasta - Desde.position).normalized;
         Quaternion rotar = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction), Time.deltaTime * velocidad);
+
         return rotar;
     }
     private Quaternion Apuntar(Transform Desde, float velocidad)
     {
         Vector3 direction = (personaje.transform.position - Desde.position).normalized;
         Quaternion rotar = Quaternion.Lerp(Desde.rotation, Quaternion.LookRotation(direction), Time.deltaTime * velocidad);
-        Debug.DrawRay(Desde.position, direction * Vector3.Distance(personaje.transform.position, Desde.position), Color.green);
         return rotar;
     }
 
@@ -323,7 +311,7 @@ public class Fuego2 : MonoBehaviour
         {
             TiempoDisparando -= Time.deltaTime;
             Collider[] objs = null;
-            Debug.DrawRay(RayPos.position, Apuntando * hit.distance, Color.yellow);
+            //Debug.DrawRay(RayPos.position, Apuntando * hit.distance, Color.yellow);
             if (Physics.Raycast(RayPos.position, Apuntando, out hit, Mathf.Infinity))
             {
                 objs = Physics.OverlapCapsule(RayPos.position, hit.transform.position, 0.2f);
