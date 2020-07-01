@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EstadisticasDePersonaje : MonoBehaviour
-{
+{   
+    static GameObject Jugador;
 
     //Estadisticas Basicas
     [Header("Estadisticas Basicas")]
@@ -49,6 +50,15 @@ public class EstadisticasDePersonaje : MonoBehaviour
 		PlayerPrefs.SetFloat("DañoAgua", DañoElementalAgua);
 		PlayerPrefs.SetFloat("DañoTierra", DañoElementalTierra);
 		*/
+
+        //Funcion para mantener al Jugador entre escenas
+        if(Jugador != null)
+		{
+			Destroy(this.gameObject);
+			return;
+		}
+		Jugador = this.gameObject;
+		GameObject.DontDestroyOnLoad(this.gameObject);
     }
 
     //Funcion para rexibir daño en bas a la armadura

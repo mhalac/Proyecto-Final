@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class MantenedorDeGameObjects : MonoBehaviour {
 
-	static Canvas CanvasHUD;
+	static GameObject CanvasHUD;
 	static GameObject JugadorPrincipal;
 
 
 	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	void Start ()
+	{
+		if(CanvasHUD != null && JugadorPrincipal != null)
+		{
+			Destroy(CanvasHUD);
+			Destroy(JugadorPrincipal);
+		}
+		CanvasHUD = GameObject.FindGameObjectWithTag("HUDPrincipal");
+		JugadorPrincipal = GameObject.FindGameObjectWithTag("Personaje");
+
+		DontDestroyOnLoad(CanvasHUD);
+		DontDestroyOnLoad(JugadorPrincipal);
 	}
 }

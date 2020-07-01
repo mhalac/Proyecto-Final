@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MovimientoPersonaje : MonoBehaviour {
 
@@ -65,6 +66,15 @@ public class MovimientoPersonaje : MonoBehaviour {
 		Moverse();
 
 		Dash();
+
+		if(Input.GetKeyDown(KeyCode.H))
+		{
+			SceneManager.LoadScene("Test2");
+		}
+		if(Input.GetKeyDown(KeyCode.G))
+		{
+			SceneManager.LoadScene("TestMenda");
+		}
 	}
 
 	void Saltar()

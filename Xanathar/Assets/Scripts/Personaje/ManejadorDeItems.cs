@@ -64,6 +64,15 @@ public class ManejadorDeItems : MonoBehaviour {
 	float RellenoDeVida;
 	public Gradient TabletaDeColores;
 	public Text TextoDeVida;
+
+
+
+
+
+
+	static GameObject CanvasHUD;
+
+
 	void Awake()
 	{
 		//Fusiono las layermasks en una sola
@@ -100,6 +109,8 @@ public class ManejadorDeItems : MonoBehaviour {
 		TextoNombre = NombreNotificador.GetComponent<Text>();
 		TextoCategoria = CategoriaNotificador.GetComponent<Text>();
 		TextoDescripcion = DescripcionNotificador.GetComponent<Text>();
+
+		print("Se encontro el instanciador");
 	}
 
 	// Use this for initialization
@@ -107,6 +118,16 @@ public class ManejadorDeItems : MonoBehaviour {
 	{
 		MensajeNotificador.alpha = 0f;
 		ManejadorDeVida();
+
+		//Funcion para mantener al HUD entre escenas
+		if(CanvasHUD != null)
+		{
+			Destroy(this.gameObject);
+			return;
+		}
+
+		CanvasHUD = this.gameObject;
+		GameObject.DontDestroyOnLoad(this.gameObject);
 	}
 	
 	// Update is called once per frame
