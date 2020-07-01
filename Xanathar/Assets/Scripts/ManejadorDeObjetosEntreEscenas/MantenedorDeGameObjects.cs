@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class MantenedorDeGameObjects : MonoBehaviour {
 
+	static Canvas CanvasHUD;
+	static GameObject JugadorPrincipal;
+
+
 	// Use this for initialization
 	void Start () {
 		
