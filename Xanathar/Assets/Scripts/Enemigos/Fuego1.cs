@@ -41,7 +41,7 @@ public class Fuego1 : MonoBehaviour
     private bool Moviendose;
 
     private float DelayInicial;
-
+    public float Damage;
     private Transform Heredar;
     private Vector3 destino;
 
@@ -248,7 +248,7 @@ public class Fuego1 : MonoBehaviour
             GameObject bala = Instantiate(balaPrefab, RayPos.position,Quaternion.identity);
             //Vector3 PosicionDisparada = personaje.transform.position;
 
-            bala.GetComponent<ProyectilBase>().Lanzar(direccion, BalaVelocidad);
+            bala.GetComponent<ProyectilBase>().Lanzar(direccion, BalaVelocidad,Damage);
 
         }
     }

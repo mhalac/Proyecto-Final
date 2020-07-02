@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EstadisticasDePersonaje : MonoBehaviour
-{   
+{
     static GameObject Jugador;
 
     //Estadisticas Basicas
@@ -52,24 +52,27 @@ public class EstadisticasDePersonaje : MonoBehaviour
 		*/
 
         //Funcion para mantener al Jugador entre escenas
-        if(Jugador != null)
-		{
-			Destroy(this.gameObject);
-			return;
-		}
-		Jugador = this.gameObject;
-		GameObject.DontDestroyOnLoad(this.gameObject);
+        if (Jugador != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Jugador = this.gameObject;
+        GameObject.DontDestroyOnLoad(this.gameObject);
     }
 
     //Funcion para rexibir daño en bas a la armadura
-    public void RecibirDaño (float Daño)
+    public void RecibirDaño(float Daño)
     {
         ManejadorDeItems ActualizadorDeVida;
         ActualizadorDeVida = FindObjectOfType<ManejadorDeItems>();
-
         int Armadura = EstadisticasDePersonaje.Armadura;
 
         float MultiplicadorDeDaño = Daño / (Daño + Armadura);
+        //print("A: "+MultiplicadorDeDaño);
+
+        MultiplicadorDeDaño = Mathf.RoundToInt(MultiplicadorDeDaño);
+        //print("B: "+MultiplicadorDeDaño);
         VidaActualPersonaje -= MultiplicadorDeDaño;
 
         ActualizadorDeVida.ManejadorDeVida();

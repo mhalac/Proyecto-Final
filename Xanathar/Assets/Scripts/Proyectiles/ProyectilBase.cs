@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ProyectilBase : MonoBehaviour
 {
+    private float DamageFinal;
     public Transform PuntoDisparo;
-
     private Ray DisparoPosicion;
-
+    private bool Hit = false;
     private Vector3 IrPosicion;
     private float velocidad;
     private bool Selecionado = false;
@@ -23,7 +23,7 @@ public class ProyectilBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Lanzar(IrPosicion, velocidad);
+        Lanzar(IrPosicion, velocidad,DamageFinal);
 
     }
 
@@ -45,10 +45,11 @@ public class ProyectilBase : MonoBehaviour
 	
 
     //funcion llamada recien se instancia para que la bala tenga los paramentros de la posicion del jugador y la velocidad heredada del enemigo
-    public void Lanzar(Vector3 Objetivo, float speed)
+    public void Lanzar(Vector3 Objetivo, float speed, float Damage)
     {
         //El if esta para que lo seleccione solo una vez, en la posicion que le dieron en un principio
 		//print(Colisiono());
+        DamageFinal = Damage;
         Debug.DrawRay(transform.position, Objetivo, Color.magenta);
         Enemigo(Objetivo);
         if (!Selecionado)
@@ -60,15 +61,19 @@ public class ProyectilBase : MonoBehaviour
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, Objetivo, speed * Time.deltaTime);
+            
         }
 
     }
     
 	void OnCollisionEnter(Collision collision) {
-		if(collision.gameObject.tag == "Jugador")
+		if(collision.gameObject.tag == "Personaje" && !Hit)
 		{
-			//hacer damage
-			Destroy(gameObject);
+			collision.gameObject.GetComponent<EstadisticasDePersonaje>().RecibirDaño(DamageFinal);
+			print("Golipe y hice "+ DamageFinal);
+            Destroy(gameObject);
+            Hit = true;
+            return;
 			
 		}
         else if(collision.gameObject.tag != "Enemigo")
