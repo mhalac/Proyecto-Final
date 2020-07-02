@@ -66,15 +66,6 @@ public class MovimientoPersonaje : MonoBehaviour {
 		Moverse();
 
 		Dash();
-
-		if(Input.GetKeyDown(KeyCode.H))
-		{
-			SceneManager.LoadScene("Test2");
-		}
-		if(Input.GetKeyDown(KeyCode.G))
-		{
-			SceneManager.LoadScene("TestMenda");
-		}
 	}
 
 	void Saltar()

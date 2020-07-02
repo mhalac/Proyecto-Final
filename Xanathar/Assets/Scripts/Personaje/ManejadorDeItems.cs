@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ManejadorDeItems : MonoBehaviour {
 
@@ -64,15 +65,7 @@ public class ManejadorDeItems : MonoBehaviour {
 	float RellenoDeVida;
 	public Gradient TabletaDeColores;
 	public Text TextoDeVida;
-
-
-
-
-
-
 	static GameObject CanvasHUD;
-
-
 	void Awake()
 	{
 		//Fusiono las layermasks en una sola
@@ -109,7 +102,6 @@ public class ManejadorDeItems : MonoBehaviour {
 		TextoNombre = NombreNotificador.GetComponent<Text>();
 		TextoCategoria = CategoriaNotificador.GetComponent<Text>();
 		TextoDescripcion = DescripcionNotificador.GetComponent<Text>();
-
 	}
 
 	// Use this for initialization
@@ -132,18 +124,6 @@ public class ManejadorDeItems : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		/*
-		if(Input.GetKeyDown(KeyCode.C))
-		{
-			EstadisticasDePersonaje.VidaActualPersonaje += 1;
-			ManejadorDeVida();
-		}
-		if(Input.GetKeyDown(KeyCode.V))
-		{
-			EstadisticasDePersonaje.VidaActualPersonaje -= 1;
-			ManejadorDeVida();
-		}
-		*/
 		ActivadorDeHUD();
 		RaycastItems();
 	}
@@ -389,6 +369,14 @@ public class ManejadorDeItems : MonoBehaviour {
 			Contenido.fillAmount = RellenoDeVida;
 			Contenido.color = TabletaDeColores.Evaluate(RellenoDeVida);
 			TextoDeVida.text = "Tu vida es: " + ValorActualVida.ToString();
+		}
+	}
+
+	public void DropeadorDeItems()
+	{
+		if(EstadisticasDePersonaje.VidaActualPersonaje <= 0)
+		{
+			print("Aca el men tira todos los items");
 		}
 	}
 }
