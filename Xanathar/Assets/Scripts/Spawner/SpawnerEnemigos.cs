@@ -47,10 +47,10 @@ public class SpawnerEnemigos : MonoBehaviour
 
             Vector3 Posicion = RandomPos();
 
-            if (RandomPos() != Vector3.zero && Delay < Mathf.Epsilon)
+            if (Posicion != Vector3.zero && Delay < Mathf.Epsilon)
             {
 
-                GameObject obj = Instantiate(EnemigoASpawnear, RandomPos(), Quaternion.identity);
+                GameObject obj = Instantiate(EnemigoASpawnear, Posicion, Quaternion.identity);
                 EnemigosSpawneados.Add(obj);
                 Delay = DelayInicial;
             }

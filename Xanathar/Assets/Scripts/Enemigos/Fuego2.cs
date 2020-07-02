@@ -70,6 +70,7 @@ public class Fuego2 : MonoBehaviour
         //Guardas la posicion de spawn, obtenes el navmesh, asignas la FOV del enemigo sumando su radio asi se genera en el borde del enemigo
         //hacemos que su estado sea el [0], que es Idle
         // Y tmb generas un vector3 de las posiciones donde se van a generar los lugares a los que va a ir mientras este en idle
+
         DamagePorTiempoInicial = DamagePorTiempo;
         FuegoAnim.Stop();
         animator = GetComponentInChildren<Animator>();
@@ -88,6 +89,7 @@ public class Fuego2 : MonoBehaviour
         RotationDefault = Cabeza.rotation;
         DelayInicial = delay;
         EMask = LayerMask.NameToLayer("Enemigo");
+        agente.avoidancePriority = Random.Range(0, 99);
     }
 
     // Update is called once per frame
@@ -158,7 +160,7 @@ public class Fuego2 : MonoBehaviour
             destino = FindObjectOfType<PositionManager>().GenerarPosicionRandom(posicionSpawn, AreaIdle, Heredar.position);
             agente.destination = destino;
             Cabeza.rotation = transform.rotation;
-           
+
             //Quaternion zero = new Quaternion(0, 0, 0, 0);
             // Cabeza.rotation = zero;
 

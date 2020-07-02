@@ -110,7 +110,6 @@ public class ManejadorDeItems : MonoBehaviour {
 		TextoCategoria = CategoriaNotificador.GetComponent<Text>();
 		TextoDescripcion = DescripcionNotificador.GetComponent<Text>();
 
-		print("Se encontro el instanciador");
 	}
 
 	// Use this for initialization
