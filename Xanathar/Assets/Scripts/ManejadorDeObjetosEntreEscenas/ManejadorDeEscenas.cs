@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ManejadorDeEscenas : MonoBehaviour {
 
+	
+
+
 	// Use this for initialization
 	void Start () {
 		
