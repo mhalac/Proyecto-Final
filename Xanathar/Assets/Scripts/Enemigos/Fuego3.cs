@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Fuego3 : MonoBehaviour
 {
 
-
+    
 	
     public bool ListoParaDisparar;
     private RaycastHit hit;
@@ -242,12 +242,17 @@ public class Fuego3 : MonoBehaviour
 
             GameObject bala = Instantiate(balaPrefab, PuntoDisparo.position, Quaternion.identity);
             bala.GetComponent<ProyectilBase>().Lanzar(direccion, BalaVelocidad,Damage);
-            IdleTarget();
+            StartCoroutine(Disparo());
 
         }
         //if(Disparando && anim.animation)
     }
+    IEnumerator Disparo()
+    {
+        yield return new WaitForSeconds(0.4f);
+        IdleTarget();
 
+    }
     private void Mori()
     {
         if (Vida < Mathf.Epsilon)

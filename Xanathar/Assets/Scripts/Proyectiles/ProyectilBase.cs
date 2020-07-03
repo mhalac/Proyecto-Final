@@ -23,7 +23,7 @@ public class ProyectilBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Lanzar(IrPosicion, velocidad,DamageFinal);
+        Lanzar(IrPosicion, velocidad, DamageFinal);
 
     }
 
@@ -32,26 +32,22 @@ public class ProyectilBase : MonoBehaviour
     private void Seleccionar()
     {
         Quaternion lookRotation = Quaternion.LookRotation(IrPosicion);
-        transform.rotation = Quaternion.Slerp(lookRotation, transform.rotation, Time.deltaTime);
+        transform.LookAt(IrPosicion);
         DisparoPosicion = new Ray(PuntoDisparo.position, IrPosicion);
         IrPosicion = DisparoPosicion.GetPoint(1000);
         Selecionado = true;
     }
-    public void Enemigo(Vector3 direccion)
-    {
-        Debug.DrawRay(PuntoDisparo.position, IrPosicion, Color.green);
-    }
-   
-	
+
+
+
 
     //funcion llamada recien se instancia para que la bala tenga los paramentros de la posicion del jugador y la velocidad heredada del enemigo
     public void Lanzar(Vector3 Objetivo, float speed, float Damage)
     {
         //El if esta para que lo seleccione solo una vez, en la posicion que le dieron en un principio
-		//print(Colisiono());
+        //print(Colisiono());
         DamageFinal = Damage;
-        Debug.DrawRay(transform.position, Objetivo, Color.magenta);
-        Enemigo(Objetivo);
+        Debug.DrawLine(transform.position, IrPosicion, Color.magenta);
         if (!Selecionado)
         {
             velocidad = speed;
@@ -60,32 +56,42 @@ public class ProyectilBase : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, Objetivo, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, IrPosicion, speed * Time.deltaTime);
+            RaycastHit Golpe;
+            var direccion = (IrPosicion - transform.position).normalized;
             
+            if (Physics.Raycast(transform.position, direccion, out Golpe, Mathf.Infinity))
+            {
+                var direccionGolpe = (Golpe.point - transform.position).normalized;
+                //print("Ir a: "+ IrPosicion + " - current pos:" + transform.position + " = " + direccionGolpo);
+                    
+                Debug.DrawRay(PuntoDisparo.position, direccionGolpe * Golpe.distance, Color.blue);
+                if (Vector3.Distance(Golpe.point, PuntoDisparo.position) < speed * Time.deltaTime)
+                {
+                    if (Golpe.transform.gameObject.tag == "Personaje")
+                    {
+                        Golpe.transform.gameObject.GetComponent<EstadisticasDePersonaje>().RecibirDaño(DamageFinal);
+                        print("Golipe y hice " + DamageFinal);
+                        DestroyImmediate(gameObject);
+                    }
+                    else
+                        DestroyImmediate(gameObject);
+                }
+                   
+            }
         }
 
     }
-    
-	void OnCollisionEnter(Collision collision) {
-		if(collision.gameObject.tag == "Personaje" && !Hit)
-		{
-			collision.gameObject.GetComponent<EstadisticasDePersonaje>().RecibirDaño(DamageFinal);
-			print("Golipe y hice "+ DamageFinal);
-            Destroy(gameObject);
-            Hit = true;
-            return;
-			
-		}
-        else if(collision.gameObject.tag != "Enemigo")
-		{
-			Destroy(gameObject);
-		}
-        
+
+    void OnCollisionEnter(Collision collision)
+    {
+       Destroy(gameObject);
+
     }
-	void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(IrPosicion, 3f);
+       // Gizmos.DrawSphere(Golpe.transform.position, 20f);
 
     }
 }
