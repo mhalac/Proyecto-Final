@@ -359,16 +359,21 @@ public class ManejadorDeItems : MonoBehaviour {
 
 	public void ManejadorDeVida()
 	{
-		if(EstadisticasDePersonaje.VidaActualPersonaje >= 0)
+		float ValorActualVida = EstadisticasDePersonaje.VidaActualPersonaje;
+		float ValorMaximoDeVida = EstadisticasDePersonaje.VidaMaximaPersonaje;
+
+		RellenoDeVida = ValorActualVida / ValorMaximoDeVida;
+
+		Contenido.fillAmount = RellenoDeVida;
+		Contenido.color = TabletaDeColores.Evaluate(RellenoDeVida);
+		if(ValorActualVida >= 0)
 		{
-			float ValorActualVida = EstadisticasDePersonaje.VidaActualPersonaje;
-			float ValorMaximoDeVida = EstadisticasDePersonaje.VidaMaximaPersonaje;
-
-			RellenoDeVida = ValorActualVida / ValorMaximoDeVida;
-
-			Contenido.fillAmount = RellenoDeVida;
-			Contenido.color = TabletaDeColores.Evaluate(RellenoDeVida);
+			
 			TextoDeVida.text = "Tu vida es: " + ValorActualVida.ToString();
+		}
+		else
+		{
+			TextoDeVida.text = "Tu vida es: 0";
 		}
 	}
 

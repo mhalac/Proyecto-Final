@@ -155,7 +155,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.18853134
+      value: 13.6
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalPosition.y
@@ -163,7 +163,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.8411906
+      value: -14.76
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalRotation.x
@@ -171,7 +171,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalRotation.z
@@ -179,7 +179,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_RootOrder
@@ -189,7 +189,8 @@ Prefab:
       propertyPath: m_Name
       value: Jugador (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114512816407589192, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &129646941
@@ -1280,35 +1281,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4738971643982118, guid: 7ee8c7b18bac2c24fb934040e37dd599,
     type: 2}
   m_PrefabInternal: {fileID: 1089607389}
---- !u!1 &962183555
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 962183556}
-  m_Layer: 0
-  m_Name: EntradaDeNivelDeFuego
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &962183556
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 962183555}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1329979370}
-  m_Father: {fileID: 0}
-  m_RootOrder: 17
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &962851976
 Prefab:
   m_ObjectHideFlags: 0
@@ -1906,12 +1878,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1329979369}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 18.12, y: 4, z: -13.66}
   m_LocalScale: {x: 1, y: 8, z: 10}
   m_Children: []
-  m_Father: {fileID: 962183556}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1329979371
 BoxCollider:
@@ -2312,22 +2284,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c59d218f3a5fa314cba0637a08e03469, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1608802150 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1430075857039988, guid: adb06a4a9bc19c84c90ecebe09396856,
-    type: 2}
-  m_PrefabInternal: {fileID: 61097257}
---- !u!114 &1608802151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1608802150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed2cd8ee930962e4db26b6bad8ef47c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1843198591 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4935556807267618, guid: 8e2b3de0463b3bd49859f402b26929e3,
