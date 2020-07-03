@@ -69,12 +69,10 @@ public class EstadisticasDePersonaje : MonoBehaviour
         int Armadura = EstadisticasDePersonaje.Armadura;
 
         float MultiplicadorDeDaño = Daño / (Daño + Armadura);
-        //print("A: "+MultiplicadorDeDaño);
+        Daño -= MultiplicadorDeDaño;
+        Daño = Mathf.RoundToInt(Daño);
 
-        MultiplicadorDeDaño = Mathf.RoundToInt(MultiplicadorDeDaño);
-        //print("B: "+MultiplicadorDeDaño);
-        VidaActualPersonaje -= MultiplicadorDeDaño;
-
+        VidaActualPersonaje -= Daño;
         ActualizadorDeVida.ManejadorDeVida();
     }
 }
