@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 4358916066589098}
   m_Layer: 9
   m_Name: ChequeadorDePiso
-  m_TagString: Personaje
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 4831596776859104}
   m_Layer: 2
   m_Name: Brazos
-  m_TagString: Personaje
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 114751857480715882}
   m_Layer: 2
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 95089294359903252}
   - component: {fileID: 208104034048609458}
   - component: {fileID: 114382603257905208}
-  - component: {fileID: 114512816407589192}
+  - component: {fileID: 114543381720079614}
   m_Layer: 9
   m_Name: Jugador
   m_TagString: Personaje
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 136433389136296696}
   m_Layer: 9
   m_Name: Cylinder
-  m_TagString: Personaje
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 65878192591412936}
   m_Layer: 2
   m_Name: Brazo1
-  m_TagString: Untagged
+  m_TagString: Brazos
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,7 +255,7 @@ Transform:
   - {fileID: 4039015942106134}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4323153685495320
 Transform:
   m_ObjectHideFlags: 1
@@ -674,7 +674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PosicionesOcupadas: []
   destino: {x: 0, y: 0, z: 0}
---- !u!114 &114512816407589192
+--- !u!114 &114543381720079614
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -685,6 +685,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed2cd8ee930962e4db26b6bad8ef47c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NivelDeFuego:
+  - {fileID: 102900000, guid: 45ec3cd8c83b1f2449ddf94f97555c4e, type: 3}
+  - {fileID: 102900000, guid: ba707e1f1c6a6f74c9c64b0cda08b0e4, type: 3}
+  - {fileID: 102900000, guid: 97596ccb54f0db046ad03bafa28e7836, type: 3}
+  - {fileID: 102900000, guid: 202851f93be2e7242abf9619ffcd9f17, type: 3}
 --- !u!114 &114748977380680902
 MonoBehaviour:
   m_ObjectHideFlags: 1
