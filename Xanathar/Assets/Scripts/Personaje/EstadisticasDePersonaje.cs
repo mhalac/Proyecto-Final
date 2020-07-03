@@ -68,7 +68,7 @@ public class EstadisticasDePersonaje : MonoBehaviour
         ActualizadorDeVida = FindObjectOfType<ManejadorDeItems>();
         int Armadura = EstadisticasDePersonaje.Armadura;
 
-        float MultiplicadorDeDaño = Daño / (Daño + Armadura);
+        float MultiplicadorDeDaño = Daño / (Daño - Armadura);
         Daño -= MultiplicadorDeDaño;
         Daño = Mathf.RoundToInt(Daño);
 
