@@ -20,12 +20,11 @@ public class Fuego3Anim : MonoBehaviour
     }
     public void Disparar()
     {
-        Padre.anim.speed = 1;
+        Padre.anim.speed = 4;
         Padre.ListoParaDisparar = true;
     }
     public void Apagar()
     {
-
         Padre.Apagar();
     }
     public void TerminoTP()
@@ -45,7 +44,7 @@ public class Fuego3Anim : MonoBehaviour
     public void Apareci()
     {
         Padre.TermineDeAparecer = true;
-        Padre.anim.speed = 1;
+        Padre.anim.speed = 4;
 
         Padre.anim.SetBool("Aparecio", true);
     }
