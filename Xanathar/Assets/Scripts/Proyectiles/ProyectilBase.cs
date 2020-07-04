@@ -71,7 +71,6 @@ public class ProyectilBase : MonoBehaviour
                     if (Golpe.transform.gameObject.tag == "Personaje")
                     {
                         Golpe.transform.gameObject.GetComponent<EstadisticasDePersonaje>().RecibirDaño(DamageFinal);
-                        print("Golipe y hice " + DamageFinal);
                         DestroyImmediate(gameObject);
                     }
                     else

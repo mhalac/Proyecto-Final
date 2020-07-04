@@ -12,7 +12,7 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public static float VidaActualPersonaje = 20;
     public float DañoDePersonajeNormal = 10f;
     public float TiempoCooldownActivas = 5f;
-    public static int Armadura = 8;
+    public static int Armadura = 15;
     public float Gravedad = -15f;
     public float CoolDownFlash;
     public float TiempoInmortal;
@@ -64,15 +64,19 @@ public class EstadisticasDePersonaje : MonoBehaviour
     //Funcion para rexibir daño en bas a la armadura
     public void RecibirDaño(float Daño)
     {
-        ManejadorDeItems ActualizadorDeVida;
-        ActualizadorDeVida = FindObjectOfType<ManejadorDeItems>();
-        int Armadura = EstadisticasDePersonaje.Armadura;
+        if (!EstadisticasDePersonaje.Inmortalidad)
+        {
+            ManejadorDeItems ActualizadorDeVida;
+            ActualizadorDeVida = FindObjectOfType<ManejadorDeItems>();
+            int Armadura = EstadisticasDePersonaje.Armadura;
 
-        float RestadorDeDaño = Daño / (Daño + Armadura);
-        Mathf.RoundToInt(RestadorDeDaño);
-        RestadorDeDaño = RestadorDeDaño * Daño;
+            float RestadorDeDaño = Daño / (Daño + Armadura);
+            
+            RestadorDeDaño = RestadorDeDaño * Daño;
 
-        VidaActualPersonaje -= RestadorDeDaño;
-        ActualizadorDeVida.ManejadorDeVida();
+            VidaActualPersonaje -= Mathf.RoundToInt(RestadorDeDaño);
+            
+            ActualizadorDeVida.ManejadorDeVida();
+        }
     }
 }
