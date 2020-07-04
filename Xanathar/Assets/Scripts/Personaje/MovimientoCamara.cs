@@ -10,7 +10,7 @@ public class MovimientoCamara : MonoBehaviour {
 	public float Sensibilidad;
 	float MouseX;
 	float MouseY;
-	float RotacionX = 0f;
+	float RotacionX;
 
 	public Transform CuerpoJugador;
 

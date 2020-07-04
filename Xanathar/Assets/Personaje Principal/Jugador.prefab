@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 114751857480715882}
   m_Layer: 2
   m_Name: Main Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,7 +141,6 @@ GameObject:
   - component: {fileID: 4800373830159400}
   - component: {fileID: 33169975166591194}
   - component: {fileID: 23800042841315964}
-  - component: {fileID: 136433389136296696}
   m_Layer: 9
   m_Name: Cylinder
   m_TagString: Untagged
@@ -159,7 +158,6 @@ GameObject:
   - component: {fileID: 4045174284585524}
   - component: {fileID: 33203662197348602}
   - component: {fileID: 23553762792264088}
-  - component: {fileID: 65985271915118586}
   m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
@@ -177,7 +175,6 @@ GameObject:
   - component: {fileID: 4396600986643914}
   - component: {fileID: 33437149962949408}
   - component: {fileID: 23368079701771988}
-  - component: {fileID: 65878192591412936}
   m_Layer: 2
   m_Name: Brazo1
   m_TagString: Brazos
@@ -588,30 +585,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65878192591412936
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1909023398096310}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65985271915118586
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1764544697034910}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!81 &81080765078937218
 AudioListener:
   m_ObjectHideFlags: 1
@@ -686,6 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NivelDeFuego:
+  - {fileID: 102900000, guid: cded2720511326842a3643adb0ce7582, type: 3}
   - {fileID: 102900000, guid: 45ec3cd8c83b1f2449ddf94f97555c4e, type: 3}
   - {fileID: 102900000, guid: ba707e1f1c6a6f74c9c64b0cda08b0e4, type: 3}
   - {fileID: 102900000, guid: 97596ccb54f0db046ad03bafa28e7836, type: 3}
@@ -738,19 +712,6 @@ MonoBehaviour:
   anim: {fileID: 0}
   AreaAtaque: 0.92
   Arma: {fileID: 4061585216149998}
---- !u!136 &136433389136296696
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1642539903651162}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!143 &143524828830951792
 CharacterController:
   m_ObjectHideFlags: 1

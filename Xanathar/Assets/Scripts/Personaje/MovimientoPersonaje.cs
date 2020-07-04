@@ -25,7 +25,6 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 	//CheckDePiso es el objeto abajo de nuestro personaje que choca con el piso
 	public Transform CheckDePiso;
-	private Transform CheckPared;
 
 	//Distancia de piso es el radio de la esfera
 	float DistanciaDePiso = 0.5f;
@@ -47,7 +46,7 @@ public class MovimientoPersonaje : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		CheckPared = CheckDePiso;
+
 	}
 	
 	// Update is called once per frame
