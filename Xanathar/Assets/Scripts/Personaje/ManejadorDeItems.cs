@@ -131,7 +131,7 @@ public class ManejadorDeItems : MonoBehaviour {
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
-		Gizmos.DrawRay(Camera.main.transform.position , Camera.main.transform.forward * Rango);
+		//Gizmos.DrawRay(Camera.main.transform.position , Camera.main.transform.forward * Rango);
 	}
 
 	private void ActivadorDeHUD()

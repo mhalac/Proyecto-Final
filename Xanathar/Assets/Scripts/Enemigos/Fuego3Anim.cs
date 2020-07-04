@@ -32,6 +32,7 @@ public class Fuego3Anim : MonoBehaviour
     {
         Padre.TerminoAnimacion = true;
         Padre.anim.SetBool("Tepeo", false);
+        
 
     }
     public void RecienAparezco()

@@ -16,7 +16,9 @@ public class Fuego3 : MonoBehaviour
     public Transform RayPos;
     public Transform VisionDisparo;
 
+    public Transform CentroDelCuerpo;
     [Header("Parametros")]
+    
     public float DelayTeleport;
     public float AreaIdle;
     public string Elemento;
@@ -105,11 +107,7 @@ public class Fuego3 : MonoBehaviour
 
         }
 
-
-
     }
-
-
 
     private void Idle()
     {
@@ -127,19 +125,15 @@ public class Fuego3 : MonoBehaviour
         }
         if (!EstaOcupado)
         {
-            transform.position = Rpos;
-            anim.speed = 5;
-            anim.SetBool("Tepeo", true);
 
-            DelayTeleport = DelayTeleportInicial;
-            DelayTeleport -= Time.deltaTime;
-            var euler = transform.eulerAngles;
-            euler = Vector3.zero;
-            euler.y = Random.Range(0.0f, 360.0f);
-            transform.eulerAngles = euler;
-            TermineDeAparecer = false;
+            anim.speed = 5;
+            StartCoroutine(IdleTeleport(Rpos));
+
+
         }
+
     }
+
     private void IdleTarget()
     {
         int IndiceDeEmergencia = 0;
@@ -167,30 +161,56 @@ public class Fuego3 : MonoBehaviour
             }
             if (!EstaOcupado)
             {
-                anim.SetBool("Tepeo", false);
-                TerminoAnimacion = false;
-                transform.position = Rpos;
-                DelayTeleport = DelayTeleportInicial;
-                anim.speed = 5;
-
-                TermineDeAparecer = false;
-                transform.LookAt(personaje.transform.position);
+                StartCoroutine(IdleTarget(Rpos));
                 break;
 
             }
         }
     }
+    IEnumerator IdleTarget(Vector3 RPos)
+    {
+        anim.SetBool("Tepeo", true);
 
-    IEnumerator Idlex()
-    {   
-        yield return null;
+        while (!TerminoAnimacion)
+        {
+            yield return null;
+        }
+
+        transform.position = RPos;
+        anim.SetBool("Tepeo", false);
+        transform.localScale = Vector3.zero;
+        DelayTeleport = DelayTeleportInicial;
+        DelayTeleport -= Time.deltaTime;
+        transform.LookAt(personaje.transform.position);
+        TerminoAnimacion = false;
+    }
+
+    IEnumerator IdleTeleport(Vector3 RPos)
+    {
+        anim.SetBool("Tepeo", true);
+
+        while (!TerminoAnimacion)
+        {
+            yield return null;
+        }
+
+        transform.position = RPos;
+        anim.SetBool("Tepeo", false);
+        transform.localScale = Vector3.zero;
+        DelayTeleport = DelayTeleportInicial;
+        DelayTeleport -= Time.deltaTime;
+        var euler = transform.eulerAngles;
+        euler = Vector3.zero;
+        euler.y = Random.Range(0.0f, 360.0f);
+        transform.eulerAngles = euler;
+        TerminoAnimacion = false;
     }
     protected bool PuedoVer()
     {
         //hace un raycast al jugador y devuelve true si no hay nada entre el enemigo y el personaje
 
 
-        var direccion2 = personaje.transform.position - Heredar.position;
+        var direccion2 = (personaje.transform.position - CentroDelCuerpo.position).normalized;
         if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar, EnemigoMask) && hit.collider.gameObject.tag != "Personaje")
         {
             return false;
@@ -233,11 +253,12 @@ public class Fuego3 : MonoBehaviour
         Estado = Estados[1];
         //Apuntar(personaje.transform.position);
         delay -= Time.deltaTime;
-        if (Vector3.Distance(transform.position, personaje.transform.position) > 4)
+        if (Vector3.Distance(transform.position, personaje.transform.position) > 2)
         {
-            Vector3 direction = (personaje.transform.position - transform.position).normalized;
+            Vector3 direction = (personaje.transform.position - CentroDelCuerpo.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(Heredar.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
+            transform.rotation = Quaternion.Slerp(CentroDelCuerpo.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
+            Debug.DrawRay(CentroDelCuerpo.transform.position,direction * Vector3.Distance(CentroDelCuerpo.position, personaje.transform.position));
         }
         Vector3 dir = (personaje.transform.position - transform.position).normalized;
         if (Physics.Raycast(transform.position, dir, out hit, radioDisparar))
@@ -269,16 +290,7 @@ public class Fuego3 : MonoBehaviour
         }
         //if(Disparando && anim.animation)
     }
-    /*public IEnumerator AnimacionSpawn()
-    {
-        anim.SetBool("Aparecio",true);
-        while (!TermineDeAparecer)
-        {
-            yield return null;
-        }
-        print("Spawnie");
-        anim.SetBool("Aparecio",false);
-    }*/
+
     IEnumerator ReproducirAnimacionDeTp()
     {
         anim.SetBool("Tepeo", true);
@@ -309,125 +321,13 @@ public class Fuego3 : MonoBehaviour
     private void Estadentro(bool TengoQueAcercarme)
     {
 
-        //La funcion se llama cuando lo tenes a rango visual y fisico, preguntas si te tenes que acercar o no
-        // en el caso de que si, tu estado pasa a chasing y te acercas, caso contrario, lo cagas a tiros. 
 
         Estado = Estados[1];
-
         Disparar();
 
 
     }
-    private void Ventaja(float damage)
-    {
-        Vida = Vida - damage * 2;
-    }
-    private void Desventaja(float damage)
-    {
-        Vida = Vida - damage * 0.5f;
-    }
-
-    public void RecibirDamage()
-    {
-
-        EstadisticasDePersonaje Stats = GameObject.Find("Jugador").GetComponent<EstadisticasDePersonaje>();
-
-        // Tenes que checkear las ventajas o debilidades manualmente, para eso revisas si tiene algun tipo de damage de ese
-        //elemento y si es asi lo aplicas
-
-        //Haces un switch para ir de una a tu elemento asi no laguea y despues te sacas vida en base a los damages que tenes
-        // y las ventajas o desventajas se aplican distinto dependiendo tu elemento
-        Vida -= Stats.DañoDePersonajeNormal;
-        switch (Elemento)
-        {
-
-            case "Fuego":
-
-                if (Stats.DañoElementalAgua > Mathf.Epsilon)
-                {
-                    Ventaja(Stats.DañoElementalAgua);
-                }
-                if (Stats.DañoElementalAire > Mathf.Epsilon)
-                {
-                    Desventaja(Stats.DañoElementalAire);
-                }
-                if (Stats.DañoElementalTierra > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalTierra;
-                }
-
-                if (Stats.DañoElementalFuego > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalFuego;
-                }
-                break;
-
-            case "Viento":
-                if (Stats.DañoElementalAgua > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalAgua;
-                }
-                if (Stats.DañoElementalAire > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalAire;
-                }
-                if (Stats.DañoElementalTierra > Mathf.Epsilon)
-                {
-                    Desventaja(Stats.DañoElementalTierra);
-                }
-
-                if (Stats.DañoElementalFuego > Mathf.Epsilon)
-                {
-                    Ventaja(Stats.DañoElementalFuego);
-                }
-                break;
-
-            case "Agua":
-                if (Stats.DañoElementalAgua > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalAgua;
-                }
-                if (Stats.DañoElementalAire > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalAire;
-                }
-                if (Stats.DañoElementalTierra > Mathf.Epsilon)
-                {
-                    Ventaja(Stats.DañoElementalTierra);
-                }
-                if (Stats.DañoElementalFuego > Mathf.Epsilon)
-                {
-                    Desventaja(Stats.DañoElementalFuego);
-                }
-                break;
-
-            case "Tierra":
-                if (Stats.DañoElementalAgua > Mathf.Epsilon)
-                {
-                    Desventaja(Stats.DañoElementalAgua);
-                }
-                if (Stats.DañoElementalAire > Mathf.Epsilon)
-                {
-                    Ventaja(Stats.DañoElementalAire);
-                }
-                if (Stats.DañoElementalTierra > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalTierra;
-                }
-                if (Stats.DañoElementalFuego > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalFuego;
-                }
-                break;
-
-
-        }
-        print("Yo: " + gameObject.name + " Y mi vida es de: " + Vida);
-        Mori();
-
-
-    }
-
+    
     void OnDrawGizmosSelected()
 
     {
