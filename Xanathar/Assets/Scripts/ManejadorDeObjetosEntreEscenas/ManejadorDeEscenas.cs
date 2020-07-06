@@ -8,15 +8,16 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	[Header("Escenas Nivel De Fuego")]
 	public Object[] NivelDeFuego = new Object[5];
 	int ReferenciadorDeEscenas = 0;
-	string NombreDeEscenaProxima;
-	string NombreDeEscenaActual;
-	bool[] ArrayDeNiveles = new bool[]{ false, false, false, false };
-	bool ActivadorDeCambio = false;
+	public static string NombreDeEscena;
+	public static bool EntrasteOSaliste = false;
+	EstadisticasDePersonaje VelCorrer;
+	CambiadorDeNivel AsignadorDeEscenas;
 
 	// Use this for initialization
 	void Start ()
 	{
-
+		VelCorrer = FindObjectOfType<EstadisticasDePersonaje>();
+		AsignadorDeEscenas = FindObjectOfType<CambiadorDeNivel>();
 	}
 	
 	// Update is called once per frame
@@ -27,57 +28,31 @@ public class ManejadorDeEscenas : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col)
 	{
-		/*
-		if(col.gameObject.name == "EntradaNivelFuego" && ReferenciadorDeEscenas == 0)
-		{
-			ArrayDeNiveles[0] = true;
-			ReferenciadorDeEscenas += 1;
-			NombreDeEscenas = NivelDeFuego[ReferenciadorDeEscenas].name;
-			SceneManager.LoadScene(NombreDeEscenas);
-		}
-
-		if(col.gameObject.name == "Entrada")
-		{
-			
-		}
-
-		if(col.gameObject.name == "Salida" && ActivadorDeCambio == false)
-		{
-			ReferenciadorDeEscenas += 1;
-			NombreDeEscenas = NivelDeFuego[ReferenciadorDeEscenas].name;
-			SceneManager.LoadScene(NombreDeEscenas);
-			print(NombreDeEscenas);
-		}
-		
-		BuscadorDeEscenas = 0;
-		string bru = NivelDeFuego[0].name.ToString();
-		print(bru);
-		SceneManager.LoadScene(bru);
-		*/
-
-		/*
-		if(col.gameObject.name == "EntradaNivelFuego" && ArrayDeNiveles[0] == false)
-		{
-			ArrayDeNiveles[0] = true;
-			NombreDeEscenaActual = NivelDeFuego[ReferenciadorDeEscenas].name;
-			ReferenciadorDeEscenas += 1;
-			NombreDeEscenaProxima = NivelDeFuego[ReferenciadorDeEscenas].name;
-			SceneManager.LoadScene(NombreDeEscenaProxima);
-		}
-
-		if(col.gameObject.name == "Salida" && NombreDeEscenaActual != NombreDeEscenaProxima)
-		{
-			
-		}
-		*/
 		if(col.gameObject.name == "EntradaNivelFuego")
 		{
-			print("Hola");
+			ReferenciadorDeEscenas += 1;
+			NombreDeEscena = NivelDeFuego[ReferenciadorDeEscenas].name;
+			AsignadorDeEscenas.IniciadorDeCambio();
+			EntrasteOSaliste = true;
+			//VelCorrer.VelocidadDeMovimiento = VelCorrer.VelocidadInicial;
 		}
-	}
 
-	private void Gestionador()
-	{
-		
+		if(col.gameObject.name == "SalidaSubNivelFuego")
+		{
+			ReferenciadorDeEscenas += 1;
+			NombreDeEscena = NivelDeFuego[ReferenciadorDeEscenas].name;
+			AsignadorDeEscenas.IniciadorDeCambio();
+			EntrasteOSaliste = true;
+			//VelCorrer.VelocidadDeMovimiento = VelCorrer.VelocidadInicial;
+		}
+
+		if(col.gameObject.name == "EntradaSubNivelFuego")
+		{
+			ReferenciadorDeEscenas -= 1;
+			NombreDeEscena = NivelDeFuego[ReferenciadorDeEscenas].name;
+			AsignadorDeEscenas.IniciadorDeCambio();
+			EntrasteOSaliste = false;
+			//VelCorrer.VelocidadDeMovimiento = VelCorrer.VelocidadInicial;
+		}
 	}
 }
