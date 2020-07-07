@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Fuego3 : MonoBehaviour
 {
 
-
+    public bool TargetLock;
     public bool TerminoAnimacion;
     public bool ListoParaDisparar;
     private RaycastHit hit;
@@ -21,7 +21,6 @@ public class Fuego3 : MonoBehaviour
 
     public float DelayTeleport;
     public float AreaIdle;
-    public string Elemento;
     public string NombreHijo;
     public float Damage;
     public float rotacion;
@@ -29,8 +28,6 @@ public class Fuego3 : MonoBehaviour
     public float BalaVelocidad;
     public float Vida;
     public Vector3 Escala;
-    public float AnimatorSpeed;
-    private string estado;
 
     private string[] Estados = { "Idle", "Shooting" };
     public AnimationClip Ataque;
@@ -53,9 +50,9 @@ public class Fuego3 : MonoBehaviour
     private bool PuedoRestar;
 
     public string Estado;
-   
 
-   
+
+
 
     // Use this for initialization
     private void Start()
@@ -63,6 +60,7 @@ public class Fuego3 : MonoBehaviour
         //Guardas la posicion de spawn, obtenes el navmesh, asignas la FOV del enemigo sumando su radio asi se genera en el borde del enemigo
         //hacemos que su estado sea el [0], que es Idle
         // Y tmb generas un vector3 de las posiciones donde se van a generar los lugares a los que va a ir mientras este en idle
+
         Escala = transform.localScale;
         anim = GetComponentInChildren<Animator>();
         Heredar = Heredar2;
@@ -76,6 +74,8 @@ public class Fuego3 : MonoBehaviour
         DelayTeleportInicial = DelayTeleport;
         TermineDeAparecer = true;
         PuedoRestar = true;
+        anim.speed = 4;
+
     }
 
     // Update is called once per frame
@@ -88,15 +88,12 @@ public class Fuego3 : MonoBehaviour
         {
             Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         }
-
         //Primero revisamos si el jugador esta en nuestra area en general, de vision y de rango general
-
-        
-
-        if (BuscarPersonaje() && PuedoVer())
+        if (TargetLock && DelayTeleport < Mathf.Epsilon || !(BuscarPersonaje() || PuedoVer()))
         {
-            Estado = Estados[1];
-            Disparar();
+            DelayTeleport = DelayTeleportInicial;
+            
+            IdleTarget();
         }
 
         else if (DelayTeleport < Mathf.Epsilon)
@@ -107,6 +104,14 @@ public class Fuego3 : MonoBehaviour
 
             Idle();
         }
+        if (BuscarPersonaje() && PuedoVer())
+        {
+            Estado = Estados[1];
+            TargetLock = true;
+            Disparar();
+        }
+
+
         else if (PuedoRestar)
         {
             DelayTeleport -= Time.deltaTime;
@@ -142,41 +147,60 @@ public class Fuego3 : MonoBehaviour
 
     private void IdleTarget()
     {
+
         int IndiceDeEmergencia = 0;
         bool VisionObstruida = false;
+        TargetLock = true;
+
         while (true)
         {
             IndiceDeEmergencia++;
             if (IndiceDeEmergencia > 100)
             {
-                //Debug.LogError("El objeto: "+gameObject.name + "Se rompio, saliendo");
+                Debug.LogError("El objeto: " + gameObject.name + "Se rompio, saliendo");
+                Idle();
+                TargetLock = false;
                 break;
             }
-            float RandomX = Random.Range(posicionSpawn.x - AreaIdle, AreaIdle + posicionSpawn.x);
-            float RandomZ = Random.Range(posicionSpawn.z - AreaIdle, AreaIdle + posicionSpawn.z);
+            float RandomX = Random.Range(personaje.transform.position.x - radioDisparar, radioDisparar + personaje.transform.position.x);
+            float RandomZ = Random.Range(personaje.transform.position.z - radioDisparar, radioDisparar + personaje.transform.position.z);
             bool EstaOcupado = false;
-            Vector3 Rpos = new Vector3(RandomX, transform.position.y, RandomZ);
+            Vector3 Rpos = new Vector3(RandomX, personaje.transform.position.y, RandomZ);
             Collider[] Obj = Physics.OverlapSphere(Rpos, 1.3f);
+            var direccion = (personaje.transform.position - Rpos).normalized;
+            if (Physics.Raycast(Rpos, direccion, out hit, radioDisparar))
+            {
+                if (hit.transform.gameObject.tag == "Personaje")
+                {
+                    VisionObstruida = false;
+                }
+                else
+                    VisionObstruida = true;
+            }
             foreach (Collider o in Obj)
             {
-                if ((o.gameObject.tag == "Entorno" || o.gameObject.tag == "Enemigo" || Vector3.Distance(personaje.transform.position, Rpos) < 7.4f 
+                if ((o.gameObject.tag == "Entorno" || o.gameObject.tag == "Enemigo" || Vector3.Distance(personaje.transform.position, Rpos) < 7.4f
                 || Vector3.Distance(personaje.transform.position, Rpos) > radioDisparar) || VisionObstruida)
                 {
-                    
                     EstaOcupado = true;
                 }
             }
             if (!EstaOcupado)
             {
                 StartCoroutine(IdleTarget(Rpos));
+                TargetLock = true;
                 break;
 
             }
+
         }
+
+
+
     }
     IEnumerator IdleTarget(Vector3 RPos)
     {
-        
+
         anim.SetBool("Tepeo", true);
 
         while (!TerminoAnimacion)
@@ -191,7 +215,7 @@ public class Fuego3 : MonoBehaviour
         DelayTeleport -= Time.deltaTime;
         transform.LookAt(personaje.transform.position);
         TerminoAnimacion = false;
-        Debug.DrawRay(transform.position,Vector3.up * 20,Color.magenta,1);
+        Debug.DrawRay(transform.position, Vector3.up * 20, Color.magenta, 1);
     }
 
     IEnumerator IdleTeleport(Vector3 RPos)
@@ -218,7 +242,7 @@ public class Fuego3 : MonoBehaviour
     {
         //hace un raycast al jugador y devuelve true si no hay nada entre el enemigo y el personaje
 
-
+        personaje = GameObject.FindGameObjectWithTag("Personaje");
         var direccion2 = (personaje.transform.position - RayPos.position).normalized;
         Debug.DrawRay(RayPos.position, direccion2 * radioDisparar * 2, Color.blue);
 
@@ -267,7 +291,7 @@ public class Fuego3 : MonoBehaviour
         Estado = Estados[1];
         //Apuntar(personaje.transform.position);
         delay -= Time.deltaTime;
-        if (Vector3.Distance(transform.position, personaje.transform.position) > 20)
+        if (Vector3.Distance(transform.position, personaje.transform.position) > 3)
         {
             Vector3 direction = (personaje.transform.position - CentroDelCuerpo.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
