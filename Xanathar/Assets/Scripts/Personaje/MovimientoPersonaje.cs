@@ -12,7 +12,6 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 	//Referencia para el script que va a tener todas las estadisticas del personaje
 	public EstadisticasDePersonaje Stats;
-	public DañoRecibido xdxd;
 
 	// Los ejes X e Z
 	float X;
@@ -36,17 +35,17 @@ public class MovimientoPersonaje : MonoBehaviour {
 	public bool YaDasheo = false;
 	public float tiempoDash;
 
-
 	public Vector3 VectorDash;
 
 	//Variable que determina la velocidad y distancia del dash
 	float VelocidadDash;
 	float DistanciaDeDash = 10;
 
+
 	// Use this for initialization
 	void Start ()
 	{
-
+		
 	}
 	
 	// Update is called once per frame
@@ -92,13 +91,13 @@ public class MovimientoPersonaje : MonoBehaviour {
 		Controlador.Move(Movimiento * Stats.VelocidadDeMovimiento * Time.deltaTime);
 
 		//Movimiento De Correr
-		if(Input.GetKeyDown(KeyCode.LeftShift))
+		if(Input.GetKey(KeyCode.LeftShift))
 		{
-			Stats.VelocidadDeMovimiento += 6;
+			Stats.VelocidadDeMovimiento = 16;
 		}
-		else if(Input.GetKeyUp(KeyCode.LeftShift))
+		else
 		{
-			Stats.VelocidadDeMovimiento -= 6;
+			Stats.VelocidadDeMovimiento = 10;
 		}
 	}
 

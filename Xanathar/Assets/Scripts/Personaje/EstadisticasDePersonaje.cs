@@ -32,6 +32,9 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public float DañoElementalAgua = 0f;
     public float DañoElementalTierra = 0f;
 
+    //Variables para almacenar variables iniciales
+    public float VelocidadInicial;
+
     void Start()
     {
         /*
@@ -50,6 +53,8 @@ public class EstadisticasDePersonaje : MonoBehaviour
 		PlayerPrefs.SetFloat("DañoAgua", DañoElementalAgua);
 		PlayerPrefs.SetFloat("DañoTierra", DañoElementalTierra);
 		*/
+
+        VelocidadInicial = VelocidadDeMovimiento;
 
         //Funcion para mantener al Jugador entre escenas
         if (Jugador != null)
