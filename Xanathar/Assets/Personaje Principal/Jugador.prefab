@@ -123,7 +123,6 @@ GameObject:
   - component: {fileID: 4633056175170554}
   - component: {fileID: 33112322374613284}
   - component: {fileID: 23634963133380536}
-  - component: {fileID: 65683304734664760}
   m_Layer: 2
   m_Name: Brazo2
   m_TagString: Untagged
@@ -573,18 +572,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!65 &65683304734664760
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1487462606323310}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!81 &81080765078937218
 AudioListener:
   m_ObjectHideFlags: 1
@@ -634,6 +621,7 @@ MonoBehaviour:
   "Da\xF1oElementalAire": 0
   "Da\xF1oElementalAgua": 0
   "Da\xF1oElementalTierra": 0
+  VelocidadInicial: 0
 --- !u!114 &114382603257905208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -677,7 +665,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Controlador: {fileID: 143524828830951792}
   Stats: {fileID: 114225078043899536}
-  xdxd: {fileID: 0}
   CheckDePiso: {fileID: 4358916066589098}
   MascaraDePiso:
     serializedVersion: 2

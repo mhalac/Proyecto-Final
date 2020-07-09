@@ -21,10 +21,12 @@ public class CambiadorDeNivel : MonoBehaviour {
 	{
 		SceneManager.LoadScene(ManejadorDeEscenas.NombreDeEscena);
 		AnimacionDeCambioDeNivel.SetTrigger("Aparecer");
+		ManejadorDeEscenas.ActivadorDeCambio = false;
 	}
 
 	public void IniciadorDeCambio()
 	{
 		AnimacionDeCambioDeNivel.SetTrigger("Desaparecer");
+		ManejadorDeEscenas.ActivadorDeCambio = true;
 	}
 }
