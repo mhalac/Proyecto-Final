@@ -71,6 +71,7 @@ public class Fuego2 : MonoBehaviour
         //hacemos que su estado sea el [0], que es Idle
         // Y tmb generas un vector3 de las posiciones donde se van a generar los lugares a los que va a ir mientras este en idle
 
+        personaje = GameObject.FindGameObjectWithTag("Personaje");
         DamagePorTiempoInicial = DamagePorTiempo;
         FuegoAnim.Stop();
         animator = GetComponentInChildren<Animator>();
@@ -86,7 +87,6 @@ public class Fuego2 : MonoBehaviour
         VisionDisparo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + radioDisparar);
         RangoMinimo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + AlcanzeMaximo);
         Estado = Estados[0];
-        RotationDefault = Cabeza.rotation;
         DelayInicial = delay;
         EMask = LayerMask.NameToLayer("Enemigo");
         agente.avoidancePriority = Random.Range(0, 99);
@@ -103,6 +103,7 @@ public class Fuego2 : MonoBehaviour
         {
             Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         }
+
 
         if (agente.velocity.magnitude < 2f && Estado != Estados[3])
         {
@@ -143,12 +144,7 @@ public class Fuego2 : MonoBehaviour
         FuegoAnim.Stop();
         if (agente.remainingDistance > Mathf.Epsilon)
         {
-            //Apuntar(destino);
-
             agente.destination = destino;
-
-            //Vector3 direction2 = (destino - Cabeza.transform.position).normalized;
-            //Cabeza.rotation = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction2), Time.deltaTime);
 
         }
         else
@@ -161,8 +157,6 @@ public class Fuego2 : MonoBehaviour
             agente.destination = destino;
             Cabeza.rotation = transform.rotation;
 
-            //Quaternion zero = new Quaternion(0, 0, 0, 0);
-            // Cabeza.rotation = zero;
 
         }
     }
@@ -182,9 +176,7 @@ public class Fuego2 : MonoBehaviour
         agente.isStopped = false;
         Estado = Estados[2];
 
-        Cabeza.rotation = Torso.rotation;
-        //Cabeza.transform.SetParent(torso.transform);
-        //Cabeza.rotation = Quaternion.identity;
+
         agente.SetDestination(UltimaPosicion.position);
 
     }
@@ -193,10 +185,9 @@ public class Fuego2 : MonoBehaviour
         //hace un raycast al jugador y devuelve true si no hay nada entre el enemigo y el personaje
 
 
-        var direccion2 = personaje.transform.position - RayPos.position;
+        var direccion2 = (personaje.transform.position - RayPos.position).normalized;
         if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar) && hit.collider.gameObject.tag != "Personaje")
         {
-            print(hit.collider.gameObject.tag);
             return false;
         }
         else
@@ -210,21 +201,20 @@ public class Fuego2 : MonoBehaviour
         //genera una esfera logica alrededor tuyo para buscar al personaje y devuelve true si lo encontro/
 
 
-
-        Collider[] obj = Physics.OverlapSphere(VisionDisparo.position, radioDisparar);
-        for (int i = 0; obj.Length > i; i++)
+        if (Vector3.Distance(personaje.transform.position, VisionDisparo.position) < radioDisparar)
         {
-            if (obj[i].gameObject.layer == PMask)
+            Collider[] obj = Physics.OverlapSphere(VisionDisparo.position, radioDisparar);
+            for (int i = 0; obj.Length > i; i++)
             {
-                personaje = obj[i].gameObject;
-                var direccion = personaje.transform.position - Heredar.position;
+                if (obj[i].gameObject.layer == PMask)
+                {
+                    //Debug.DrawRay(RayPos.position, direccion * hit.distance, Color.red);
+                    return true;
+                }
 
-
-                //Debug.DrawRay(RayPos.position, direccion * hit.distance, Color.red);
-                return true;
             }
-
         }
+
         return false;
     }
     //Revisa si una vez dentro del rango de vision se tiene que acercar para dispararle o no
@@ -253,7 +243,6 @@ public class Fuego2 : MonoBehaviour
     private void Acercar()
     {
         agente.destination = personaje.transform.position;
-        // Cabeza.rotation = Apuntar(Cabeza,personaje.transform.position,3f);
     }
 
 
@@ -273,34 +262,37 @@ public class Fuego2 : MonoBehaviour
 
     private void Disparar()
     {
+        // Summary:
+        //     Enemigo goes bang bang
+
         Estado = Estados[3];
         if (TiempoDisparando < 0 || delay > 0)
             delay -= Time.deltaTime;
 
-
-        Vector3 direction2 = (personaje.transform.position - Cabeza.transform.position).normalized;
-
-        Apuntando = direction2;
+        // Raycasteamos y sacamos el punto de vision en base a la cara
+        Vector3 direction2 = Vector3.zero;
+        if (Physics.Raycast(RayPos.position, Cabeza.forward, out hit, Mathf.Infinity))
+        {
+            direction2 = (hit.point - Cabeza.position).normalized;
+            direction2 = direction2 * hit.distance;
+            Debug.DrawRay(RayPos.position, direction2);
+        }
 
         agente.isStopped = true;
         //Mientras no estemos disparando y no este demasiado cerca
-        if (!Disparando && Vector3.Distance(transform.position, personaje.transform.position) > 0.8f)
+        if (!Disparando && Vector3.Distance(transform.position, personaje.transform.position) > 4)
         {
             Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 3);
-            Torso.rotation = Apuntar(ApuntadoTorso, 1f);
+            Torso.rotation = Apuntar(ApuntadoTorso, 3.4f);
 
         }
         //Mientras estamos disparando y no esta cerca
-        else if (Vector3.Distance(transform.position, personaje.transform.position) > 0.8f)
+        else
         {
-            Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 1f);
-            Torso.rotation = Apuntar(ApuntadoTorso, 1);
+            Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, 2f);
+            Torso.rotation = Apuntar(ApuntadoTorso, 2f);
         }
-        else //si esta muy cerca
-        {
-            Cabeza.rotation = Apuntar(RayPos, personaje.transform.position, Mathf.Infinity);
-            Torso.rotation = Apuntar(ApuntadoTorso, Mathf.Infinity);
-        }
+
 
         //reiniciamos el contador de damage por el tiempo
         if (DamagePorTiempo < Mathf.Epsilon)
@@ -314,25 +306,26 @@ public class Fuego2 : MonoBehaviour
             TiempoDisparando -= Time.deltaTime;
             Collider[] objs = null;
             //Debug.DrawRay(RayPos.position, Apuntando * hit.distance, Color.yellow);
-            if (Physics.Raycast(RayPos.position, Apuntando, out hit, Mathf.Infinity))
+            if (Physics.Raycast(RayPos.position, direction2, out hit, Mathf.Infinity))
             {
-                objs = Physics.OverlapCapsule(RayPos.position, hit.transform.position, 0.2f);
-                Apuntando = direction2;
+                objs = Physics.OverlapCapsule(RayPos.position, hit.point, 0.2f);
             }
             Disparando = true;
 
             //animator.speed = 1 / Mathf.Infinity;
-
-            foreach (Collider o in objs)
+            if (objs.Length > 0)
             {
-                if (o.CompareTag("Personaje") && DamagePorTiempo == DamagePorTiempoInicial)
+                foreach (Collider o in objs)
                 {
-                    EstadisticasDePersonaje.VidaActualPersonaje -= Damage;
-                    ManejadorDeItems pj = FindObjectOfType<ManejadorDeItems>();
-                    pj.ManejadorDeVida();
+                    if (o.CompareTag("Personaje") && DamagePorTiempo == DamagePorTiempoInicial)
+                    {
+                        EstadisticasDePersonaje.VidaActualPersonaje -= Damage;
+                        ManejadorDeItems pj = FindObjectOfType<ManejadorDeItems>();
+                        pj.ManejadorDeVida();
 
-                    DamagePorTiempo -= Time.deltaTime;
-                    //animator.speed = 1;
+                        DamagePorTiempo -= Time.deltaTime;
+                        //animator.speed = 1;
+                    }
                 }
             }
             DamagePorTiempo -= Time.deltaTime;

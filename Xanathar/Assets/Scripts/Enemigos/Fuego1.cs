@@ -188,7 +188,7 @@ public class Fuego1 : MonoBehaviour
             if (obj[i].gameObject.layer == PMask)
             {
                 personaje = obj[i].gameObject;
-                var direccion = personaje.transform.position - Heredar.position;
+                var direccion = (personaje.transform.position - Heredar.position).normalized;
 
 
                 Debug.DrawRay(RayPos.position, direccion * hit.distance, Color.red);
