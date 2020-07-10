@@ -62,6 +62,9 @@ public class ManejadorDeItems : MonoBehaviour {
 	public Gradient TabletaDeColores;
 	public Text TextoDeVida;
 	static GameObject CanvasHUD;
+
+
+
 	void Awake()
 	{
 		//Fusiono las layermasks en una sola
@@ -123,13 +126,13 @@ public class ManejadorDeItems : MonoBehaviour {
 		ActivadorDeHUD();
 		RaycastItems();
 
-		/*
+		
 		if(Input.GetKeyDown(KeyCode.J))
 		{
 			DropeadorDeItems();
 			//VerObjetosEquipados();
 		}
-		*/
+		
 	}
 
 	private void OnDrawGizmos()
@@ -374,7 +377,6 @@ public class ManejadorDeItems : MonoBehaviour {
 		{
 			if(ItemsEquipados[i] != null)
 			{
-				ItemsEquipados[i].GetComponent<Collider>().enabled = false;
 				Instantiate(ItemsEquipados[i] , Instanciador.transform.position , Quaternion.identity);
 				ItemsEquipados[i] = null;
 			}
