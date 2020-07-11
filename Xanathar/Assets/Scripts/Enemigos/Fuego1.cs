@@ -128,7 +128,7 @@ public class Fuego1 : MonoBehaviour
         else
         {
             //print(posicionRandom + " Rango idle:" + AreaI +  "Posicion actual: " + Heredar.position);
-            if (destino != null || FindObjectOfType<PositionManager>().EstaOcupado(destino))
+            if (FindObjectOfType<PositionManager>().EstaOcupado(destino))
             {
                 FindObjectOfType<PositionManager>().Llegue(destino);
             }

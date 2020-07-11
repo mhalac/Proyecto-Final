@@ -10,7 +10,6 @@ public class Ataque : MonoBehaviour
     public static float CDTotal;
     public float AreaAtaque;
     public Transform Arma;
-    private int EMask;
     private float AnimSpeed;
     private Vector3 PosAtaque;
     // Use this for initialization
@@ -18,7 +17,6 @@ public class Ataque : MonoBehaviour
     {
         CoolDownInicial = GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         CDTotal = 0;
-        EMask = LayerMask.NameToLayer("Personaje");
         anim = GetComponent<Animator>();
         Arma.position = new Vector3(Arma.position.x, Arma.position.y, Arma.position.z + AreaAtaque);
     }
@@ -28,10 +26,6 @@ public class Ataque : MonoBehaviour
     {
         // sacar despues, solo sirve para la escena de primera entrega
 
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            transform.position = Vector3.up;
-        }
 
         Atacar();
     }

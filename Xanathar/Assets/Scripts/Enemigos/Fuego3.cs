@@ -30,7 +30,6 @@ public class Fuego3 : MonoBehaviour
     public Vector3 Escala;
 
     private string[] Estados = { "Idle", "Shooting" };
-    public AnimationClip Ataque;
     private float DelayTeleportInicial;
     private Vector3 posicionSpawn;
 
