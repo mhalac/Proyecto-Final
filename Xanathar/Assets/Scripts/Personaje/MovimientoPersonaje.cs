@@ -91,13 +91,13 @@ public class MovimientoPersonaje : MonoBehaviour {
 		Controlador.Move(Movimiento * Stats.VelocidadDeMovimiento * Time.deltaTime);
 
 		//Movimiento De Correr
-		if(Input.GetKey(KeyCode.LeftShift))
+		if(Input.GetKeyDown(KeyCode.LeftShift))
 		{
-			Stats.VelocidadDeMovimiento = 16;
+			Stats.VelocidadDeMovimiento += 6;
 		}
-		else
+		if(Input.GetKeyUp(KeyCode.LeftShift))
 		{
-			Stats.VelocidadDeMovimiento = 10;
+			Stats.VelocidadDeMovimiento -= 6;
 		}
 	}
 

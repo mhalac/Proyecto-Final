@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class ManejadorDeItems : MonoBehaviour {
 
@@ -42,12 +41,10 @@ public class ManejadorDeItems : MonoBehaviour {
 	private GameObject NombreNotificador;
 	private GameObject CategoriaNotificador;
 	private GameObject DescripcionNotificador;
-
-	int OrdenDeLayers = 0;
-
+	string OrdenDeElemento;
 	GameObject[] Objetos;
 
-	GameObject[] ItemsEquipados = new GameObject[12];
+	public static GameObject[] ItemsEquipados = new GameObject[12];
 
 	GameObject ContenedorDeGameObjects;
 
@@ -61,11 +58,13 @@ public class ManejadorDeItems : MonoBehaviour {
 
 	//Variables para la barra de Vida
 	public Image Contenido;
-	public float VelocidadLerp;
 	float RellenoDeVida;
 	public Gradient TabletaDeColores;
 	public Text TextoDeVida;
 	static GameObject CanvasHUD;
+
+
+
 	void Awake()
 	{
 		//Fusiono las layermasks en una sola
@@ -126,12 +125,20 @@ public class ManejadorDeItems : MonoBehaviour {
 	{
 		ActivadorDeHUD();
 		RaycastItems();
+
+		
+		if(Input.GetKeyDown(KeyCode.J))
+		{
+			DropeadorDeItems();
+			//VerObjetosEquipados();
+		}
+		
 	}
 
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
-		//Gizmos.DrawRay(Camera.main.transform.position , Camera.main.transform.forward * Rango);
+		Gizmos.DrawRay(Camera.main.transform.position , Camera.main.transform.forward * Rango);
 	}
 
 	private void ActivadorDeHUD()
@@ -172,34 +179,34 @@ public class ManejadorDeItems : MonoBehaviour {
 	{
 		GameObject[] GuardadorDeItems = new GameObject[2];
 
-		string TagDelObjeto = DondeToco.collider.tag;
-		int LayerDelObjeto = DondeToco.collider.gameObject.layer;
-		string Categoria = "";
+		string ElementoDelObjeto = DondeToco.collider.gameObject.GetComponent<InformacionDeItems>().Elemento;
+		string CategoriaDelObjeto = DondeToco.collider.gameObject.GetComponent<InformacionDeItems>().Categoria;
+		string NombreDelObjeto = DondeToco.collider.gameObject.GetComponent<InformacionDeItems>().Nombre;
+		//string DescripcionDelObjeto = DondeToco.collider.gameObject.GetComponent<InformacionDeItems>().Descripcion;
 
 		BuscadorDeLayer();
 
 		for(int i = 0; i < Objetos.Length; i++)
 		{
-			if(Objetos[i].tag == TagDelObjeto)
+			if(Objetos[i].GetComponent<InformacionDeItems>().Elemento == ElementoDelObjeto && Objetos[i].GetComponent<InformacionDeItems>().Categoria == CategoriaDelObjeto)
 			{
-				ContenedorDeGameObjects = Objetos[i];
-				Categoria = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Categoria;
-				//print(Objetos[i]);
-				break;
-			}
-		}
+				if(Objetos[i].GetComponent<InformacionDeItems>().Nombre == NombreDelObjeto)
+				{
+					GuardadorDeItems[0] = Objetos[i];
+					ContenedorDeGameObjects = Objetos[i];
+					//print("Este es el item que agarre" + GuardadorDeItems[0]);
+				}
 
+				if(Objetos[i].GetComponent<InformacionDeItems>().Nombre != NombreDelObjeto)
+				{
+					GuardadorDeItems[1] = Objetos[i];
+					//print("Esto es el item que no agarre" + GuardadorDeItems[1]);
+				}
 
-		for(int i = 0; i < Objetos.Length; i++)
-		{
-			if(Objetos[i].layer == LayerDelObjeto && TagDelObjeto != Objetos[i].tag && Objetos[i].GetComponent<InformacionDeItems>().Categoria == Categoria)
-			{
-				GuardadorDeItems[1] = Objetos[i];
-			}
-
-			if(GuardadorDeItems[1] != null)
-			{
-				break;
+				if(GuardadorDeItems[0] != null && GuardadorDeItems[1] != null)
+				{
+					break;
+				}
 			}
 		}
 
@@ -210,65 +217,52 @@ public class ManejadorDeItems : MonoBehaviour {
 				ItemsEquipados[i] = ContenedorDeGameObjects;
 				EquipadorSlotsDeItems();
 				Destroy(DondeToco.collider.gameObject);
+				//print("Tengo equipado este item: " + ItemsEquipados[i]);
 				break;
 			}
-			
-			string BuscadorCategoria = ItemsEquipados[i].GetComponent<InformacionDeItems>().Categoria;
 
-			if(ItemsEquipados[i].layer == LayerDelObjeto && BuscadorCategoria == Categoria)
+			string ElementoItemEquipado = ItemsEquipados[i].GetComponent<InformacionDeItems>().Elemento;
+			string CategoriaItemEquipado = ItemsEquipados[i].GetComponent<InformacionDeItems>().Categoria;
+
+			if(ElementoItemEquipado == ElementoDelObjeto && CategoriaItemEquipado == CategoriaDelObjeto)
 			{
 				ItemsEquipados[i] = ContenedorDeGameObjects;
 				EquipadorSlotsDeItems();
 				Destroy(DondeToco.collider.gameObject);
 				Instantiate(GuardadorDeItems[1] , Instanciador.transform.position , Quaternion.identity);
+				//print("Tire este item: " + GuardadorDeItems[1]);
 				break;
 			}
 		}
-		
-		for(int i = 0; i < ItemsEquipados.Length; i++)
-		{
-			print(ItemsEquipados[i]);
-		}
-		
+
 		TextoNombre.text = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Nombre;
-
 		TextoCategoria.text = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Categoria;
-
 		TextoDescripcion.text = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Descripcion;
 
 		OcultadorDeMensaje = true;
-
 		MensajeNotificador.alpha = 1f;
 	}
 
 	private void BuscadorDeLayer()
 	{
-		int BuscadorDeLayer = DondeToco.collider.gameObject.layer;
+		string ElementoDelItem = DondeToco.collider.gameObject.GetComponent<InformacionDeItems>().Elemento;
 
-		switch (BuscadorDeLayer)
+		switch (ElementoDelItem)
 		{
-			//Agua
-			case 14:
-			OrdenDeLayers = 3;
-			break;
-			
-			//Fuego
-			case 15:
-			OrdenDeLayers = 0;
+			case "Fuego":
+			OrdenDeElemento = "Fuego";
 			break;
 
-			//Tierra
-			case 16:
-			OrdenDeLayers = 2;
+			case "Viento":
+			OrdenDeElemento = "Viento";
 			break;
 
-			//Viento
-			case 17:
-			OrdenDeLayers = 1;
+			case "Tierra":
+			OrdenDeElemento = "Tierra";
 			break;
 
-			default:
-			print("ERROR LAYER NO ENCONTRADA");
+			case "Agua":
+			OrdenDeElemento = "Agua";
 			break;
 		}
 	}
@@ -295,63 +289,63 @@ public class ManejadorDeItems : MonoBehaviour {
 
 	private void BuscadorDeSlotsEstadistica()
 	{
-		switch (OrdenDeLayers)
+		switch (OrdenDeElemento)
 		{
-			case 0:
+			case "Fuego":
 			SlotEstadisticaDeFuego.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 
-			case 1:
+			case "Viento":
 			SlotEstadisticaDeViento.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 
-			case 2:
+			case "Tierra":
 			SlotEstadisticaDeTierra.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 
-			case 3:
+			case "Agua":
 			SlotEstadisticaDeAgua.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 		}
 	}
 	private void BuscadorDeSlotsPasivas()
 	{
-		switch (OrdenDeLayers)
+		switch(OrdenDeElemento)
 		{
-			case 0:
+			case "Fuego":
 			SlotPasivaDeFuego.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 
-			case 1:
+			case "Viento":
 			SlotPasivaDeViento.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 
-			case 2:
+			case "Tierra":
 			SlotPasivaDeTierra.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 
-			case 3:
+			case "Agua":
 			SlotPasivaDeAgua.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 		}
 	}
 	private void BuscadorDeSlotsActiva()
 	{
-		switch (OrdenDeLayers)
+		switch(OrdenDeElemento)
 		{
-			case 0:
+			case "Fuego":
 			SlotActivaDeFuego.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 
-			case 1:
+			case "Viento":
 			SlotActivaDeViento.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 
-			case 2:
+			case "Tierra":
 			SlotActivaDeTierra.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 
-			case 3:
+			case "Agua":
 			SlotActivaDeAgua.GetComponent<Image>().sprite = ContenedorDeGameObjects.GetComponent<InformacionDeItems>().Icono;
 			break;
 		}
@@ -366,9 +360,9 @@ public class ManejadorDeItems : MonoBehaviour {
 
 		Contenido.fillAmount = RellenoDeVida;
 		Contenido.color = TabletaDeColores.Evaluate(RellenoDeVida);
+
 		if(ValorActualVida >= 0)
 		{
-			
 			TextoDeVida.text = "Tu vida es: " + ValorActualVida.ToString();
 		}
 		else
@@ -379,9 +373,22 @@ public class ManejadorDeItems : MonoBehaviour {
 
 	public void DropeadorDeItems()
 	{
-		if(EstadisticasDePersonaje.VidaActualPersonaje <= 0)
+		for(int i = 0; i < ItemsEquipados.Length; i++)
 		{
-			print("Aca el men tira todos los items");
+			if(ItemsEquipados[i] != null)
+			{
+				Instantiate(ItemsEquipados[i] , Instanciador.transform.position , Quaternion.identity);
+				ItemsEquipados[i] = null;
+			}
+		}
+	}
+
+	//Funcion para testear inventario
+	private void VerObjetosEquipados()
+	{
+		for(int i = 0; i < ItemsEquipados.Length; i++)
+		{
+			print(ItemsEquipados[i]);
 		}
 	}
 }

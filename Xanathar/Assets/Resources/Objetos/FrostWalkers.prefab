@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114682535757600124}
   m_Layer: 14
   m_Name: FrostWalkers
-  m_TagString: FrostWalkers
+  m_TagString: Items
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1541807082480904}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.49, z: 0}
   m_LocalScale: {x: 0.2, y: 0.5, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,10 +96,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &65258790388782836
 BoxCollider:
@@ -124,8 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea3ea5e89c05f54293415c35428eccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AreaDeAdios: 1
   Nombre: Frost Walkers
   Descripcion: Al caminar dejas un camino de hielo, el cual relentiza enemigos al
     pisarla
   Categoria: Pasiva
+  Elemento: Agua
   Icono: {fileID: 21300000, guid: f26fa8880b3aeef4b8516c82dc12f2a5, type: 3}

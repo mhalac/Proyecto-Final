@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114884827610771148}
   m_Layer: 16
   m_Name: RockShard
-  m_TagString: RockShard
+  m_TagString: Items
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1007944307537912}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalPosition: {x: -0.53, y: 1.44, z: -0.603}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,10 +96,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &65009049893790072
 BoxCollider:
@@ -124,8 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea3ea5e89c05f54293415c35428eccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AreaDeAdios: 1
   Nombre: Rock Shard
   Descripcion: "Al ser utilizado, el usuario hace caer una gran cantidad de fragmentos
     de roca que hacen da\xF1o"
   Categoria: Activa
+  Elemento: Tierra
   Icono: {fileID: 21300000, guid: f73f68fe6815f5548a6c2a61b9e49add, type: 3}
