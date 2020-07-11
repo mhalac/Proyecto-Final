@@ -17,7 +17,6 @@ public class ProyectilBase : MonoBehaviour
     {
         Quaternion lookRotation = Quaternion.LookRotation(IrPosicion);
         transform.rotation = Quaternion.Slerp(lookRotation, transform.rotation, Time.deltaTime);
-        Destroy(gameObject, 5);
     }
 
     // Update is called once per frame
@@ -82,11 +81,6 @@ public class ProyectilBase : MonoBehaviour
 
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-       Destroy(gameObject);
-
-    }
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

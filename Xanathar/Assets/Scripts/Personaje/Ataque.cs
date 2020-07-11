@@ -26,7 +26,12 @@ public class Ataque : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // sacar despues, solo sirve para la escena de primera entrega
 
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            transform.position = Vector3.up;
+        }
 
         Atacar();
     }

@@ -10,7 +10,6 @@ public class Fuego1 : MonoBehaviour
 
 
     private RaycastHit hit;
-    private bool Visto;
     private Transform UltimaPosicion;
 
     [Header("Transforms Seleccionables")]
@@ -22,9 +21,7 @@ public class Fuego1 : MonoBehaviour
     [Header("Parametros")]
 
     public float AreaIdle;
-    public string Elemento;
     public string NombreHijo;
-    public float rotacion;
     public int AlcanzeMaximo;
     public int radioDisparar;
     public float BalaVelocidad;
@@ -80,19 +77,18 @@ public class Fuego1 : MonoBehaviour
 
         //Physics.IgnoreLayerCollision(gameObject.layer, PMask, true);
         //print(posicionSpawn);
-        
+
         if (transform.Find(NombreHijo) != null)
         {
             Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         }
-        if (personaje != null)
-            Debug.DrawLine(Heredar.position, destino, Color.magenta);
 
 
-        
-        if(agente.velocity.magnitude < 2f && Estado != Estados[3])  
+
+
+        if (agente.velocity.magnitude < 2f && Estado != Estados[3])
         {
-           
+
             FindObjectOfType<PositionManager>().Llegue(destino);
             Idle();
         }
@@ -120,7 +116,7 @@ public class Fuego1 : MonoBehaviour
         }
 
     }
-    
+
     private void IrAPosRandom()
     {
         if (agente.remainingDistance > Mathf.Epsilon)
@@ -155,9 +151,7 @@ public class Fuego1 : MonoBehaviour
         UltimaPosicion = personaje.transform;
         agente.isStopped = false;
         Estado = Estados[2];
-        //Vector3 direction = (UltimaPosicion.position - Heredar.position).normalized;
-        // Quaternion lookRotation = Quaternion.LookRotation(direction);
-        //Heredar.rotation = Quaternion.Lerp(Heredar.rotation, lookRotation, Time.deltaTime * rotacion);
+
         agente.SetDestination(UltimaPosicion.position);
 
 
@@ -168,7 +162,7 @@ public class Fuego1 : MonoBehaviour
 
 
         var direccion2 = personaje.transform.position - Heredar.position;
-        if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar,EMask) && hit.collider.gameObject.tag != "Personaje")
+        if (Physics.Raycast(RayPos.position, direccion2, out hit, radioDisparar, EMask) && hit.collider.gameObject.tag != "Personaje")
         {
             return false;
         }
@@ -188,10 +182,9 @@ public class Fuego1 : MonoBehaviour
             if (obj[i].gameObject.layer == PMask)
             {
                 personaje = obj[i].gameObject;
-                var direccion = (personaje.transform.position - Heredar.position).normalized;
+                var direccion = (personaje.transform.position - RayPos.position).normalized;
 
 
-                Debug.DrawRay(RayPos.position, direccion * hit.distance, Color.red);
                 return true;
             }
 
@@ -214,7 +207,7 @@ public class Fuego1 : MonoBehaviour
                 float Dist = Vector3.Distance(objdisparo[i].gameObject.transform.position, Heredar.position);
                 if (Dist < 2f)
                 {
-                    
+
                     return false;
                 }
             }
@@ -227,8 +220,8 @@ public class Fuego1 : MonoBehaviour
         //gameObject.transform.localPosition = Vector3.MoveTowards(transform.position, personaje.transform.position,velocidad * Time.deltaTime);
         agente.destination = personaje.transform.position;
     }
-   
-    
+
+
     private void Disparar()
     {
         Estado = Estados[3];
@@ -236,19 +229,20 @@ public class Fuego1 : MonoBehaviour
         delay -= Time.deltaTime;
         agente.SetDestination(personaje.transform.position);
         agente.isStopped = true;
-        Vector3 direction = (personaje.transform.position - Heredar.transform.position).normalized;
+        Vector3 direction = (personaje.transform.position - RayPos.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.fixedDeltaTime * 5);
         
-        
-        if (delay <= 0)
+        Debug.DrawRay(RayPos.position, direction * radioDisparar, Color.blue);
+
+
+        if (delay <= Mathf.Epsilon)
         {
             var direccion = (personaje.transform.position - RayPos.position).normalized;
             delay = DelayInicial;
-            GameObject bala = Instantiate(balaPrefab, RayPos.position,Quaternion.identity);
+            GameObject bala = Instantiate(balaPrefab, RayPos.position, Quaternion.identity);
             //Vector3 PosicionDisparada = personaje.transform.position;
-
-            bala.GetComponent<ProyectilBase>().Lanzar(direccion, BalaVelocidad,Damage);
+            bala.GetComponent<ProyectilBase>().Lanzar(direccion, BalaVelocidad, Damage);
 
         }
     }
@@ -260,13 +254,13 @@ public class Fuego1 : MonoBehaviour
             Destroy(gameObject);
         }
     }
-   
+
     private void Estadentro(bool TengoQueAcercarme)
     {
 
 
         var direccion2 = (personaje.transform.position - Heredar.position).normalized;
-       
+
         //La funcion se llama cuando lo tenes a rango visual y fisico, preguntas si te tenes que acercar o no
         // en el caso de que si, tu estado pasa a chasing y te acercas, caso contrario, lo cagas a tiros. 
 
@@ -290,130 +284,21 @@ public class Fuego1 : MonoBehaviour
 
 
     }
-     private void Ventaja(float damage)
-    {
-        Vida = Vida - damage * 2;
-    }
-    private void Desventaja(float damage)
-    {
-        Vida = Vida - damage * 0.5f;
-    }
-
-    public void RecibirDamage()
-    {
-        
-        EstadisticasDePersonaje Stats = GameObject.Find("Jugador").GetComponent<EstadisticasDePersonaje>();
-
-        // Tenes que checkear las ventajas o debilidades manualmente, para eso revisas si tiene algun tipo de damage de ese
-        //elemento y si es asi lo aplicas
-
-        //Haces un switch para ir de una a tu elemento asi no laguea y despues te sacas vida en base a los damages que tenes
-        // y las ventajas o desventajas se aplican distinto dependiendo tu elemento
-        Vida -= Stats.DañoDePersonajeNormal;
-        switch (Elemento)
-        {
-
-            case "Fuego":
-
-                if (Stats.DañoElementalAgua > Mathf.Epsilon)
-                {
-                    Ventaja(Stats.DañoElementalAgua);
-                }
-                if (Stats.DañoElementalAire > Mathf.Epsilon)
-                {
-                    Desventaja(Stats.DañoElementalAire);
-                }
-                if (Stats.DañoElementalTierra > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalTierra;
-                }
-
-                if (Stats.DañoElementalFuego > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalFuego;
-                }
-                break;
-
-            case "Viento":
-                if (Stats.DañoElementalAgua > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalAgua;
-                }
-                if (Stats.DañoElementalAire > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalAire;
-                }
-                if (Stats.DañoElementalTierra > Mathf.Epsilon)
-                {
-                    Desventaja(Stats.DañoElementalTierra);
-                }
-
-                if (Stats.DañoElementalFuego > Mathf.Epsilon)
-                {
-                    Ventaja(Stats.DañoElementalFuego);
-                }
-                break;
-
-            case "Agua":
-                if (Stats.DañoElementalAgua > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalAgua;
-                }
-                if (Stats.DañoElementalAire > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalAire;
-                }
-                if (Stats.DañoElementalTierra > Mathf.Epsilon)
-                {
-                    Ventaja(Stats.DañoElementalTierra);
-                }
-                if (Stats.DañoElementalFuego > Mathf.Epsilon)
-                {
-                    Desventaja(Stats.DañoElementalFuego);
-                }
-                break;
-
-            case "Tierra":
-                if (Stats.DañoElementalAgua > Mathf.Epsilon)
-                {
-                    Desventaja(Stats.DañoElementalAgua);
-                }
-                if (Stats.DañoElementalAire > Mathf.Epsilon)
-                {
-                    Ventaja(Stats.DañoElementalAire);
-                }
-                if (Stats.DañoElementalTierra > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalTierra;
-                }
-                if (Stats.DañoElementalFuego > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalFuego;
-                }
-                break;
-
-
-        }
-        print("Yo: " + gameObject.name + " Y mi vida es de: " + Vida);
-        Mori();
-
-
-    }
 
     void OnDrawGizmosSelected()
 
-    {     
+    {
         Gizmos.color = Color.cyan;
-        
 
-        Vector3 cubo = new Vector3(AreaIdle * 2, 2,AreaIdle* 2);
-        Gizmos.DrawWireCube(posicionSpawn,cubo);
+
+        Vector3 cubo = new Vector3(AreaIdle * 2, 2, AreaIdle * 2);
+        Gizmos.DrawWireCube(posicionSpawn, cubo);
         Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(destino, 0.5f);
         Gizmos.DrawWireSphere(RangoMinimo.position, AlcanzeMaximo);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(VisionDisparo.position, radioDisparar);
-        
+
     }
 }
