@@ -22,6 +22,7 @@ public class ManejadorDeItems : MonoBehaviour {
 	public CanvasGroup HUDPasivas;
 	public CanvasGroup HUDEstadisticas;
 	public CanvasGroup MensajeNotificador;
+	public CanvasGroup InformacionEstadisticas;
 
 	//Referencias a los slots de Activas, pasivas y estadisticas del HUD
 	private GameObject SlotActivaDeFuego;
@@ -63,6 +64,9 @@ public class ManejadorDeItems : MonoBehaviour {
 	public Text TextoDeVida;
 	static GameObject CanvasHUD;
 
+	//Variables para mostrar las estadisticas del personaje
+	public Text TextoInformacionVida;
+	public Text TextoInformacionArmadura;
 	CambiadorDeNivel CambioCuandoMueras;
 
 	void Awake()
@@ -127,6 +131,7 @@ public class ManejadorDeItems : MonoBehaviour {
 	{
 		ActivadorDeHUD();
 		RaycastItems();
+		ManejadorDeEstadisticas();
 
 		
 		if(Input.GetKeyDown(KeyCode.J))
@@ -163,11 +168,14 @@ public class ManejadorDeItems : MonoBehaviour {
 		{
 			HUDPasivas.alpha = 0f;
 			HUDEstadisticas.alpha = 0f;
+			InformacionEstadisticas.alpha = 0f;
+			ManejadorDeEstadisticas();
 		}
 		else
 		{
 			HUDPasivas.alpha = 1f;
 			HUDEstadisticas.alpha = 1f;
+			InformacionEstadisticas.alpha = 1f;
 		}
 		
 	}
@@ -375,6 +383,15 @@ public class ManejadorDeItems : MonoBehaviour {
 			TextoDeVida.text = "Tu vida es: 0";
 			DropeadorDeItems();
 		}
+	}
+
+	public void ManejadorDeEstadisticas()
+	{
+		float ValorMaximaDeVida = EstadisticasDePersonaje.VidaMaximaPersonaje;
+		float ArmaduraPersonaje = EstadisticasDePersonaje.Armadura;
+
+		TextoInformacionVida.text = ValorMaximaDeVida.ToString();
+		TextoInformacionArmadura.text = ArmaduraPersonaje.ToString();
 	}
 
 	public void DropeadorDeItems()
