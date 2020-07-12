@@ -63,7 +63,7 @@ public class ManejadorDeItems : MonoBehaviour {
 	public Text TextoDeVida;
 	static GameObject CanvasHUD;
 
-
+	CambiadorDeNivel CambioCuandoMueras;
 
 	void Awake()
 	{
@@ -101,6 +101,8 @@ public class ManejadorDeItems : MonoBehaviour {
 		TextoNombre = NombreNotificador.GetComponent<Text>();
 		TextoCategoria = CategoriaNotificador.GetComponent<Text>();
 		TextoDescripcion = DescripcionNotificador.GetComponent<Text>();
+
+		CambioCuandoMueras = FindObjectOfType<CambiadorDeNivel>();
 	}
 
 	// Use this for initialization
@@ -129,8 +131,11 @@ public class ManejadorDeItems : MonoBehaviour {
 		
 		if(Input.GetKeyDown(KeyCode.J))
 		{
-			DropeadorDeItems();
+			//DropeadorDeItems();
 			//VerObjetosEquipados();
+
+			EstadisticasDePersonaje.VidaActualPersonaje -=1;
+			ManejadorDeVida();
 		}
 		
 	}
@@ -361,13 +366,14 @@ public class ManejadorDeItems : MonoBehaviour {
 		Contenido.fillAmount = RellenoDeVida;
 		Contenido.color = TabletaDeColores.Evaluate(RellenoDeVida);
 
-		if(ValorActualVida >= 0)
+		if(ValorActualVida > 0)
 		{
 			TextoDeVida.text = "Tu vida es: " + ValorActualVida.ToString();
 		}
 		else
 		{
 			TextoDeVida.text = "Tu vida es: 0";
+			DropeadorDeItems();
 		}
 	}
 
@@ -380,6 +386,13 @@ public class ManejadorDeItems : MonoBehaviour {
 				Instantiate(ItemsEquipados[i] , Instanciador.transform.position , Quaternion.identity);
 				ItemsEquipados[i] = null;
 			}
+		}
+
+		if(ManejadorDeEscenas.ActivadorDeCambio == false)
+		{	
+			EstadisticasDePersonaje.VidaActualPersonaje = EstadisticasDePersonaje.VidaMaximaPersonaje;
+			ManejadorDeEscenas.NombreDeEscena = "TestMenda";
+			CambioCuandoMueras.IniciadorDeCambio();
 		}
 	}
 
