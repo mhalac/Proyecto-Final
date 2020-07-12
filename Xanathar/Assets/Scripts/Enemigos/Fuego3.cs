@@ -30,7 +30,6 @@ public class Fuego3 : MonoBehaviour
     public Vector3 Escala;
 
     private string[] Estados = { "Idle", "Shooting" };
-    public AnimationClip Ataque;
     private float DelayTeleportInicial;
     private Vector3 posicionSpawn;
 
@@ -81,15 +80,14 @@ public class Fuego3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Physics.IgnoreLayerCollision(gameObject.layer, PMask, true);
-        //print(posicionSpawn);
+     
 
         if (transform.Find(NombreHijo) != null)
         {
             Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         }
         //Primero revisamos si el jugador esta en nuestra area en general, de vision y de rango general
-        if (TargetLock && DelayTeleport < Mathf.Epsilon || !(BuscarPersonaje() || PuedoVer()))
+        if (TargetLock && DelayTeleport < Mathf.Epsilon || !(BuscarPersonaje() || PuedoVer()) && Estado == Estados[1])
         {
             DelayTeleport = DelayTeleportInicial;
             
@@ -165,7 +163,7 @@ public class Fuego3 : MonoBehaviour
             float RandomX = Random.Range(personaje.transform.position.x - radioDisparar, radioDisparar + personaje.transform.position.x);
             float RandomZ = Random.Range(personaje.transform.position.z - radioDisparar, radioDisparar + personaje.transform.position.z);
             bool EstaOcupado = false;
-            Vector3 Rpos = new Vector3(RandomX, personaje.transform.position.y, RandomZ);
+            Vector3 Rpos = new Vector3(RandomX, transform.position.y, RandomZ);
             Collider[] Obj = Physics.OverlapSphere(Rpos, 1.3f);
             var direccion = (personaje.transform.position - Rpos).normalized;
             if (Physics.Raycast(Rpos, direccion, out hit, radioDisparar))
@@ -179,7 +177,7 @@ public class Fuego3 : MonoBehaviour
             }
             foreach (Collider o in Obj)
             {
-                if ((o.gameObject.tag == "Entorno" || o.gameObject.tag == "Enemigo" || Vector3.Distance(personaje.transform.position, Rpos) < 7.4f
+                if ((o.gameObject.tag == "Entorno" || o.gameObject.tag == "Enemigo" || Vector3.Distance(personaje.transform.position, Rpos) < 8f
                 || Vector3.Distance(personaje.transform.position, Rpos) > radioDisparar) || VisionObstruida)
                 {
                     EstaOcupado = true;

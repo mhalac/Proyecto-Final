@@ -149,7 +149,7 @@ public class Fuego2 : MonoBehaviour
         }
         else
         {
-            if (destino != null || FindObjectOfType<PositionManager>().EstaOcupado(destino))
+            if (FindObjectOfType<PositionManager>().EstaOcupado(destino))
             {
                 FindObjectOfType<PositionManager>().Llegue(destino);
             }

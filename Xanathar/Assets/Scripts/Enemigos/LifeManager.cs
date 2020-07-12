@@ -2,21 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LifeManager : MonoBehaviour {
 
-	public float Vida;
-	public string Elemento;
-	
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-	 private void Ventaja(float damage)
+[System.Serializable]
+public class LifeManager : MonoBehaviour
+{
+    public bool TESTMATAR;
+    public float Vida;
+    public string Elemento;
+
+
+    public PropiedadesItem[] items;
+    void Start()
+    {
+        for (int i = 1; i < items.Length; i++)
+        {
+            items[i].SpawnRate += items[i - 1].SpawnRate;
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (TESTMATAR)
+        {
+            Vida = 0;
+            Mori();
+        }
+
+    }
+    private void Ventaja(float damage)
     {
         Vida = Vida - damage * 2;
     }
@@ -27,7 +41,7 @@ public class LifeManager : MonoBehaviour {
 
     public void RecibirDamage()
     {
-        
+
         EstadisticasDePersonaje Stats = GameObject.Find("Jugador").GetComponent<EstadisticasDePersonaje>();
 
         // Tenes que checkear las ventajas o debilidades manualmente, para eso revisas si tiene algun tipo de damage de ese
@@ -125,12 +139,30 @@ public class LifeManager : MonoBehaviour {
 
 
     }
-	private void Mori()
+    private void Mori()
     {
         if (Vida < Mathf.Epsilon)
         {
-            Destroy(gameObject);
+            int numero = Random.Range(0, 100);
+            for (int i = 0; i < items.Length; i++)
+            {
+                if (items[i].SpawnRate > numero)
+                {
+                    print("Spawneo al item: " + items[i].Item + " Con un random de: + " + numero + " < " + items[i].SpawnRate);
+                    //Vida = 100;
+                    //TESTMATAR = false;
+                    DestroyImmediate(gameObject);
+
+                }
+            }
+
         }
+    }
+    [System.Serializable]
+    public class PropiedadesItem
+    {
+        public GameObject Item;
+        public int SpawnRate;
     }
 
 }
