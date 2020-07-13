@@ -17,7 +17,7 @@ public class CambiadorDeNivel : MonoBehaviour {
 
 	}
 
-	public void CambiarDeNivel(string NombreDeNivel)
+	public void CambiarDeNivel()
 	{
 		SceneManager.LoadScene(ManejadorDeEscenas.NombreDeEscena);
 		AnimacionDeCambioDeNivel.SetTrigger("Aparecer");

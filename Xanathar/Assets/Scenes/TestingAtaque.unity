@@ -587,18 +587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28428ccf17d84fe4f8df903242a055c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Elemento: 
-  balaPrefab: {fileID: 0}
-  RayPos: {fileID: 578230812}
-  VisionDisparo: {fileID: 1028781278}
-  RangoMinimo: {fileID: 1161015588}
-  AreaIdle: 0
-  rotacion: 1
-  AlcanzeMaximo: 3
-  BalaVelocidad: 4
-  radioDisparar: 5
-  Vida: 10
-  delay: 0
 --- !u!65 &115417561
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2059,46 +2047,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ccb49676687917499386abab8234bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SapphiArtChanAnimator: {fileID: 0}
-  _SapphiArtChanAnimation: 
-  _AnimationManagerUI: {fileID: 0}
-  _SapphiArtChanLastAnimation: 
-  _SapphiArtChanRenderer_Face: {fileID: 0}
-  _SapphiArtChanRenderer_Brow: {fileID: 0}
-  _SapphiArtChanRenderer_BottomTeeth: {fileID: 0}
-  _SapphiArtChanRenderer_Tongue: {fileID: 0}
-  _SapphiArtChanRenderer_TopTeeth: {fileID: 0}
-  _EyesLastChangeType: 
-  _EyebrowsLastChangeType: 
-  _MouthLastChangeType: 
-  _SapphiArtChanFacial: 0
-  _SapphiArtChanLastFacial: 0
-  _SapphiArtChanFacialBool: 0
-  _SapphiArtChanLastFacialBool: 0
-  _SapphiArtChanFacial_Eye_L_Happy: 0
-  _SapphiArtChanFacial_Eye_R_Happy: 0
-  _SapphiArtChanFacial_Eye_L_Closed: 0
-  _SapphiArtChanFacial_Eye_R_Closed: 0
-  _SapphiArtChanFacial_Eye_L_Wide: 0
-  _SapphiArtChanFacial_Eye_R_Wide: 0
-  _SapphiArtChanFacial_Mouth_Sad: 0
-  _SapphiArtChanFacial_Mouth_Puff: 0
-  _SapphiArtChanFacial_Mouth_Smile: 0
-  _SapphiArtChanFacial_Eyebrow_L_Up: 0
-  _SapphiArtChanFacial_Eyebrow_R_Up: 0
-  _SapphiArtChanFacial_Eyebrow_L_Angry: 0
-  _SapphiArtChanFacial_Eyebrow_R_Angry: 0
-  _SapphiArtChanFacial_Eyebrow_L_Sad: 0
-  _SapphiArtChanFacial_Eyebrow_R_Sad: 0
-  _SapphiArtChanFacial_Mouth_E: 0
-  _SapphiArtChanFacial_Mouth_O: 0
-  _SapphiArtChanFacial_Mouth_JawOpen: 0
-  _SapphiArtChanFacial_Mouth_Extra01: 0
-  _SapphiArtChanFacial_Mouth_Extra02: 0
-  _SapphiArtChanFacial_Mouth_Extra03: 0
-  _SapphiArtChanFacial_Mouth_BottomTeeth: 0
-  _SapphiArtChanFacial_Mouth_TopTeeth: 0
-  _SapphiArtChanFacial_Mouth_Tongue: 0
 --- !u!95 &711008845
 Animator:
   serializedVersion: 3
@@ -6286,6 +6234,111 @@ Transform:
   m_Father: {fileID: 314190466}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1810630601
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224612551693127780, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 23e8947a03a677a47a932e8b02c1aa02, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1815941968
 GameObject:
   m_ObjectHideFlags: 0

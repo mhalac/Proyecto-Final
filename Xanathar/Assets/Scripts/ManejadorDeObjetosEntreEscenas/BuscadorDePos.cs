@@ -39,9 +39,4 @@ public class BuscadorDePos : MonoBehaviour {
 		Jugador.transform.rotation = Quaternion.Euler(0f,RotacionY,0f);
 		//print(PosInicial.transform.eulerAngles.y);
 	}
-
-	void Update()
-	{
-
-	}
 }

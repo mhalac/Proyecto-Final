@@ -16,6 +16,7 @@ public class InformacionDeItems : MonoBehaviour {
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
+		//print(this.transform.position);
 	}
 	void Update()
 	{
@@ -45,11 +46,12 @@ public class InformacionDeItems : MonoBehaviour {
 
 	IEnumerator PararDeMoverse()
 	{
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(1f);
 		rb.velocity = Vector3.zero;
 		rb.angularVelocity = Vector3.zero;
 		rb.drag = 0;
 		Corrutina = false;
+		print(this.transform.position);
 		//print("Esto se ejecuto");
 	}
 }
