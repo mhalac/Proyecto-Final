@@ -19,24 +19,27 @@ public class ManejadorDeItems : MonoBehaviour {
 	//Variables para ocultar y mostrar el HUD
 	static bool OcultadorDeHud = false;
 	private bool OcultadorDeMensaje = false;
+
+	[Header("HUDS Personaje")]
 	public CanvasGroup HUDPasivas;
 	public CanvasGroup HUDEstadisticas;
 	public CanvasGroup MensajeNotificador;
 	public CanvasGroup InformacionEstadisticas;
 
 	//Referencias a los slots de Activas, pasivas y estadisticas del HUD
-	private GameObject SlotActivaDeFuego;
-	private GameObject SlotActivaDeViento;
-	private GameObject SlotActivaDeTierra;
-	private GameObject SlotActivaDeAgua;
-	private GameObject SlotPasivaDeFuego;
-	private GameObject SlotPasivaDeViento;
-	private GameObject SlotPasivaDeTierra;
-	private GameObject SlotPasivaDeAgua;
-	private GameObject SlotEstadisticaDeFuego;
-	private GameObject SlotEstadisticaDeViento;
-	private GameObject SlotEstadisticaDeTierra;
-	private GameObject SlotEstadisticaDeAgua;
+	[Header("Slots de Las Habilidades")]
+	public Image SlotActivaDeFuego;
+	public Image SlotActivaDeViento;
+	public Image SlotActivaDeTierra;
+	public Image SlotActivaDeAgua;
+	public Image SlotPasivaDeFuego;
+	public Image SlotPasivaDeViento;
+	public Image SlotPasivaDeTierra;
+	public Image SlotPasivaDeAgua;
+	public Image SlotEstadisticaDeFuego;
+	public Image SlotEstadisticaDeViento;
+	public Image SlotEstadisticaDeTierra;
+	public Image SlotEstadisticaDeAgua;
 
 	//Notifico las variables para reemplazar su texto mas adelante
 	private GameObject NombreNotificador;
@@ -58,6 +61,7 @@ public class ManejadorDeItems : MonoBehaviour {
 	Text TextoDescripcion;
 
 	//Variables para la barra de Vida
+	[Header("Imagen para la vida del personaje")]
 	public Image Contenido;
 	float RellenoDeVida;
 	public Gradient TabletaDeColores;
@@ -76,22 +80,6 @@ public class ManejadorDeItems : MonoBehaviour {
 
 		//Lleno mi Array de los items activos
 		Objetos = Resources.LoadAll<GameObject>("Objetos");
-
-		//Encuentro el Slot para referenciarlo y acceder a sus variables mas adelante
-		SlotActivaDeFuego = GameObject.Find("ActivaFuego");
-		SlotActivaDeViento = GameObject.Find("ActivaViento");
-		SlotActivaDeTierra = GameObject.Find("ActivaTierra");
-		SlotActivaDeAgua = GameObject.Find("ActivaAgua");
-
-		SlotPasivaDeFuego = GameObject.Find("PasivaFuego");
-		SlotPasivaDeViento = GameObject.Find("PasivaViento");
-		SlotPasivaDeTierra = GameObject.Find("PasivaTierra");
-		SlotPasivaDeAgua = GameObject.Find("PasivaAgua");
-
-		SlotEstadisticaDeFuego = GameObject.Find("EstadisticaFuego");
-		SlotEstadisticaDeViento = GameObject.Find("EstadisticaViento");
-		SlotEstadisticaDeTierra = GameObject.Find("EstadisticaTierra");
-		SlotEstadisticaDeAgua = GameObject.Find("EstadisticaAgua");
 
 		//Encuentro los campos notifcadores para acceder a sus variables mas adelante
 		NombreNotificador = GameObject.Find("NombreDelItem");
