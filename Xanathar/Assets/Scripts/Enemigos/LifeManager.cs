@@ -149,8 +149,7 @@ public class LifeManager : MonoBehaviour
                 if (items[i].SpawnRate > numero)
                 {
                     print("Spawneo al item: " + items[i].Item + " Con un random de: + " + numero + " < " + items[i].SpawnRate);
-                    //Vida = 100;
-                    //TESTMATAR = false;
+                    TESTMATAR = false;
                     DestroyImmediate(gameObject);
 
                 }
