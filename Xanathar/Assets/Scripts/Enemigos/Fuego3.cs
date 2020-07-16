@@ -38,7 +38,6 @@ public class Fuego3 : MonoBehaviour
     public Transform PuntoDisparo;
     public Transform Heredar2;
     private Transform Heredar;
-    private Vector3 destino;
 
     public float delay;
 
@@ -368,7 +367,6 @@ public class Fuego3 : MonoBehaviour
         Gizmos.DrawWireCube(posicionSpawn, cubo);
         Heredar = transform.Find(NombreHijo).GetComponent<Transform>();
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(destino, 0.5f);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(VisionDisparo.position, radioDisparar);
 
