@@ -19,8 +19,6 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 	//Vector para la fuerza de gravedad
 	Vector3 Velocidad;
-	//Vector 3 para la fuerza del dash
-	Vector3 DireccionDeMovimiento;
 
 	//CheckDePiso es el objeto abajo de nuestro personaje que choca con el piso
 	public Transform CheckDePiso;
@@ -52,7 +50,6 @@ public class MovimientoPersonaje : MonoBehaviour {
 	void Update ()
 	{
 		//Crea una esfera invisible que se encarga de chequear si colisiona con el piso
-		EstaEnPiso = Physics.CheckSphere(CheckDePiso.position , DistanciaDePiso , MascaraDePiso);
 		EstaEnPiso = Physics.CheckSphere(CheckDePiso.position , DistanciaDePiso , MascaraDePiso);
 		X = Input.GetAxis("Horizontal");
 		Z = Input.GetAxis("Vertical");
