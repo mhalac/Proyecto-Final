@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ManejadorDeItems : MonoBehaviour {
 
@@ -73,6 +74,9 @@ public class ManejadorDeItems : MonoBehaviour {
 	public Text TextoInformacionArmadura;
 	CambiadorDeNivel CambioCuandoMueras;
 
+
+	public GameObject[] Prueba1;
+
 	void Awake()
 	{
 		//Fusiono las layermasks en una sola
@@ -112,6 +116,8 @@ public class ManejadorDeItems : MonoBehaviour {
 
 		CanvasHUD = this.gameObject;
 		GameObject.DontDestroyOnLoad(this.gameObject);
+
+		Prueba1 = GameObject.FindGameObjectsWithTag("Items");
 	}
 	
 	// Update is called once per frame
@@ -125,10 +131,10 @@ public class ManejadorDeItems : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.J))
 		{
 			//DropeadorDeItems();
-			//VerObjetosEquipados();
-
-			EstadisticasDePersonaje.VidaActualPersonaje -=1;
-			ManejadorDeVida();
+			VerObjetosEquipados();
+			
+			//EstadisticasDePersonaje.VidaActualPersonaje -=1;
+			//ManejadorDeVida();
 		}
 		
 	}
@@ -404,9 +410,16 @@ public class ManejadorDeItems : MonoBehaviour {
 	//Funcion para testear inventario
 	private void VerObjetosEquipados()
 	{
+		/*
 		for(int i = 0; i < ItemsEquipados.Length; i++)
 		{
 			print(ItemsEquipados[i]);
+		}
+		*/
+
+		for(int i = 0; i < Prueba1.Length; i++)
+		{
+			print(Prueba1[i]);
 		}
 	}
 }
