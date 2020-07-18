@@ -60,7 +60,7 @@ public class FuegoJefe : MonoBehaviour
     }
     public void TermineAnimacion()
     {
-
+        //xddd
         StartCoroutine(EsperarDespuesDeAtacar());
 
     }
