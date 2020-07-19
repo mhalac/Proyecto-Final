@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 208104034048609458}
   - component: {fileID: 114382603257905208}
   - component: {fileID: 114543381720079614}
+  - component: {fileID: 65824616351917950}
   m_Layer: 9
   m_Name: Jugador
   m_TagString: Personaje
@@ -572,6 +573,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &65824616351917950
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430075857039988}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3.514156, z: 1.4252532}
+  m_Center: {x: -5.706096e-16, y: -0.0040950063, z: -0.07748333}
 --- !u!81 &81080765078937218
 AudioListener:
   m_ObjectHideFlags: 1
