@@ -11,7 +11,7 @@ public class FuegoJefe : MonoBehaviour
 
     public GameObject Arma;
     public string Estado;
-
+    private bool Golpie = false;
     private Animator anim;
     private NavMeshAgent Agente;
 
@@ -40,16 +40,19 @@ public class FuegoJefe : MonoBehaviour
     {
         //!!Acordate que a veces hace 2 de damage.
 
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("right swing"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("right swing") && !Golpie)
         {
             Collider[] Obj = Physics.OverlapSphere(Arma.transform.position, Radio);
-            Personaje.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            //Personaje.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             foreach (Collider c in Obj)
             {
                 if (c.gameObject.tag == "Personaje")
                 {
-                    Vector3 posExplosion = new Vector3(Arma.transform.position.x,Arma.transform.position.y - 0.6f,Arma.transform.position.z);
-                    c.gameObject.GetComponent<Rigidbody>().AddExplosionForce(27,posExplosion,20,30f);
+                    Vector3 dir = c.transform.position - transform.position;
+                    dir.y = 0;
+                    Golpie = true;
+                    print("le di");
+                    StartCoroutine(Knockback(dir));
 
                 }
 
@@ -72,6 +75,7 @@ public class FuegoJefe : MonoBehaviour
             }
             else if (AcaboDeAtacar)
             {
+                Golpie = false;
                 FinalizoAnim = false;
                 anim.Play("right swing", -1, 0f);
                 Estado = States.Atacando.ToString();
@@ -81,8 +85,18 @@ public class FuegoJefe : MonoBehaviour
     }
     public void TermineAnimacion()
     {
-        Personaje.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        //Personaje.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         StartCoroutine(EsperarDespuesDeAtacar());
+
+    }
+    IEnumerator Knockback(Vector3 dir)
+    {
+        for (int i = 0; i < 30; i++)
+        {
+            Personaje.transform.Translate(dir.normalized * Time.deltaTime * 50);
+            yield return null;
+        }
+        yield return null;
 
     }
     IEnumerator RotarMientrasAtaco()
@@ -110,13 +124,12 @@ public class FuegoJefe : MonoBehaviour
         }
         anim.SetBool("Atacar", true);
         //anim.SetBool("TerminoCorrer", true);
-        print("Ataque");
     }
     private void Atacar()
     {
         Agente.enabled = false;
         Estado = States.Atacando.ToString();
-
+        Golpie = false;
         StartCoroutine(RotarMientrasAtaco());
 
     }
