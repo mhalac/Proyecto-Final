@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.SceneManagement;
 
 public class ManejadorDeEscenas : MonoBehaviour {
 
@@ -13,6 +14,8 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	EstadisticasDePersonaje VelCorrer;
 	CambiadorDeNivel AsignadorDeEscenas;
 
+	//Scene Escenaxd;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -23,7 +26,10 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-
+		/*
+		Escenaxd = SceneManager.GetActiveScene();
+		print(Escenaxd.name);
+		*/
 	}
 
 	void OnCollisionEnter(Collision col)
