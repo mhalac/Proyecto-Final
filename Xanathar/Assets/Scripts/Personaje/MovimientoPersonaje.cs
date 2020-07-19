@@ -62,7 +62,7 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 		Dash();
 	}
-
+	
 	void Saltar()
 	{
 		if(EstaEnPiso && Velocidad.y < 0)
