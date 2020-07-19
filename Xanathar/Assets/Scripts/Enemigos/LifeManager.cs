@@ -150,10 +150,12 @@ public class LifeManager : MonoBehaviour
                 {
                     print("Spawneo al item: " + items[i].Item + " Con un random de: + " + numero + " < " + items[i].SpawnRate);
                     TESTMATAR = false;
-                    DestroyImmediate(gameObject);
 
                 }
+
             }
+            DestroyImmediate(this.gameObject);
+
 
         }
     }

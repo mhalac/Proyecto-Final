@@ -25,7 +25,10 @@ public class Ataque : MonoBehaviour
     void Update()
     {
         // sacar despues, solo sirve para la escena de primera entrega
-
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            transform.position = new Vector3(-49.35f,15.938f,-14.85f);
+        }
 
         Atacar();
     }
