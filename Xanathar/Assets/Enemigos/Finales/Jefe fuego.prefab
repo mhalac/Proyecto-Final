@@ -330,6 +330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4077661668194078}
+  - component: {fileID: 135028520241630638}
   m_Layer: 0
   m_Name: mixamorig:LeftHand
   m_TagString: Untagged
@@ -564,6 +565,21 @@ GameObject:
   - component: {fileID: 137944360871746590}
   m_Layer: 0
   m_Name: pinche
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1803669363568584
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4292712900229406}
+  m_Layer: 0
+  m_Name: Arma
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -855,7 +871,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 26.694654, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4292712900229406}
   m_Father: {fileID: 4482356191216164}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -970,6 +987,19 @@ Transform:
   m_Father: {fileID: 4166068047784136}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 35.662422, y: 20.685799, z: -20.764341}
+--- !u!4 &4292712900229406
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1803669363568584}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2, y: 28.63, z: 0.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4077661668194078}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4305790955508678
 Transform:
   m_ObjectHideFlags: 1
@@ -1502,9 +1532,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f17e57dd164e03468cb005aa4264b70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Arma: {fileID: 1499974346443774}
+  Radio: 0
+  PosicionAtaque: {fileID: 1499974346443774}
+  Arma: {fileID: 1803669363568584}
   Estado: 
   AcaboDeAtacar: 0
+--- !u!135 &135028520241630638
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1406118831111858}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 6.706666
+  m_Center: {x: -1.4387457, y: 28.361633, z: -0.096622765}
 --- !u!137 &137053425430575010
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

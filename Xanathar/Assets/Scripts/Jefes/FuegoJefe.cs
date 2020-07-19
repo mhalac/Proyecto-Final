@@ -5,9 +5,11 @@ using UnityEngine.AI;
 
 public class FuegoJefe : MonoBehaviour
 {
-    public GameObject Arma;
+    public float Radio;
+    public GameObject PosicionAtaque;
     private GameObject Personaje;
 
+    public GameObject Arma;
     public string Estado;
 
     private Animator anim;
@@ -36,18 +38,35 @@ public class FuegoJefe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawLine(Arma.transform.position, Personaje.transform.position, Color.magenta);
-        Debug.DrawLine(transform.position, Arma.transform.position);
+        //!!Acordate que a veces hace 2 de damage.
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("right swing"))
+        {
+            Collider[] Obj = Physics.OverlapSphere(Arma.transform.position, Radio);
+            Personaje.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            foreach (Collider c in Obj)
+            {
+                if (c.gameObject.tag == "Personaje")
+                {
+                    Vector3 posExplosion = new Vector3(Arma.transform.position.x,Arma.transform.position.y - 0.6f,Arma.transform.position.z);
+                    c.gameObject.GetComponent<Rigidbody>().AddExplosionForce(27,posExplosion,20,30f);
+
+                }
+
+            }
+        }
+        Debug.DrawLine(PosicionAtaque.transform.position, Personaje.transform.position, Color.magenta);
+        Debug.DrawLine(transform.position, PosicionAtaque.transform.position);
         if (FinalizoAnim)
         {
-            if (Estado == States.Idle.ToString() && Vector3.Distance(Personaje.transform.position, transform.position) > Vector3.Distance(transform.position, Arma.transform.position))
+            if (Estado == States.Idle.ToString() && Vector3.Distance(Personaje.transform.position, transform.position) >= Vector3.Distance(transform.position, PosicionAtaque.transform.position))
             {
                 Agente.enabled = true;
                 AcaboDeAtacar = false;
                 anim.SetBool("Correr", true);
                 Agente.destination = Personaje.transform.position;
             }
-            else if (Estado == States.Idle.ToString() && !AcaboDeAtacar && Vector3.Distance(Personaje.transform.position, transform.position) < Vector3.Distance(transform.position, Arma.transform.position))
+            else if (Estado == States.Idle.ToString() && !AcaboDeAtacar && Vector3.Distance(Personaje.transform.position, transform.position) <= Vector3.Distance(transform.position, PosicionAtaque.transform.position))
             {
                 Atacar();
             }
@@ -62,7 +81,7 @@ public class FuegoJefe : MonoBehaviour
     }
     public void TermineAnimacion()
     {
-        //xddd
+        Personaje.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         StartCoroutine(EsperarDespuesDeAtacar());
 
     }
@@ -73,14 +92,15 @@ public class FuegoJefe : MonoBehaviour
         FinalizoAnim = false;
         Vector3 angulos = new Vector3(0, -360, 0);
         Vector3 PosicionRelativa = Personaje.transform.position - transform.position;
-     
+        int vuelta = 0;
 
-        
+
 
         while (Rotando)
         {
+            vuelta++;
             transform.Rotate(angulos * Time.deltaTime);
-            if (Vector3.Distance(Arma.transform.position, Personaje.transform.position) < 2f)
+            if (Vector3.Distance(PosicionAtaque.transform.position, Personaje.transform.position) < 2f || vuelta > 67)
             {
                 Rotando = false;
             }
@@ -122,5 +142,9 @@ public class FuegoJefe : MonoBehaviour
 
 
     }
-
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(Arma.transform.position, Radio);
+    }
 }
