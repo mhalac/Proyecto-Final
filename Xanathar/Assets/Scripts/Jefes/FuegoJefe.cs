@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class FuegoJefe : MonoBehaviour
 {
-
+    public GameObject Arma;
     private GameObject Personaje;
 
     public string Estado;
@@ -16,6 +16,8 @@ public class FuegoJefe : MonoBehaviour
     // Use this for initialization
     public bool AcaboDeAtacar;
     private bool FinalizoAnim = true;
+
+
     enum States
     {
         Idle,
@@ -34,24 +36,24 @@ public class FuegoJefe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.DrawLine(Arma.transform.position, Personaje.transform.position, Color.magenta);
+        Debug.DrawLine(transform.position, Arma.transform.position);
         if (FinalizoAnim)
         {
-            if (Estado == States.Idle.ToString() && Vector3.Distance(Personaje.transform.position, transform.position) > 20)
+            if (Estado == States.Idle.ToString() && Vector3.Distance(Personaje.transform.position, transform.position) > Vector3.Distance(transform.position, Arma.transform.position))
             {
+                Agente.enabled = true;
                 AcaboDeAtacar = false;
                 anim.SetBool("Correr", true);
                 Agente.destination = Personaje.transform.position;
             }
-            else if (Estado == States.Idle.ToString() && !AcaboDeAtacar)
+            else if (Estado == States.Idle.ToString() && !AcaboDeAtacar && Vector3.Distance(Personaje.transform.position, transform.position) < Vector3.Distance(transform.position, Arma.transform.position))
             {
-                print("this");
                 Atacar();
             }
             else if (AcaboDeAtacar)
             {
                 FinalizoAnim = false;
-                print("Ataco por segunda vez");
                 anim.Play("right swing", -1, 0f);
                 Estado = States.Atacando.ToString();
             }
@@ -64,19 +66,43 @@ public class FuegoJefe : MonoBehaviour
         StartCoroutine(EsperarDespuesDeAtacar());
 
     }
+    IEnumerator RotarMientrasAtaco()
+    {
+        bool Rotando = true;
+        anim.SetBool("Correr", false);
+        FinalizoAnim = false;
+        Vector3 angulos = new Vector3(0, -360, 0);
+        Vector3 PosicionRelativa = Personaje.transform.position - transform.position;
+     
+
+        
+
+        while (Rotando)
+        {
+            transform.Rotate(angulos * Time.deltaTime);
+            if (Vector3.Distance(Arma.transform.position, Personaje.transform.position) < 2f)
+            {
+                Rotando = false;
+            }
+
+            yield return null;
+
+        }
+        anim.SetBool("Atacar", true);
+        //anim.SetBool("TerminoCorrer", true);
+        print("Ataque");
+    }
     private void Atacar()
     {
-        anim.SetBool("Correr", false);
-        anim.SetBool("Atacar", true);
-        FinalizoAnim = false;
-
-        //anim.SetBool("TerminoCorrer", true);
-        Agente.isStopped = true;
-        print("Ataque");
+        Agente.enabled = false;
         Estado = States.Atacando.ToString();
+
+        StartCoroutine(RotarMientrasAtaco());
+
     }
     public void TermineDeAtacar()
     {
+
     }
     IEnumerator EsperarInicio()
     {
@@ -90,9 +116,10 @@ public class FuegoJefe : MonoBehaviour
         anim.StopPlayback();
         Estado = States.Idle.ToString();
         anim.SetBool("Atacar", false);
-        Agente.isStopped = false;
+
         FinalizoAnim = true;
         AcaboDeAtacar = true;
+
 
     }
 
