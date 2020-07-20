@@ -39,7 +39,7 @@ public class FuegoJefe : MonoBehaviour
     void Update()
     {
         //!!Acordate que a veces hace 2 de damage.
-
+        Debug.DrawRay(transform.position,transform.right.normalized * 20,Color.blue);
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("right swing") && !Golpie)
         {
             Collider[] Obj = Physics.OverlapSphere(Arma.transform.position, Radio);
@@ -48,18 +48,18 @@ public class FuegoJefe : MonoBehaviour
             {
                 if (c.gameObject.tag == "Personaje")
                 {
-                    Vector3 dir = c.transform.position - transform.position;
-                    dir.y = 0;
+                    var dir = transform.forward * -1;
+                    
                     Golpie = true;
                     print("le di");
-                    StartCoroutine(Knockback(dir));
+                    StartCoroutine(Knockback(dir.normalized));
 
                 }
 
             }
         }
-        Debug.DrawLine(PosicionAtaque.transform.position, Personaje.transform.position, Color.magenta);
-        Debug.DrawLine(transform.position, PosicionAtaque.transform.position);
+        //Debug.DrawLine(PosicionAtaque.transform.position, Personaje.transform.position, Color.magenta);
+        //Debug.DrawLine(transform.position, PosicionAtaque.transform.position);
         if (FinalizoAnim)
         {
             if (Estado == States.Idle.ToString() && Vector3.Distance(Personaje.transform.position, transform.position) >= Vector3.Distance(transform.position, PosicionAtaque.transform.position))
@@ -93,7 +93,7 @@ public class FuegoJefe : MonoBehaviour
     {
         for (int i = 0; i < 30; i++)
         {
-            Personaje.transform.Translate(dir.normalized * Time.deltaTime * 50);
+            Personaje.GetComponent<CharacterController>().Move((dir * Time.deltaTime * 20));
             yield return null;
         }
         yield return null;
