@@ -8,23 +8,34 @@ public class FuegoJefe : MonoBehaviour
     public float Radio;
     public GameObject PosicionAtaque;
     private GameObject Personaje;
+    private RaycastHit hit;
+    public float DamageCaida;
+    public float DamageTrompada;
+    public float FuerzaKnockback;
+    public Transform SaltoMamado;
 
+    public Vector3 AreaCaida;
     public GameObject Arma;
     public string Estado;
     private bool Golpie = false;
     private Animator anim;
     private NavMeshAgent Agente;
-
+    //7.449858
     // Use this for initialization
     public bool AcaboDeAtacar;
     private bool FinalizoAnim = true;
-
-
+    public float Distancia;
+    public VibracionCamara Vibrar;
+    public int ContadorDeGolpes;
     enum States
     {
         Idle,
         Atacando,
-        Persiguiendo
+        Persiguiendo,
+        Saltando,
+        Cargando
+
+
     }
 
     void Start()
@@ -35,23 +46,45 @@ public class FuegoJefe : MonoBehaviour
         StartCoroutine(EsperarInicio());
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        //!!Acordate que a veces hace 2 de damage.
-        Debug.DrawRay(transform.position,transform.right.normalized * 20,Color.blue);
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("right swing") && !Golpie)
+       /* Debug.DrawRay(transform.position, transform.forward * 20);
+        if (ContadorDeGolpes >= 1 && anim.GetCurrentAnimatorStateInfo(0).IsName("running") && Vector3.Distance(transform.position, Personaje.transform.position)
+        < Vector3.Distance(transform.position, SaltoMamado.position) && Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity) && hit.transform.gameObject.tag == "Personaje")
+        {
+            Agente.enabled = false;
+            Estado = States.Cargando.ToString();
+            anim.SetBool("Saltar", true);
+            ContadorDeGolpes = 0;
+        }*/
+        Distancia = Vector3.Distance(transform.position, Personaje.transform.position);
+        if (Estado == States.Atacando.ToString() && Distancia < 7.449858f)
+        {
+            anim.SetBool("Atacar", false);
+            anim.SetBool("Saltar", true);
+            Estado = States.Saltando.ToString();
+        }
+        if (AcaboDeAtacar && Vector3.Distance(PosicionAtaque.transform.position, Personaje.transform.position) > 2.5f && Distancia <= Vector3.Distance(transform.position, PosicionAtaque.transform.position))
+        {
+            AcaboDeAtacar = false;
+            anim.SetBool("Atacar", false);
+            anim.SetBool("Saltar", true);
+            Estado = States.Saltando.ToString();
+        }
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("right swing"))
         {
             Collider[] Obj = Physics.OverlapSphere(Arma.transform.position, Radio);
-            //Personaje.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             foreach (Collider c in Obj)
             {
-                if (c.gameObject.tag == "Personaje")
+                ContadorDeGolpes++;
+                if (c.gameObject.tag == "Personaje" && !Golpie)
                 {
                     var dir = transform.forward * -1;
-                    
+
                     Golpie = true;
-                    print("le di");
                     StartCoroutine(Knockback(dir.normalized));
 
                 }
@@ -62,14 +95,14 @@ public class FuegoJefe : MonoBehaviour
         //Debug.DrawLine(transform.position, PosicionAtaque.transform.position);
         if (FinalizoAnim)
         {
-            if (Estado == States.Idle.ToString() && Vector3.Distance(Personaje.transform.position, transform.position) >= Vector3.Distance(transform.position, PosicionAtaque.transform.position))
+            if (Estado == States.Idle.ToString() && Distancia >= Vector3.Distance(transform.position, PosicionAtaque.transform.position))
             {
                 Agente.enabled = true;
                 AcaboDeAtacar = false;
                 anim.SetBool("Correr", true);
                 Agente.destination = Personaje.transform.position;
             }
-            else if (Estado == States.Idle.ToString() && !AcaboDeAtacar && Vector3.Distance(Personaje.transform.position, transform.position) <= Vector3.Distance(transform.position, PosicionAtaque.transform.position))
+            else if (Estado == States.Idle.ToString() && !AcaboDeAtacar && Distancia <= Vector3.Distance(transform.position, PosicionAtaque.transform.position))
             {
                 Atacar();
             }
@@ -83,17 +116,46 @@ public class FuegoJefe : MonoBehaviour
 
         }//print(Vector3.Distance(Personaje.transform.position, transform.position));
     }
+
     public void TermineAnimacion()
     {
-        //Personaje.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         StartCoroutine(EsperarDespuesDeAtacar());
+    }
+    public void AplasteElPiso()
+    {
+        bool encontro = false;
+        Collider[] Buscar = Physics.OverlapBox(transform.position, AreaCaida);
+        foreach (Collider c in Buscar)
+        {
+            if (c.gameObject.tag == "Personaje" && !encontro)
+            {
+                Personaje.GetComponent<EstadisticasDePersonaje>().RecibirDaño(DamageCaida);
+                encontro = true;
+            }
+        }
+        Vibrar.StartCoroutine(Vibrar.Shake(.15f, .4f));
+
+
+        if (Distancia < 7.449858f)
+        {
+            anim.Play("Saltando", -1, 0f);
+        }
+        else
+        {
+            anim.SetBool("Saltar", false);
+            Estado = States.Idle.ToString();
+            Agente.enabled = true;
+
+        }
 
     }
+
     IEnumerator Knockback(Vector3 dir)
     {
+        Personaje.GetComponent<EstadisticasDePersonaje>().RecibirDaño(DamageTrompada);
         for (int i = 0; i < 30; i++)
         {
-            Personaje.GetComponent<CharacterController>().Move((dir * Time.deltaTime * 20));
+            Personaje.GetComponent<CharacterController>().Move(dir * Time.deltaTime * FuerzaKnockback);
             yield return null;
         }
         yield return null;
@@ -157,6 +219,7 @@ public class FuegoJefe : MonoBehaviour
     }
     void OnDrawGizmosSelected()
     {
+        Gizmos.DrawWireCube(transform.position, AreaCaida * 2);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(Arma.transform.position, Radio);
     }
