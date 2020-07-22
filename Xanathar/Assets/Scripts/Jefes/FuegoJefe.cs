@@ -20,13 +20,20 @@ public class FuegoJefe : MonoBehaviour
     private bool Golpie = false;
     private Animator anim;
     private NavMeshAgent Agente;
-    //7.449858
-    // Use this for initialization
+
+
+
     public bool AcaboDeAtacar;
     private bool FinalizoAnim = true;
     public float Distancia;
     public VibracionCamara Vibrar;
     public int ContadorDeGolpes;
+
+    [Header("Sonidos")]
+    public AudioSource SonidoSalto;
+    public AudioSource SonidoCorrer;
+
+
     enum States
     {
         Idle,
@@ -50,15 +57,7 @@ public class FuegoJefe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       /* Debug.DrawRay(transform.position, transform.forward * 20);
-        if (ContadorDeGolpes >= 1 && anim.GetCurrentAnimatorStateInfo(0).IsName("running") && Vector3.Distance(transform.position, Personaje.transform.position)
-        < Vector3.Distance(transform.position, SaltoMamado.position) && Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity) && hit.transform.gameObject.tag == "Personaje")
-        {
-            Agente.enabled = false;
-            Estado = States.Cargando.ToString();
-            anim.SetBool("Saltar", true);
-            ContadorDeGolpes = 0;
-        }*/
+
         Distancia = Vector3.Distance(transform.position, Personaje.transform.position);
         if (Estado == States.Atacando.ToString() && Distancia < 7.449858f)
         {
@@ -83,6 +82,7 @@ public class FuegoJefe : MonoBehaviour
                 if (c.gameObject.tag == "Personaje" && !Golpie)
                 {
                     var dir = transform.forward * -1;
+                    SonidoSalto.Play();
 
                     Golpie = true;
                     StartCoroutine(Knockback(dir.normalized));
@@ -91,8 +91,7 @@ public class FuegoJefe : MonoBehaviour
 
             }
         }
-        //Debug.DrawLine(PosicionAtaque.transform.position, Personaje.transform.position, Color.magenta);
-        //Debug.DrawLine(transform.position, PosicionAtaque.transform.position);
+
         if (FinalizoAnim)
         {
             if (Estado == States.Idle.ToString() && Distancia >= Vector3.Distance(transform.position, PosicionAtaque.transform.position))
@@ -100,14 +99,21 @@ public class FuegoJefe : MonoBehaviour
                 Agente.enabled = true;
                 AcaboDeAtacar = false;
                 anim.SetBool("Correr", true);
+
+                if (SonidoCorrer.isPlaying == false)
+                    SonidoCorrer.Play();
+
                 Agente.destination = Personaje.transform.position;
             }
             else if (Estado == States.Idle.ToString() && !AcaboDeAtacar && Distancia <= Vector3.Distance(transform.position, PosicionAtaque.transform.position))
             {
                 Atacar();
+                SonidoCorrer.Stop();
             }
             else if (AcaboDeAtacar)
             {
+                SonidoCorrer.Stop();
+
                 Golpie = false;
                 FinalizoAnim = false;
                 anim.Play("right swing", -1, 0f);
@@ -134,7 +140,6 @@ public class FuegoJefe : MonoBehaviour
             }
         }
         Vibrar.StartCoroutine(Vibrar.Shake(.15f, .4f));
-
 
         if (Distancia < 7.449858f)
         {
