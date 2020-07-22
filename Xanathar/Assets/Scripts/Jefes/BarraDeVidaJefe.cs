@@ -21,18 +21,15 @@ public class BarraDeVidaJefe : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		ManejadorDeVidaJefe();
+		ManejadorDeVidaJefe(ValorDeVidaMaxima , ValorDeVidaActual);
 	}
 
-	public void ManejadorDeVidaJefe()
+	public void ManejadorDeVidaJefe(float VidaMaximaDelJefe , float VidaActualDelJefe)
 	{
-		float VidaActual = ValorDeVidaActual;
-		float VidaMaxima = ValorDeVidaMaxima;
-
-		RellenoDeVida = VidaActual / VidaMaxima;
+		RellenoDeVida = VidaActualDelJefe / VidaMaximaDelJefe;
 		ContenidoBarraDeVida.fillAmount = RellenoDeVida;
 
-		if(VidaActual <= 0)
+		if(VidaActualDelJefe <= 0)
 		{
 			Debug.Log("El jefe se murio");
 		}
