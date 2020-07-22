@@ -17,6 +17,10 @@ public class FuegoAnim : MonoBehaviour
     {
 
     }
+    public void AplasteElPiso()
+    {
+        Padre.AplasteElPiso();
+    }
     public void TermineAnimacion()
     {
 		Padre.TermineAnimacion();
