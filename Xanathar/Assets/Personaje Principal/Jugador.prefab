@@ -106,7 +106,8 @@ GameObject:
   - component: {fileID: 208104034048609458}
   - component: {fileID: 114382603257905208}
   - component: {fileID: 114543381720079614}
-  - component: {fileID: 65824616351917950}
+  - component: {fileID: 114236399020521722}
+  - component: {fileID: 65081230009365224}
   m_Layer: 9
   m_Name: Jugador
   m_TagString: Personaje
@@ -141,7 +142,7 @@ GameObject:
   - component: {fileID: 4800373830159400}
   - component: {fileID: 33169975166591194}
   - component: {fileID: 23800042841315964}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -573,7 +574,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!65 &65824616351917950
+--- !u!65 &65081230009365224
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -635,6 +636,18 @@ MonoBehaviour:
   "Da\xF1oElementalAgua": 0
   "Da\xF1oElementalTierra": 0
   VelocidadInicial: 0
+--- !u!114 &114236399020521722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430075857039988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8cb4d37ffc5c7a448d13d0db555cf31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LayerMask: 512
 --- !u!114 &114382603257905208
 MonoBehaviour:
   m_ObjectHideFlags: 1
