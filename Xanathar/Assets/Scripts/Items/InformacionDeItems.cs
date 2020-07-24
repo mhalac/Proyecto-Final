@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class InformacionDeItems : MonoBehaviour {
 
-	bool Corrutina = false;
+	bool CorrutinaObjetos = false;
+	bool CorrutinaPiso = false;
 	Rigidbody rb;
 	public float AreaDeAdios;
 	public string Nombre;
@@ -12,11 +13,11 @@ public class InformacionDeItems : MonoBehaviour {
 	public string Categoria;
 	public string Elemento;
 	public Sprite Icono;
+	public bool PararCorrutina = false;
 	
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
-		//print(this.transform.position);
 	}
 	void Update()
 	{
@@ -27,12 +28,25 @@ public class InformacionDeItems : MonoBehaviour {
 			if(hit.gameObject != this.gameObject && hit.tag == "Items")
 			{
 				Vector3 Retroceder = this.transform.position - 	hit.gameObject.transform.position;
-				rb.velocity = Vector3.Lerp(rb.velocity , Retroceder , Time.deltaTime * 2);
+				rb.velocity = Vector3.Lerp(rb.velocity , Retroceder , Time.deltaTime * 5);
 
-				if(Corrutina == false)
+				if(CorrutinaObjetos == false)
 				{
 					StartCoroutine(PararDeMoverse());
-					Corrutina = true;
+					CorrutinaObjetos = true;
+				}
+			}
+
+			
+			if(hit.gameObject != this.gameObject && hit.gameObject.layer == 10)
+			{
+				Vector3 MoverseArriba = this.transform.position - hit.gameObject.transform.position;
+				rb.velocity = Vector3.Lerp(transform.up , MoverseArriba, Time.deltaTime * 5);
+
+				if(CorrutinaPiso == false)
+				{
+					StartCoroutine(PararDeMoverse());
+					CorrutinaPiso = true;
 				}
 			}
 		}
@@ -50,8 +64,7 @@ public class InformacionDeItems : MonoBehaviour {
 		rb.velocity = Vector3.zero;
 		rb.angularVelocity = Vector3.zero;
 		rb.drag = 0;
-		Corrutina = false;
-		print(this.transform.position);
-		//print("Esto se ejecuto");
+		CorrutinaObjetos = false;
+		CorrutinaPiso = false;
 	}
 }

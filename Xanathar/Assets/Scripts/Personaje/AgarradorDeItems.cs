@@ -22,6 +22,12 @@ public class AgarradorDeItems : MonoBehaviour {
 	void Update ()
 	{
 		RaycastDeItems();
+
+
+		if(Input.GetKeyDown(KeyCode.J))
+		{
+			DropeadorDeItems();
+		}
 	}
 
 	private void OnDrawGizmos()
@@ -86,7 +92,6 @@ public class AgarradorDeItems : MonoBehaviour {
 			{
 				ObjetosEquipados[i] = ObjetoAgarrado;
 				Destroy(ColisionDeObjeto.collider.gameObject);
-				//Aca falta que te muestre
 				break;
 			}
 
@@ -120,5 +125,20 @@ public class AgarradorDeItems : MonoBehaviour {
 			Debug.Log(ObjetosEquipados[i]);
 		}
 		*/
+	}
+
+	public void DropeadorDeItems()
+	{
+		for(int i = 0; i < ObjetosEquipados.Length; i++)
+		{
+			if(ObjetosEquipados[i] == null)
+			{
+				break;
+			}
+			Instantiate(ObjetosEquipados[i] , Instanciador.transform.position , Quaternion.identity);
+			ObjetosEquipados[i] = null;
+		}
+
+		ManejadorDeHUD.DesactivadorSlots();
 	}
 }

@@ -30,6 +30,7 @@ public class ManejadorDeItems : MonoBehaviour {
 	public Image SlotEstadisticaDeViento;
 	public Image SlotEstadisticaDeTierra;
 	public Image SlotEstadisticaDeAgua;
+	public Image [] SlotsDeImagesArray;
 
 	//Notifico las variables para reemplazar su texto mas adelante
 	private GameObject NombreNotificador;
@@ -52,6 +53,8 @@ public class ManejadorDeItems : MonoBehaviour {
 	//Variables para mostrar las estadisticas del personaje
 	public Text TextoInformacionVida;
 	public Text TextoInformacionArmadura;
+
+	private AgarradorDeItems agarradorDeItems;
 	void Awake()
 	{
 		//Encuentro los campos notifcadores para acceder a sus variables mas adelante
@@ -62,6 +65,8 @@ public class ManejadorDeItems : MonoBehaviour {
 		TextoNombre = NombreNotificador.GetComponent<Text>();
 		TextoCategoria = CategoriaNotificador.GetComponent<Text>();
 		TextoDescripcion = DescripcionNotificador.GetComponent<Text>();
+
+		agarradorDeItems = FindObjectOfType<AgarradorDeItems>();
 	}
 
 	// Use this for initialization
@@ -141,18 +146,22 @@ public class ManejadorDeItems : MonoBehaviour {
 		{
 			case "Fuego":
 			SlotActivaDeFuego.GetComponent<Image>().sprite = Objeto.GetComponent<InformacionDeItems>().Icono;
+			SlotActivaDeFuego.enabled = true;
 			break;
 
 			case "Viento":
 			SlotActivaDeViento.GetComponent<Image>().sprite = Objeto.GetComponent<InformacionDeItems>().Icono;
+			SlotActivaDeViento.enabled = true;
 			break;
 
 			case "Tierra":
 			SlotActivaDeTierra.GetComponent<Image>().sprite = Objeto.GetComponent<InformacionDeItems>().Icono;
+			SlotActivaDeTierra.enabled = true;
 			break;
 
 			case "Agua":
 			SlotActivaDeAgua.GetComponent<Image>().sprite = Objeto.GetComponent<InformacionDeItems>().Icono;
+			SlotActivaDeAgua.enabled = true;
 			break;
 		}
 	}
@@ -163,18 +172,22 @@ public class ManejadorDeItems : MonoBehaviour {
 		{
 			case "Fuego":
 			SlotPasivaDeFuego.GetComponent<Image>().sprite = Objeto.GetComponent<InformacionDeItems>().Icono;
+			SlotPasivaDeFuego.enabled = true;
 			break;
 
 			case "Viento":
 			SlotPasivaDeViento.GetComponent<Image>().sprite = Objeto.GetComponent<InformacionDeItems>().Icono;
+			SlotPasivaDeViento.enabled = true;
 			break;
 
 			case "Tierra":
 			SlotPasivaDeTierra.GetComponent<Image>().sprite = Objeto.GetComponent<InformacionDeItems>().Icono;
+			SlotPasivaDeTierra.enabled = true;
 			break;
 
 			case "Agua":
 			SlotPasivaDeAgua.GetComponent<Image>().sprite = Objeto.GetComponent<InformacionDeItems>().Icono;
+			SlotPasivaDeAgua.enabled = true;
 			break;
 		}
 	}
@@ -185,19 +198,34 @@ public class ManejadorDeItems : MonoBehaviour {
 		{
 			case "Fuego":
 			SlotEstadisticaDeFuego.GetComponent<Image>().sprite = Objeto.GetComponent<InformacionDeItems>().Icono;
+			SlotEstadisticaDeFuego.enabled = true;
 			break;
 
 			case "Viento":
 			SlotEstadisticaDeViento.GetComponent<Image>().sprite = Objeto.GetComponent<InformacionDeItems>().Icono;
+			SlotEstadisticaDeViento.enabled = true;
 			break;
 
 			case "Tierra":
 			SlotEstadisticaDeTierra.GetComponent<Image>().sprite = Objeto.GetComponent<InformacionDeItems>().Icono;
+			SlotEstadisticaDeTierra.enabled = true;
 			break;
 
 			case "Agua":
 			SlotEstadisticaDeAgua.GetComponent<Image>().sprite = Objeto.GetComponent<InformacionDeItems>().Icono;
+			SlotEstadisticaDeAgua.enabled = true;
 			break;
+		}
+	}
+
+	public void DesactivadorSlots()
+	{
+		for(int i = 0; i < SlotsDeImagesArray.Length; i++)
+		{
+			if(SlotsDeImagesArray[i].enabled == true)
+			{
+				SlotsDeImagesArray[i].enabled = false;
+			}
 		}
 	}
 
@@ -218,7 +246,7 @@ public class ManejadorDeItems : MonoBehaviour {
 		else
 		{
 			TextoDeVida.text = "Tu vida es: 0";
-			//DropeadorDeItems();
+			agarradorDeItems.DropeadorDeItems();
 		}
 	}
 
