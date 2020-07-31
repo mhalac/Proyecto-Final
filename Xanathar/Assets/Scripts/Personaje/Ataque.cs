@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ataque : MonoBehaviour
 {
 
+    public LifeManager JefeFuego;
     public Animator anim;
     private float CoolDownInicial;
     public static float CDTotal;
@@ -71,6 +72,10 @@ public class Ataque : MonoBehaviour
                     else
                         Debug.LogWarning("NO HAY VIDA EN EL ENEMIGO");
 
+                }
+                else if(a.tag == "JefeFuego")
+                {
+                    JefeFuego.RecibirDamage();
                 }
             }
 
