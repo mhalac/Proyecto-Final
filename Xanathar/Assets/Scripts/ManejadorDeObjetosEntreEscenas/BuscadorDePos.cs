@@ -14,59 +14,39 @@ public class BuscadorDePos : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		/*
-		PosInicial = GameObject.Find("PosicionInicial");
-		PosFinal = GameObject.Find("PosicionFinal");
-		Jugador = GameObject.FindGameObjectWithTag("Personaje");
-
 		
-		if(ManejadorDeEscenas.EntrasteOSaliste == true)
-		{
-			PosicionX = Mathf.RoundToInt(PosInicial.transform.position.x);
-			PosicionY = Mathf.RoundToInt(PosInicial.transform.position.y);
-			PosicionZ = Mathf.RoundToInt(PosInicial.transform.position.z);
-		
-			RotacionY = Mathf.RoundToInt(PosInicial.transform.eulerAngles.y);
-		}
-		else
-		{
-			PosicionX = Mathf.RoundToInt(PosFinal.transform.position.x);
-			PosicionY = Mathf.RoundToInt(PosFinal.transform.position.y);
-			PosicionZ = Mathf.RoundToInt(PosFinal.transform.position.z);
-		
-			RotacionY = Mathf.RoundToInt(PosFinal.transform.eulerAngles.y);
-		}
-
-		Jugador.transform.position = new Vector3(PosicionX,PosicionY,PosicionZ);
-		Jugador.transform.rotation = Quaternion.Euler(0f,RotacionY,0f);
-		*/
 	}
 
 	public void ManejadorDePos()
 	{
+		
 		PosInicial = GameObject.Find("PosicionInicial");
 		PosFinal = GameObject.Find("PosicionFinal");
 		Jugador = GameObject.FindGameObjectWithTag("Personaje");
 
-		if(ManejadorDeEscenas.EntrasteOSaliste == true)
+		if(PosInicial != null && PosFinal != null)
 		{
-			PosicionX = Mathf.RoundToInt(PosInicial.transform.position.x);
-			PosicionY = Mathf.RoundToInt(PosInicial.transform.position.y);
-			PosicionZ = Mathf.RoundToInt(PosInicial.transform.position.z);
+			if(ManejadorDeEscenas.EntrasteOSaliste == true)
+			{
+				PosicionX = Mathf.RoundToInt(PosInicial.transform.position.x);
+				PosicionY = Mathf.RoundToInt(PosInicial.transform.position.y);
+				PosicionZ = Mathf.RoundToInt(PosInicial.transform.position.z);
 		
-			RotacionY = Mathf.RoundToInt(PosInicial.transform.eulerAngles.y);
-		}
-		else
-		{
-			PosicionX = Mathf.RoundToInt(PosFinal.transform.position.x);
-			PosicionY = Mathf.RoundToInt(PosFinal.transform.position.y);
-			PosicionZ = Mathf.RoundToInt(PosFinal.transform.position.z);
+				RotacionY = Mathf.RoundToInt(PosInicial.transform.eulerAngles.y);
+			}
+			else
+			{
+				PosicionX = Mathf.RoundToInt(PosFinal.transform.position.x);
+				PosicionY = Mathf.RoundToInt(PosFinal.transform.position.y);
+				PosicionZ = Mathf.RoundToInt(PosFinal.transform.position.z);
 		
-			RotacionY = Mathf.RoundToInt(PosFinal.transform.eulerAngles.y);
-		}
+				RotacionY = Mathf.RoundToInt(PosFinal.transform.eulerAngles.y);
+			}
 
-		Jugador.transform.position = new Vector3(PosicionX,PosicionY,PosicionZ);
-		Jugador.transform.rotation = Quaternion.Euler(0f,RotacionY,0f);
-		Debug.Log("Se Cumplio");
+			Jugador.transform.position = new Vector3(PosicionX,PosicionY,PosicionZ);
+			Jugador.transform.rotation = Quaternion.Euler(0f,RotacionY,0f);
+			Debug.Log("Se Cumplio");
+		}
+		
 	}
 }

@@ -312,7 +312,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 208346732}
-  - component: {fileID: 208346731}
   m_Layer: 0
   m_Name: BuscadorDePosiciones
   m_TagString: Untagged
@@ -320,17 +319,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &208346731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 208346730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e081f3833e80b943b87e135bb0f88e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &208346732
 Transform:
   m_ObjectHideFlags: 0
@@ -897,6 +885,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4057021078307200, guid: 0447eef30d7f089469eb2b5cd1038ac2,
     type: 2}
   m_PrefabInternal: {fileID: 2030140448}
+--- !u!1 &908781617 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1224721502573932, guid: 23e8947a03a677a47a932e8b02c1aa02,
+    type: 2}
+  m_PrefabInternal: {fileID: 1779711574}
+--- !u!114 &908781621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 908781617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e081f3833e80b943b87e135bb0f88e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &917566581
 Prefab:
   m_ObjectHideFlags: 0
@@ -2264,6 +2268,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114198133673493680, guid: 23e8947a03a677a47a932e8b02c1aa02,
+        type: 2}
+      propertyPath: BuscadorDePos
+      value: 
+      objectReference: {fileID: 908781621}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23e8947a03a677a47a932e8b02c1aa02, type: 2}
   m_IsPrefabAsset: 0

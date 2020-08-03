@@ -7,33 +7,16 @@ public class CambiadorDeNivel : MonoBehaviour {
 	//Scene Escenaxd;
 
 	public Animator AnimacionDeCambioDeNivel;
-	BuscadorDePos buscadorDePos;
+	public BuscadorDePos BuscadorDePos;
 	AsyncOperation asyncOperation;
 
 	// Use this for initialization
 	void Start ()
 	{
-		buscadorDePos = GameObject.FindObjectOfType<BuscadorDePos>();	
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		/*
-		Escenaxd = SceneManager.GetActiveScene();
-		print(Escenaxd.name);
-		*/
 	}
 
 	public void CambiarDeNivel(string NombreDeEscena)
 	{
-		/*
-		SceneManager.LoadScene(ManejadorDeEscenas.NombreDeEscena);
-		AnimacionDeCambioDeNivel.SetTrigger("Aparecer");
-		ManejadorDeEscenas.ActivadorDeCambio = false;
-		*/
-		
-		
 		StartCoroutine(CargarEscena());
 		AnimacionDeCambioDeNivel.SetTrigger("Aparecer");
 		ManejadorDeEscenas.ActivadorDeCambio = false;
@@ -58,6 +41,6 @@ public class CambiadorDeNivel : MonoBehaviour {
 
 	public void LlamadorDeFuncion()
 	{
-		buscadorDePos.ManejadorDePos();
+		BuscadorDePos.ManejadorDePos();
 	}
 }
