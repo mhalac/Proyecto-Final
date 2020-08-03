@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ManejadorDeEscenas : MonoBehaviour {
 
+	/*
 	[Header("Escenas Nivel De Fuego")]
 	public Object[] NivelDeFuego = new Object[5];
 	int ReferenciadorDeEscenas = 0;
@@ -13,27 +14,40 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	public static bool ActivadorDeCambio = false;
 	EstadisticasDePersonaje VelCorrer;
 	CambiadorDeNivel AsignadorDeEscenas;
+	*/
 
-	//Scene Escenaxd;
+	[Header("EscenasNivelDeFuego")]
+	public Object[] NivelDeFuego = new Object[5];
+
+	[Header("EscenasDelNivelEnElQueEstas")]
+	public Object[] NivelCargado;
+
+	public int ReferenciadorDeEscenas = 0;
+	public static bool ActivadorDeCambio = false;
+	public static bool EntrasteOSaliste = false;
+	public static string NombreDeEscena = "";
+
+
+
+
+	CambiadorDeNivel AsignadorDeEscenas;
+
 
 	// Use this for initialization
 	void Start ()
 	{
-		VelCorrer = FindObjectOfType<EstadisticasDePersonaje>();
 		AsignadorDeEscenas = FindObjectOfType<CambiadorDeNivel>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		/*
-		Escenaxd = SceneManager.GetActiveScene();
-		print(Escenaxd.name);
-		*/
+
 	}
 
 	void OnCollisionEnter(Collision col)
 	{
+		/*
 		if(col.gameObject.name == "EntradaNivelFuego" && ActivadorDeCambio == false)
 		{
 			ReferenciadorDeEscenas += 1;
@@ -61,11 +75,19 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			VelCorrer.VelocidadDeMovimiento = VelCorrer.VelocidadInicial;
 		}
 
-		/*
 		if(col.gameObject.name == "Prueba")
 		{
 			print("Esto anda");
 		}
 		*/
+
+		if(col.gameObject.name == "EntradaNivelFuego" && ActivadorDeCambio == false)
+		{
+			NivelCargado = NivelDeFuego;
+			ReferenciadorDeEscenas += 1;
+			NombreDeEscena = NivelCargado[ReferenciadorDeEscenas].name;
+			AsignadorDeEscenas.IniciadorDeCambio();
+			EntrasteOSaliste = true;
+		}
 	}
 }

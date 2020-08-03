@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: e1bf0176be9d91f4bbcec3c1897ce36f,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -621,6 +622,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114543381720079614, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 2}
+      propertyPath: NivelDeFuego.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalPosition.x
       value: 13.6
@@ -687,6 +693,36 @@ Prefab:
       propertyPath: Instanciador
       value: 
       objectReference: {fileID: 441598861}
+    - target: {fileID: 114543381720079614, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 2}
+      propertyPath: NivelDeFuego.Array.data[0]
+      value: 
+      objectReference: {fileID: 102900000, guid: cded2720511326842a3643adb0ce7582,
+        type: 3}
+    - target: {fileID: 114543381720079614, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 2}
+      propertyPath: NivelDeFuego.Array.data[1]
+      value: 
+      objectReference: {fileID: 102900000, guid: 45ec3cd8c83b1f2449ddf94f97555c4e,
+        type: 3}
+    - target: {fileID: 114543381720079614, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 2}
+      propertyPath: NivelDeFuego.Array.data[2]
+      value: 
+      objectReference: {fileID: 102900000, guid: ba707e1f1c6a6f74c9c64b0cda08b0e4,
+        type: 3}
+    - target: {fileID: 114543381720079614, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 2}
+      propertyPath: NivelDeFuego.Array.data[3]
+      value: 
+      objectReference: {fileID: 102900000, guid: 97596ccb54f0db046ad03bafa28e7836,
+        type: 3}
+    - target: {fileID: 114543381720079614, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 2}
+      propertyPath: NivelDeFuego.Array.data[4]
+      value: 
+      objectReference: {fileID: 102900000, guid: 202851f93be2e7242abf9619ffcd9f17,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
   m_IsPrefabAsset: 0
