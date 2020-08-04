@@ -19,7 +19,6 @@ public class BuscadorDePos : MonoBehaviour {
 
 	public void ManejadorDePos()
 	{
-		
 		PosInicial = GameObject.Find("PosicionInicial");
 		PosFinal = GameObject.Find("PosicionFinal");
 		Jugador = GameObject.FindGameObjectWithTag("Personaje");
@@ -45,8 +44,6 @@ public class BuscadorDePos : MonoBehaviour {
 
 			Jugador.transform.position = new Vector3(PosicionX,PosicionY,PosicionZ);
 			Jugador.transform.rotation = Quaternion.Euler(0f,RotacionY,0f);
-			Debug.Log("Se Cumplio");
 		}
-		
 	}
 }

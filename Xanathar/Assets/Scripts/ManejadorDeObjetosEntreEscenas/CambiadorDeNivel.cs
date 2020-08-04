@@ -10,17 +10,11 @@ public class CambiadorDeNivel : MonoBehaviour {
 	public BuscadorDePos BuscadorDePos;
 	AsyncOperation asyncOperation;
 
-	// Use this for initialization
-	void Start ()
-	{
-	}
-
 	public void CambiarDeNivel(string NombreDeEscena)
 	{
 		StartCoroutine(CargarEscena());
 		AnimacionDeCambioDeNivel.SetTrigger("Aparecer");
 		ManejadorDeEscenas.ActivadorDeCambio = false;
-		
 	}
 
 	public void IniciadorDeCambio()
@@ -31,16 +25,23 @@ public class CambiadorDeNivel : MonoBehaviour {
 
 	IEnumerator CargarEscena()
 	{
-		string EscenaActual = SceneManager.GetActiveScene().name;
 		asyncOperation = SceneManager.LoadSceneAsync (ManejadorDeEscenas.NombreDeEscena , LoadSceneMode.Additive);
 
 		asyncOperation.allowSceneActivation = true;
 		yield return asyncOperation;
-		SceneManager.UnloadSceneAsync(EscenaActual);
+		StartCoroutine(BorrarEscena());
 	}
 
-	public void LlamadorDeFuncion()
+	IEnumerator BorrarEscena()
 	{
-		BuscadorDePos.ManejadorDePos();
+		string EscenaActual = SceneManager.GetActiveScene().name;
+		asyncOperation = SceneManager.UnloadSceneAsync(EscenaActual);
+
+		asyncOperation.allowSceneActivation = true;
+		while(!asyncOperation.isDone)
+		{
+			yield return asyncOperation;
+			BuscadorDePos.ManejadorDePos();
+		}
 	}
 }

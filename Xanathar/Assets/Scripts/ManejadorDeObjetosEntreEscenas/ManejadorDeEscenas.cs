@@ -26,12 +26,7 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	public static bool ActivadorDeCambio = false;
 	public static bool EntrasteOSaliste = false;
 	public static string NombreDeEscena = "";
-
-
-
-
 	CambiadorDeNivel AsignadorDeEscenas;
-
 
 	// Use this for initialization
 	void Start ()
@@ -47,40 +42,6 @@ public class ManejadorDeEscenas : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col)
 	{
-		/*
-		if(col.gameObject.name == "EntradaNivelFuego" && ActivadorDeCambio == false)
-		{
-			ReferenciadorDeEscenas += 1;
-			NombreDeEscena = NivelDeFuego[ReferenciadorDeEscenas].name;
-			AsignadorDeEscenas.IniciadorDeCambio();
-			EntrasteOSaliste = true;
-			VelCorrer.VelocidadDeMovimiento = VelCorrer.VelocidadInicial;
-		}
-
-		if(col.gameObject.name == "SalidaSubNivelFuego" && ActivadorDeCambio == false)
-		{
-			ReferenciadorDeEscenas += 1;
-			NombreDeEscena = NivelDeFuego[ReferenciadorDeEscenas].name;
-			AsignadorDeEscenas.IniciadorDeCambio();
-			EntrasteOSaliste = true;
-			VelCorrer.VelocidadDeMovimiento = VelCorrer.VelocidadInicial;
-		}
-
-		if(col.gameObject.name == "EntradaSubNivelFuego" && ActivadorDeCambio == false)
-		{
-			ReferenciadorDeEscenas -= 1;
-			NombreDeEscena = NivelDeFuego[ReferenciadorDeEscenas].name;
-			AsignadorDeEscenas.IniciadorDeCambio();
-			EntrasteOSaliste = false;
-			VelCorrer.VelocidadDeMovimiento = VelCorrer.VelocidadInicial;
-		}
-
-		if(col.gameObject.name == "Prueba")
-		{
-			print("Esto anda");
-		}
-		*/
-
 		if(col.gameObject.name == "EntradaNivelFuego" && ActivadorDeCambio == false)
 		{
 			NivelCargado = NivelDeFuego;
@@ -88,6 +49,22 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			NombreDeEscena = NivelCargado[ReferenciadorDeEscenas].name;
 			AsignadorDeEscenas.IniciadorDeCambio();
 			EntrasteOSaliste = true;
+		}
+
+		if(col.gameObject.name == "SalidaSubNivelFuego" && ActivadorDeCambio == false)
+		{
+			ReferenciadorDeEscenas += 1;
+			NombreDeEscena = NivelCargado[ReferenciadorDeEscenas].name;
+			AsignadorDeEscenas.IniciadorDeCambio();
+			EntrasteOSaliste = true;
+		}
+
+		if(col.gameObject.name == "EntradaSubNivelFuego" && ActivadorDeCambio == false)
+		{
+			ReferenciadorDeEscenas -= 1;
+			NombreDeEscena = NivelCargado[ReferenciadorDeEscenas].name;
+			AsignadorDeEscenas.IniciadorDeCambio();
+			EntrasteOSaliste = false;
 		}
 	}
 }
