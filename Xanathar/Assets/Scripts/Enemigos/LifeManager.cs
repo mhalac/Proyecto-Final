@@ -154,7 +154,18 @@ public class LifeManager : MonoBehaviour
                 }
 
             }
-            DestroyImmediate(this.gameObject);
+            //funcion para JEFES
+            if(gameObject.name == "Jefe fuego")
+            {
+                Animator c = GetComponentInChildren<Animator>();
+                c.SetBool("Morir",true);
+                this.enabled = false;
+            }
+            else
+            {
+                DestroyImmediate(this.gameObject);
+            }
+            
 
 
         }
