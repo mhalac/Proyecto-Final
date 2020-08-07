@@ -14,13 +14,20 @@ public class InformacionDeItems : MonoBehaviour {
 	public string Elemento;
 	public Sprite Icono;
 	public bool PararCorrutina = false;
+
+	//
+	public float velocidad;
+	public float angularVelocity;
 	
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
 	}
+
+	
 	void Update()
 	{
+		/*
 		Collider[] hitcollider = Physics.OverlapSphere (transform.position , AreaDeAdios);
 
 		foreach(Collider hit in hitcollider)
@@ -28,7 +35,7 @@ public class InformacionDeItems : MonoBehaviour {
 			if(hit.gameObject != this.gameObject && hit.tag == "Items")
 			{
 				Vector3 Retroceder = this.transform.position - 	hit.gameObject.transform.position;
-				rb.velocity = Vector3.Lerp(rb.velocity , Retroceder , Time.deltaTime * 5);
+				rb.velocity = Vector3.Lerp(rb.velocity , Retroceder , Time.deltaTime * 10);
 
 				if(CorrutinaObjetos == false)
 				{
@@ -36,12 +43,11 @@ public class InformacionDeItems : MonoBehaviour {
 					CorrutinaObjetos = true;
 				}
 			}
-
-			
+				
 			if(hit.gameObject != this.gameObject && hit.gameObject.layer == 10)
 			{
 				Vector3 MoverseArriba = this.transform.position - hit.gameObject.transform.position;
-				rb.velocity = Vector3.Lerp(transform.up , MoverseArriba, Time.deltaTime * 5);
+				rb.velocity = Vector3.Lerp(transform.up , MoverseArriba, Time.deltaTime * 10);
 
 				if(CorrutinaPiso == false)
 				{
@@ -50,13 +56,16 @@ public class InformacionDeItems : MonoBehaviour {
 				}
 			}
 		}
+		*/
 	}
 	
+	/*
 	void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.magenta;
 		Gizmos.DrawWireSphere(gameObject.transform.position, AreaDeAdios);
 	}
+	*/
 
 	IEnumerator PararDeMoverse()
 	{

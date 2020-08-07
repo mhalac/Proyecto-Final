@@ -12,6 +12,8 @@ public class AgarradorDeItems : MonoBehaviour {
 	private ManejadorDeItems ManejadorDeHUD;
 
 
+	public float RangoDeInstancia;
+	public float RadioDeObjetos;
 	// Use this for initialization
 	void Start ()
 	{
@@ -135,10 +137,49 @@ public class AgarradorDeItems : MonoBehaviour {
 			{
 				break;
 			}
-			Instantiate(ObjetosEquipados[i] , Instanciador.transform.position , Quaternion.identity);
-			ObjetosEquipados[i] = null;
+
+			Vector3 PosicionObjeto = Vector3.zero;
+			bool PosicionValida = false;
+			int Seguro = 0;
+
+			while(PosicionValida == false)
+			{
+				if(Seguro >= 50)
+				{
+					//Debug.Log("Se rompio");
+					break;
+				}
+
+				Seguro += 1;
+				PosicionObjeto = new Vector3(Random.Range(-RangoDeInstancia , RangoDeInstancia) + Instanciador.transform.position.x , Instanciador.transform.position.y , Random.Range(-RangoDeInstancia , RangoDeInstancia) + Instanciador.transform.position.z);
+				PosicionValida = true;
+				Collider[] Colisiones = Physics.OverlapSphere(PosicionObjeto, RadioDeObjetos);
+
+				foreach(Collider col in Colisiones)
+				{
+					if(col.tag == "Items" || col.tag == "Personaje")
+					{
+						PosicionValida = false;
+					}
+				}
+			}
+
+			if(PosicionValida == true)
+			{
+				Instantiate(ObjetosEquipados[i] , PosicionObjeto , Quaternion.identity);
+				Debug.Log(ObjetosEquipados[i]);
+				ObjetosEquipados[i] = null;
+				//Debug.Log("EXITO");
+			}
 		}
 
 		ManejadorDeHUD.DesactivadorSlots();
+
+		/*
+		for(int i = 0; i < ObjetosEquipados.Length; i++)
+		{
+			Debug.Log(ObjetosEquipados[i]);
+		}
+		*/
 	}
 }

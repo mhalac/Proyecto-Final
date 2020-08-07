@@ -10,13 +10,6 @@ public class CambiadorDeNivel : MonoBehaviour {
 	public BuscadorDePos BuscadorDePos;
 	AsyncOperation asyncOperation;
 
-	public void CambiarDeNivel(string NombreDeEscena)
-	{
-		StartCoroutine(CargarEscena());
-		AnimacionDeCambioDeNivel.SetTrigger("Aparecer");
-		ManejadorDeEscenas.ActivadorDeCambio = false;
-	}
-
 	public void IniciadorDeCambio()
 	{
 		AnimacionDeCambioDeNivel.SetTrigger("Desaparecer");
@@ -40,6 +33,8 @@ public class CambiadorDeNivel : MonoBehaviour {
 		asyncOperation.allowSceneActivation = true;
 		while(!asyncOperation.isDone)
 		{
+			AnimacionDeCambioDeNivel.SetTrigger("Aparecer");
+			ManejadorDeEscenas.ActivadorDeCambio = false;
 			yield return asyncOperation;
 			BuscadorDePos.ManejadorDePos();
 		}

@@ -17,10 +17,13 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	*/
 
 	[Header("EscenasNivelDeFuego")]
-	public Object[] NivelDeFuego = new Object[5];
+	public Object[] NivelDeFuego = new Object[4];
 
 	[Header("EscenasDelNivelEnElQueEstas")]
 	public Object[] NivelCargado;
+
+	[Header("LobbyDeNivel")]
+	public Object Lobby;
 
 	public int ReferenciadorDeEscenas = 0;
 	public static bool ActivadorDeCambio = false;
@@ -34,18 +37,12 @@ public class ManejadorDeEscenas : MonoBehaviour {
 		AsignadorDeEscenas = FindObjectOfType<CambiadorDeNivel>();
 	}
 	
-	// Update is called once per frame
-	void Update ()
-	{
-
-	}
-
 	void OnCollisionEnter(Collision col)
 	{
 		if(col.gameObject.name == "EntradaNivelFuego" && ActivadorDeCambio == false)
 		{
 			NivelCargado = NivelDeFuego;
-			ReferenciadorDeEscenas += 1;
+			ReferenciadorDeEscenas = 0;
 			NombreDeEscena = NivelCargado[ReferenciadorDeEscenas].name;
 			AsignadorDeEscenas.IniciadorDeCambio();
 			EntrasteOSaliste = true;
@@ -61,10 +58,19 @@ public class ManejadorDeEscenas : MonoBehaviour {
 
 		if(col.gameObject.name == "EntradaSubNivelFuego" && ActivadorDeCambio == false)
 		{
-			ReferenciadorDeEscenas -= 1;
-			NombreDeEscena = NivelCargado[ReferenciadorDeEscenas].name;
-			AsignadorDeEscenas.IniciadorDeCambio();
-			EntrasteOSaliste = false;
+			if(ReferenciadorDeEscenas == 0)
+			{
+				NombreDeEscena = Lobby.name;
+				AsignadorDeEscenas.IniciadorDeCambio();
+				EntrasteOSaliste = false;
+			}
+			else
+			{
+				ReferenciadorDeEscenas -= 1;
+				NombreDeEscena = NivelCargado[ReferenciadorDeEscenas].name;
+				AsignadorDeEscenas.IniciadorDeCambio();
+				EntrasteOSaliste = false;
+			}
 		}
 	}
 }
