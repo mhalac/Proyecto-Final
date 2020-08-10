@@ -7,13 +7,14 @@ public class AgarradorDeItems : MonoBehaviour {
 	RaycastHit ColisionDeObjeto;
 	float Rango = 5;
 	string OrdenDeElemento;
-	GameObject [] ObjetosEquipados = new GameObject[12];
+	public GameObject [] ObjetosEquipados = new GameObject[12];
 	public GameObject Instanciador;
 	private ManejadorDeItems ManejadorDeHUD;
 
 
 	public float RangoDeInstancia;
 	public float RadioDeObjetos;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -24,12 +25,12 @@ public class AgarradorDeItems : MonoBehaviour {
 	void Update ()
 	{
 		RaycastDeItems();
-
-
+		
 		if(Input.GetKeyDown(KeyCode.J))
 		{
 			DropeadorDeItems();
 		}
+		
 	}
 
 	private void OnDrawGizmos()
@@ -116,17 +117,6 @@ public class AgarradorDeItems : MonoBehaviour {
 
 		ManejadorDeHUD.MostradorDeMensajeNotificador(NombreDelObjeto , CategoriaDelObjeto , DescripcionDelObjeto);
 		ManejadorDeHUD.EquipadorSlotsDeItems(CategoriaDelObjeto , ElementoDelObjeto , ObjetoAgarrado);
-
-		/*
-		for(int i = 0; i < ObjetosEquipados.Length; i++)
-		{
-			if(ObjetosEquipados[i] == null)
-			{
-				break;
-			}
-			Debug.Log(ObjetosEquipados[i]);
-		}
-		*/
 	}
 
 	public void DropeadorDeItems()
@@ -174,12 +164,5 @@ public class AgarradorDeItems : MonoBehaviour {
 		}
 
 		ManejadorDeHUD.DesactivadorSlots();
-
-		/*
-		for(int i = 0; i < ObjetosEquipados.Length; i++)
-		{
-			Debug.Log(ObjetosEquipados[i]);
-		}
-		*/
 	}
 }

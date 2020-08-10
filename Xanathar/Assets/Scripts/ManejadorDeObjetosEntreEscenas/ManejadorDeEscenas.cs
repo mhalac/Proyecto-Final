@@ -5,17 +5,6 @@ using UnityEngine;
 
 public class ManejadorDeEscenas : MonoBehaviour {
 
-	/*
-	[Header("Escenas Nivel De Fuego")]
-	public Object[] NivelDeFuego = new Object[5];
-	int ReferenciadorDeEscenas = 0;
-	public static string NombreDeEscena;
-	public static bool EntrasteOSaliste = false;
-	public static bool ActivadorDeCambio = false;
-	EstadisticasDePersonaje VelCorrer;
-	CambiadorDeNivel AsignadorDeEscenas;
-	*/
-
 	[Header("EscenasNivelDeFuego")]
 	public Object[] NivelDeFuego = new Object[4];
 
