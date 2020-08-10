@@ -5,6 +5,8 @@ using UnityEngine;
 public class Ataque : MonoBehaviour
 {
 
+    
+
     public LifeManager JefeFuego;
     public Animator anim;
     private float CoolDownInicial;
@@ -13,6 +15,10 @@ public class Ataque : MonoBehaviour
     public Transform Arma;
     private float AnimSpeed;
     private Vector3 PosAtaque;
+    [Header("Variables de items")]
+    public bool ActivaPatria;
+    public GameObject SunBeam;
+
     // Use this for initialization
     void Start()
     {
@@ -26,13 +32,45 @@ public class Ataque : MonoBehaviour
     void Update()
     {
         // sacar despues, solo sirve para la escena de primera entrega
-        if(Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            transform.position = new Vector3(-49.35f,15.938f,-14.85f);
+            transform.position = new Vector3(-49.35f, 15.938f, -14.85f);
         }
 
         Atacar();
     }
+    void HacerDamage()
+    {
+        anim.speed = AnimSpeed;
+        Collider[] ataque = Physics.OverlapSphere(Arma.position, AreaAtaque);
+        foreach (Collider a in ataque)
+        {
+
+            if (a.tag == "Enemigo")
+            {
+                print("Hay enemigo");
+                if (a.GetComponent<LifeManager>() != null)
+                {
+
+                    LifeManager Enemigo = a.GetComponent<LifeManager>();
+                    Enemigo.RecibirDamage();
+                }
+
+
+            }
+            else if (a.tag == "JefeFuego")
+            {
+                JefeFuego.RecibirDamage();
+            }
+        }
+
+        CDTotal = CoolDownInicial;
+    }
+    void RayoSolar(GameObject target)
+    {
+        Instantiate(SunBeam,Random.insideUnitSphere * 3,Quaternion.LookRotation(target.transform.position));
+    }
+
     void Atacar()
     {
 
@@ -40,49 +78,25 @@ public class Ataque : MonoBehaviour
         //TODO Entre menos cooldown tenes mas rapido atacas y viceversa, xq la animacion tiene que durar menos
         //TODO para dar lugar al proximo ataque  
         CDTotal -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon && ActivaPatria)
         {
-            anim.SetBool("atacando", true);
-            anim.speed = AnimSpeed;
-            Collider[] ataque = Physics.OverlapSphere(Arma.position, AreaAtaque);
-            foreach (Collider a in ataque)
             {
-
-                if (a.tag == "Enemigo")
-                {
-                    print("Hay enemigo");
-                    if (a.GetComponent<LifeManager>() != null)
-                    {
-
-                        LifeManager Enemigo = a.GetComponent<LifeManager>();
-                        Enemigo.RecibirDamage();
-
-                    }
-                    else if (a.GetComponentInChildren<LifeManager>() != null)
-                    {
-
-                        LifeManager Enemigo = GetComponentInChildren<LifeManager>();
-                        Enemigo.RecibirDamage();
-                    }
-                    else if (a.GetComponentInParent<LifeManager>() != null)
-                    {
-                        LifeManager Enemigo = GetComponentInParent<LifeManager>();
-                        Enemigo.RecibirDamage();
-                    }
-                    else
-                        Debug.LogWarning("NO HAY VIDA EN EL ENEMIGO");
-
-                }
-                else if(a.tag == "JefeFuego")
-                {
-                    JefeFuego.RecibirDamage();
-                }
+                anim.SetBool("atacando", true);
             }
+        }
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon)
+        {
+            {
+                anim.SetBool("atacando", true);
 
-            CDTotal = CoolDownInicial;
+                HacerDamage();
+            }
         }
         else
+        {
             anim.SetBool("atacando", false);
+        }
+
     }
     void OnDrawGizmosSelected()
     {
@@ -92,4 +106,6 @@ public class Ataque : MonoBehaviour
         Gizmos.DrawWireSphere(Arma.position, AreaAtaque);
     }
 
+
 }
+

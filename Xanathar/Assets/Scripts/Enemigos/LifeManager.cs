@@ -163,7 +163,7 @@ public class LifeManager : MonoBehaviour
             }
             else
             {
-                DestroyImmediate(this.gameObject);
+                Destroy(this.gameObject);
             }
             
 
