@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ataque : MonoBehaviour
 {
 
-    
+
 
     public LifeManager JefeFuego;
     public Animator anim;
@@ -17,6 +17,7 @@ public class Ataque : MonoBehaviour
     private Vector3 PosAtaque;
     [Header("Variables de items")]
     public bool ActivaPatria;
+    public float DamagePatria;
     public GameObject SunBeam;
 
     // Use this for initialization
@@ -31,12 +32,7 @@ public class Ataque : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // sacar despues, solo sirve para la escena de primera entrega
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            transform.position = new Vector3(-49.35f, 15.938f, -14.85f);
-        }
-
+        
         Atacar();
     }
     void HacerDamage()
@@ -51,9 +47,16 @@ public class Ataque : MonoBehaviour
                 print("Hay enemigo");
                 if (a.GetComponent<LifeManager>() != null)
                 {
-
                     LifeManager Enemigo = a.GetComponent<LifeManager>();
+                    if (ActivaPatria)
+                    {
+                        RayoSolar(a.gameObject);
+                        GestorItems c = FindObjectOfType<GestorItems>();
+                        c.ItemsEquipados[0].Activado = false;
+                        ActivaPatria = false;
+                    }
                     Enemigo.RecibirDamage();
+
                 }
 
 
@@ -68,7 +71,10 @@ public class Ataque : MonoBehaviour
     }
     void RayoSolar(GameObject target)
     {
-        Instantiate(SunBeam,Random.insideUnitSphere * 3,Quaternion.LookRotation(target.transform.position));
+        Vector3 Arriba = new Vector3(target.transform.position.x - 2, transform.position.y + 4f, target.transform.position.z);
+        GameObject c = Instantiate(SunBeam, Arriba, Quaternion.identity);
+        c.GetComponent<Transform>().Rotate(0,0,-90);
+        c.GetComponent<LifeManager>().RecibirDamage(DamagePatria);
     }
 
     void Atacar()
@@ -78,20 +84,13 @@ public class Ataque : MonoBehaviour
         //TODO Entre menos cooldown tenes mas rapido atacas y viceversa, xq la animacion tiene que durar menos
         //TODO para dar lugar al proximo ataque  
         CDTotal -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon && ActivaPatria)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon)
         {
             {
                 anim.SetBool("atacando", true);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon)
-        {
-            {
-                anim.SetBool("atacando", true);
 
-                HacerDamage();
-            }
-        }
         else
         {
             anim.SetBool("atacando", false);
