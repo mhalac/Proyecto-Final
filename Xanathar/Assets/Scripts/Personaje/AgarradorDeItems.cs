@@ -105,7 +105,10 @@ public class AgarradorDeItems : MonoBehaviour {
 			{
 				ObjetosEquipados[i] = ObjetoAgarrado;
 				Destroy(ColisionDeObjeto.collider.gameObject);
-				Instantiate(ObjetoNoAgarrado , Instanciador.transform.position , Quaternion.identity);
+
+				Vector3 PosAInstanciar = new Vector3(Instanciador.transform.position.x , (Instanciador.transform.position.y + 1) , Instanciador.transform.position.z);
+
+				Instantiate(ObjetoNoAgarrado , PosAInstanciar , Quaternion.identity);
 				break;
 			}
 		}

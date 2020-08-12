@@ -18,7 +18,7 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public float TiempoInmortal;
     public static bool Inmortalidad = false;
 
-
+    
     public float VelocidadDeMovimiento = 10f;
     public float CoolDownAtaque = 1f;
     public float FuerzaDeSalto = 3f;

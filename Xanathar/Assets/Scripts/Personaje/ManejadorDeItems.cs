@@ -91,6 +91,14 @@ public class ManejadorDeItems : MonoBehaviour {
 	{
 		ActivadorDeHUD();
 		ManejadorDeEstadisticas();
+
+		
+		if(Input.GetKeyDown(KeyCode.H))
+		{
+			EstadisticasDePersonaje.VidaActualPersonaje -= 1;
+			ManejadorDeVida();
+		}
+		
 	}
 
 	private void ActivadorDeHUD()

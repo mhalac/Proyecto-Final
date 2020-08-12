@@ -17,6 +17,9 @@ public class MovimientoPersonaje : MonoBehaviour {
 	float X;
 	float Z;
 
+	//Bool para ver si el personaje esta corriendo o no
+	public bool Corriendo = false;
+
 	//Vector para la fuerza de gravedad
 	Vector3 Velocidad;
 
@@ -91,10 +94,12 @@ public class MovimientoPersonaje : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.LeftShift))
 		{
 			Stats.VelocidadDeMovimiento += 6;
+			Corriendo = true;
 		}
 		if(Input.GetKeyUp(KeyCode.LeftShift))
 		{
 			Stats.VelocidadDeMovimiento -= 6;
+			Corriendo = false;
 		}
 	}
 

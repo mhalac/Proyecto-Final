@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class CambiadorDeNivel : MonoBehaviour {
 
-	//Scene Escenaxd;
-
 	public Animator AnimacionDeCambioDeNivel;
 	public BuscadorDePos BuscadorDePos;
 	AsyncOperation asyncOperation;
@@ -38,5 +36,17 @@ public class CambiadorDeNivel : MonoBehaviour {
 			yield return asyncOperation;
 			BuscadorDePos.ManejadorDePos();
 		}
+	}
+
+	public void BuscadorDeFuncionParaGuardarItems()
+	{
+		ListasDeItems FuncionParaGuardar = FindObjectOfType<ListasDeItems>();
+		FuncionParaGuardar.LlenarElConstructor();
+	}
+
+	public void BuscadorFuncionParaCargarItems()
+	{
+		ListasDeItems FuncionParaCargar = FindObjectOfType<ListasDeItems>();
+		FuncionParaCargar.InstanciarLosObjetosDelConstructor();
 	}
 }
