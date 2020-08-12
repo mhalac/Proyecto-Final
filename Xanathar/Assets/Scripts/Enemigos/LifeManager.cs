@@ -38,7 +38,11 @@ public class LifeManager : MonoBehaviour
     {
         Vida = Vida - damage * 0.5f;
     }
-
+    public void RecibirDamage(float damage)
+    {
+        Vida -= damage;
+        Mori();
+    }
     public void RecibirDamage()
     {
 
@@ -163,7 +167,7 @@ public class LifeManager : MonoBehaviour
             }
             else
             {
-                DestroyImmediate(this.gameObject);
+                Destroy(this.gameObject);
             }
             
 

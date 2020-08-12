@@ -288,7 +288,7 @@ public class Fuego3 : MonoBehaviour
         Estado = Estados[1];
         //Apuntar(personaje.transform.position);
         delay -= Time.deltaTime;
-        if (Vector3.Distance(transform.position, personaje.transform.position) > 3)
+        if (Vector3.Distance(transform.position, personaje.transform.position) > 5)
         {
             Vector3 direction = (personaje.transform.position - CentroDelCuerpo.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
