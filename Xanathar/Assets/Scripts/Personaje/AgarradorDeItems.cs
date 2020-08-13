@@ -96,7 +96,7 @@ public class AgarradorDeItems : MonoBehaviour {
 				ObjetosEquipados[i] = ObjetoAgarrado;
 				Destroy(ColisionDeObjeto.collider.gameObject);
 
-				ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado , ElementoDelObjetoAgarrado);
+				ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado , ElementoDelObjetoAgarrado , NombreDelObjetoAgarrado);
 				break;
 			}
 
@@ -107,7 +107,7 @@ public class AgarradorDeItems : MonoBehaviour {
 			{
 				ObjetosEquipados[i] = ObjetoAgarrado;
 				Destroy(ColisionDeObjeto.collider.gameObject);
-				ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado , ElementoDelObjetoAgarrado);
+				ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado , ElementoDelObjetoAgarrado , NombreDelObjetoAgarrado);
 
 
 				Vector3 PosAInstanciar = new Vector3(Instanciador.transform.position.x , (Instanciador.transform.position.y + 1) , Instanciador.transform.position.z);
@@ -173,7 +173,7 @@ public class AgarradorDeItems : MonoBehaviour {
 		ManejadorDeHUD.DesactivadorSlots();
 	}
 
-	public void ChequeadorDeActivaYElemento(string Categoria , string Elemento)
+	public void ChequeadorDeActivaYElemento(string Categoria , string Elemento , string Nombre)
 	{
 		if(Categoria == "Activa")
 		{
