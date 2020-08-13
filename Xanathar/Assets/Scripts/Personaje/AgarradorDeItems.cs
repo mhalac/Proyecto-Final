@@ -31,7 +31,6 @@ public class AgarradorDeItems : MonoBehaviour
         {
             DropeadorDeItems();
         }
-
     }
 
     private void OnDrawGizmos()

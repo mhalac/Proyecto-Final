@@ -52,8 +52,9 @@ public class ManejadorDeItems : MonoBehaviour {
 	//Variables para mostrar las estadisticas del personaje
 	public Text TextoInformacionVida;
 	public Text TextoInformacionArmadura;
-
 	private AgarradorDeItems agarradorDeItems;
+
+	EstadisticasDePersonaje Vida;
 	void Awake()
 	{
 		//Encuentro los campos notifcadores para acceder a sus variables mas adelante
@@ -66,6 +67,8 @@ public class ManejadorDeItems : MonoBehaviour {
 		TextoDescripcion = DescripcionNotificador.GetComponent<Text>();
 
 		agarradorDeItems = FindObjectOfType<AgarradorDeItems>();
+
+		Vida = FindObjectOfType<EstadisticasDePersonaje>();
 	}
 
 	// Use this for initialization
@@ -91,13 +94,13 @@ public class ManejadorDeItems : MonoBehaviour {
 		ActivadorDeHUD();
 		ManejadorDeEstadisticas();
 
-		/*
+		
 		if(Input.GetKeyDown(KeyCode.H))
 		{
-			EstadisticasDePersonaje.VidaActualPersonaje -= 1;
+			Vida.VidaActualPersonaje -= 1;
 			ManejadorDeVida();
 		}
-		*/
+		
 
 		//MensajeNotificador.alpha = 1f;
 	}
@@ -239,8 +242,8 @@ public class ManejadorDeItems : MonoBehaviour {
 
 	public void ManejadorDeVida()
 	{
-		float ValorActualVida = EstadisticasDePersonaje.VidaActualPersonaje;
-		float ValorMaximoDeVida = EstadisticasDePersonaje.VidaMaximaPersonaje;
+		float ValorActualVida = Vida.VidaActualPersonaje;
+		float ValorMaximoDeVida = Vida.VidaMaximaPersonaje;
 
 		RellenoDeVida = ValorActualVida / ValorMaximoDeVida;
 
@@ -260,8 +263,11 @@ public class ManejadorDeItems : MonoBehaviour {
 
 	public void ManejadorDeEstadisticas()
 	{
-		float ValorMaximaDeVida = EstadisticasDePersonaje.VidaMaximaPersonaje;
-		float ArmaduraPersonaje = EstadisticasDePersonaje.Armadura;
+		EstadisticasDePersonaje estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+
+
+		float ValorMaximaDeVida = Vida.VidaMaximaPersonaje;
+		float ArmaduraPersonaje = estadisticas.Armadura;
 
 		TextoInformacionVida.text = ValorMaximaDeVida.ToString();
 		TextoInformacionArmadura.text = ArmaduraPersonaje.ToString();

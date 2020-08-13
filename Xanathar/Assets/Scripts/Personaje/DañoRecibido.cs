@@ -6,13 +6,15 @@ public class DañoRecibido : MonoBehaviour {
 
 	public void DañoDeEnemigos(float numero)
 	{
-		int Proteccion = EstadisticasDePersonaje.Armadura;
+		EstadisticasDePersonaje Estadisticas = EstadisticasDePersonaje.FindObjectOfType<EstadisticasDePersonaje>();
+
+		int Proteccion = Estadisticas.Armadura;
 
 		float DañoMasArmadura = numero + Proteccion;
 		float Daño = numero;
 
 		float Resultado = Daño/DañoMasArmadura;
-		EstadisticasDePersonaje.VidaActualPersonaje -= Resultado;
-		print(EstadisticasDePersonaje.VidaActualPersonaje);
+		Estadisticas.VidaActualPersonaje -= Resultado;
+		print(Estadisticas.VidaActualPersonaje);
 	}
 }

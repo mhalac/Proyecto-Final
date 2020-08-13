@@ -319,7 +319,8 @@ public class Fuego2 : MonoBehaviour
                 {
                     if (o.CompareTag("Personaje") && DamagePorTiempo == DamagePorTiempoInicial)
                     {
-                        EstadisticasDePersonaje.VidaActualPersonaje -= Damage;
+                        EstadisticasDePersonaje c = FindObjectOfType<EstadisticasDePersonaje>();
+                        c.VidaActualPersonaje -= Damage;
                         ManejadorDeItems pj = FindObjectOfType<ManejadorDeItems>();
                         pj.ManejadorDeVida();
 

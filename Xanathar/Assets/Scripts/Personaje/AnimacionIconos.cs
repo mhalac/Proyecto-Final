@@ -5,42 +5,58 @@ using UnityEngine.UI;
 
 public class AnimacionIconos : MonoBehaviour {
 
-	public Image Habilidad;
-	public float CoolDown = 5f;
-	bool EstaEnCooldown = false;
+	[Header("Imagenes De Las Habilidades")]
+	public Image ActivaDeFuego;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
+	[Header("Cooldown")]
+	public float CoolDown;
+
+	[Header("Bools De Las Habilidades")]
+	public bool ActivaDeFuegoCooldown = false;
+
 	// Update is called once per frame
 	void Update ()
 	{
-		//Debug.Log(EstaEnCooldown);
-		if(Input.GetKeyDown(KeyCode.N) && EstaEnCooldown == false && Habilidad.enabled == true)
+		/*
+		if(Input.GetKeyDown(KeyCode.N))
 		{
-			StartCoroutine(CoolDownDeHabilidades());
+			StartCoroutine(CoolDownDeHabilidades(ActivaDeFuego1 , CoolDown));
 		}
+		*/
+		
+		if(Input.GetKeyDown(KeyCode.N))
+		{
+			SeleccionadorDeImagenes();
+		}
+		
 	}
 
-	IEnumerator CoolDownDeHabilidades()
+	IEnumerator CoolDownDeHabilidades(Image ImagenDeActiva , float CoolDownHabilidad)
 	{
-		EstaEnCooldown = true;
-		Habilidad.fillAmount = 0;
+		Debug.Log("Corrutina Iniciada");
+		ImagenDeActiva.fillAmount = 0;
 
-		while (Habilidad.fillAmount <= 1)
+		while (ImagenDeActiva.fillAmount <= 1)
 		{
 			yield return new WaitForEndOfFrame();
-			Habilidad.fillAmount += 1 / CoolDown * Time.deltaTime;
+			ImagenDeActiva.fillAmount += 1 / CoolDownHabilidad * Time.deltaTime;
 
-			if(Habilidad.fillAmount >= 1)
+			if(ImagenDeActiva.fillAmount >= 1)
 			{
-				Habilidad.fillAmount = 1f;
-				EstaEnCooldown = false;
-				Debug.Log("Corrutina Completada");
+				ImagenDeActiva.fillAmount = 1f;
+				Debug.Log("Animacion Completada");
 				yield break;
 			}
 		}
+	}
+
+	public void SeleccionadorDeImagenes()
+	{
+		if(ActivaDeFuegoCooldown == false)
+		{
+			StartCoroutine(CoolDownDeHabilidades(ActivaDeFuego , CoolDown));
+			return;
+		}
+		//Debug.Log("Este no se deberia de ejecutar");
 	}
 }

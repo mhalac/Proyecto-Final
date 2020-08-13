@@ -43,6 +43,9 @@ public class MovimientoPersonaje : MonoBehaviour {
 	float VelocidadDash;
 	float DistanciaDeDash = 10;
 
+	[Header("Acceso a Variable Inmortalidad")]
+	public EstadisticasDePersonaje VaribaleInmortal;
+
 
 	//Variables para Determinar si el jugador se esta moviendo o no
 	/*
@@ -63,8 +66,9 @@ public class MovimientoPersonaje : MonoBehaviour {
 			ListaDePosicionesAnteriores[i] = Vector3.zero;
 		}
 		*/
-
 		Corriendo = false;
+
+		VaribaleInmortal = FindObjectOfType<EstadisticasDePersonaje>();
 	}
 	
 	// Update is called once per frame
@@ -179,6 +183,7 @@ public class MovimientoPersonaje : MonoBehaviour {
 			VelocidadDash = Stats.VelocidadDeDash;
 			YaDasheo = true;
 			tiempoDash = Stats.CoolDownFlash;
+			Debug.Log("Esto se repite solo 1 vez");
 		}
 
 		if(YaDasheo == true)
@@ -186,13 +191,13 @@ public class MovimientoPersonaje : MonoBehaviour {
 			
 			if(VelocidadDash > 0)
 			{
-				EstadisticasDePersonaje.Inmortalidad = true;
+				VaribaleInmortal.Inmortalidad = true;
 				VectorDash = transform.forward * DistanciaDeDash;
 				VelocidadDash -= 1;
 			}
 			else
 			{
-				EstadisticasDePersonaje.Inmortalidad = false;
+				VaribaleInmortal.Inmortalidad = false;
 				VectorDash = Vector3.zero;
 			}
 
