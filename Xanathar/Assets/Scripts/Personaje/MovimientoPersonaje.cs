@@ -18,7 +18,8 @@ public class MovimientoPersonaje : MonoBehaviour {
 	float Z;
 
 	//Bool para ver si el personaje esta corriendo o no
-	public bool Corriendo = false;
+	public bool Corriendo;
+	public bool EstaQuieto;
 
 	//Vector para la fuerza de gravedad
 	Vector3 Velocidad;
@@ -43,10 +44,27 @@ public class MovimientoPersonaje : MonoBehaviour {
 	float DistanciaDeDash = 10;
 
 
+	//Variables para Determinar si el jugador se esta moviendo o no
+	/*
+	[Header("Variables para chequear si el usuario Se Movio")]
+	public Transform ObjetoReferenciador;
+	public float LimiteDistanciaEntrePosiciones = 0.0001f;
+	private const int FramesParaDetectar = 3;
+	Vector3[] ListaDePosicionesAnteriores = new Vector3[FramesParaDetectar];
+	public bool EstaEnIdle = false;
+	*/
+
 	// Use this for initialization
 	void Start ()
 	{
-		
+		/*
+		for(int i = 0; i < ListaDePosicionesAnteriores.Length; i++)
+		{
+			ListaDePosicionesAnteriores[i] = Vector3.zero;
+		}
+		*/
+
+		Corriendo = false;
 	}
 	
 	// Update is called once per frame
@@ -90,16 +108,64 @@ public class MovimientoPersonaje : MonoBehaviour {
 		//Movimiento eje X y Z
 		Controlador.Move(Movimiento * Stats.VelocidadDeMovimiento * Time.deltaTime);
 
+		/*
+		for(int i = 0; i < ListaDePosicionesAnteriores.Length -1; i++)
+		{
+			ListaDePosicionesAnteriores[i] = ListaDePosicionesAnteriores[i+1];
+		}
+
+		ListaDePosicionesAnteriores[ListaDePosicionesAnteriores.Length - 1] = ObjetoReferenciador.position;
+
+		for(int i = 0; i < ListaDePosicionesAnteriores.Length - 1; i++)
+		{
+			if(Vector3.Distance(ListaDePosicionesAnteriores[i] , ListaDePosicionesAnteriores[i + 1]) <= LimiteDistanciaEntrePosiciones)
+			{
+				EstaEnIdle = false;
+				Debug.Log("Esta Quieto");
+				break;
+			}
+			else
+			{
+				EstaEnIdle = true;
+				Debug.Log("Se Mueve");
+			}
+		}
+		*/
+
 		//Movimiento De Correr
-		if(Input.GetKeyDown(KeyCode.LeftShift))
+		/*
+		if(Input.GetKeyDown(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.W))
 		{
 			Stats.VelocidadDeMovimiento += 6;
 			Corriendo = true;
 		}
-		if(Input.GetKeyUp(KeyCode.LeftShift))
+		if(Input.GetKeyUp(KeyCode.LeftShift) && Input.GetKeyUp(KeyCode.W))
 		{
 			Stats.VelocidadDeMovimiento -= 6;
 			Corriendo = false;
+		}
+		*/
+
+		if(Input.GetKey(KeyCode.W))
+		{
+			EstaQuieto = false;
+		}
+		else
+		{
+			EstaQuieto = true;
+		}
+
+		if(Input.GetKey(KeyCode.LeftShift) && EstaQuieto == false && Corriendo == false)
+		{
+			Corriendo = true;
+			Debug.Log("Esta CORRIENDO");
+			Stats.VelocidadDeMovimiento += 6;
+		}
+		else if(!Input.GetKey(KeyCode.LeftShift) && Corriendo == true || !Input.GetKey(KeyCode.W) && Corriendo == true)
+		{
+			Corriendo = false;
+			Debug.Log("PARO DE CORRER");
+			Stats.VelocidadDeMovimiento -= 6;
 		}
 	}
 

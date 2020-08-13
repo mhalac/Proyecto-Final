@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class ManejadorDeItems : MonoBehaviour {
 
 	//Variables para ocultar y mostrar el HUD
-	static bool OcultadorDeHud = false;
-	private bool OcultadorDeMensaje = false;
+	public bool OcultadorDeHud = false;
+	public bool OcultadorDeMensaje = false;
 
 	[Header("HUDS Personaje")]
 	public CanvasGroup HUDPasivas;
@@ -92,13 +91,15 @@ public class ManejadorDeItems : MonoBehaviour {
 		ActivadorDeHUD();
 		ManejadorDeEstadisticas();
 
-		
+		/*
 		if(Input.GetKeyDown(KeyCode.H))
 		{
 			EstadisticasDePersonaje.VidaActualPersonaje -= 1;
 			ManejadorDeVida();
 		}
-		
+		*/
+
+		//MensajeNotificador.alpha = 1f;
 	}
 
 	private void ActivadorDeHUD()
@@ -127,7 +128,6 @@ public class ManejadorDeItems : MonoBehaviour {
 			HUDEstadisticas.alpha = 1f;
 			InformacionEstadisticas.alpha = 1f;
 		}
-		
 	}
 
 	public void EquipadorSlotsDeItems(string CategoriaDelObjeto , string ElementoDelObjeto , GameObject ObjetoAgarrado)

@@ -45,7 +45,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1045886573225084
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -598,7 +598,7 @@ GameObject:
   - component: {fileID: 224285812241091158}
   - component: {fileID: 222320750250879216}
   - component: {fileID: 114553266226021078}
-  - component: {fileID: 225545124414295488}
+  - component: {fileID: 225447961808873350}
   m_Layer: 5
   m_Name: MensajeNotificador2.0
   m_TagString: Untagged
@@ -871,7 +871,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1104749735960332}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -884,8 +884,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: db2bb595681396541aa92287211f416d, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -990,9 +990,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1541bc125a2d22643baf7d2007140eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OcultadorDeHud: 0
+  OcultadorDeMensaje: 0
   HUDPasivas: {fileID: 225831940926750414}
   HUDEstadisticas: {fileID: 225036838778082908}
-  MensajeNotificador: {fileID: 225545124414295488}
+  MensajeNotificador: {fileID: 225447961808873350}
   InformacionEstadisticas: {fileID: 225078538663757678}
   SlotActivaDeFuego: {fileID: 114153032532790154}
   SlotActivaDeViento: {fileID: 114173821381457922}
@@ -2186,12 +2188,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 224612551693127780}
-  m_RootOrder: 7
+  m_Father: {fileID: 224261513696228160}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -662, y: 341.79993}
+  m_AnchoredPosition: {x: 248, y: -148.20007}
   m_SizeDelta: {x: 328.4, y: 83.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224041610345773106
@@ -2395,6 +2397,7 @@ RectTransform:
   m_Children:
   - {fileID: 224485813140321996}
   - {fileID: 224313245862236896}
+  - {fileID: 224026703376053290}
   m_Father: {fileID: 224612551693127780}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2798,7 +2801,6 @@ RectTransform:
   - {fileID: 224285812241091158}
   - {fileID: 224140204664971068}
   - {fileID: 224261513696228160}
-  - {fileID: 224026703376053290}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2994,7 +2996,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!225 &225545124414295488
+--- !u!225 &225447961808873350
 CanvasGroup:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
