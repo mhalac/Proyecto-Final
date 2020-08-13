@@ -9,8 +9,8 @@ public class Ataque : MonoBehaviour
 
     public LifeManager JefeFuego;
     public Animator anim;
-    private float CoolDownInicial;
-    public static float CDTotal;
+    public float CoolDownInicial;
+    public float CDTotal;
     public float AreaAtaque;
     public Transform Arma;
     private float AnimSpeed;
@@ -26,13 +26,17 @@ public class Ataque : MonoBehaviour
         CoolDownInicial = GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         CDTotal = 0;
         Arma.position = new Vector3(Arma.position.x, Arma.position.y, Arma.position.z + AreaAtaque);
+        anim.speed = 1 / GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         MovimientoPersonaje c = FindObjectOfType<MovimientoPersonaje>();
-        anim.speed = 1;
+        //print("La anim speed es" + anim.speed);
+
+        //anim.speed = 1;
 
         if (c.Corriendo)
             anim.SetBool("Caminando", true);
@@ -54,8 +58,11 @@ public class Ataque : MonoBehaviour
                     if (ActivaPatria)
                     {
                         RayoSolar(a.gameObject);
+
                         GestorItems c = FindObjectOfType<GestorItems>();
                         c.ItemsEquipados[0].Activado = false;
+                        c.SolPatriaParticula.SetActive(false);
+
                         ActivaPatria = false;
                     }
                     Enemigo.RecibirDamage();
@@ -82,7 +89,6 @@ public class Ataque : MonoBehaviour
     void Atacar()
     {
 
-        print("La anim speed es" + AnimSpeed);
         //TODO Entre menos cooldown tenes mas rapido atacas y viceversa, xq la animacion tiene que durar menos
         //TODO para dar lugar al proximo ataque  
         if (CDTotal > -1 && !anim.GetBool("atacando"))
@@ -91,9 +97,12 @@ public class Ataque : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon && !anim.GetBool("Caminando") && !anim.GetBool("atacando"))
         {
             {
-                AnimSpeed = GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
-                anim.speed = AnimSpeed;
+                anim.speed = 1 / GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
+                print("La anim speed es" + anim.speed);
+
                 anim.SetBool("atacando", true);
+                CDTotal = CoolDownInicial;
+
             }
         }
 

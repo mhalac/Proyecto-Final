@@ -13,13 +13,18 @@ public class AtaqueAnim : MonoBehaviour
     public void Atacar()
     {
         Ataque c = FindObjectOfType<Ataque>();
+        c.anim.speed = 1 / c.CoolDownInicial;
+        GestorItems b = FindObjectOfType<GestorItems>();
+        
+
         c.HacerDamage();
     }
     public void Termine()
     {
         Ataque c = FindObjectOfType<Ataque>();
-        c.anim.SetBool("atacando",false);
-		c.anim.speed = 1;
+
+        c.anim.speed = 1;
+        c.anim.SetBool("atacando", false);
     }
     public void TermineDeCorrer()
     {
@@ -33,7 +38,7 @@ public class AtaqueAnim : MonoBehaviour
     {
         Ataque c = FindObjectOfType<Ataque>();
 
-        c.anim.speed = 0.35f;
+        c.anim.speed = 1;
 
     }
 

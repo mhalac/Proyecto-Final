@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GestorItems : MonoBehaviour
 {
+    public GameObject SolPatriaParticula;
     public Item[] ItemsEquipados;
     //public List<Slots> EstadoSlots;
     void Start()
@@ -20,14 +21,7 @@ public class GestorItems : MonoBehaviour
     }
     // Update is called once per frame
 
-    /*if (ItemsEquipados[0].item != null && !TerminoCD(0))
-           ItemsEquipados[0].cooldownActual -= Time.deltaTime;
-       if (ItemsEquipados[1].item != null && !TerminoCD(1))
-           ItemsEquipados[1].cooldownActual -= Time.deltaTime;
-       if (ItemsEquipados[2].item != null && !TerminoCD(2))
-           ItemsEquipados[2].cooldownActual -= Time.deltaTime;
-       if (ItemsEquipados[3].item != null && !TerminoCD(3))
-           ItemsEquipados[3].cooldownActual -= Time.deltaTime;*/
+
 
 
     void Update()
@@ -45,21 +39,24 @@ public class GestorItems : MonoBehaviour
         {
             if (TerminoCD(0))
             {
+                Ataque c = FindObjectOfType<Ataque>();
+
                 string NombreDelObjeto = ItemsEquipados[0].item.GetComponent<InformacionDeItems>().Nombre;
                 if (NombreDelObjeto == "Sol De La Patria")
                 {
                     ItemsEquipados[0].cooldownActual = ItemsEquipados[0].cooldownInicial;
                     ItemsEquipados[0].cooldownActual -= Time.deltaTime;
-                    Ataque c = FindObjectOfType<Ataque>();
                     c.ActivaPatria = true;
+                    SolPatriaParticula.SetActive(true);
                     ItemsEquipados[0].Activado = true;
                 }
                 else
                 {
+                    c.ActivaPatria = false;
 
                 }
 
-                
+
             }
 
         }
@@ -69,7 +66,6 @@ public class GestorItems : MonoBehaviour
             if (TerminoCD(1))
             {
                 ItemsEquipados[1].cooldownActual = ItemsEquipados[1].cooldownInicial; ;
-                print("guigniangiangiangna");
                 ItemsEquipados[1].cooldownActual -= Time.deltaTime;
 
                 //hacer cosas de item
