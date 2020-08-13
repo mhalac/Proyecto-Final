@@ -74,7 +74,7 @@ public class ManejadorDeItems : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		MensajeNotificador.alpha = 0f;
+		//MensajeNotificador.alpha = 0f;
 		ManejadorDeVida();
 
 		//Funcion para mantener al HUD entre escenas
@@ -101,8 +101,10 @@ public class ManejadorDeItems : MonoBehaviour {
 			ManejadorDeVida();
 		}
 		
-
+		//Debug.Log(OcultadorDeMensaje);
 		//MensajeNotificador.alpha = 1f;
+
+		Debug.Log(MensajeNotificador.GetComponent<CanvasGroup>().alpha);
 	}
 
 	private void ActivadorDeHUD()
@@ -275,6 +277,7 @@ public class ManejadorDeItems : MonoBehaviour {
 
 	public void MostradorDeMensajeNotificador(string NombreDelObjeto , string CategoriaDelObjeto , string DescripcionDelObjeto)
 	{
+
 		TextoNombre.text = NombreDelObjeto;
 		TextoCategoria.text = CategoriaDelObjeto;
 		TextoDescripcion.text = DescripcionDelObjeto;
@@ -282,4 +285,5 @@ public class ManejadorDeItems : MonoBehaviour {
 		MensajeNotificador.alpha = 1f;
 		OcultadorDeMensaje = true;
 	}
+
 }
