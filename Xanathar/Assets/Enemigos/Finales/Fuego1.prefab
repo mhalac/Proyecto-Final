@@ -327,7 +327,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980342028790808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -59.258812, y: 15.037569, z: -28.244892}
+  m_LocalPosition: {x: -82.95049, y: 15.037529, z: -2.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4458263003707396}
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980342028790808}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c993e9c87d18f8d4e94cfcca08bc5a05, type: 3}
   m_Name: 
@@ -482,8 +482,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dab7ecc63d7b7f42a1ca4b2ef4e2432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vida: 7
-  Elemento: 
+  TESTMATAR: 0
+  Vida: 5
+  Elemento: Fuego
+  items: []
 --- !u!135 &135439352491697076
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -494,15 +496,15 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5251522
-  m_Center: {x: 0, y: 2.2220354, z: 0.003293991}
+  m_Radius: 0.77993655
+  m_Center: {x: -0.015578032, y: 2.1547647, z: 0.003293991}
 --- !u!195 &195863233946235810
 NavMeshAgent:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980342028790808}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.65
   m_Speed: 9

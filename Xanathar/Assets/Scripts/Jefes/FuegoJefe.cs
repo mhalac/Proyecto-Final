@@ -51,6 +51,7 @@ public class FuegoJefe : MonoBehaviour
         Agente = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         StartCoroutine(EsperarInicio());
+        Vibrar = FindObjectOfType<VibracionCamara>();
     }
 
 
@@ -139,6 +140,7 @@ public class FuegoJefe : MonoBehaviour
                 encontro = true;
             }
         }
+        
         Vibrar.StartCoroutine(Vibrar.Shake(.15f, .4f));
 
         if (Distancia < 7.449858f)

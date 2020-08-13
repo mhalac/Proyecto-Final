@@ -64,13 +64,17 @@ public class Ataque : MonoBehaviour
 
         Atacar();
     }
-    public void Reset()
+    public void Reset(int i)
     {
         ActivaPatria = false;
         GestorItems c = FindObjectOfType<GestorItems>();
         c.SolPatriaParticula.SetActive(false);
         ActivaMusica = false;
         c.ExplosiveMusic.SetActive(false);
+        AnimacionIconos d = FindObjectOfType<AnimacionIconos>();
+        c.ItemsEquipados[i].Activado = false;
+        d.ActivaDeFuegoCooldown = false;
+
 
     }
     public void HacerDamage()
@@ -92,13 +96,15 @@ public class Ataque : MonoBehaviour
 
                         c.ItemsEquipados[0].Activado = false;
                         c.SolPatriaParticula.SetActive(false);
-
+                        AnimacionIconos d = FindObjectOfType<AnimacionIconos>();
+                        d.ActivaDeFuegoCooldown = true;
+                        d.SeleccionadorDeImagenes(CoolDownInicial);
                         ActivaPatria = false;
                     }
                     else if (ActivaMusica)
                     {
                         Enemigo.RecibirDamage(DamageMusica);
-                        Instantiate(ParticulaExplosion,a.ClosestPoint(transform.position),Quaternion.identity);
+                        Instantiate(ParticulaExplosion, a.ClosestPoint(transform.position), Quaternion.identity);
                     }
                     Enemigo.RecibirDamage();
 
@@ -108,6 +114,7 @@ public class Ataque : MonoBehaviour
             }
             else if (a.tag == "JefeFuego")
             {
+                JefeFuego = FindObjectOfType<FuegoJefe>().GetComponent<LifeManager>();
                 JefeFuego.RecibirDamage();
             }
         }
