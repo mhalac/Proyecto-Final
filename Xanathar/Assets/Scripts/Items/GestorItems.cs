@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class GestorItems : MonoBehaviour
 {
+    public float CooldownReduction;
+    public GameObject ExplosiveMusic;
     public GameObject SolPatriaParticula;
+    public bool test;
     public Item[] ItemsEquipados;
     //public List<Slots> EstadoSlots;
     void Start()
@@ -21,7 +24,24 @@ public class GestorItems : MonoBehaviour
     }
     // Update is called once per frame
 
+    public void AplicarCDR()
+    {
+        for (int i = 0; i < ItemsEquipados.Length; i++)
+        {
+            ItemsEquipados[i].cooldownInicial = ItemsEquipados[i].CooldownOriginal * ((100 - CooldownReduction) / 100);
+        }
 
+    }
+    public void AplicarCDR(float CDR)
+    {
+        CooldownReduction = CDR;
+        for (int i = 0; i < ItemsEquipados.Length; i++)
+        {
+            ItemsEquipados[i].cooldownInicial = ItemsEquipados[i].CooldownOriginal * ((100 - CooldownReduction) / 100);
+        }
+        CooldownReduction = CDR;
+        test = false;
+    }
 
 
     void Update()
@@ -29,11 +49,17 @@ public class GestorItems : MonoBehaviour
         for (int i = 0; i < ItemsEquipados.Length; i++)
         {
             if (ItemsEquipados[i].item != null && !TerminoCD(i) && !ItemsEquipados[i].Activado)
+            {
                 ItemsEquipados[i].cooldownActual -= Time.deltaTime;
+
+            }
+
+
 
         }
 
-
+        if (test)
+            AplicarCDR(90);
 
         if (ItemsEquipados[0].item != null && Input.GetKeyDown(KeyCode.Q) && !ItemsEquipados[0].Activado)
         {
@@ -54,8 +80,12 @@ public class GestorItems : MonoBehaviour
                 {
                     ItemsEquipados[0].cooldownActual = ItemsEquipados[0].cooldownInicial;
                     ItemsEquipados[0].cooldownActual -= Time.deltaTime;
+                    ExplosiveMusic.GetComponent<Animator>().enabled = false;
+                    c.ActivaMusica = true;
                     ItemsEquipados[0].Activado = true;
-                    c.ActivaPatria = false;
+
+                    ExplosiveMusic.SetActive(true);
+
                 }
 
 
@@ -89,6 +119,7 @@ public class GestorItems : MonoBehaviour
     [System.Serializable]
     public class Item
     {
+        public float CooldownOriginal;
         public bool Activado;
         public GameObject item;
         public float cooldownInicial;

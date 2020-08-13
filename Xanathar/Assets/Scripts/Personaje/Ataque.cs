@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ataque : MonoBehaviour
 {
 
-
+    // C * ((100 - CDR) / 100)
 
     public LifeManager JefeFuego;
     public Animator anim;
@@ -13,8 +13,6 @@ public class Ataque : MonoBehaviour
     public float CDTotal;
     public float AreaAtaque;
     public Transform Arma;
-    private float AnimSpeed;
-    private Vector3 PosAtaque;
     [Header("Variables de items")]
     [Header("Sol de la patria")]
     public bool ActivaPatria;
@@ -23,6 +21,11 @@ public class Ataque : MonoBehaviour
     [Header("ExplosiveMusic")]
     public bool ActivaMusica;
 
+    public GameObject ParticulaExplosion;
+    public float DamageMusica;
+    public float MusicaDuracionInicial;
+    public float MusicaDuracionActual;
+
     // Use this for initialization
     void Start()
     {
@@ -30,6 +33,7 @@ public class Ataque : MonoBehaviour
         CDTotal = 0;
         Arma.position = new Vector3(Arma.position.x, Arma.position.y, Arma.position.z + AreaAtaque);
         anim.speed = 1 / GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
+        MusicaDuracionActual = MusicaDuracionInicial;
 
     }
 
@@ -37,14 +41,27 @@ public class Ataque : MonoBehaviour
     void Update()
     {
         MovimientoPersonaje c = FindObjectOfType<MovimientoPersonaje>();
-        //print("La anim speed es" + anim.speed);
+        if (ActivaMusica && MusicaDuracionActual > -1)
+        {
+            MusicaDuracionActual -= Time.deltaTime;
+        }
+        else if (ActivaMusica)
+        {
+            MusicaDuracionActual = MusicaDuracionInicial;
+            ActivaMusica = false;
+            GestorItems d = FindObjectOfType<GestorItems>();
+            d.ItemsEquipados[0].Activado = false;
 
-        //anim.speed = 1;
+            d.ExplosiveMusic.SetActive(false);
+
+
+        }
 
         if (c.Corriendo)
             anim.SetBool("Caminando", true);
         else
             anim.SetBool("Caminando", false);
+
         Atacar();
     }
     public void Reset()
@@ -52,6 +69,8 @@ public class Ataque : MonoBehaviour
         ActivaPatria = false;
         GestorItems c = FindObjectOfType<GestorItems>();
         c.SolPatriaParticula.SetActive(false);
+        ActivaMusica = false;
+        c.ExplosiveMusic.SetActive(false);
 
     }
     public void HacerDamage()
@@ -78,9 +97,8 @@ public class Ataque : MonoBehaviour
                     }
                     else if (ActivaMusica)
                     {
-                        c.ItemsEquipados[0].Activado = false;
-                        Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube),a.transform.position,Quaternion.identity);
-                        ActivaMusica = false;
+                        Enemigo.RecibirDamage(DamageMusica);
+                        Instantiate(ParticulaExplosion,a.ClosestPoint(transform.position),Quaternion.identity);
                     }
                     Enemigo.RecibirDamage();
 

@@ -138,7 +138,7 @@ public class LifeManager : MonoBehaviour
 
 
         }
-        print("Yo: " + gameObject.name + " Y mi vida es de: " + Vida);
+        //        print("Yo: " + gameObject.name + " Y mi vida es de: " + Vida);
         Mori();
 
 
@@ -159,17 +159,17 @@ public class LifeManager : MonoBehaviour
 
             }
             //funcion para JEFES
-            if(gameObject.name == "Jefe fuego")
+            if (gameObject.name == "Jefe fuego")
             {
                 Animator c = GetComponentInChildren<Animator>();
-                c.SetBool("Morir",true);
+                c.SetBool("Morir", true);
                 this.enabled = false;
             }
             else
             {
                 Destroy(this.gameObject);
             }
-            
+
 
 
         }

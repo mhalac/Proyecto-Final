@@ -180,8 +180,8 @@ public class AgarradorDeItems : MonoBehaviour
         if (Categoria == "Activa")
         {
             GestorItems c = FindObjectOfType<GestorItems>();
-			Ataque b = FindObjectOfType<Ataque>();
-			b.Reset();
+            Ataque b = FindObjectOfType<Ataque>();
+            b.Reset();
 
             switch (Elemento)
             {
@@ -190,11 +190,18 @@ public class AgarradorDeItems : MonoBehaviour
                     {
                         c.ItemsEquipados[0].item = ObjetoAgarrado;
                         c.ItemsEquipados[0].cooldownInicial = 4;
+                        c.ItemsEquipados[0].CooldownOriginal = 4;
+                        c.AplicarCDR();
                     }
+                    
                     else
                     {
                         c.ItemsEquipados[0].item = ObjetoAgarrado;
                         c.ItemsEquipados[0].cooldownInicial = 6;
+                        c.ItemsEquipados[0].CooldownOriginal = 6;
+
+                        c.AplicarCDR(30);
+
                     }
 
                     break;
