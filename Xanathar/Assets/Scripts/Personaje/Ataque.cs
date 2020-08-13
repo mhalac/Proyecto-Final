@@ -44,6 +44,12 @@ public class Ataque : MonoBehaviour
             anim.SetBool("Caminando", false);
         Atacar();
     }
+    public void Reset()
+    {
+        ActivaPatria = false;
+        c.SolPatriaParticula.SetActive(false);
+
+    }
     public void HacerDamage()
     {
         Collider[] ataque = Physics.OverlapSphere(Arma.position, AreaAtaque);
@@ -98,7 +104,6 @@ public class Ataque : MonoBehaviour
         {
             {
                 anim.speed = 1 / GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
-                print("La anim speed es" + anim.speed);
 
                 anim.SetBool("atacando", true);
                 CDTotal = CoolDownInicial;

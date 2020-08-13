@@ -97,7 +97,7 @@ public class AgarradorDeItems : MonoBehaviour
                 ObjetosEquipados[i] = ObjetoAgarrado;
                 Destroy(ColisionDeObjeto.collider.gameObject);
 
-                ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado, ElementoDelObjetoAgarrado, NombreDelObjetoAgarrado , ObjetoAgarrado);
+                ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado, ElementoDelObjetoAgarrado, NombreDelObjetoAgarrado, ObjetoAgarrado);
                 break;
             }
 
@@ -108,7 +108,7 @@ public class AgarradorDeItems : MonoBehaviour
             {
                 ObjetosEquipados[i] = ObjetoAgarrado;
                 Destroy(ColisionDeObjeto.collider.gameObject);
-                ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado, ElementoDelObjetoAgarrado, NombreDelObjetoAgarrado , ObjetoAgarrado);
+                ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado, ElementoDelObjetoAgarrado, NombreDelObjetoAgarrado, ObjetoAgarrado);
 
 
                 Vector3 PosAInstanciar = new Vector3(Instanciador.transform.position.x, (Instanciador.transform.position.y + 1), Instanciador.transform.position.z);
@@ -174,18 +174,27 @@ public class AgarradorDeItems : MonoBehaviour
         ManejadorDeHUD.DesactivadorSlots();
     }
 
-    public void ChequeadorDeActivaYElemento(string Categoria, string Elemento, string Nombre , GameObject ObjetoAgarrado)
+    public void ChequeadorDeActivaYElemento(string Categoria, string Elemento, string Nombre, GameObject ObjetoAgarrado)
     {
 
         if (Categoria == "Activa")
         {
             GestorItems c = FindObjectOfType<GestorItems>();
+			Ataque b = FindObjectOfType<Ataque>();
+			b.Reset();
+
             switch (Elemento)
             {
                 case "Fuego":
                     if (Nombre == "Sol De La Patria")
                     {
-
+                        c.ItemsEquipados[0].item = ObjetoAgarrado;
+                        c.ItemsEquipados[0].cooldownInicial = 4;
+                    }
+                    else
+                    {
+                        c.ItemsEquipados[0].item = ObjetoAgarrado;
+                        c.ItemsEquipados[0].cooldownInicial = 6;
                     }
 
                     break;
@@ -208,6 +217,6 @@ public class AgarradorDeItems : MonoBehaviour
             Debug.Log("No es un item activo, es un item de categoria: " + Categoria);
         }
 
-		//Debug.Log(ObjetoAgarrado.name);
+        //Debug.Log(ObjetoAgarrado.name);
     }
 }

@@ -52,8 +52,10 @@ public class GestorItems : MonoBehaviour
                 }
                 else
                 {
+                    ItemsEquipados[0].cooldownActual = ItemsEquipados[0].cooldownInicial;
+                    ItemsEquipados[0].cooldownActual -= Time.deltaTime;
+                    ItemsEquipados[0].Activado = true;
                     c.ActivaPatria = false;
-
                 }
 
 

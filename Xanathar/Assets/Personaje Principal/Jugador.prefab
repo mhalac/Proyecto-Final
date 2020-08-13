@@ -558,6 +558,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1571213623298782
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4160177078473180}
+  m_Layer: 0
+  m_Name: Arma
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1574202751021544
 GameObject:
   m_ObjectHideFlags: 1
@@ -1158,6 +1173,19 @@ Transform:
   m_Father: {fileID: 4819766429056280}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -7.7770004, y: 2.7170002, z: -0.19800001}
+--- !u!4 &4160177078473180
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571213623298782}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.018, y: -0.01, z: 0.559}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4599921151594878}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4174317111736886
 Transform:
   m_ObjectHideFlags: 1
@@ -1572,6 +1600,7 @@ Transform:
   m_LocalScale: {x: 0.055269077, y: 0.055269085, z: 0.05526907}
   m_Children:
   - {fileID: 4819766429056280}
+  - {fileID: 4160177078473180}
   m_Father: {fileID: 4871656527718820}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2231,8 +2260,8 @@ MonoBehaviour:
   anim: {fileID: 95518361460003932}
   CoolDownInicial: 0
   CDTotal: 0
-  AreaAtaque: 0.92
-  Arma: {fileID: 0}
+  AreaAtaque: 0.77
+  Arma: {fileID: 4160177078473180}
   ActivaPatria: 0
   DamagePatria: 4
   SunBeam: {fileID: 106988, guid: 15dec7b07032b2f4aa6f855bfbe120f7, type: 2}
