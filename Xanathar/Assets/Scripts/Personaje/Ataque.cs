@@ -16,9 +16,12 @@ public class Ataque : MonoBehaviour
     private float AnimSpeed;
     private Vector3 PosAtaque;
     [Header("Variables de items")]
+    [Header("Sol de la patria")]
     public bool ActivaPatria;
     public float DamagePatria;
     public GameObject SunBeam;
+    [Header("ExplosiveMusic")]
+    public bool ActivaMusica;
 
     // Use this for initialization
     void Start()
@@ -47,6 +50,7 @@ public class Ataque : MonoBehaviour
     public void Reset()
     {
         ActivaPatria = false;
+        GestorItems c = FindObjectOfType<GestorItems>();
         c.SolPatriaParticula.SetActive(false);
 
     }
@@ -60,16 +64,23 @@ public class Ataque : MonoBehaviour
             {
                 if (a.GetComponent<LifeManager>() != null)
                 {
+                    GestorItems c = FindObjectOfType<GestorItems>();
+
                     LifeManager Enemigo = a.GetComponent<LifeManager>();
                     if (ActivaPatria)
                     {
                         RayoSolar(a.gameObject);
 
-                        GestorItems c = FindObjectOfType<GestorItems>();
                         c.ItemsEquipados[0].Activado = false;
                         c.SolPatriaParticula.SetActive(false);
 
                         ActivaPatria = false;
+                    }
+                    else if (ActivaMusica)
+                    {
+                        c.ItemsEquipados[0].Activado = false;
+                        Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube),a.transform.position,Quaternion.identity);
+                        ActivaMusica = false;
                     }
                     Enemigo.RecibirDamage();
 
