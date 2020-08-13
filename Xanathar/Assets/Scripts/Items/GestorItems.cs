@@ -53,7 +53,12 @@ public class GestorItems : MonoBehaviour
                 ItemsEquipados[i].cooldownActual -= Time.deltaTime;
 
             }
+            else if (ItemsEquipados[i].item != null && ItemsEquipados[i].item.GetComponent<InformacionDeItems>().Nombre == "Sol De La Patria")
+            {
+                AnimacionIconos d = FindObjectOfType<AnimacionIconos>();
+                d.ActivaDeFuegoCooldown = false;
 
+            }
 
 
         }

@@ -26,13 +26,14 @@ public class AnimacionIconos : MonoBehaviour {
 		
 		if(Input.GetKeyDown(KeyCode.N))
 		{
-			SeleccionadorDeImagenes();
+			SeleccionadorDeImagenes(10);
 		}
 		
 	}
 
 	IEnumerator CoolDownDeHabilidades(Image ImagenDeActiva , float CoolDownHabilidad)
 	{
+
 		Debug.Log("Corrutina Iniciada");
 		ImagenDeActiva.fillAmount = 0;
 
@@ -50,10 +51,12 @@ public class AnimacionIconos : MonoBehaviour {
 		}
 	}
 
-	public void SeleccionadorDeImagenes()
+	public void SeleccionadorDeImagenes(float CooldownP)
 	{
+		CoolDown = CooldownP;
 		if(ActivaDeFuegoCooldown == false)
 		{
+			
 			StartCoroutine(CoolDownDeHabilidades(ActivaDeFuego , CoolDown));
 			return;
 		}
