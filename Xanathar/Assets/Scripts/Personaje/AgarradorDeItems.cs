@@ -97,7 +97,7 @@ public class AgarradorDeItems : MonoBehaviour
                 ObjetosEquipados[i] = ObjetoAgarrado;
                 Destroy(ColisionDeObjeto.collider.gameObject);
 
-                ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado, ElementoDelObjetoAgarrado, NombreDelObjetoAgarrado);
+                ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado, ElementoDelObjetoAgarrado, NombreDelObjetoAgarrado , ObjetoAgarrado);
                 break;
             }
 
@@ -108,7 +108,7 @@ public class AgarradorDeItems : MonoBehaviour
             {
                 ObjetosEquipados[i] = ObjetoAgarrado;
                 Destroy(ColisionDeObjeto.collider.gameObject);
-                ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado, ElementoDelObjetoAgarrado, NombreDelObjetoAgarrado);
+                ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado, ElementoDelObjetoAgarrado, NombreDelObjetoAgarrado , ObjetoAgarrado);
 
 
                 Vector3 PosAInstanciar = new Vector3(Instanciador.transform.position.x, (Instanciador.transform.position.y + 1), Instanciador.transform.position.z);
@@ -174,7 +174,7 @@ public class AgarradorDeItems : MonoBehaviour
         ManejadorDeHUD.DesactivadorSlots();
     }
 
-    public void ChequeadorDeActivaYElemento(string Categoria, string Elemento, string Nombre)
+    public void ChequeadorDeActivaYElemento(string Categoria, string Elemento, string Nombre , GameObject ObjetoAgarrado)
     {
 
         if (Categoria == "Activa")
@@ -207,5 +207,7 @@ public class AgarradorDeItems : MonoBehaviour
         {
             Debug.Log("No es un item activo, es un item de categoria: " + Categoria);
         }
+
+		//Debug.Log(ObjetoAgarrado.name);
     }
 }
