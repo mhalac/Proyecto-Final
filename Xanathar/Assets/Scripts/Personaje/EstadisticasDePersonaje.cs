@@ -8,8 +8,8 @@ public class EstadisticasDePersonaje : MonoBehaviour
 
     //Estadisticas Basicas
     [Header("Estadisticas Basicas")]
-    public static float VidaMaximaPersonaje = 20;
-    public static float VidaActualPersonaje = 20;
+    public static float VidaMaximaPersonaje = 200;
+    public static float VidaActualPersonaje = 200;
     public float DañoDePersonajeNormal = 10f;
     public float TiempoCooldownActivas = 5f;
     public static int Armadura = 15;

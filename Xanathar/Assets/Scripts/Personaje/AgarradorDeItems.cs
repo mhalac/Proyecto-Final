@@ -83,7 +83,7 @@ public class AgarradorDeItems : MonoBehaviour {
 		AgarrarYReemplazar(AlmacenadorDeObjetos[0] , AlmacenadorDeObjetos[1], ElementoDelObjeto , CategoriaDelObjeto , NombreDelObjeto);
 	}
 
-	private void AgarrarYReemplazar(GameObject ObjetoAgarrado , GameObject ObjetoNoAgarrado , string Elemento , string Categoria , string Nombre)
+	private void AgarrarYReemplazar(GameObject ObjetoAgarrado , GameObject ObjetoNoAgarrado , string ElementoDelObjetoAgarrado , string CategoriaDelObjetoAgarrado , string NombreDelObjetoAgarrado)
 	{
 		string ElementoItemEquipado;
 		string CategoriaItemEquipado;
@@ -95,19 +95,22 @@ public class AgarradorDeItems : MonoBehaviour {
 			{
 				ObjetosEquipados[i] = ObjetoAgarrado;
 				Destroy(ColisionDeObjeto.collider.gameObject);
+
+				ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado , ElementoDelObjetoAgarrado);
 				break;
 			}
 
 			ElementoItemEquipado = ObjetosEquipados[i].GetComponent<InformacionDeItems>().Elemento;
 			CategoriaItemEquipado = ObjetosEquipados[i].GetComponent<InformacionDeItems>().Categoria;
 
-			if(ElementoItemEquipado == Elemento && CategoriaItemEquipado == Categoria)
+			if(ElementoItemEquipado == ElementoDelObjetoAgarrado && CategoriaItemEquipado == CategoriaDelObjetoAgarrado)
 			{
 				ObjetosEquipados[i] = ObjetoAgarrado;
 				Destroy(ColisionDeObjeto.collider.gameObject);
+				ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado , ElementoDelObjetoAgarrado);
+
 
 				Vector3 PosAInstanciar = new Vector3(Instanciador.transform.position.x , (Instanciador.transform.position.y + 1) , Instanciador.transform.position.z);
-
 				Instantiate(ObjetoNoAgarrado , PosAInstanciar , Quaternion.identity);
 				break;
 			}
@@ -124,6 +127,7 @@ public class AgarradorDeItems : MonoBehaviour {
 
 	public void DropeadorDeItems()
 	{
+		GameObject PosParaInstanciar = GameObject.FindGameObjectWithTag("PosicionClave");
 		for(int i = 0; i < ObjetosEquipados.Length; i++)
 		{
 			if(ObjetosEquipados[i] == null)
@@ -144,13 +148,13 @@ public class AgarradorDeItems : MonoBehaviour {
 				}
 
 				Seguro += 1;
-				PosicionObjeto = new Vector3(Random.Range(-RangoDeInstancia , RangoDeInstancia) + Instanciador.transform.position.x , Instanciador.transform.position.y , Random.Range(-RangoDeInstancia , RangoDeInstancia) + Instanciador.transform.position.z);
+				PosicionObjeto = new Vector3(Random.Range(-RangoDeInstancia , RangoDeInstancia) + PosParaInstanciar.transform.position.x , PosParaInstanciar.transform.position.y , Random.Range(-RangoDeInstancia , RangoDeInstancia) + PosParaInstanciar.transform.position.z);
 				PosicionValida = true;
 				Collider[] Colisiones = Physics.OverlapSphere(PosicionObjeto, RadioDeObjetos);
 
 				foreach(Collider col in Colisiones)
 				{
-					if(col.tag == "Items" || col.tag == "Personaje")
+					if(col.tag == "Items" || col.tag == "Personaje" || col.tag == "Piso")
 					{
 						PosicionValida = false;
 					}
@@ -167,5 +171,34 @@ public class AgarradorDeItems : MonoBehaviour {
 		}
 
 		ManejadorDeHUD.DesactivadorSlots();
+	}
+
+	public void ChequeadorDeActivaYElemento(string Categoria , string Elemento)
+	{
+		if(Categoria == "Activa")
+		{
+			switch(Elemento)
+			{
+				case "Fuego":
+				Debug.Log("Activa De Fuego");
+				break;
+
+				case "Viento":
+				Debug.Log("Activa De Viento");
+				break;
+
+				case "Tierra":
+				Debug.Log("Activa De Tierra");
+				break;
+
+				case "Agua":
+				Debug.Log("Activa De Agua");
+				break;
+			}
+		}
+		else
+		{
+			Debug.Log("No es un item activo, es un item de categoria: " + Categoria);
+		}
 	}
 }
