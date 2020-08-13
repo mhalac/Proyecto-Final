@@ -25,26 +25,29 @@ public class Ataque : MonoBehaviour
     {
         CoolDownInicial = GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         CDTotal = 0;
-        anim = GetComponent<Animator>();
         Arma.position = new Vector3(Arma.position.x, Arma.position.y, Arma.position.z + AreaAtaque);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        MovimientoPersonaje c = FindObjectOfType<MovimientoPersonaje>();
+        anim.speed = 1;
+
+        if (c.Corriendo)
+            anim.SetBool("Caminando", true);
+        else
+            anim.SetBool("Caminando", false);
         Atacar();
     }
-    void HacerDamage()
+    public void HacerDamage()
     {
-        anim.speed = AnimSpeed;
         Collider[] ataque = Physics.OverlapSphere(Arma.position, AreaAtaque);
         foreach (Collider a in ataque)
         {
 
             if (a.tag == "Enemigo")
             {
-                print("Hay enemigo");
                 if (a.GetComponent<LifeManager>() != null)
                 {
                     LifeManager Enemigo = a.GetComponent<LifeManager>();
@@ -67,34 +70,33 @@ public class Ataque : MonoBehaviour
             }
         }
 
-        CDTotal = CoolDownInicial;
     }
     void RayoSolar(GameObject target)
     {
         Vector3 Arriba = new Vector3(target.transform.position.x - 2, transform.position.y + 4f, target.transform.position.z);
         GameObject c = Instantiate(SunBeam, Arriba, Quaternion.identity);
-        c.GetComponent<Transform>().Rotate(0,0,-90);
-        c.GetComponent<LifeManager>().RecibirDamage(DamagePatria);
+        c.GetComponent<Transform>().Rotate(0, 0, -90);
+        target.GetComponent<LifeManager>().RecibirDamage(DamagePatria);
     }
 
     void Atacar()
     {
 
-        AnimSpeed = 1 / CoolDownInicial;
+        print("La anim speed es" + AnimSpeed);
         //TODO Entre menos cooldown tenes mas rapido atacas y viceversa, xq la animacion tiene que durar menos
         //TODO para dar lugar al proximo ataque  
-        CDTotal -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon)
+        if (CDTotal > -1 && !anim.GetBool("atacando"))
+            CDTotal -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon && !anim.GetBool("Caminando") && !anim.GetBool("atacando"))
         {
             {
+                AnimSpeed = GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
+                anim.speed = AnimSpeed;
                 anim.SetBool("atacando", true);
             }
         }
 
-        else
-        {
-            anim.SetBool("atacando", false);
-        }
 
     }
     void OnDrawGizmosSelected()
@@ -104,7 +106,6 @@ public class Ataque : MonoBehaviour
 
         Gizmos.DrawWireSphere(Arma.position, AreaAtaque);
     }
-
 
 }
 
