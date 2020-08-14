@@ -192,24 +192,25 @@ public class AgarradorDeItems : MonoBehaviour
             switch (Elemento)
             {
                 case "Fuego":
+                    float FuegoCD = GetComponent<EstadisticasDePersonaje>().TiempoCooldownActivas[0];
                     if (Nombre == "Sol De La Patria")
                     {
                         c.ItemsEquipados[0].item = ObjetoAgarrado;
-                        c.ItemsEquipados[0].cooldownInicial = 5;
-                        c.ItemsEquipados[0].CooldownOriginal = 5;
+                        c.ItemsEquipados[0].cooldownInicial = FuegoCD;
+                        c.ItemsEquipados[0].CooldownOriginal = FuegoCD;
                         c.AplicarCDR();
                     }
 
                     else
                     {
                         c.ItemsEquipados[0].item = ObjetoAgarrado;
-                        c.ItemsEquipados[0].cooldownInicial = 6;
-                        c.ItemsEquipados[0].CooldownOriginal = 6;
+                        c.ItemsEquipados[0].cooldownInicial = FuegoCD;
+                        c.ItemsEquipados[0].CooldownOriginal = FuegoCD;
 
                         c.AplicarCDR();
 
                     }
-                    b.Reset(1);
+                    b.Reset(0);
 
                     break;
 

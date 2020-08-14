@@ -36,7 +36,7 @@ public class Ataque : MonoBehaviour
         anim.speed = 1 / GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         MusicaDuracionActual = MusicaDuracionInicial;
 
-        CoolDownActiva = GetComponent<EstadisticasDePersonaje>().TiempoCooldownActivas;
+        CoolDownActiva = GetComponent<EstadisticasDePersonaje>().TiempoCooldownActivas[0];
 
     }
 
@@ -44,7 +44,7 @@ public class Ataque : MonoBehaviour
     void Update()
     {
         MovimientoPersonaje c = FindObjectOfType<MovimientoPersonaje>();
-        if (ActivaMusica && MusicaDuracionActual > -1)
+        if (ActivaMusica && MusicaDuracionActual > Mathf.Epsilon)
         {
             MusicaDuracionActual -= Time.deltaTime;
         }
@@ -54,6 +54,9 @@ public class Ataque : MonoBehaviour
             ActivaMusica = false;
             GestorItems d = FindObjectOfType<GestorItems>();
             d.ItemsEquipados[0].Activado = false;
+            AnimacionIconos f = FindObjectOfType<AnimacionIconos>();
+            f.ActivaDeFuegoCooldown = true;
+            f.SeleccionadorDeImagenes(CoolDownActiva);
 
             d.ExplosiveMusic.SetActive(false);
 
@@ -69,14 +72,17 @@ public class Ataque : MonoBehaviour
     }
     public void Reset(int i)
     {
-        ActivaPatria = false;
         GestorItems c = FindObjectOfType<GestorItems>();
-        c.SolPatriaParticula.SetActive(false);
-        ActivaMusica = false;
+
         c.ExplosiveMusic.SetActive(false);
-        AnimacionIconos d = FindObjectOfType<AnimacionIconos>();
+        c.SolPatriaParticula.SetActive(false);
+
+        ActivaPatria = false;
+        ActivaMusica = false;
+        
         c.ItemsEquipados[i].Activado = false;
-        d.ActivaDeFuegoCooldown = false;
+
+        AnimacionIconos d = FindObjectOfType<AnimacionIconos>();
 
 
     }

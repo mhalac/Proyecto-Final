@@ -11,7 +11,7 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public float VidaMaximaPersonaje = 20;
     public float VidaActualPersonaje = 20;
     public float DañoDePersonajeNormal = 10f;
-    public float TiempoCooldownActivas = 5f;
+    public float[] TiempoCooldownActivas;
     public int Armadura = 15;
     public float Gravedad = -15f;
     public float CoolDownFlash;
