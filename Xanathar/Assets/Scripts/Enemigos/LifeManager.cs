@@ -135,7 +135,9 @@ public class LifeManager : MonoBehaviour
                     Vida -= Stats.DañoElementalFuego;
                 }
                 break;
-
+            case "Test":
+                print(Vida);
+                break;
 
         }
         //        print("Yo: " + gameObject.name + " Y mi vida es de: " + Vida);

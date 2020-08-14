@@ -17,7 +17,7 @@ public class GestorItems : MonoBehaviour
     }
     bool TerminoCD(int indice)
     {
-        if (ItemsEquipados[indice].cooldownActual >= 0)
+        if (ItemsEquipados[indice].cooldownActual >= Mathf.Epsilon)
             return false;
         else
             return true;
@@ -40,7 +40,6 @@ public class GestorItems : MonoBehaviour
             ItemsEquipados[i].cooldownInicial = ItemsEquipados[i].CooldownOriginal * ((100 - CooldownReduction) / 100);
         }
         CooldownReduction = CDR;
-        test = false;
     }
 
 
@@ -63,10 +62,7 @@ public class GestorItems : MonoBehaviour
 
         }
 
-        /*
-        if (test)
-            AplicarCDR(90);
-        */
+        
         if (ItemsEquipados[0].item != null && Input.GetKeyDown(KeyCode.Q) && !ItemsEquipados[0].Activado)
         {
             if (TerminoCD(0))
