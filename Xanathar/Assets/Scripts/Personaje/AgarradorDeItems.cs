@@ -87,7 +87,7 @@ public class AgarradorDeItems : MonoBehaviour
     {
         string ElementoItemEquipado;
         string CategoriaItemEquipado;
-
+        string NombreItemEquipado;
 
         for (int i = 0; i < ObjetosEquipados.Length; i++)
         {
@@ -96,17 +96,25 @@ public class AgarradorDeItems : MonoBehaviour
                 ObjetosEquipados[i] = ObjetoAgarrado;
                 Destroy(ColisionDeObjeto.collider.gameObject);
 
+                EquiparPasivaYEstadistica(CategoriaDelObjetoAgarrado , NombreDelObjetoAgarrado);
+
                 ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado, ElementoDelObjetoAgarrado, NombreDelObjetoAgarrado, ObjetoAgarrado);
                 break;
             }
 
             ElementoItemEquipado = ObjetosEquipados[i].GetComponent<InformacionDeItems>().Elemento;
             CategoriaItemEquipado = ObjetosEquipados[i].GetComponent<InformacionDeItems>().Categoria;
+            NombreItemEquipado = ObjetosEquipados[i].GetComponent<InformacionDeItems>().Nombre;
 
             if (ElementoItemEquipado == ElementoDelObjetoAgarrado && CategoriaItemEquipado == CategoriaDelObjetoAgarrado)
             {
                 ObjetosEquipados[i] = ObjetoAgarrado;
                 Destroy(ColisionDeObjeto.collider.gameObject);
+
+                DesEquiparPasivaYEstadistica(CategoriaItemEquipado , NombreItemEquipado);
+
+                EquiparPasivaYEstadistica(CategoriaDelObjetoAgarrado , NombreDelObjetoAgarrado);
+
                 ChequeadorDeActivaYElemento(CategoriaDelObjetoAgarrado, ElementoDelObjetoAgarrado, NombreDelObjetoAgarrado, ObjetoAgarrado);
 
 
@@ -175,7 +183,7 @@ public class AgarradorDeItems : MonoBehaviour
 
     public void ChequeadorDeActivaYElemento(string Categoria, string Elemento, string Nombre, GameObject ObjetoAgarrado)
     {
-
+        
         if (Categoria == "Activa")
         {
             GestorItems c = FindObjectOfType<GestorItems>();
@@ -224,5 +232,36 @@ public class AgarradorDeItems : MonoBehaviour
         }
 
         //Debug.Log(ObjetoAgarrado.name);
+        
+    }
+
+    public void EquiparPasivaYEstadistica(string Categoria, string Nombre)
+    {
+        switch(Categoria)
+        {
+            case "Estadistica":
+            EquiparEstadisticasYPasivas.EquiparEstadistica(Nombre);
+            break;
+
+            case "Pasiva":
+            EquiparEstadisticasYPasivas.EquiparPasiva(Nombre);
+            break;
+            
+        }
+    }
+
+    public void DesEquiparPasivaYEstadistica(string Categoria , string Nombre)
+    {
+        switch(Categoria)
+        {
+            case "Estadistica":
+            EquiparEstadisticasYPasivas.DesEquiparEstadistica(Nombre);
+            break;
+
+            case "Pasiva":
+            EquiparEstadisticasYPasivas.DesEquiparPasiva(Nombre);
+            break;
+            
+        }
     }
 }

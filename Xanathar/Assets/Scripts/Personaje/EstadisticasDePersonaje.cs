@@ -33,24 +33,18 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public float DañoElementalAgua = 0f;
     public float DañoElementalTierra = 0f;
 
+
+    [Header("Variables que guardan las estadisticas iniciales")]
+    public int ArmaduraInicial;
+    public float DañoDePersonajeInicial;
+    public float VidaMaximaDePersonajeInicial;
     void Start()
     {
-        /*
-		PlayerPrefs.SetInt("Vida", VidaDePersonaje);
-		PlayerPrefs.SetFloat("DañoNormal", DañoDePersonajeNormal);
-		PlayerPrefs.SetFloat("Cooldown", TiempoCooldownActivas);
-		PlayerPrefs.SetInt("Armadura", Armadura);
-		PlayerPrefs.SetFloat("Gravedad", Gravedad);
+        //Igualamos las variables que guardan las estadisticas 
+        ArmaduraInicial = Armadura;
+        DañoDePersonajeInicial = DañoDePersonajeNormal;
+        VidaMaximaDePersonajeInicial = VidaMaximaPersonaje;
 
-		PlayerPrefs.SetFloat("VelocidadDeMovimiento", VelocidadDeMovimiento);
-		PlayerPrefs.SetFloat("VelocidadDeAtaque", VelocidadDeAtaque);
-		PlayerPrefs.SetFloat("FuerzaDeSalto", FuerzaDeSalto);
-
-		PlayerPrefs.SetFloat("DañoFuego", DañoElementalFuego);
-		PlayerPrefs.SetFloat("DañoViento", DañoElementalAire);
-		PlayerPrefs.SetFloat("DañoAgua", DañoElementalAgua);
-		PlayerPrefs.SetFloat("DañoTierra", DañoElementalTierra);
-		*/
 
         //Funcion para mantener al Jugador entre escenas
         if (Jugador != null)

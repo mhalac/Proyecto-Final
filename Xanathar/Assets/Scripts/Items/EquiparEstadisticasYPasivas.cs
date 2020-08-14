@@ -27,7 +27,7 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 
 			case "Estadistica De Fuego 2":
 			Estadisticas.DañoDePersonajeNormal += 5;
-			//Falta La regeneracion de vida
+			Estadisticas.TiempoDeRegeneracion -= 2;
 			break;
 		}
 	}
@@ -45,7 +45,47 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 
 			case "Estadistica De Fuego 2":
 			Estadisticas.DañoDePersonajeNormal -= 5;
-			//Falta La regeneracion de vida
+			Estadisticas.TiempoDeRegeneracion += 2;
+			break;
+
+			default:
+			Debug.Log("Nombre no encontrado");
+			break;
+		}
+	}
+
+	public static void EquiparPasiva(string NombreDelItem)
+	{
+		EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+
+		switch(NombreDelItem)
+		{
+			case "Fire Chestplate":
+			Estadisticas.DañoDePersonajeNormal = Estadisticas.DañoDePersonajeInicial / 2;
+			Estadisticas.Armadura = Estadisticas.ArmaduraInicial * 2;
+			break;
+
+			case "Old Flame":
+			Estadisticas.VidaMaximaPersonaje = Estadisticas.VidaMaximaDePersonajeInicial / 2;
+			Estadisticas.DañoDePersonajeNormal = Estadisticas.DañoDePersonajeInicial * 2;
+			break;
+		}
+	}
+
+	public static void DesEquiparPasiva(string NombreDelItem)
+	{
+		EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+		
+		switch(NombreDelItem)
+		{
+			case "Fire Chestplate":
+			Estadisticas.DañoDePersonajeNormal = Estadisticas.DañoDePersonajeInicial * 2;
+			Estadisticas.Armadura = Estadisticas.ArmaduraInicial / 2;
+			break;
+
+			case "Old Flame":
+			Estadisticas.VidaMaximaPersonaje = Estadisticas.VidaMaximaDePersonajeInicial * 2;
+			Estadisticas.DañoDePersonajeNormal = Estadisticas.DañoDePersonajeInicial / 2;
 			break;
 		}
 	}
