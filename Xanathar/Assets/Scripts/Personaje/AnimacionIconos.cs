@@ -54,7 +54,7 @@ public class AnimacionIconos : MonoBehaviour {
 	public void SeleccionadorDeImagenes(float CooldownP)
 	{
 		CoolDown = CooldownP;
-		if(ActivaDeFuegoCooldown == false)
+		if(ActivaDeFuegoCooldown)
 		{
 			
 			StartCoroutine(CoolDownDeHabilidades(ActivaDeFuego , CoolDown));
