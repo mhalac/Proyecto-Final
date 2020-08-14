@@ -57,4 +57,9 @@ public class AnimacionIconos : MonoBehaviour {
 		}
 		//Debug.Log("Este no se deberia de ejecutar");
 	}
+
+	public void ResetIcono()
+	{
+		ActivaDeFuego.fillAmount = 1f;
+	}
 }
