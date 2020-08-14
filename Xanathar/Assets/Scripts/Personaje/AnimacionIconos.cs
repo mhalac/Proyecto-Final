@@ -17,16 +17,11 @@ public class AnimacionIconos : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		/*
-		if(Input.GetKeyDown(KeyCode.N))
-		{
-			StartCoroutine(CoolDownDeHabilidades(ActivaDeFuego1 , CoolDown));
-		}
-		*/
 		
 		if(Input.GetKeyDown(KeyCode.N))
 		{
-			SeleccionadorDeImagenes(10);
+			ActivaDeFuegoCooldown = true;
+			SeleccionadorDeImagenes(5);
 		}
 		
 	}
@@ -36,11 +31,11 @@ public class AnimacionIconos : MonoBehaviour {
 
 		Debug.Log("Corrutina Iniciada");
 		ImagenDeActiva.fillAmount = 0;
-
 		while (ImagenDeActiva.fillAmount <= 1)
 		{
 			yield return new WaitForEndOfFrame();
-			ImagenDeActiva.fillAmount += 1 / CoolDownHabilidad * Time.deltaTime;
+			ImagenDeActiva.fillAmount += (1 / CoolDownHabilidad * Time.deltaTime);
+			Debug.Log(ImagenDeActiva.fillAmount);
 
 			if(ImagenDeActiva.fillAmount >= 1)
 			{

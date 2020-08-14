@@ -10,6 +10,7 @@ public class Ataque : MonoBehaviour
     public LifeManager JefeFuego;
     public Animator anim;
     public float CoolDownInicial;
+    public float CoolDownActiva;
     public float CDTotal;
     public float AreaAtaque;
     public Transform Arma;
@@ -34,6 +35,8 @@ public class Ataque : MonoBehaviour
         Arma.position = new Vector3(Arma.position.x, Arma.position.y, Arma.position.z + AreaAtaque);
         anim.speed = 1 / GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         MusicaDuracionActual = MusicaDuracionInicial;
+
+        CoolDownActiva = GetComponent<EstadisticasDePersonaje>().TiempoCooldownActivas;
 
     }
 
@@ -98,7 +101,7 @@ public class Ataque : MonoBehaviour
                         c.SolPatriaParticula.SetActive(false);
                         AnimacionIconos d = FindObjectOfType<AnimacionIconos>();
                         d.ActivaDeFuegoCooldown = true;
-                        d.SeleccionadorDeImagenes(CoolDownInicial);
+                        d.SeleccionadorDeImagenes(CoolDownActiva);
                         ActivaPatria = false;
                     }
                     else if (ActivaMusica)

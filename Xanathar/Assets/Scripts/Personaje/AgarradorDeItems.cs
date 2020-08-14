@@ -187,8 +187,8 @@ public class AgarradorDeItems : MonoBehaviour
                     if (Nombre == "Sol De La Patria")
                     {
                         c.ItemsEquipados[0].item = ObjetoAgarrado;
-                        c.ItemsEquipados[0].cooldownInicial = 4;
-                        c.ItemsEquipados[0].CooldownOriginal = 4;
+                        c.ItemsEquipados[0].cooldownInicial = 5;
+                        c.ItemsEquipados[0].CooldownOriginal = 5;
                         c.AplicarCDR();
                     }
 

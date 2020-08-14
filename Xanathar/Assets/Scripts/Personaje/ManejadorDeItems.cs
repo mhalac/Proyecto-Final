@@ -42,12 +42,15 @@ public class ManejadorDeItems : MonoBehaviour {
 	Text TextoDescripcion;
 
 	//Variables para la barra de Vida
-	[Header("Imagen para la vida del personaje")]
+	[Header("Variables para la vida del personaje")]
 	public Image Contenido;
 	float RellenoDeVida;
 	public Gradient TabletaDeColores;
 	public Text TextoDeVida;
 	static GameObject CanvasHUD;
+	public bool ActivadorRegeneracionDeVida = false;
+	public bool CorrutinaFuncionando = false;
+	RegeneracionVida regeneracionDeVida;
 
 	//Variables para mostrar las estadisticas del personaje
 	public Text TextoInformacionVida;
@@ -69,6 +72,7 @@ public class ManejadorDeItems : MonoBehaviour {
 		agarradorDeItems = FindObjectOfType<AgarradorDeItems>();
 
 		Vida = FindObjectOfType<EstadisticasDePersonaje>();
+		regeneracionDeVida = FindObjectOfType<RegeneracionVida>();
 	}
 
 	// Use this for initialization
@@ -93,8 +97,7 @@ public class ManejadorDeItems : MonoBehaviour {
 	{
 		ActivadorDeHUD();
 		ManejadorDeEstadisticas();
-
-		
+			
 		if(Input.GetKeyDown(KeyCode.H))
 		{
 			Vida.VidaActualPersonaje -= 1;
@@ -104,7 +107,7 @@ public class ManejadorDeItems : MonoBehaviour {
 		//Debug.Log(OcultadorDeMensaje);
 		//MensajeNotificador.alpha = 1f;
 
-		Debug.Log(MensajeNotificador.GetComponent<CanvasGroup>().alpha);
+		//Debug.Log(MensajeNotificador.GetComponent<CanvasGroup>().alpha);
 	}
 
 	private void ActivadorDeHUD()
@@ -252,15 +255,35 @@ public class ManejadorDeItems : MonoBehaviour {
 		Contenido.fillAmount = RellenoDeVida;
 		Contenido.color = TabletaDeColores.Evaluate(RellenoDeVida);
 
-		if(ValorActualVida > 0)
+
+
+
+
+		if(ValorActualVida == ValorMaximoDeVida)
 		{
-			TextoDeVida.text = "Tu vida es: " + ValorActualVida.ToString();
+			TextoDeVida.text = ValorActualVida.ToString();
+			ActivadorRegeneracionDeVida = false;
 		}
-		else
+
+		if(ValorActualVida < ValorMaximoDeVida)
 		{
-			TextoDeVida.text = "Tu vida es: 0";
-			agarradorDeItems.DropeadorDeItems();
+			TextoDeVida.text = ValorActualVida.ToString();
+			ActivadorRegeneracionDeVida = true;
+
+			if(ActivadorRegeneracionDeVida == true)
+			{
+				StartCoroutine(regeneracionDeVida.RegenerarVida());
+			}
+
+			if(ValorActualVida < 1)
+			{
+				TextoDeVida.text = "0";
+				agarradorDeItems.DropeadorDeItems();
+				ActivadorRegeneracionDeVida = false;
+			}
 		}
+
+		Debug.Log(ActivadorRegeneracionDeVida);
 	}
 
 	public void ManejadorDeEstadisticas()
@@ -277,7 +300,6 @@ public class ManejadorDeItems : MonoBehaviour {
 
 	public void MostradorDeMensajeNotificador(string NombreDelObjeto , string CategoriaDelObjeto , string DescripcionDelObjeto)
 	{
-
 		TextoNombre.text = NombreDelObjeto;
 		TextoCategoria.text = CategoriaDelObjeto;
 		TextoDescripcion.text = DescripcionDelObjeto;
