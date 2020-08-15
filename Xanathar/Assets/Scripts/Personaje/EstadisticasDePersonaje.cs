@@ -37,15 +37,15 @@ public class EstadisticasDePersonaje : MonoBehaviour
 
 
     [Header("Variables que guardan las estadisticas iniciales")]
-    public int ArmaduraInicial;
-    public float DañoDePersonajeInicial;
-    public float VidaMaximaDePersonajeInicial;
+    public int CopiaArmaduraInicial;
+    public float CopiaDañoDePersonajeInicial;
+    public float CopiaVidaMaximaDePersonajeInicial;
     void Start()
     {
         //Igualamos las variables que guardan las estadisticas 
-        ArmaduraInicial = Armadura;
-        DañoDePersonajeInicial = DañoDePersonajeNormal;
-        VidaMaximaDePersonajeInicial = VidaMaximaPersonaje;
+        CopiaArmaduraInicial = Armadura;
+        CopiaDañoDePersonajeInicial = DañoDePersonajeNormal;
+        CopiaVidaMaximaDePersonajeInicial = VidaMaximaPersonaje;
 
 
         //Funcion para mantener al Jugador entre escenas

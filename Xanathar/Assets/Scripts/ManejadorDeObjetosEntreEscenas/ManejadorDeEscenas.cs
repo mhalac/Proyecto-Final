@@ -35,6 +35,8 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			NombreDeEscena = NivelCargado[ReferenciadorDeEscenas].name;
 			AsignadorDeEscenas.IniciadorDeCambio();
 			EntrasteOSaliste = true;
+
+			Debug.Log("Entro");
 		}
 
 		if(col.gameObject.name == "SalidaSubNivelFuego" && ActivadorDeCambio == false)

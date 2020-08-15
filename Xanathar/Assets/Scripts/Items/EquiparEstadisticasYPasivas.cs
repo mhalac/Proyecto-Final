@@ -72,13 +72,17 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 		switch(NombreDelItem)
 		{
 			case "Fire Chestplate":
-			Estadisticas.DañoDePersonajeNormal = Estadisticas.DañoDePersonajeInicial / 2;
-			Estadisticas.Armadura = Estadisticas.ArmaduraInicial * 2;
+			Estadisticas.DañoDePersonajeNormal -= Estadisticas.CopiaDañoDePersonajeInicial / 2;
+			Estadisticas.Armadura += Estadisticas.CopiaArmaduraInicial * 2;
 			break;
 
 			case "Old Flame":
-			Estadisticas.VidaMaximaPersonaje -= Estadisticas.VidaMaximaDePersonajeInicial / 2;
-			Estadisticas.DañoDePersonajeNormal = Estadisticas.DañoDePersonajeInicial * 2;
+			Estadisticas.VidaMaximaPersonaje -= Estadisticas.CopiaVidaMaximaDePersonajeInicial / 2;
+			Estadisticas.DañoDePersonajeNormal += Estadisticas.CopiaDañoDePersonajeInicial * 2;
+			break;
+
+			default:
+			Debug.Log("No se encontro item");
 			break;
 		}
 		
@@ -93,13 +97,17 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 		switch(NombreDelItem)
 		{
 			case "Fire Chestplate":
-			Estadisticas.DañoDePersonajeNormal = Estadisticas.DañoDePersonajeInicial * 2;
-			Estadisticas.Armadura = Estadisticas.ArmaduraInicial / 2;
+			Estadisticas.DañoDePersonajeNormal += Estadisticas.CopiaDañoDePersonajeInicial / 2;
+			Estadisticas.Armadura -= Estadisticas.CopiaArmaduraInicial * 2;
 			break;
 
 			case "Old Flame":
-			Estadisticas.VidaMaximaPersonaje += Estadisticas.VidaMaximaDePersonajeInicial * 2;
-			Estadisticas.DañoDePersonajeNormal = Estadisticas.DañoDePersonajeInicial / 2;
+			Estadisticas.VidaMaximaPersonaje += Estadisticas.CopiaVidaMaximaDePersonajeInicial / 2;
+			Estadisticas.DañoDePersonajeNormal -= Estadisticas.CopiaDañoDePersonajeInicial * 2;
+			break;
+
+			default:
+			Debug.Log("No se encontro item");
 			break;
 		}
 
