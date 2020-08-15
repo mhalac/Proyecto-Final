@@ -17,7 +17,8 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 	public static void EquiparEstadistica(string NombreDelItem)
 	{
 		EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
-		
+		ManejadorDeItems manejadorDeItems = FindObjectOfType<ManejadorDeItems>();
+
 		switch(NombreDelItem)
 		{
 			case "Estadistica De Fuego 1":
@@ -29,12 +30,19 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 			Estadisticas.DañoDePersonajeNormal += 5;
 			Estadisticas.TiempoDeRegeneracion -= 2;
 			break;
+
+			default:
+			Debug.Log("Nombre No Encontrado");
+			break;
 		}
+
+		manejadorDeItems.ManejadorDeVida();
 	}
 
 	public static void DesEquiparEstadistica(string NombreDelItem)
 	{
 		EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+		ManejadorDeItems manejadorDeItems = FindObjectOfType<ManejadorDeItems>();
 
 		switch(NombreDelItem)
 		{
@@ -52,11 +60,14 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 			Debug.Log("Nombre no encontrado");
 			break;
 		}
+
+		manejadorDeItems.ManejadorDeVida();
 	}
 
 	public static void EquiparPasiva(string NombreDelItem)
 	{
 		EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+		ManejadorDeItems manejadorDeItems = FindObjectOfType<ManejadorDeItems>();
 
 		switch(NombreDelItem)
 		{
@@ -66,15 +77,18 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 			break;
 
 			case "Old Flame":
-			Estadisticas.VidaMaximaPersonaje = Estadisticas.VidaMaximaDePersonajeInicial / 2;
+			Estadisticas.VidaMaximaPersonaje -= Estadisticas.VidaMaximaDePersonajeInicial / 2;
 			Estadisticas.DañoDePersonajeNormal = Estadisticas.DañoDePersonajeInicial * 2;
 			break;
 		}
+		
+		manejadorDeItems.ManejadorDeVida();
 	}
 
 	public static void DesEquiparPasiva(string NombreDelItem)
 	{
 		EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+		ManejadorDeItems manejadorDeItems = FindObjectOfType<ManejadorDeItems>();
 		
 		switch(NombreDelItem)
 		{
@@ -84,9 +98,11 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 			break;
 
 			case "Old Flame":
-			Estadisticas.VidaMaximaPersonaje = Estadisticas.VidaMaximaDePersonajeInicial * 2;
+			Estadisticas.VidaMaximaPersonaje += Estadisticas.VidaMaximaDePersonajeInicial * 2;
 			Estadisticas.DañoDePersonajeNormal = Estadisticas.DañoDePersonajeInicial / 2;
 			break;
 		}
+
+		manejadorDeItems.ManejadorDeVida();
 	}
 }

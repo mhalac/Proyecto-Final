@@ -62,4 +62,12 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			}
 		}
 	}
+
+	public void VolverAlLobby()
+	{
+		ReferenciadorDeEscenas = 0;
+		NombreDeEscena = Lobby.name;
+		AsignadorDeEscenas.IniciadorDeCambio();
+		EntrasteOSaliste = true;
+	}
 }

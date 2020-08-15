@@ -51,13 +51,14 @@ public class ManejadorDeItems : MonoBehaviour {
 	public bool ActivadorRegeneracionDeVida = false;
 	public bool CorrutinaFuncionando = false;
 	RegeneracionVida regeneracionDeVida;
+	ManejadorDeEscenas ManejadorDeEscenas;
 
 	//Variables para mostrar las estadisticas del personaje
 	public Text TextoInformacionVida;
 	public Text TextoInformacionArmadura;
 	private AgarradorDeItems agarradorDeItems;
 
-	EstadisticasDePersonaje Vida;
+	EstadisticasDePersonaje EstadisticasDePersonaje;
 	void Awake()
 	{
 		//Encuentro los campos notifcadores para acceder a sus variables mas adelante
@@ -71,8 +72,9 @@ public class ManejadorDeItems : MonoBehaviour {
 
 		agarradorDeItems = FindObjectOfType<AgarradorDeItems>();
 
-		Vida = FindObjectOfType<EstadisticasDePersonaje>();
+		EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
 		regeneracionDeVida = FindObjectOfType<RegeneracionVida>();
+		ManejadorDeEscenas = FindObjectOfType<ManejadorDeEscenas>();
 	}
 
 	// Use this for initialization
@@ -100,7 +102,7 @@ public class ManejadorDeItems : MonoBehaviour {
 			
 		if(Input.GetKeyDown(KeyCode.H))
 		{
-			Vida.VidaActualPersonaje -= 1;
+			EstadisticasDePersonaje.VidaActualPersonaje -= 1;
 			ManejadorDeVida();
 		}
 		
@@ -247,23 +249,27 @@ public class ManejadorDeItems : MonoBehaviour {
 
 	public void ManejadorDeVida()
 	{
-		float ValorActualVida = Vida.VidaActualPersonaje;
-		float ValorMaximoDeVida = Vida.VidaMaximaPersonaje;
+		float ValorActualVida = EstadisticasDePersonaje.VidaActualPersonaje;
+		float ValorMaximoDeVida = EstadisticasDePersonaje.VidaMaximaPersonaje;
 
-		RellenoDeVida = ValorActualVida / ValorMaximoDeVida;
+		if(ValorActualVida > ValorMaximoDeVida)
+		{
+			EstadisticasDePersonaje.VidaActualPersonaje = EstadisticasDePersonaje.VidaMaximaPersonaje;
 
-		Contenido.fillAmount = RellenoDeVida;
-		Contenido.color = TabletaDeColores.Evaluate(RellenoDeVida);
-
-
-
-
+			ValorActualVida = EstadisticasDePersonaje.VidaActualPersonaje;
+			ValorMaximoDeVida = EstadisticasDePersonaje.VidaMaximaPersonaje;
+		}
 
 		if(ValorActualVida == ValorMaximoDeVida)
 		{
 			TextoDeVida.text = ValorActualVida.ToString();
 			ActivadorRegeneracionDeVida = false;
 		}
+
+		RellenoDeVida = ValorActualVida / ValorMaximoDeVida;
+
+		Contenido.fillAmount = RellenoDeVida;
+		Contenido.color = TabletaDeColores.Evaluate(RellenoDeVida);
 
 		if(ValorActualVida < ValorMaximoDeVida)
 		{
@@ -280,6 +286,12 @@ public class ManejadorDeItems : MonoBehaviour {
 				TextoDeVida.text = "0";
 				agarradorDeItems.DropeadorDeItems();
 				ActivadorRegeneracionDeVida = false;
+
+				if(EstadisticasDePersonaje.EstaMuerto == false)
+				{
+					ManejadorDeEscenas.VolverAlLobby();
+					StartCoroutine(RecargarVida());
+				}
 			}
 		}
 
@@ -290,8 +302,7 @@ public class ManejadorDeItems : MonoBehaviour {
 	{
 		EstadisticasDePersonaje estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
 
-
-		float ValorMaximaDeVida = Vida.VidaMaximaPersonaje;
+		float ValorMaximaDeVida = EstadisticasDePersonaje.VidaMaximaPersonaje;
 		float ArmaduraPersonaje = estadisticas.Armadura;
 
 		TextoInformacionVida.text = ValorMaximaDeVida.ToString();
@@ -306,6 +317,17 @@ public class ManejadorDeItems : MonoBehaviour {
 
 		MensajeNotificador.alpha = 1f;
 		OcultadorDeMensaje = true;
+	}
+
+	public IEnumerator RecargarVida()
+	{
+		EstadisticasDePersonaje.EstaMuerto = true;
+		yield return new WaitForSeconds(1);
+
+		EstadisticasDePersonaje.VidaActualPersonaje = EstadisticasDePersonaje.VidaMaximaPersonaje;
+		ManejadorDeVida();
+		EstadisticasDePersonaje.EstaMuerto = false;
+		CorrutinaFuncionando = false;
 	}
 
 }

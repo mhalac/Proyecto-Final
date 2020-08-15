@@ -171,8 +171,13 @@ public class AgarradorDeItems : MonoBehaviour
 
             if (PosicionValida == true)
             {
+                string NombreDelObjeto = ObjetosEquipados[i].GetComponent<InformacionDeItems>().Nombre;
+                EquiparEstadisticasYPasivas.DesEquiparEstadistica(NombreDelObjeto);
+                EquiparEstadisticasYPasivas.DesEquiparPasiva(NombreDelObjeto);
+                
+
                 Instantiate(ObjetosEquipados[i], PosicionObjeto, Quaternion.identity);
-                Debug.Log(ObjetosEquipados[i]);
+                //Debug.Log(ObjetosEquipados[i]);
                 ObjetosEquipados[i] = null;
                 //Debug.Log("EXITO");
             }
