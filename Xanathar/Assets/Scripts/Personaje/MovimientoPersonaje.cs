@@ -87,7 +87,7 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 		Dash();
 
-		//Debug.Log(Mathf.RoundToInt(1.0f / Time.deltaTime));
+		Debug.Log(1.0f / Time.deltaTime);
 	}
 	
 	void Saltar()
@@ -113,6 +113,44 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 		//Movimiento eje X y Z
 		Controlador.Move(Movimiento * Stats.VelocidadDeMovimiento * Time.deltaTime);
+
+		/*
+		for(int i = 0; i < ListaDePosicionesAnteriores.Length -1; i++)
+		{
+			ListaDePosicionesAnteriores[i] = ListaDePosicionesAnteriores[i+1];
+		}
+
+		ListaDePosicionesAnteriores[ListaDePosicionesAnteriores.Length - 1] = ObjetoReferenciador.position;
+
+		for(int i = 0; i < ListaDePosicionesAnteriores.Length - 1; i++)
+		{
+			if(Vector3.Distance(ListaDePosicionesAnteriores[i] , ListaDePosicionesAnteriores[i + 1]) <= LimiteDistanciaEntrePosiciones)
+			{
+				EstaEnIdle = false;
+				Debug.Log("Esta Quieto");
+				break;
+			}
+			else
+			{
+				EstaEnIdle = true;
+				Debug.Log("Se Mueve");
+			}
+		}
+		*/
+
+		//Movimiento De Correr
+		/*
+		if(Input.GetKeyDown(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.W))
+		{
+			Stats.VelocidadDeMovimiento += 6;
+			Corriendo = true;
+		}
+		if(Input.GetKeyUp(KeyCode.LeftShift) && Input.GetKeyUp(KeyCode.W))
+		{
+			Stats.VelocidadDeMovimiento -= 6;
+			Corriendo = false;
+		}
+		*/
 
 		if(Input.GetKey(KeyCode.W))
 		{

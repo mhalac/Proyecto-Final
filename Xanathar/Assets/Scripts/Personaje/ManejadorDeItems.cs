@@ -295,7 +295,7 @@ public class ManejadorDeItems : MonoBehaviour {
 			}
 		}
 
-		//Debug.Log(ActivadorRegeneracionDeVida);
+		Debug.Log(ActivadorRegeneracionDeVida);
 	}
 
 	public void ManejadorDeEstadisticas()

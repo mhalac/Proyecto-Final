@@ -28,7 +28,7 @@ public class RegeneracionVida : MonoBehaviour {
 		{
 			CoolDownCurarse -= Time.deltaTime;
 			yield return new WaitForEndOfFrame();
-			//Debug.Log(CoolDownCurarse);
+			Debug.Log(CoolDownCurarse);
 
 			if(CoolDownCurarse <= 0f)
 			{
