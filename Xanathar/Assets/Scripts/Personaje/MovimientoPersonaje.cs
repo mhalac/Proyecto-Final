@@ -185,7 +185,7 @@ public class MovimientoPersonaje : MonoBehaviour {
 			VelocidadDash = Stats.VelocidadDeDash;
 			YaDasheo = true;
 			tiempoDash = Stats.CoolDownFlash;
-			Debug.Log("Esto se repite solo 1 vez");
+			//Debug.Log("Esto se repite solo 1 vez");
 		}
 
 		if(YaDasheo == true)

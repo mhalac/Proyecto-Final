@@ -238,7 +238,6 @@ public class AgarradorDeItems : MonoBehaviour
         }
 
         //Debug.Log(ObjetoAgarrado.name);
-        
     }
 
     public void EquiparPasivaYEstadistica(string Categoria, string Nombre)
