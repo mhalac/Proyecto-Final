@@ -17,7 +17,7 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public float CoolDownFlash;
     public float TiempoInmortal;
     public bool Inmortalidad = false;
-    public float TiempoDeRegeneracion = 15f;
+    public float TiempoDeRegeneracion = 10f;
 
     public bool EstaMuerto = false;
 

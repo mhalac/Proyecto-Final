@@ -87,7 +87,7 @@ public class MovimientoPersonaje : MonoBehaviour {
 
 		Dash();
 
-		Debug.Log(1.0f / Time.deltaTime);
+		//Debug.Log(1.0f / Time.deltaTime);
 	}
 	
 	void Saltar()
