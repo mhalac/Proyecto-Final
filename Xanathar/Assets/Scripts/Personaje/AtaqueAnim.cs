@@ -29,7 +29,7 @@ public class AtaqueAnim : MonoBehaviour
     public void TermineDeCorrer()
     {
         Ataque c = FindObjectOfType<Ataque>();
-
+        c.anim.SetBool("atacando", false);
         c.anim.speed = 1;
 
     }
