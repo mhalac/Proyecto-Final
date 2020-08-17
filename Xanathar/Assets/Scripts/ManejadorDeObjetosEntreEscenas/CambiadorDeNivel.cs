@@ -17,6 +17,8 @@ public class CambiadorDeNivel : MonoBehaviour {
 	IEnumerator CargarEscena()
 	{
 		asyncOperation = SceneManager.LoadSceneAsync (ManejadorDeEscenas.NombreDeEscena , LoadSceneMode.Additive);
+		
+		MuerteEnVacios.Caiste = false;
 
 		asyncOperation.allowSceneActivation = true;
 		yield return asyncOperation;
