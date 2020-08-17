@@ -157,7 +157,7 @@ public class AgarradorDeItems : MonoBehaviour
 
                 foreach (Collider col in Colisiones)
                 {
-                    if (col.tag == "Items" || col.tag == "Personaje" || col.tag == "Piso")
+                    if (col.tag == "Items" || col.tag == "Personaje" || col.tag == "Piso" || col.tag == "Entorno")
                     {
                         PosicionValida = false;
                     }
