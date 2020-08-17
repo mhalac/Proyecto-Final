@@ -7,6 +7,7 @@ public class Ataque : MonoBehaviour
 
     // C * ((100 - CDR) / 100)
 
+    public GameObject AtaqueParticula;
     public LifeManager JefeFuego;
     public Animator anim;
     public float CoolDownInicial;
@@ -70,6 +71,17 @@ public class Ataque : MonoBehaviour
 
         Atacar();
     }
+    public void FullReset()
+    {
+        GestorItems c = FindObjectOfType<GestorItems>();
+
+        for (int i = 0; i < c.ItemsEquipados.Length; i++)
+        {
+            c.ItemsEquipados[i].Activado = false;
+            c.ItemsEquipados[i].item = null;
+        }
+        Reset(0);
+    }
     public void Reset(int i)
     {
         GestorItems c = FindObjectOfType<GestorItems>();
@@ -79,7 +91,7 @@ public class Ataque : MonoBehaviour
 
         ActivaPatria = false;
         ActivaMusica = false;
-        
+
         c.ItemsEquipados[i].Activado = false;
 
         AnimacionIconos d = FindObjectOfType<AnimacionIconos>();
@@ -94,6 +106,8 @@ public class Ataque : MonoBehaviour
 
             if (a.tag == "Enemigo")
             {
+                GameObject f = Instantiate(AtaqueParticula, a.ClosestPoint(transform.position), Quaternion.identity);
+                Destroy(f, 1);
                 if (a.GetComponent<LifeManager>() != null)
                 {
                     GestorItems c = FindObjectOfType<GestorItems>();
@@ -142,7 +156,7 @@ public class Ataque : MonoBehaviour
 
         //TODO Entre menos cooldown tenes mas rapido atacas y viceversa, xq la animacion tiene que durar menos
         //TODO para dar lugar al proximo ataque  
-        if (CDTotal > -1 && !anim.GetBool("atacando"))
+        if (CDTotal > Mathf.Epsilon && !anim.GetBool("atacando"))
             CDTotal -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && CDTotal < Mathf.Epsilon && !anim.GetBool("Caminando") && !anim.GetBool("atacando"))

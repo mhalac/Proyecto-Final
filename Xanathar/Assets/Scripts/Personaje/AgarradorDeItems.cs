@@ -239,8 +239,10 @@ public class AgarradorDeItems : MonoBehaviour
         {
             case "Activa":
 
+         
                 GestorItems c = FindObjectOfType<GestorItems>();
                 Ataque b = FindObjectOfType<Ataque>();
+                b.FullReset();
 
                 switch(Elemento)
                 {
