@@ -1153,7 +1153,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1972823060125058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -135.46, y: 15.08, z: -44.1}
+  m_LocalPosition: {x: 70.15459, y: 18.613073, z: 61.386833}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4737062334865070}
@@ -1865,6 +1865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce04a480be567f44b9d56cb8dc68a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zombie: {fileID: 0}
 --- !u!114 &114188616288547302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1877,7 +1878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TESTMATAR: 0
-  Vida: 50
+  Vida: 10
   Elemento: Fuego
   items: []
 --- !u!114 &114442543794746652
@@ -1891,15 +1892,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f17e57dd164e03468cb005aa4264b70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radio: 1
+  Radio: 2.3
   PosicionAtaque: {fileID: 1499974346443774}
   DamageCaida: 20
-  DamageTrompada: 14
-  FuerzaKnockback: 70
+  DamageTrompada: 10
+  FuerzaKnockback: 30
   SaltoMamado: {fileID: 4695736933233706}
   AreaCaida: {x: 7.46, y: 1.87, z: 6.31}
   Arma: {fileID: 1803669363568584}
   Estado: 
+  ItemsActivos:
+  - {fileID: 1210339613494050, guid: 994fd60de9ef44a4e9f9f54f7f715b2a, type: 2}
+  - {fileID: 1902129817038158, guid: 1b85686f6f703504d9e588c601e36455, type: 2}
   AcaboDeAtacar: 0
   Distancia: 0
   Vibrar: {fileID: 0}

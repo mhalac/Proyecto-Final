@@ -18,7 +18,7 @@ public class Fuego3 : MonoBehaviour
 
     public Transform CentroDelCuerpo;
     [Header("Parametros")]
-
+    public GameObject Piso;
     public float DelayTeleport;
     public float AreaIdle;
     public string NombreHijo;
@@ -46,7 +46,8 @@ public class Fuego3 : MonoBehaviour
     private GameObject personaje;
     private int EnemigoMask;
     private bool PuedoRestar;
-
+    
+    private Vector3 PInical;
     public string Estado;
 
 
@@ -73,6 +74,7 @@ public class Fuego3 : MonoBehaviour
         TermineDeAparecer = true;
         PuedoRestar = true;
         anim.speed = 4;
+        PInical = personaje.transform.position;
 
     }
 
@@ -122,8 +124,8 @@ public class Fuego3 : MonoBehaviour
         float RandomX = Random.Range(posicionSpawn.x - AreaIdle, AreaIdle + posicionSpawn.x);
         float RandomZ = Random.Range(posicionSpawn.z - AreaIdle, AreaIdle + posicionSpawn.z);
         bool EstaOcupado = false;
-        Vector3 Rpos = new Vector3(RandomX, transform.position.y, RandomZ);
-        Collider[] Obj = Physics.OverlapSphere(Rpos, 1.3f);
+        Vector3 Rpos = new Vector3(RandomX, personaje.transform.position.y + .5f, RandomZ);
+        Collider[] Obj = Physics.OverlapSphere(Rpos, .5f);
         foreach (Collider o in Obj)
         {
             if (o.gameObject.tag == "Entorno" || o.gameObject.tag == "Enemigo")
@@ -151,8 +153,9 @@ public class Fuego3 : MonoBehaviour
 
         while (true)
         {
+            print("buscando");
             IndiceDeEmergencia++;
-            if (IndiceDeEmergencia > 100)
+            if (IndiceDeEmergencia > 30)
             {
                 Debug.LogError("El objeto: " + gameObject.name + "Se rompio, saliendo");
                 Idle();
@@ -162,7 +165,7 @@ public class Fuego3 : MonoBehaviour
             float RandomX = Random.Range(personaje.transform.position.x - radioDisparar, radioDisparar + personaje.transform.position.x);
             float RandomZ = Random.Range(personaje.transform.position.z - radioDisparar, radioDisparar + personaje.transform.position.z);
             bool EstaOcupado = false;
-            Vector3 Rpos = new Vector3(RandomX, transform.position.y, RandomZ);
+            Vector3 Rpos = new Vector3(RandomX, personaje.transform.position.y, RandomZ);
             Collider[] Obj = Physics.OverlapSphere(Rpos, 1.3f);
             var direccion = (personaje.transform.position - Rpos).normalized;
             if (Physics.Raycast(Rpos, direccion, out hit, radioDisparar))

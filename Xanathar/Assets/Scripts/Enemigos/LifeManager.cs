@@ -9,7 +9,7 @@ public class LifeManager : MonoBehaviour
     public bool TESTMATAR;
     public float Vida;
     public string Elemento;
-
+    private bool YaDropie = false;
 
     public PropiedadesItem[] items;
     void Start()
@@ -150,21 +150,30 @@ public class LifeManager : MonoBehaviour
         if (Vida < Mathf.Epsilon)
         {
             int numero = Random.Range(0, 100);
-            for (int i = 0; i < items.Length; i++)
+            if (gameObject.name != "Jefe fuego")
             {
-                if (items[i].SpawnRate > numero)
+                for (int i = 0; i < items.Length; i++)
                 {
-                    print("Spawneo al item: " + items[i].Item + " Con un random de: + " + numero + " < " + items[i].SpawnRate);
-                    TESTMATAR = false;
+                    if (items[i].SpawnRate > numero)
+                    {
+                        print("Spawneo al item: " + items[i].Item + " Con un random de: + " + numero + " < " + items[i].SpawnRate);
+                        if (items[i].Item != null)
+                        {
+                            Instantiate(items[i].Item, transform.position, Quaternion.identity);
+                            DestroyImmediate(gameObject);
+                        }
+
+                    }
 
                 }
-
             }
+
             //funcion para JEFES
             if (gameObject.name == "Jefe fuego")
             {
                 Animator c = GetComponentInChildren<Animator>();
                 c.SetBool("Morir", true);
+                
                 this.enabled = false;
             }
             else
