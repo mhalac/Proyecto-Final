@@ -28,7 +28,8 @@ public class FuegoAnim : MonoBehaviour
             audioS.Stop();
             
         }
-        zombie.Play();
+        //zombie.Play();
+        Padre.DropearItems();
         Destroy(gameObject);
     }
     public void EmpezeAMorir()

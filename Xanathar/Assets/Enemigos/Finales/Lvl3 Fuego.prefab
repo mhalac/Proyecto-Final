@@ -623,7 +623,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943423416488760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.060888, y: 3.5889775e-17, z: -8.081659}
+  m_LocalPosition: {x: -64.05, y: 54.22, z: 53.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4751885488176682}
@@ -1548,9 +1548,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TESTMATAR: 0
-  Vida: 15
+  Vida: 10
   Elemento: Fuego
-  items: []
+  items:
+  - Item: {fileID: 1464367109204864, guid: f8c9cfd5690f2ef46aa7c0c7c0c97fb1, type: 2}
+    SpawnRate: 20
+  - Item: {fileID: 1136223321417622, guid: a671af1ffa449104d91006a534f1939c, type: 2}
+    SpawnRate: 24
+  - Item: {fileID: 0}
+    SpawnRate: 56
 --- !u!114 &114870533272153770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1569,13 +1575,14 @@ MonoBehaviour:
   RayPos: {fileID: 4818631676257754}
   VisionDisparo: {fileID: 4743015518259154}
   CentroDelCuerpo: {fileID: 4267466342386078}
+  Piso: {fileID: 0}
   DelayTeleport: 3
-  AreaIdle: 10
+  AreaIdle: 6
   NombreHijo: eje
-  Damage: 8
+  Damage: 20
   rotacion: 30
   radioDisparar: 11
-  BalaVelocidad: 150
+  BalaVelocidad: 50
   Vida: 10
   Escala: {x: 0, y: 0, z: 0}
   TermineDeAparecer: 0

@@ -21,7 +21,7 @@ public class FuegoJefe : MonoBehaviour
     private Animator anim;
     private NavMeshAgent Agente;
 
-
+    public GameObject[] ItemsActivos;
 
     public bool AcaboDeAtacar;
     private bool FinalizoAnim = true;
@@ -173,7 +173,7 @@ public class FuegoJefe : MonoBehaviour
         bool Rotando = true;
         anim.SetBool("Correr", false);
         FinalizoAnim = false;
-        Vector3 angulos = new Vector3(0, -360, 0);
+        Vector3 angulos = new Vector3(0, -240, 0);
         Vector3 PosicionRelativa = Personaje.transform.position - transform.position;
         int vuelta = 0;
 
@@ -183,7 +183,7 @@ public class FuegoJefe : MonoBehaviour
         {
             vuelta++;
             transform.Rotate(angulos * Time.deltaTime);
-            if (Vector3.Distance(PosicionAtaque.transform.position, Personaje.transform.position) < 2f || vuelta > 67)
+            if (Vector3.Distance(PosicionAtaque.transform.position, Personaje.transform.position) < 2f || vuelta > 30)
             {
                 Rotando = false;
             }
@@ -206,9 +206,19 @@ public class FuegoJefe : MonoBehaviour
     {
 
     }
+    public void DropearItems()
+    {
+        int i = 0;
+        foreach(GameObject c in ItemsActivos)
+        {
+            Vector3 pos = new Vector3(transform.position.x,transform.position.y + 2,transform.position.z + i);
+            Instantiate(c,pos,Quaternion.identity);
+            i = 5;
+        }
+    }
     IEnumerator EsperarInicio()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         Estado = States.Idle.ToString();
 
     }
