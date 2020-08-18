@@ -5,16 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class OcultarPuertas : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	public static void OcultarPuertasDelLoby()
 	{
 		string Lobby = SceneManager.GetActiveScene().name;

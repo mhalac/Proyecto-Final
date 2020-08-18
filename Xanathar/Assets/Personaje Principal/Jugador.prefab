@@ -1306,7 +1306,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430075857039988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 88.68964, y: -1.2, z: -151.34753}
+  m_LocalPosition: {x: -20.81, y: 3.84, z: 32.47}
   m_LocalScale: {x: 0.59693, y: 0.61537516, z: 0.59693}
   m_Children:
   - {fileID: 4800373830159400}
@@ -2740,6 +2740,7 @@ MonoBehaviour:
   Inmortalidad: 0
   TiempoDeRegeneracion: 10
   EstaMuerto: 0
+  MurioDespuesDeMatarJefe: 0
   VelocidadDeMovimiento: 10
   CoolDownAtaque: 0.25
   FuerzaDeSalto: 3
@@ -2763,6 +2764,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjetosEquipados:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CopiaDeObjetos:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -2813,14 +2827,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed2cd8ee930962e4db26b6bad8ef47c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NivelDeFuego:
-  - {fileID: 102900000, guid: 45ec3cd8c83b1f2449ddf94f97555c4e, type: 3}
-  - {fileID: 102900000, guid: ba707e1f1c6a6f74c9c64b0cda08b0e4, type: 3}
-  - {fileID: 102900000, guid: 97596ccb54f0db046ad03bafa28e7836, type: 3}
-  - {fileID: 102900000, guid: 202851f93be2e7242abf9619ffcd9f17, type: 3}
-  NivelCargado: []
-  Lobby: {fileID: 102900000, guid: 25d5b866a44989044a272711e0462020, type: 3}
+  EscenasNivelFuego:
+  - SubNivelFuego1
+  - SubNivelFuego2
+  - SubNivelFuego3
+  - SubNivelFuego4
+  NivelCargado:
+  - v
+  - v
+  - v
+  - v
+  Lobby: Lobby
   ReferenciadorDeEscenas: 0
+  Jugador: {fileID: 0}
 --- !u!114 &114748977380680902
 MonoBehaviour:
   m_ObjectHideFlags: 1

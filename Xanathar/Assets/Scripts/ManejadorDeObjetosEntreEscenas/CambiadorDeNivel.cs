@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class CambiadorDeNivel : MonoBehaviour {
 
-	public static bool PermitirCambios = false;
+	public bool PermitirCambios = false;
 	public Animator AnimacionDeCambioDeNivel;
 	public BuscadorDePos BuscadorDePos;
 	AsyncOperation asyncOperation;
@@ -55,12 +55,14 @@ public class CambiadorDeNivel : MonoBehaviour {
 					{
 						AgarradorDeItems agarradorDeItems = FindObjectOfType<AgarradorDeItems>();
 						DropearItemsEnSpawn.TirarItemsEnSpwn(agarradorDeItems.CopiaDeObjetos);
-						Debug.Log("Se Cumplio");
+						ControlarPuertasYJefes.JefeEliminado = false;
+						OcultarPuertas.OcultarPuertasDelLoby();
+						
 					}
 					else
 					{
-						Debug.Log("No se cumplio");
 						ControlarPuertasYJefes.JefeEliminado = false;
+						OcultarPuertas.OcultarPuertasDelLoby();
 					}
 				}
 			}

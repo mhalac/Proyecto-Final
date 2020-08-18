@@ -6,13 +6,13 @@ using UnityEngine;
 public class ManejadorDeEscenas : MonoBehaviour {
 
 	[Header("EscenasNivelDeFuego")]
-	public Object[] NivelDeFuego = new Object[4];
+	public string [] EscenasNivelFuego = new string[4];
 
 	[Header("EscenasDelNivelEnElQueEstas")]
-	public Object[] NivelCargado;
+	public string[] NivelCargado = new string[4];
 
 	[Header("LobbyDeNivel")]
-	public Object Lobby;
+	public string Lobby;
 
 	public int ReferenciadorDeEscenas = 0;
 	public static bool ActivadorDeCambio = false;
@@ -20,27 +20,39 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	public static string NombreDeEscena = "";
 	CambiadorDeNivel AsignadorDeEscenas;
 
+	public GameObject Jugador;
+
+	void Awake()
+	{
+		AsignadorDeEscenas = FindObjectOfType<CambiadorDeNivel>();
+		Debug.Log(AsignadorDeEscenas);
+		Jugador = GameObject.FindGameObjectWithTag("Personaje");
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
-		AsignadorDeEscenas = FindObjectOfType<CambiadorDeNivel>();
+
 	}
-	
+
 	void OnCollisionEnter(Collision col)
 	{
+		
+		Debug.Log(col.gameObject.name);
+		
 		if(col.gameObject.name == "EntradaNivelFuego" && ActivadorDeCambio == false)
 		{
-			NivelCargado = NivelDeFuego;
+			NivelCargado = EscenasNivelFuego;
 			ReferenciadorDeEscenas = 0;
-			NombreDeEscena = NivelCargado[ReferenciadorDeEscenas].name;
+			NombreDeEscena = EscenasNivelFuego[ReferenciadorDeEscenas];
 			AsignadorDeEscenas.IniciadorDeCambio();
 			EntrasteOSaliste = true;
 		}
-
+		
 		if(col.gameObject.name == "SalidaSubNivelFuego" && ActivadorDeCambio == false)
 		{
 			ReferenciadorDeEscenas += 1;
-			NombreDeEscena = NivelCargado[ReferenciadorDeEscenas].name;
+			NombreDeEscena = NivelCargado[ReferenciadorDeEscenas];
 			AsignadorDeEscenas.IniciadorDeCambio();
 			EntrasteOSaliste = true;
 		}
@@ -49,14 +61,14 @@ public class ManejadorDeEscenas : MonoBehaviour {
 		{
 			if(ReferenciadorDeEscenas == 0)
 			{
-				NombreDeEscena = Lobby.name;
+				NombreDeEscena = Lobby;
 				AsignadorDeEscenas.IniciadorDeCambio();
 				EntrasteOSaliste = false;
 			}
 			else
 			{
 				ReferenciadorDeEscenas -= 1;
-				NombreDeEscena = NivelCargado[ReferenciadorDeEscenas].name;
+				NombreDeEscena = NivelCargado[ReferenciadorDeEscenas];
 				AsignadorDeEscenas.IniciadorDeCambio();
 				EntrasteOSaliste = false;
 			}
@@ -65,16 +77,16 @@ public class ManejadorDeEscenas : MonoBehaviour {
 		if(col.gameObject.name == "PuertaLobby")
 		{
 			ReferenciadorDeEscenas = 0;
-			NombreDeEscena = Lobby.name;
+			NombreDeEscena = Lobby;
 			AsignadorDeEscenas.IniciadorDeCambio();
 			EntrasteOSaliste = false;
 		}
+		
 	}
-
 	public void VolverAlLobby()
 	{
 		ReferenciadorDeEscenas = 0;
-		NombreDeEscena = Lobby.name;
+		NombreDeEscena = Lobby;
 		AsignadorDeEscenas.IniciadorDeCambio();
 		EntrasteOSaliste = true;
 	}

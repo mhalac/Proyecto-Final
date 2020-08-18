@@ -10,27 +10,6 @@ public class ControlarPuertasYJefes : MonoBehaviour {
 
 	public static bool JefeEliminado = false;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		/*
-		if(Input.GetKeyDown(KeyCode.O))
-		{
-			OcultarTodasLasPuertas();
-		}
-
-		if(Input.GetKeyDown(KeyCode.U))
-		{
-			ReaparecerPuertas();
-		}
-		*/
-	}
-
 	public void OcultarTodasLasPuertas()
 	{
 		GameObject [] TodasLasPuertas = GameObject.FindGameObjectsWithTag("PuertasDeJefe");

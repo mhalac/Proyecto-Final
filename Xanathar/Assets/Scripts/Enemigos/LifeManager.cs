@@ -11,12 +11,25 @@ public class LifeManager : MonoBehaviour
     public string Elemento;
     private bool YaDropie = false;
 
+    ControlarPuertasYJefes controlarPuertasYJefes;
     public PropiedadesItem[] items;
     void Start()
     {
         for (int i = 1; i < items.Length; i++)
         {
             items[i].SpawnRate += items[i - 1].SpawnRate;
+        }
+
+        if(gameObject.name == "Jefe fuego")
+        {
+            controlarPuertasYJefes = FindObjectOfType<ControlarPuertasYJefes>();
+            controlarPuertasYJefes.OcultarTodasLasPuertas();
+
+            if(ControlarPuertasYJefes.JefeDeFuegoMuerto == true)
+            {
+                Destroy(gameObject);
+                controlarPuertasYJefes.ReaparecerPuertas();
+            }
         }
     }
 
@@ -178,7 +191,9 @@ public class LifeManager : MonoBehaviour
 
                 ControlarPuertasYJefes.JefeDeFuegoMuerto = true;
                 ControlarPuertasYJefes.JefeEliminado = true;
-                Debug.Log(ControlarPuertasYJefes.JefeEliminado);
+
+                controlarPuertasYJefes.ReaparecerPuertas();
+
                 
                 this.enabled = false;
             }
