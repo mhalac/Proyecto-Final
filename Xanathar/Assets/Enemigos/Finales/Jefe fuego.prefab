@@ -632,6 +632,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1846763674255154
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4523849577081272}
+  - component: {fileID: 108255965633723916}
+  m_Layer: 0
+  m_Name: Point Light (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1847278715313332
 GameObject:
   m_ObjectHideFlags: 1
@@ -865,6 +881,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4040018642122334}
+  - {fileID: 4523849577081272}
   - {fileID: 4526896316333244}
   m_Father: {fileID: 4309163352082428}
   m_RootOrder: 0
@@ -1200,6 +1217,19 @@ Transform:
   m_Father: {fileID: 4705141350604912}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 72.355225, y: -121.742676, z: -116.928246}
+--- !u!4 &4523849577081272
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1846763674255154}
+  m_LocalRotation: {x: -0.0691059, y: -0.043986272, z: -0.0028274392, w: 0.9966352}
+  m_LocalPosition: {x: 0.37, y: 5.66, z: 2.53}
+  m_LocalScale: {x: 8.926597, y: 8.926606, z: 8.926597}
+  m_Children: []
+  m_Father: {fileID: 4049712412866532}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4526896316333244
 Transform:
   m_ObjectHideFlags: 1
@@ -1215,7 +1245,7 @@ Transform:
   - {fileID: 4305790955508678}
   - {fileID: 4096097732412622}
   m_Father: {fileID: 4049712412866532}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &4528674371935012
 Transform:
@@ -1657,7 +1687,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f62b477b318fc9246beb90ac520f7fe0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.108
+  m_Volume: 0.093
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1854,6 +1884,43 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!108 &108255965633723916
+Light:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1846763674255154}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 0.9056604, g: 0.2536824, b: 0, a: 1}
+  m_Intensity: 4.66
+  m_Range: 87.53
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!114 &114177629532301292
 MonoBehaviour:
   m_ObjectHideFlags: 1

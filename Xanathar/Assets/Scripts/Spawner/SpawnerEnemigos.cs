@@ -10,27 +10,21 @@ public class SpawnerEnemigos : MonoBehaviour
     public float Veces;
     public float Delay;
 
-    public Vector3 Destino;
-    private float DelayInicial;
+    public float RetrasoDeSpawnInicial;
     public float Size;
-    private int PMask;
     public List<GameObject> EnemigosSpawneados = new List<GameObject>();
     private Transform TInicial;
 
     // Use this for initialization
     void Start()
     {
-        DelayInicial = Delay;
         TInicial = transform;
+        InvokeRepeating("Spawnear", RetrasoDeSpawnInicial, Delay);
+
     }
 
-    public void ModificarDelay(float Delay)
-    {
-        DelayInicial = Delay;
-    }
 
-    // Update is called once per frame
-    void Update()
+    void Spawnear()
     {
 
         for (int i = 0; EnemigosSpawneados.Count > i; i++)
@@ -43,19 +37,24 @@ public class SpawnerEnemigos : MonoBehaviour
         // se tienen que spawnear enemigos
         if (EnemigosSpawneados.Count < Veces)
         {
-            Delay -= Time.deltaTime;
 
             Vector3 Posicion = RandomPos();
-
-            if (Posicion != Vector3.zero && Delay < Mathf.Epsilon)
+            while (Posicion == Vector3.zero)
             {
-
-                GameObject obj = Instantiate(EnemigoASpawnear, Posicion, Quaternion.identity);
-                EnemigosSpawneados.Add(obj);
-                Delay = DelayInicial;
+                Posicion = RandomPos();
             }
 
+
+            GameObject obj = Instantiate(EnemigoASpawnear, Posicion, Quaternion.identity);
+            EnemigosSpawneados.Add(obj);
+
+
         }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+
     }
     private Vector3 RandomPos()
     {
@@ -65,7 +64,7 @@ public class SpawnerEnemigos : MonoBehaviour
 
         Vector3 posRandom = new Vector3(RandomX, transform.position.y, RandomZ);
 
-        Collider[] Objs = Physics.OverlapSphere(posRandom, 1f);
+        Collider[] Objs = Physics.OverlapSphere(posRandom, .4f);
         for (int i = 0; i < Objs.Length; i++)
         {
             if (Objs[i].gameObject.tag == "Entorno")
