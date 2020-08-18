@@ -157,10 +157,12 @@ public class LifeManager : MonoBehaviour
                     if (items[i].SpawnRate > numero)
                     {
                         print("Spawneo al item: " + items[i].Item + " Con un random de: + " + numero + " < " + items[i].SpawnRate);
-                        if (items[i].Item != null)
+                        if (items[i].Item != null && !YaDropie)
                         {
-                            Instantiate(items[i].Item, transform.position, Quaternion.identity);
-                            DestroyImmediate(gameObject);
+                            Vector3 Pos = new Vector3(transform.position.x , transform.position.y + 2.4f , transform.position.z);
+                            Instantiate(items[i].Item, Pos, Quaternion.identity);
+                            YaDropie = true;
+                            Destroy(gameObject);
                         }
 
                     }
@@ -173,6 +175,10 @@ public class LifeManager : MonoBehaviour
             {
                 Animator c = GetComponentInChildren<Animator>();
                 c.SetBool("Morir", true);
+
+                ControlarPuertasYJefes.JefeDeFuegoMuerto = true;
+                ControlarPuertasYJefes.JefeEliminado = true;
+                Debug.Log(ControlarPuertasYJefes.JefeEliminado);
                 
                 this.enabled = false;
             }

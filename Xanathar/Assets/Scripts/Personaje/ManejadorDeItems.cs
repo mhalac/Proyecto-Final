@@ -9,6 +9,9 @@ public class ManejadorDeItems : MonoBehaviour {
 	public bool OcultadorDeHud = false;
 	public bool OcultadorDeMensaje = false;
 
+	public bool AntiCRASH = false;
+
+
 	[Header("HUDS Personaje")]
 	public CanvasGroup HUDPasivas;
 	public CanvasGroup HUDEstadisticas;
@@ -105,11 +108,6 @@ public class ManejadorDeItems : MonoBehaviour {
 			EstadisticasDePersonaje.VidaActualPersonaje -= 1;
 			ManejadorDeVida();
 		}
-		
-		//Debug.Log(OcultadorDeMensaje);
-		//MensajeNotificador.alpha = 1f;
-
-		//Debug.Log(MensajeNotificador.GetComponent<CanvasGroup>().alpha);
 	}
 
 	private void ActivadorDeHUD()
@@ -276,26 +274,36 @@ public class ManejadorDeItems : MonoBehaviour {
 			TextoDeVida.text = ValorActualVida.ToString();
 			ActivadorRegeneracionDeVida = true;
 
+			
 			if(ActivadorRegeneracionDeVida == true)
 			{
 				StartCoroutine(regeneracionDeVida.RegenerarVida());
 			}
+			
 
-			if(ValorActualVida < 1)
+			if(ValorActualVida < 1 && AntiCRASH == false)
 			{
+				Debug.Log(ControlarPuertasYJefes.JefeEliminado);
+				if(ControlarPuertasYJefes.JefeEliminado == true)
+				{
+					EstadisticasDePersonaje.MurioDespuesDeMatarJefe = true;
+					Debug.Log(EstadisticasDePersonaje.MurioDespuesDeMatarJefe + "xd");
+				}
+
+				AntiCRASH = true;
 				TextoDeVida.text = "0";
 				agarradorDeItems.DropeadorDeItems();
 				ActivadorRegeneracionDeVida = false;
 
+				
 				if(EstadisticasDePersonaje.EstaMuerto == false)
 				{
 					ManejadorDeEscenas.VolverAlLobby();
 					StartCoroutine(RecargarVida());
 				}
+				
 			}
 		}
-
-		//Debug.Log(ActivadorRegeneracionDeVida);
 	}
 
 	public void ManejadorDeEstadisticas()
@@ -319,6 +327,7 @@ public class ManejadorDeItems : MonoBehaviour {
 		OcultadorDeMensaje = true;
 	}
 
+	
 	public IEnumerator RecargarVida()
 	{
 		EstadisticasDePersonaje.EstaMuerto = true;
@@ -328,6 +337,6 @@ public class ManejadorDeItems : MonoBehaviour {
 		ManejadorDeVida();
 		EstadisticasDePersonaje.EstaMuerto = false;
 		CorrutinaFuncionando = false;
+		AntiCRASH = false;
 	}
-
 }

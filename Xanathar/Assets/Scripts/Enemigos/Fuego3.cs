@@ -74,7 +74,6 @@ public class Fuego3 : MonoBehaviour
         TermineDeAparecer = true;
         PuedoRestar = true;
         anim.speed = 4;
-        PInical = personaje.transform.position;
 
     }
 

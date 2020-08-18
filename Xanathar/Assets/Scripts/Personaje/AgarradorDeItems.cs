@@ -9,9 +9,9 @@ public class AgarradorDeItems : MonoBehaviour
     float Rango = 5;
     string OrdenDeElemento;
     public GameObject[] ObjetosEquipados = new GameObject[12];
+    public GameObject [] CopiaDeObjetos = new GameObject[12];
     public GameObject Instanciador;
     private ManejadorDeItems ManejadorDeHUD;
-    public GameObject[] GuardadorDeObjetosEnCasoDeMorirDespuesaDeMatarAUnJefe = new GameObject[12];
 
     public float RangoDeInstancia;
     public float RadioDeObjetos;
@@ -27,6 +27,16 @@ public class AgarradorDeItems : MonoBehaviour
     {
         RaycastDeItems();
 
+        /*
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            DropeadorDeItems();
+        }
+        */
+    }
+
+    void FixedUpdate()
+    {
         if (Input.GetKeyDown(KeyCode.J))
         {
             DropeadorDeItems();
@@ -130,12 +140,13 @@ public class AgarradorDeItems : MonoBehaviour
 
     public void DropeadorDeItems()
     {
-        if(ControlarPuertasYJefes.JefeEliminado == true)
+        for(int i = 0; i < ObjetosEquipados.Length; i++)
         {
-            GuardadorDeObjetosEnCasoDeMorirDespuesaDeMatarAUnJefe = ObjetosEquipados;
+            CopiaDeObjetos[i] = ObjetosEquipados[i];
         }
 
         GameObject PosParaInstanciar = GameObject.FindGameObjectWithTag("PosicionClave");
+
         for (int i = 0; i < ObjetosEquipados.Length; i++)
         {
             if (ObjetosEquipados[i] == null)
@@ -147,13 +158,8 @@ public class AgarradorDeItems : MonoBehaviour
             bool PosicionValida = false;
             int Seguro = 0;
 
-            while (PosicionValida == false)
+            while (PosicionValida == false && Seguro < 50)
             {
-                if (Seguro >= 50)
-                {
-                    //Debug.Log("Se rompio");
-                    break;
-                }
 
                 Seguro += 1;
                 PosicionObjeto = new Vector3(Random.Range(-RangoDeInstancia, RangoDeInstancia) + PosParaInstanciar.transform.position.x, PosParaInstanciar.transform.position.y, Random.Range(-RangoDeInstancia, RangoDeInstancia) + PosParaInstanciar.transform.position.z);
@@ -162,7 +168,7 @@ public class AgarradorDeItems : MonoBehaviour
 
                 foreach (Collider col in Colisiones)
                 {
-                    if (col.tag == "Items" || col.tag == "Personaje" || col.tag == "Piso" || col.tag == "Entorno")
+                    if (col.tag == "Items" || col.tag == "Personaje" || col.tag == "Piso")
                     {
                         PosicionValida = false;
                     }
@@ -186,58 +192,6 @@ public class AgarradorDeItems : MonoBehaviour
 
     public void EquipadorActivasPasivasYEstadisticas(string Categoria, string Elemento, string Nombre, GameObject ObjetoAgarrado)
     {
-        /*
-        if (Categoria == "Activa")
-        {
-            GestorItems c = FindObjectOfType<GestorItems>();
-            Ataque b = FindObjectOfType<Ataque>();
-
-            switch (Elemento)
-            {
-                case "Fuego":
-                    float FuegoCD = GetComponent<EstadisticasDePersonaje>().TiempoCooldownActivas[0];
-                    if (Nombre == "Sol De La Patria")
-                    {
-                        c.ItemsEquipados[0].item = ObjetoAgarrado;
-                        c.ItemsEquipados[0].cooldownInicial = FuegoCD;
-                        c.ItemsEquipados[0].CooldownOriginal = FuegoCD;
-                        c.AplicarCDR();
-                    }
-
-                    else
-                    {
-                        c.ItemsEquipados[0].item = ObjetoAgarrado;
-                        c.ItemsEquipados[0].cooldownInicial = FuegoCD;
-                        c.ItemsEquipados[0].CooldownOriginal = FuegoCD;
-
-                        c.AplicarCDR();
-
-                    }
-                    b.Reset(0);
-
-                    break;
-
-                case "Viento":
-                    Debug.Log("Activa De Viento");
-                    break;
-
-                case "Tierra":
-                    Debug.Log("Activa De Tierra");
-                    break;
-
-                case "Agua":
-                    Debug.Log("Activa De Agua");
-                    break;
-            }
-        }
-        else
-        {
-            Debug.Log("No es un item activo, es un item de categoria: " + Categoria);
-        }
-
-        //Debug.Log(ObjetoAgarrado.name);
-        */
-
         switch (Categoria)
         {
             case "Activa":

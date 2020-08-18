@@ -5,7 +5,6 @@ using UnityEngine;
 public class MuerteEnVacios : MonoBehaviour {
 
 	public static bool Caiste = false;
-
 	void OnCollisionEnter(Collision collision)
 	{
 		EstadisticasDePersonaje VidaActual = FindObjectOfType<EstadisticasDePersonaje>();

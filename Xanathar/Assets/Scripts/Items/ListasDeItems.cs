@@ -81,7 +81,6 @@ public class ListasDeItems : MonoBehaviour {
 
 		ConstructorEscenas ConstructorEjemplo = new ConstructorEscenas(ListaDeObjetosSeleccionados , ListaDePosicionesEnLaEscena);
 
-		
 
 		switch (EscenaActual)
 		{
@@ -126,7 +125,7 @@ public class ListasDeItems : MonoBehaviour {
 
 		switch (EscenaActual)
 		{
-			case "TestMenda":
+			case "Lobby":
 			Lobby.ConseguirListaDeObjetos(ObjetosAInstanciar);
 			Lobby.ConseguirListaDePosiciones(PosicionesAInstanciar);
 			break;

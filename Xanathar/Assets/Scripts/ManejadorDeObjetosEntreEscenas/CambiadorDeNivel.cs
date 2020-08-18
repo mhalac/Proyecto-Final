@@ -44,9 +44,26 @@ public class CambiadorDeNivel : MonoBehaviour {
 			BuscadorDePos.ManejadorDePos();
 			PermitirCambios = false;
 			MuerteEnVacios.Caiste = false;
-			OcultarPuertas.OcultarPuertasDelLoby();
-
 			
+			if(SceneManager.GetActiveScene().name == "Lobby")
+			{
+				if(ControlarPuertasYJefes.JefeEliminado == true)
+				{
+					EstadisticasDePersonaje estadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
+
+					if(estadisticasDePersonaje.MurioDespuesDeMatarJefe == true)
+					{
+						AgarradorDeItems agarradorDeItems = FindObjectOfType<AgarradorDeItems>();
+						DropearItemsEnSpawn.TirarItemsEnSpwn(agarradorDeItems.CopiaDeObjetos);
+						Debug.Log("Se Cumplio");
+					}
+					else
+					{
+						Debug.Log("No se cumplio");
+						ControlarPuertasYJefes.JefeEliminado = false;
+					}
+				}
+			}
 		}
 	}
 
