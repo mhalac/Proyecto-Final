@@ -4,21 +4,24 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class CambiadorDeNivel : MonoBehaviour {
 
+	public static bool PermitirCambios = false;
 	public Animator AnimacionDeCambioDeNivel;
 	public BuscadorDePos BuscadorDePos;
 	AsyncOperation asyncOperation;
 
 	public void IniciadorDeCambio()
 	{
-		AnimacionDeCambioDeNivel.SetTrigger("Desaparecer");
-		ManejadorDeEscenas.ActivadorDeCambio = true;
+		if(PermitirCambios == false)
+		{
+			PermitirCambios = true;
+			AnimacionDeCambioDeNivel.SetTrigger("Desaparecer");
+			ManejadorDeEscenas.ActivadorDeCambio = true;
+		}
 	}
 
 	IEnumerator CargarEscena()
 	{
 		asyncOperation = SceneManager.LoadSceneAsync (ManejadorDeEscenas.NombreDeEscena , LoadSceneMode.Additive);
-		
-		MuerteEnVacios.Caiste = false;
 
 		asyncOperation.allowSceneActivation = true;
 		yield return asyncOperation;
@@ -36,7 +39,14 @@ public class CambiadorDeNivel : MonoBehaviour {
 			AnimacionDeCambioDeNivel.SetTrigger("Aparecer");
 			ManejadorDeEscenas.ActivadorDeCambio = false;
 			yield return asyncOperation;
+
+
 			BuscadorDePos.ManejadorDePos();
+			PermitirCambios = false;
+			MuerteEnVacios.Caiste = false;
+			OcultarPuertas.OcultarPuertasDelLoby();
+
+			
 		}
 	}
 

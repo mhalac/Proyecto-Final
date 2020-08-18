@@ -20,7 +20,7 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public float TiempoDeRegeneracion = 10f;
 
     public bool EstaMuerto = false;
-
+    public bool MurioDespuesDeMatarJefe = false;
 
     public float VelocidadDeMovimiento = 10f;
     public float CoolDownAtaque = 1f;

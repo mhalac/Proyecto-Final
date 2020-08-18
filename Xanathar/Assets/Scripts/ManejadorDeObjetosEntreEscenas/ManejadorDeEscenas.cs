@@ -61,6 +61,14 @@ public class ManejadorDeEscenas : MonoBehaviour {
 				EntrasteOSaliste = false;
 			}
 		}
+
+		if(col.gameObject.name == "PuertaLobby")
+		{
+			ReferenciadorDeEscenas = 0;
+			NombreDeEscena = Lobby.name;
+			AsignadorDeEscenas.IniciadorDeCambio();
+			EntrasteOSaliste = false;
+		}
 	}
 
 	public void VolverAlLobby()

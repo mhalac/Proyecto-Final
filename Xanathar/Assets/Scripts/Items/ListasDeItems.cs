@@ -9,7 +9,7 @@ public class ListasDeItems : MonoBehaviour {
 	public static List <Vector3> PosicionesEnEscena;
 
 	//Constructores De Los Niveles
-	ConstructorEscenas TestMenda;
+	ConstructorEscenas Lobby;
 	ConstructorEscenas SubNivelFuego1;
 	ConstructorEscenas SubNivelFuego2;
 	ConstructorEscenas SubNivelFuego3;
@@ -48,7 +48,7 @@ public class ListasDeItems : MonoBehaviour {
 	private void ConstruirConsatructores()
 	{
 		//Constructor Del TestMenda
-		TestMenda = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+		Lobby = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
 
 		//Constructores De SubNivelesFuego
 		SubNivelFuego1 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
@@ -81,11 +81,13 @@ public class ListasDeItems : MonoBehaviour {
 
 		ConstructorEscenas ConstructorEjemplo = new ConstructorEscenas(ListaDeObjetosSeleccionados , ListaDePosicionesEnLaEscena);
 
+		
+
 		switch (EscenaActual)
 		{
-			case "TestMenda":
-			TestMenda.ReemplazarConstructorConOtro(ConstructorEjemplo);
-			Debug.Log(TestMenda.ConseguirListaYPos());
+			case "Lobby":
+			Lobby.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			Debug.Log(Lobby.ConseguirListaYPos());
 			break;
 
 			case "SubNivelFuego1":
@@ -125,8 +127,8 @@ public class ListasDeItems : MonoBehaviour {
 		switch (EscenaActual)
 		{
 			case "TestMenda":
-			TestMenda.ConseguirListaDeObjetos(ObjetosAInstanciar);
-			TestMenda.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			Lobby.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			Lobby.ConseguirListaDePosiciones(PosicionesAInstanciar);
 			break;
 
 			case "SubNivelFuego1":

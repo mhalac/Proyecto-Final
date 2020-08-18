@@ -11,7 +11,7 @@ public class AgarradorDeItems : MonoBehaviour
     public GameObject[] ObjetosEquipados = new GameObject[12];
     public GameObject Instanciador;
     private ManejadorDeItems ManejadorDeHUD;
-
+    public GameObject[] GuardadorDeObjetosEnCasoDeMorirDespuesaDeMatarAUnJefe = new GameObject[12];
 
     public float RangoDeInstancia;
     public float RadioDeObjetos;
@@ -130,6 +130,11 @@ public class AgarradorDeItems : MonoBehaviour
 
     public void DropeadorDeItems()
     {
+        if(ControlarPuertasYJefes.JefeEliminado == true)
+        {
+            GuardadorDeObjetosEnCasoDeMorirDespuesaDeMatarAUnJefe = ObjetosEquipados;
+        }
+
         GameObject PosParaInstanciar = GameObject.FindGameObjectWithTag("PosicionClave");
         for (int i = 0; i < ObjetosEquipados.Length; i++)
         {
@@ -172,9 +177,7 @@ public class AgarradorDeItems : MonoBehaviour
                 
 
                 Instantiate(ObjetosEquipados[i], PosicionObjeto, Quaternion.identity);
-                //Debug.Log(ObjetosEquipados[i]);
                 ObjetosEquipados[i] = null;
-                //Debug.Log("EXITO");
             }
         }
 
