@@ -94,7 +94,6 @@ public class Ataque : MonoBehaviour
 
         c.ItemsEquipados[i].Activado = false;
 
-        AnimacionIconos d = FindObjectOfType<AnimacionIconos>();
 
 
     }
@@ -137,8 +136,11 @@ public class Ataque : MonoBehaviour
             }
             else if (a.tag == "JefeFuego")
             {
+                GameObject f = Instantiate(AtaqueParticula, a.ClosestPoint(transform.position), Quaternion.identity);
+                Destroy(f, 1);
                 JefeFuego = FindObjectOfType<FuegoJefe>().GetComponent<LifeManager>();
                 JefeFuego.RecibirDamage();
+                print("XD");
             }
         }
 

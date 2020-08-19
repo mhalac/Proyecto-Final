@@ -33,7 +33,6 @@ public class SonidosJugador : MonoBehaviour
         {
             int i = Random.Range(0, Sonidos.Length);
             Sonidos[i].Play();
-			print(i);
         }
     }
 }

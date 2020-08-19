@@ -44,7 +44,6 @@ public class Fuego3 : MonoBehaviour
     public Animator anim;
     private int PMask;
     private GameObject personaje;
-    private int EnemigoMask;
     private bool PuedoRestar;
     
     private Vector3 PInical;
@@ -69,7 +68,6 @@ public class Fuego3 : MonoBehaviour
         Estado = Estados[0];
         DelayInicial = delay;
         delay = 0;
-        EnemigoMask = LayerMask.NameToLayer("Enemigo");
         DelayTeleportInicial = DelayTeleport;
         TermineDeAparecer = true;
         PuedoRestar = true;
@@ -268,7 +266,6 @@ public class Fuego3 : MonoBehaviour
             if (obj[i].gameObject.layer == PMask)
             {
                 personaje = obj[i].gameObject;
-                var direccion = personaje.transform.position - Heredar.position;
 
                 return true;
             }

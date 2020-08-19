@@ -174,7 +174,6 @@ public class FuegoJefe : MonoBehaviour
         anim.SetBool("Correr", false);
         FinalizoAnim = false;
         Vector3 angulos = new Vector3(0, -360, 0);
-        Vector3 PosicionRelativa = Personaje.transform.position - transform.position;
         int vuelta = 0;
 
 

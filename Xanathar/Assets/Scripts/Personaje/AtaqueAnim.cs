@@ -14,7 +14,6 @@ public class AtaqueAnim : MonoBehaviour
     {
         Ataque c = FindObjectOfType<Ataque>();
         c.anim.speed = 1 / c.CoolDownInicial;
-        GestorItems b = FindObjectOfType<GestorItems>();
         
 
         c.HacerDamage();

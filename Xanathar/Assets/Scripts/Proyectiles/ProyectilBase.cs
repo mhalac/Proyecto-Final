@@ -7,7 +7,6 @@ public class ProyectilBase : MonoBehaviour
     private float DamageFinal;
     public Transform PuntoDisparo;
     private Ray DisparoPosicion;
-    private bool Hit = false;
     private Vector3 IrPosicion;
     private float velocidad;
     private bool Selecionado = false;
@@ -30,7 +29,6 @@ public class ProyectilBase : MonoBehaviour
     // casteas un rayo al jugador y despues lo amplificas para sacar el punto mas lejano en su direccion 
     private void Seleccionar()
     {
-        Quaternion lookRotation = Quaternion.LookRotation(IrPosicion);
         transform.LookAt(IrPosicion);
         DisparoPosicion = new Ray(PuntoDisparo.position, IrPosicion);
         IrPosicion = DisparoPosicion.GetPoint(1000);
