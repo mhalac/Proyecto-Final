@@ -173,7 +173,7 @@ public class FuegoJefe : MonoBehaviour
         bool Rotando = true;
         anim.SetBool("Correr", false);
         FinalizoAnim = false;
-        Vector3 angulos = new Vector3(0, -240, 0);
+        Vector3 angulos = new Vector3(0, -360, 0);
         Vector3 PosicionRelativa = Personaje.transform.position - transform.position;
         int vuelta = 0;
 
@@ -183,7 +183,7 @@ public class FuegoJefe : MonoBehaviour
         {
             vuelta++;
             transform.Rotate(angulos * Time.deltaTime);
-            if (Vector3.Distance(PosicionAtaque.transform.position, Personaje.transform.position) < 2f || vuelta > 30)
+            if (Vector3.Distance(PosicionAtaque.transform.position, Personaje.transform.position) < 2f || vuelta > 67)
             {
                 Rotando = false;
             }
