@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class JefeRoca : MonoBehaviour
 {
+    private VibracionCamara camara;
     public float TiempoEntreRondas;
     public bool SpawnieTodos;
     public Transform[] PuntosSpawnEnemigos;
@@ -21,15 +22,26 @@ public class JefeRoca : MonoBehaviour
         Personaje = GameObject.FindGameObjectWithTag("Personaje");
         Invoke("Iniciar", 3f);
         anim = GetComponent<Animator>();
+        camara = FindObjectOfType<VibracionCamara>();
     }
+   
+    public void TerminoDeGolpearPiso()
+    {
+        anim.SetBool("Atacando", false);
 
+        camara.StartCoroutine(camara.Shake(.15f, .4f));
+
+        if (IndiceRonda < rondas.Length - 1)
+            IndiceRonda++;
+        else
+            IndiceRonda = 0;
+
+        SpawnieTodos = false;
+    }
     void PasarDeRonda()
     {
-		if(IndiceRonda < 3)
-        	IndiceRonda++;
-		else
-			IndiceRonda = 0;
-        SpawnieTodos = false;
+        anim.SetBool("Atacando", true);
+
     }
     void Iniciar()
     {
@@ -59,7 +71,7 @@ public class JefeRoca : MonoBehaviour
                         EnemigosInstanciados.Remove(EnemigosInstanciados[i]);
                 }
             }
-            else if (!IsInvoking("PasarDeRonda"))
+            else if (!IsInvoking("PasarDeRonda") && !anim.GetBool("Atacando"))
             {
 
                 Invoke("PasarDeRonda", TiempoEntreRondas);
