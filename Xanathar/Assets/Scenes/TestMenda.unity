@@ -269,6 +269,34 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd1d064c1804620439286ea52cac2c13, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &128964050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 128964051}
+  m_Layer: 0
+  m_Name: Heredar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &128964051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 128964050}
+  m_LocalRotation: {x: -0.20791169, y: -0, z: -0, w: -0.9781476}
+  m_LocalPosition: {x: 0.0020809174, y: 0.49455935, z: 1.029}
+  m_LocalScale: {x: 5.058647, y: 5.058647, z: 5.058647}
+  m_Children: []
+  m_Father: {fileID: 1060329444}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &129646941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,13 +1869,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9fa6af2303042c4aa2fc04b1795c1f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VisionDeDisparo: {fileID: 0}
   RangoMinimo: {fileID: 0}
   AreaIdle: 0
-  NombreHijo: lv1 rock
   AlcanceMaximo: 0
   EstadoActual: 
   Damage: 0
+  Heredar: {fileID: 128964051}
   Delay: 0
 --- !u!195 &1060329443
 NavMeshAgent:
@@ -1880,6 +1907,7 @@ Transform:
   m_LocalPosition: {x: -29.31083, y: 0.552, z: -84.082}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 128964051}
   - {fileID: 1949418883}
   m_Father: {fileID: 0}
   m_RootOrder: 13
@@ -2168,7 +2196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1243509968
 Transform:
   m_ObjectHideFlags: 0
@@ -2723,7 +2751,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1943423416488760, guid: aee93f9569103d7419baf8a9b96d2bb8, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aee93f9569103d7419baf8a9b96d2bb8, type: 2}
@@ -3349,7 +3377,7 @@ Transform:
   m_Children:
   - {fileID: 1295022312}
   m_Father: {fileID: 1060329444}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 351.25403, y: 0, z: 0}
 --- !u!135 &1949418884
 SphereCollider:
