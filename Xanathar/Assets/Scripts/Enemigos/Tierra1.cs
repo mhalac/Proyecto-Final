@@ -47,12 +47,24 @@ public class Tierra1 : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
+		
+	}
+
+	private void IrAPosRandom()
+	{
 		
 	}
 
 	void OnDrawGizmosSelected()
 	{
-		
+		Gizmos.color = Color.blue;
+
+		Vector3 AreaCubo = new Vector3(AreaIdle * 2 , 2 , AreaIdle * 2);
+		Gizmos.DrawWireCube(PosicionEnSpawn , AreaCubo);
+
+		Gizmos.color = Color.red;
+		Gizmos.DrawSphere(Destino , 0.5f);
 	}
 }

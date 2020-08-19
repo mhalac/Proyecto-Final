@@ -164,7 +164,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4757360293656914, guid: d635c4160aad23a4fac637e878e9f5a2, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -13.254135
+      value: -13.28
       objectReference: {fileID: 0}
     - target: {fileID: 4757360293656914, guid: d635c4160aad23a4fac637e878e9f5a2, type: 2}
       propertyPath: m_LocalRotation.x
@@ -277,7 +277,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 128964051}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Heredar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 223462696}
   - component: {fileID: 223462698}
   - component: {fileID: 223462697}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sphere001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1204,7 +1204,7 @@ GameObject:
   - component: {fileID: 687347508}
   - component: {fileID: 687347510}
   - component: {fileID: 687347509}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1851,7 +1851,7 @@ GameObject:
   - component: {fileID: 1060329444}
   - component: {fileID: 1060329443}
   - component: {fileID: 1060329442}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EnemigoTierraContenedor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1870,12 +1870,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RangoMinimo: {fileID: 0}
-  AreaIdle: 0
-  AlcanceMaximo: 0
+  AreaIdle: 15
+  AlcanceMaximo: 4
   EstadoActual: 
-  Damage: 0
+  Damage: 6
   Heredar: {fileID: 128964051}
-  Delay: 0
+  Delay: 1
 --- !u!195 &1060329443
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2107,7 +2107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1217767181}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PosObjeto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2190,7 +2190,7 @@ GameObject:
   - component: {fileID: 1243509968}
   - component: {fileID: 1243509970}
   - component: {fileID: 1243509969}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: teeth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2456,7 +2456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1295022312}
   - component: {fileID: 1295022313}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: lv1 rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2719,7 +2719,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4583177103349750, guid: aee93f9569103d7419baf8a9b96d2bb8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 14.060888
+      value: -16.02
       objectReference: {fileID: 0}
     - target: {fileID: 4583177103349750, guid: aee93f9569103d7419baf8a9b96d2bb8, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2727,7 +2727,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4583177103349750, guid: aee93f9569103d7419baf8a9b96d2bb8, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -8.081659
+      value: -88.55
       objectReference: {fileID: 0}
     - target: {fileID: 4583177103349750, guid: aee93f9569103d7419baf8a9b96d2bb8, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3357,8 +3357,8 @@ GameObject:
   - component: {fileID: 1949418883}
   - component: {fileID: 1949418885}
   - component: {fileID: 1949418884}
-  m_Layer: 0
-  m_Name: lv 1 tierra (1)
+  m_Layer: 11
+  m_Name: lv 1 tierra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
