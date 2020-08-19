@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 4612074368364946}
   - component: {fileID: 33009471048212488}
   - component: {fileID: 23095611443171558}
+  - component: {fileID: 65055947299832712}
   m_Layer: 0
   m_Name: filo
   m_TagString: Untagged
@@ -186,8 +187,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1318464288006614}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.0057058, y: 1.2874, z: -4.9777}
-  m_LocalScale: {x: 0.973712, y: 0.973712, z: 0.973712}
+  m_LocalPosition: {x: -118.6756, y: 15.037529, z: -15.005442}
+  m_LocalScale: {x: 1.3743945, y: 1.3743945, z: 1.3743945}
   m_Children:
   - {fileID: 4612074368364946}
   - {fileID: 4336421191796568}
@@ -642,6 +643,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &65055947299832712
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1686519030918652}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.049847342, y: 0.27239415, z: 0.7082753}
+  m_Center: {x: 2.4936805e-15, y: 0.000012139864, z: 0.3509498}
 --- !u!65 &65136958930747906
 BoxCollider:
   m_ObjectHideFlags: 1
