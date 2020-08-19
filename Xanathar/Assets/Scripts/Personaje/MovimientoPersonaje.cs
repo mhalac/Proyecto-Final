@@ -114,7 +114,6 @@ public class MovimientoPersonaje : MonoBehaviour
 
         //Movimiento eje X y Z
         Controlador.Move(Movimiento * Stats.VelocidadDeMovimiento * Time.deltaTime);
-
         /*
 		for(int i = 0; i < ListaDePosicionesAnteriores.Length -1; i++)
 		{
