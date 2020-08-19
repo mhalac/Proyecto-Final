@@ -20,25 +20,13 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	public static string NombreDeEscena = "";
 	CambiadorDeNivel AsignadorDeEscenas;
 
-	public GameObject Jugador;
-
 	void Awake()
 	{
 		AsignadorDeEscenas = FindObjectOfType<CambiadorDeNivel>();
-		Debug.Log(AsignadorDeEscenas);
-		Jugador = GameObject.FindGameObjectWithTag("Personaje");
 	}
-
-	// Use this for initialization
-	void Start ()
-	{
-
-	}
-
+	
 	void OnCollisionEnter(Collision col)
 	{
-		
-		Debug.Log(col.gameObject.name);
 		
 		if(col.gameObject.name == "EntradaNivelFuego" && ActivadorDeCambio == false)
 		{
