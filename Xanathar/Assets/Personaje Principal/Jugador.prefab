@@ -1306,7 +1306,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430075857039988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 88.68964, y: -1.2, z: -151.34753}
+  m_LocalPosition: {x: -36.03957, y: 4.206207, z: 3.4514673}
   m_LocalScale: {x: 0.59693, y: 0.61537516, z: 0.59693}
   m_Children:
   - {fileID: 4800373830159400}
@@ -2606,11 +2606,11 @@ MonoBehaviour:
   SolPatriaParticula: {fileID: 1805010198112046}
   test: 0
   ItemsEquipados:
-  - CooldownOriginal: 5
+  - CooldownOriginal: 0
     Activado: 0
-    item: {fileID: 1902129817038158, guid: 1b85686f6f703504d9e588c601e36455, type: 2}
-    cooldownInicial: 5
-    cooldownActual: -0.00012273341
+    item: {fileID: 0}
+    cooldownInicial: 0
+    cooldownActual: 0
   - CooldownOriginal: 0
     Activado: 0
     item: {fileID: 0}
@@ -2788,7 +2788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjetosEquipados:
-  - {fileID: 1902129817038158, guid: 1b85686f6f703504d9e588c601e36455, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -2863,7 +2863,6 @@ MonoBehaviour:
   - v
   Lobby: Lobby
   ReferenciadorDeEscenas: 0
-  Jugador: {fileID: 1430075857039988}
 --- !u!114 &114748977380680902
 MonoBehaviour:
   m_ObjectHideFlags: 1
