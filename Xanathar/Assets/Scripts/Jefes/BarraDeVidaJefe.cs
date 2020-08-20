@@ -27,7 +27,8 @@ public class BarraDeVidaJefe : MonoBehaviour
     void Start()
     {
         //Igualas la vida maxzima a la vida actual
-        ValorDeVidaMaxima = BuscarBarra();
+        //ValorDeVidaMaxima = BuscarBarra();
+        ValorDeVidaMaxima = 20;
     }
 
     // Update is called once per frame
@@ -38,7 +39,8 @@ public class BarraDeVidaJefe : MonoBehaviour
 
     public void ManejadorDeVidaJefe(float VidaMaximaDelJefe)
     {
-        ValorDeVidaActual = BuscarBarra();
+        //ValorDeVidaActual = BuscarBarra();
+        ValorDeVidaActual = FindObjectOfType<LifeManager>().Vida;
         RellenoDeVida = ValorDeVidaActual / VidaMaximaDelJefe;
         ContenidoBarraDeVida.fillAmount = RellenoDeVida;
 

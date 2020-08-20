@@ -283,11 +283,9 @@ public class ManejadorDeItems : MonoBehaviour {
 
 			if(ValorActualVida < 1 && AntiCRASH == false)
 			{
-				Debug.Log(ControlarPuertasYJefes.JefeEliminado);
 				if(ControlarPuertasYJefes.JefeEliminado == true)
 				{
 					EstadisticasDePersonaje.MurioDespuesDeMatarJefe = true;
-					Debug.Log(EstadisticasDePersonaje.MurioDespuesDeMatarJefe + "xd");
 				}
 
 				AntiCRASH = true;

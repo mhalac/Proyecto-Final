@@ -8,7 +8,6 @@ public class CambiadorDeNivel : MonoBehaviour {
 	public Animator AnimacionDeCambioDeNivel;
 	public BuscadorDePos BuscadorDePos;
 	AsyncOperation asyncOperation;
-
 	public void IniciadorDeCambio()
 	{
 		if(PermitirCambios == false)
@@ -47,6 +46,7 @@ public class CambiadorDeNivel : MonoBehaviour {
 			
 			if(SceneManager.GetActiveScene().name == "Lobby")
 			{
+				
 				if(ControlarPuertasYJefes.JefeEliminado == true)
 				{
 					EstadisticasDePersonaje estadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
@@ -56,14 +56,20 @@ public class CambiadorDeNivel : MonoBehaviour {
 						AgarradorDeItems agarradorDeItems = FindObjectOfType<AgarradorDeItems>();
 						DropearItemsEnSpawn.TirarItemsEnSpwn(agarradorDeItems.CopiaDeObjetos);
 						ControlarPuertasYJefes.JefeEliminado = false;
-						OcultarPuertas.OcultarPuertasDelLoby();
+						estadisticasDePersonaje.MurioDespuesDeMatarJefe = false;
 						
 					}
 					else
 					{
 						ControlarPuertasYJefes.JefeEliminado = false;
-						OcultarPuertas.OcultarPuertasDelLoby();
 					}
+				}
+				
+
+				if(ControlarPuertasYJefes.JefeDeFuegoMuerto == true)
+				{
+					GameObject PuertaDeFuego = GameObject.FindGameObjectWithTag("PuertaNivelFuego");
+					PuertaDeFuego.SetActive(false);
 				}
 			}
 		}

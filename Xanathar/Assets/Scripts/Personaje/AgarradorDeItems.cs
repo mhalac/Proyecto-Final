@@ -111,6 +111,16 @@ public class AgarradorDeItems : MonoBehaviour
             CategoriaItemEquipado = ObjetosEquipados[i].GetComponent<InformacionDeItems>().Categoria;
             NombreItemEquipado = ObjetosEquipados[i].GetComponent<InformacionDeItems>().Nombre;
 
+            if(NombreItemEquipado == NombreDelObjetoAgarrado)
+            {
+                ObjetosEquipados[i] = ObjetoAgarrado;
+                Destroy(ColisionDeObjeto.collider.gameObject);
+
+                Vector3 PosAInstanciar = new Vector3(Instanciador.transform.position.x, (Instanciador.transform.position.y + 1), Instanciador.transform.position.z);
+                Instantiate(ObjetoAgarrado , PosAInstanciar , Quaternion.identity);
+                break;
+            }
+
             if (ElementoItemEquipado == ElementoDelObjetoAgarrado && CategoriaItemEquipado == CategoriaDelObjetoAgarrado)
             {
                 ObjetosEquipados[i] = ObjetoAgarrado;

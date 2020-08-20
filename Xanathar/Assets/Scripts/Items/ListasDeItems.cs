@@ -63,7 +63,7 @@ public class ListasDeItems : MonoBehaviour {
 
 		List <GameObject> ListaDeTodosLosObjetosEnLaEscena = new List <GameObject>(GameObject.FindGameObjectsWithTag("Items"));
 
-		Debug.Log("Los objetos encontrados en la escena son:" + ListaDeTodosLosObjetosEnLaEscena.Count);
+		//Debug.Log("Los objetos encontrados en la escena son:" + ListaDeTodosLosObjetosEnLaEscena.Count);
 
 		List <Vector3> ListaDePosicionesEnLaEscena = new List<Vector3>();
 
@@ -78,9 +78,6 @@ public class ListasDeItems : MonoBehaviour {
 					ListaDeObjetosSeleccionados.Add(ListaDePrefabs[o]);
 					ListaDePosicionesEnLaEscena.Add(ListaDeTodosLosObjetosEnLaEscena[i].transform.position);
 
-					ListaDePrefabs.RemoveAt(o);
-					ListaDeTodosLosObjetosEnLaEscena.RemoveAt(i);
-
 					break;
 				}
 			}
@@ -89,7 +86,6 @@ public class ListasDeItems : MonoBehaviour {
 		Debug.Log(ListaDeObjetosSeleccionados.Count + "Prestar atrencion a esto");
 
 		ConstructorEscenas ConstructorEjemplo = new ConstructorEscenas(ListaDeObjetosSeleccionados , ListaDePosicionesEnLaEscena);
-
 
 		switch (EscenaActual)
 		{
