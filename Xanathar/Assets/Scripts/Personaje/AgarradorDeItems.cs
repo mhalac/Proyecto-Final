@@ -87,9 +87,6 @@ public class AgarradorDeItems : MonoBehaviour
             }
         }
 
-        //Debug.Log("El objeto que agarre es: " + AlmacenadorDeObjetos[0]);
-        //Debug.Log("El objeto que no agarre es: " + AlmacenadorDeObjetos[1]);
-
         AgarrarYReemplazar(AlmacenadorDeObjetos[0], AlmacenadorDeObjetos[1], ElementoDelObjeto, CategoriaDelObjeto, NombreDelObjeto);
     }
 
@@ -140,9 +137,12 @@ public class AgarradorDeItems : MonoBehaviour
 
     public void DropeadorDeItems()
     {
-        for(int i = 0; i < ObjetosEquipados.Length; i++)
+        if(ControlarPuertasYJefes.JefeEliminado == true)
         {
-            CopiaDeObjetos[i] = ObjetosEquipados[i];
+            for(int i = 0; i < ObjetosEquipados.Length; i++)
+            {
+                CopiaDeObjetos[i] = ObjetosEquipados[i];
+            }
         }
 
         GameObject PosParaInstanciar = GameObject.FindGameObjectWithTag("PosicionClave");

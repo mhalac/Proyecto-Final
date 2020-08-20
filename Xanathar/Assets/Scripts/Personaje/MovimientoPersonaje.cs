@@ -19,33 +19,38 @@ public class MovimientoPersonaje : MonoBehaviour
     float Z;
 
     //Bool para ver si el personaje esta corriendo o no
+    [Header("Bools Para chequear estados del personaje")]
     public bool Corriendo;
     public bool EstaQuieto;
+    public bool EstaSaltando = false;
 
+    [Header("Variables para el salto")]
     //Vector para la fuerza de gravedad
-    Vector3 Velocidad;
+    public Vector3 Velocidad;
 
     //CheckDePiso es el objeto abajo de nuestro personaje que choca con el piso
     public Transform CheckDePiso;
 
     //Distancia de piso es el radio de la esfera
-    float DistanciaDePiso = 0.5f;
+    public float DistanciaDePiso = 0.5f;
     //Mascara de piso es para que chequee todos los objetos que tengan el tag "piso"
     public LayerMask MascaraDePiso;
-    bool EstaEnPiso;
+    public bool EstaEnPiso;
 
     //Variables del Dash
+
+    [Header("Variables de Dash")]
+    public float VelocidadDash;
+    public float DistanciaDeDash = 10;
     public bool YaDasheo = false;
     public float tiempoDash;
-
     public Vector3 VectorDash;
 
-    //Variable que determina la velocidad y distancia del dash
-    float VelocidadDash;
-    float DistanciaDeDash = 10;
-
+    //Variable Inmortal
     [Header("Acceso a Variable Inmortalidad")]
     public EstadisticasDePersonaje VaribaleInmortal;
+
+
 
 
     //Variables para Determinar si el jugador se esta moviendo o no
@@ -96,11 +101,13 @@ public class MovimientoPersonaje : MonoBehaviour
         if (EstaEnPiso && Velocidad.y < 0)
         {
             Velocidad.y = -Stats.VelocidadDeMovimiento;
+            EstaSaltando = false;
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && EstaEnPiso)
         {
             Velocidad.y = Mathf.Sqrt(Stats.FuerzaDeSalto * -2 * Stats.Gravedad);
+            EstaSaltando = true;
         }
 
         //Movimiento Y
