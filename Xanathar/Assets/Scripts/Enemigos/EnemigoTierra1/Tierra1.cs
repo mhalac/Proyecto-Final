@@ -59,6 +59,10 @@ public class Tierra1 : MonoBehaviour {
 		{
 			EstaAdentro(TengoQueAcercarme());
 		}
+		else if (!BuscarPersonaje())
+		{
+			EstadoActual = Estados[2];
+		}
 		else if(EstadoActual == Estados[2])
 		{
 			Buscar();
