@@ -22,10 +22,8 @@ public class Tierra1 : MonoBehaviour {
 
 	public string [] Estados = {"Idle" , "Chasing" , "Searching" , "Stopped"};
 	private Vector3 PosicionEnSpawn;
-	private float DelayInicial;
 	public Transform Heredar;
 	private Vector3 Destino;
-	public float Delay;
 	private int EMask;
 	private int PMask;
 	private GameObject Personaje;
@@ -40,7 +38,6 @@ public class Tierra1 : MonoBehaviour {
 		Agente = GetComponent<NavMeshAgent>();
 		RangoMinimo.position = new Vector3(Heredar.position.x , Heredar.position.y , Heredar.position.z + AlcanceMaximo);
 		EstadoActual = Estados[0];
-		DelayInicial = Delay;
 
 		PMask = LayerMask.NameToLayer("Personaje");
 		EMask = LayerMask.NameToLayer("Enemigo");
@@ -49,7 +46,7 @@ public class Tierra1 : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if(Agente.velocity.magnitude < 2f && EstadoActual != Estados[1])
+		if(Agente.velocity.magnitude < 1f && EstadoActual != Estados[1])
 		{
 			FindObjectOfType<PositionManager>().Llegue(Destino);
 			Idle();
@@ -57,13 +54,9 @@ public class Tierra1 : MonoBehaviour {
 		
 		if(BuscarPersonaje() && PuedoVer())
 		{
-			EstaAdentro(TengoQueAcercarme());
+			Acercar();
 		}
-		else if (!BuscarPersonaje())
-		{
-			EstadoActual = Estados[2];
-		}
-		else if(EstadoActual == Estados[2])
+		else if(EstadoActual == Estados[1])
 		{
 			Buscar();
 		}
@@ -160,12 +153,13 @@ public class Tierra1 : MonoBehaviour {
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	private void Acercar()
 	{
 		Agente.destination = Personaje.transform.position;
+		EstadoActual = Estados[1];
 	}
 
 	private void EstaAdentro(bool TengoQueAcercarme)
@@ -175,6 +169,10 @@ public class Tierra1 : MonoBehaviour {
 			EstadoActual = Estados[1];
 			Agente.isStopped = false;
 			Acercar();
+		}
+		else
+		{
+			Buscar();
 		}
 	}
 
@@ -199,7 +197,6 @@ public class Tierra1 : MonoBehaviour {
 	void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.blue;
-
 		Vector3 AreaCubo = new Vector3(AreaIdle * 2 , 2 , AreaIdle * 2);
 		Gizmos.DrawWireCube(PosicionEnSpawn , AreaCubo);
 
