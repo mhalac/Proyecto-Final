@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4786197960525250}
   - component: {fileID: 33571978147350876}
   - component: {fileID: 23703639684369394}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: casco22
-  m_TagString: Untagged
+  m_TagString: JefeRoca
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4069831534136302}
   - component: {fileID: 198535053850510328}
   - component: {fileID: 199756820877750292}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: circulobeam children (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,8 @@ GameObject:
   - component: {fileID: 95589001144766534}
   - component: {fileID: 114635827128453090}
   - component: {fileID: 114529764061415856}
-  m_Layer: 0
+  - component: {fileID: 114494482611551760}
+  m_Layer: 11
   m_Name: Jefe Tierra
   m_TagString: JefeRoca
   m_Icon: {fileID: 0}
@@ -74,9 +75,9 @@ GameObject:
   - component: {fileID: 33889220716481766}
   - component: {fileID: 23859657491298742}
   - component: {fileID: 64391798650225824}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: face2
-  m_TagString: Untagged
+  m_TagString: JefeRoca
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4537873693505184}
   - component: {fileID: 65561823731916266}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,10 +108,10 @@ GameObject:
   - component: {fileID: 4995661799911576}
   - component: {fileID: 33884806135111056}
   - component: {fileID: 23222753960150664}
-  - component: {fileID: 64135338846998388}
-  m_Layer: 0
+  - component: {fileID: 65551937461489120}
+  m_Layer: 11
   m_Name: pierna moviemiento2
-  m_TagString: Untagged
+  m_TagString: JefeRoca
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,10 +126,10 @@ GameObject:
   - component: {fileID: 4503127412338782}
   - component: {fileID: 33084181015906436}
   - component: {fileID: 23197080443400032}
-  - component: {fileID: 64421521543151476}
-  m_Layer: 0
+  - component: {fileID: 65835674695641586}
+  m_Layer: 11
   m_Name: pierna sola
-  m_TagString: Untagged
+  m_TagString: JefeRoca
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,9 +145,9 @@ GameObject:
   - component: {fileID: 33032128958219262}
   - component: {fileID: 23641371700495438}
   - component: {fileID: 135612141667907608}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ShieldHitBox
-  m_TagString: Untagged
+  m_TagString: JefeRoca
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,9 +163,9 @@ GameObject:
   - component: {fileID: 33459828662016448}
   - component: {fileID: 23391046547122146}
   - component: {fileID: 64043638343169068}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: piernas2
-  m_TagString: Untagged
+  m_TagString: JefeRoca
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,7 +203,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1847448542205688}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.00023375625, y: 0.01089676, z: -0.001110222}
+  m_LocalPosition: {x: 0.0002337562, y: 0.01089676, z: -0.001110222}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4192078701165312}
@@ -235,12 +236,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1676392103599226}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.00023375625, y: 0.01089676, z: -0.001110222}
+  m_LocalPosition: {x: 0.0002337562, y: 0.01089676, z: -0.001110222}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4192078701165312}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -90, y: 2.0175505, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &4537873693505184
 Transform:
   m_ObjectHideFlags: 1
@@ -267,7 +268,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4192078701165312}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -85.61979, y: 78.64856, z: -78.64207}
+  m_LocalEulerAnglesHint: {x: -89.951706, y: 8.3585005, z: -8.3585005}
 --- !u!4 &4910949801996828
 Transform:
   m_ObjectHideFlags: 1
@@ -275,12 +276,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1334255485892968}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.00020375365, y: 0.0053828633, z: 0.012833163}
+  m_LocalPosition: {x: 0.0002037536, y: 0.0053828633, z: 0.01283316}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4192078701165312}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -88.07963, y: 78.110504, z: -76.58269}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &4995661799911576
 Transform:
   m_ObjectHideFlags: 1
@@ -288,12 +289,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1584606527256784}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.00023375625, y: 0.010874749, z: -0.001110222}
+  m_LocalPosition: {x: 0.0002337562, y: 0.010874749, z: -0.001110222}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4192078701165312}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -89.49444, y: 63.333454, z: -63.333454}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!23 &23197080443400032
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -577,20 +578,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 4a64014fa1815b44d9b76ee8227ea594, type: 3}
---- !u!64 &64135338846998388
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1584606527256784}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 4a64014fa1815b44d9b76ee8227ea594, type: 3}
 --- !u!64 &64391798650225824
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -605,20 +592,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300006, guid: 4a64014fa1815b44d9b76ee8227ea594, type: 3}
---- !u!64 &64421521543151476
-MeshCollider:
+--- !u!65 &65551937461489120
+BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1676392103599226}
+  m_GameObject: {fileID: 1584606527256784}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: 4a64014fa1815b44d9b76ee8227ea594, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.005739454, y: 0.0056886296, z: 0.009715705}
+  m_Center: {x: -0.0055733602, y: -0.006761058, z: -0.0062062005}
 --- !u!65 &65561823731916266
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -631,6 +616,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65835674695641586
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1676392103599226}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.007304892, y: 0.006647479, z: 0.009171952}
+  m_Center: {x: -0.0065243393, y: 0.004697544, z: -0.0064281025}
 --- !u!95 &95589001144766534
 Animator:
   serializedVersion: 3
@@ -649,6 +646,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114494482611551760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1304488028932586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e87b7502e1ded24a973e3c27f1fb869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemsActivos:
+  - {fileID: 1210339613494050, guid: 994fd60de9ef44a4e9f9f54f7f715b2a, type: 2}
+  - {fileID: 1902129817038158, guid: 1b85686f6f703504d9e588c601e36455, type: 2}
 --- !u!114 &114529764061415856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -660,9 +671,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dab7ecc63d7b7f42a1ca4b2ef4e2432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoPuedoDropear: 0
   TESTMATAR: 0
   Vida: 30
   Elemento: Tierra
+  Inmortal: 0
   items: []
 --- !u!114 &114635827128453090
 MonoBehaviour:
@@ -692,6 +705,8 @@ MonoBehaviour:
     cantidad: 3
   - prefab: {fileID: 1943423416488760, guid: aee93f9569103d7419baf8a9b96d2bb8, type: 2}
     cantidad: 3
+  FuerzaKnockback: 50
+  anim: {fileID: 0}
   EnemigosInstanciados: []
   IndiceRonda: 0
 --- !u!135 &135612141667907608

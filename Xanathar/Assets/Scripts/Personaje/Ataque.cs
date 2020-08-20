@@ -140,7 +140,6 @@ public class Ataque : MonoBehaviour
                 Destroy(f, 1);
                 JefeFuego = FindObjectOfType<FuegoJefe>().GetComponent<LifeManager>();
                 JefeFuego.RecibirDamage();
-                print("XD");
             }
             else if(a.tag == "JefeRoca")
             {
