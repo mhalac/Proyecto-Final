@@ -29,7 +29,7 @@ public class SonidosJugador : MonoBehaviour
 
 
 
-        if (!EstaSonandoAudio && !c.EstaQuieto)
+        if (!EstaSonandoAudio && !c.EstaQuieto && !c.EstaSaltando)
         {
             int i = Random.Range(0, Sonidos.Length);
             Sonidos[i].Play();
