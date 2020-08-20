@@ -73,11 +73,11 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 		{
 			case "Fire Chestplate":
 			Estadisticas.DañoDePersonajeNormal -= Estadisticas.DañoDePersonajeInicial / 2;
-			Estadisticas.Armadura += Estadisticas.ArmaduraInicial * 2;
+			Estadisticas.Armadura += Estadisticas.ArmaduraInicial / 2;
 			break;
 
 			case "Old Flame":
-			Estadisticas.VidaMaximaPersonaje -= Estadisticas.VidaMaximaDePersonajeInicial / 2;
+			Estadisticas.Armadura -= Estadisticas.ArmaduraInicial / 2;
 			Estadisticas.DañoDePersonajeNormal += Estadisticas.DañoDePersonajeInicial * 2;
 			break;
 		}
@@ -94,11 +94,11 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 		{
 			case "Fire Chestplate":
 			Estadisticas.DañoDePersonajeNormal += Estadisticas.DañoDePersonajeInicial / 2;
-			Estadisticas.Armadura -= Estadisticas.ArmaduraInicial * 2;
+			Estadisticas.Armadura -= Estadisticas.ArmaduraInicial / 2;
 			break;
 
 			case "Old Flame":
-			Estadisticas.VidaMaximaPersonaje += Estadisticas.VidaMaximaDePersonajeInicial / 2;
+			Estadisticas.Armadura += Estadisticas.ArmaduraInicial / 2;
 			Estadisticas.DañoDePersonajeNormal -= Estadisticas.DañoDePersonajeInicial * 2;
 			break;
 		}
