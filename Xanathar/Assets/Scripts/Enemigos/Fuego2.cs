@@ -55,7 +55,6 @@ public class Fuego2 : MonoBehaviour
 
 
     private float DamagePorTiempoInicial;
-    private int EMask;
 
     private Vector3 Apuntando;
     public bool Disparando;
@@ -88,7 +87,6 @@ public class Fuego2 : MonoBehaviour
         RangoMinimo.position = new Vector3(Heredar.position.x, Heredar.position.y, Heredar.position.z + AlcanzeMaximo);
         Estado = Estados[0];
         DelayInicial = delay;
-        EMask = LayerMask.NameToLayer("Enemigo");
         agente.avoidancePriority = Random.Range(0, 99);
     }
 
