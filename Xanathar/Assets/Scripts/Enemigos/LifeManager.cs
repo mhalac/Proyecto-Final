@@ -6,11 +6,12 @@ using UnityEngine;
 [System.Serializable]
 public class LifeManager : MonoBehaviour
 {
+    public bool NoPuedoDropear;
     public bool TESTMATAR;
     public float Vida;
     public string Elemento;
     private bool YaDropie = false;
-
+    public bool Inmortal;
     ControlarPuertasYJefes controlarPuertasYJefes;
     public PropiedadesItem[] items;
     void Start()
@@ -20,12 +21,12 @@ public class LifeManager : MonoBehaviour
             items[i].SpawnRate += items[i - 1].SpawnRate;
         }
 
-        if(gameObject.name == "Jefe fuego")
+        if (gameObject.name == "Jefe fuego")
         {
             controlarPuertasYJefes = FindObjectOfType<ControlarPuertasYJefes>();
             controlarPuertasYJefes.OcultarTodasLasPuertas();
 
-            if(ControlarPuertasYJefes.JefeDeFuegoMuerto == true)
+            if (ControlarPuertasYJefes.JefeDeFuegoMuerto == true)
             {
                 Destroy(gameObject);
                 controlarPuertasYJefes.ReaparecerPuertas();
@@ -58,104 +59,106 @@ public class LifeManager : MonoBehaviour
     }
     public void RecibirDamage()
     {
-
-        EstadisticasDePersonaje Stats = GameObject.Find("Jugador").GetComponent<EstadisticasDePersonaje>();
-
-        // Tenes que checkear las ventajas o debilidades manualmente, para eso revisas si tiene algun tipo de damage de ese
-        //elemento y si es asi lo aplicas
-
-        //Haces un switch para ir de una a tu elemento asi no laguea y despues te sacas vida en base a los damages que tenes
-        // y las ventajas o desventajas se aplican distinto dependiendo tu elemento
-        Vida -= Stats.DañoDePersonajeNormal;
-        switch (Elemento)
+        if (!Inmortal)
         {
+            EstadisticasDePersonaje Stats = GameObject.Find("Jugador").GetComponent<EstadisticasDePersonaje>();
 
-            case "Fuego":
+            // Tenes que checkear las ventajas o debilidades manualmente, para eso revisas si tiene algun tipo de damage de ese
+            //elemento y si es asi lo aplicas
 
-                if (Stats.DañoElementalAgua > Mathf.Epsilon)
-                {
-                    Ventaja(Stats.DañoElementalAgua);
-                }
-                if (Stats.DañoElementalAire > Mathf.Epsilon)
-                {
-                    Desventaja(Stats.DañoElementalAire);
-                }
-                if (Stats.DañoElementalTierra > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalTierra;
-                }
+            //Haces un switch para ir de una a tu elemento asi no laguea y despues te sacas vida en base a los damages que tenes
+            // y las ventajas o desventajas se aplican distinto dependiendo tu elemento
+            Vida -= Stats.DañoDePersonajeNormal;
+            switch (Elemento)
+            {
 
-                if (Stats.DañoElementalFuego > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalFuego;
-                }
-                break;
+                case "Fuego":
 
-            case "Viento":
-                if (Stats.DañoElementalAgua > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalAgua;
-                }
-                if (Stats.DañoElementalAire > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalAire;
-                }
-                if (Stats.DañoElementalTierra > Mathf.Epsilon)
-                {
-                    Desventaja(Stats.DañoElementalTierra);
-                }
+                    if (Stats.DañoElementalAgua > Mathf.Epsilon)
+                    {
+                        Ventaja(Stats.DañoElementalAgua);
+                    }
+                    if (Stats.DañoElementalAire > Mathf.Epsilon)
+                    {
+                        Desventaja(Stats.DañoElementalAire);
+                    }
+                    if (Stats.DañoElementalTierra > Mathf.Epsilon)
+                    {
+                        Vida -= Stats.DañoElementalTierra;
+                    }
 
-                if (Stats.DañoElementalFuego > Mathf.Epsilon)
-                {
-                    Ventaja(Stats.DañoElementalFuego);
-                }
-                break;
+                    if (Stats.DañoElementalFuego > Mathf.Epsilon)
+                    {
+                        Vida -= Stats.DañoElementalFuego;
+                    }
+                    break;
 
-            case "Agua":
-                if (Stats.DañoElementalAgua > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalAgua;
-                }
-                if (Stats.DañoElementalAire > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalAire;
-                }
-                if (Stats.DañoElementalTierra > Mathf.Epsilon)
-                {
-                    Ventaja(Stats.DañoElementalTierra);
-                }
-                if (Stats.DañoElementalFuego > Mathf.Epsilon)
-                {
-                    Desventaja(Stats.DañoElementalFuego);
-                }
-                break;
+                case "Viento":
+                    if (Stats.DañoElementalAgua > Mathf.Epsilon)
+                    {
+                        Vida -= Stats.DañoElementalAgua;
+                    }
+                    if (Stats.DañoElementalAire > Mathf.Epsilon)
+                    {
+                        Vida -= Stats.DañoElementalAire;
+                    }
+                    if (Stats.DañoElementalTierra > Mathf.Epsilon)
+                    {
+                        Desventaja(Stats.DañoElementalTierra);
+                    }
 
-            case "Tierra":
-                if (Stats.DañoElementalAgua > Mathf.Epsilon)
-                {
-                    Desventaja(Stats.DañoElementalAgua);
-                }
-                if (Stats.DañoElementalAire > Mathf.Epsilon)
-                {
-                    Ventaja(Stats.DañoElementalAire);
-                }
-                if (Stats.DañoElementalTierra > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalTierra;
-                }
-                if (Stats.DañoElementalFuego > Mathf.Epsilon)
-                {
-                    Vida -= Stats.DañoElementalFuego;
-                }
-                break;
-            case "Test":
-                print(Vida);
-                break;
+                    if (Stats.DañoElementalFuego > Mathf.Epsilon)
+                    {
+                        Ventaja(Stats.DañoElementalFuego);
+                    }
+                    break;
 
+                case "Agua":
+                    if (Stats.DañoElementalAgua > Mathf.Epsilon)
+                    {
+                        Vida -= Stats.DañoElementalAgua;
+                    }
+                    if (Stats.DañoElementalAire > Mathf.Epsilon)
+                    {
+                        Vida -= Stats.DañoElementalAire;
+                    }
+                    if (Stats.DañoElementalTierra > Mathf.Epsilon)
+                    {
+                        Ventaja(Stats.DañoElementalTierra);
+                    }
+                    if (Stats.DañoElementalFuego > Mathf.Epsilon)
+                    {
+                        Desventaja(Stats.DañoElementalFuego);
+                    }
+                    break;
+
+                case "Tierra":
+                    if (Stats.DañoElementalAgua > Mathf.Epsilon)
+                    {
+                        Desventaja(Stats.DañoElementalAgua);
+                    }
+                    if (Stats.DañoElementalAire > Mathf.Epsilon)
+                    {
+                        Ventaja(Stats.DañoElementalAire);
+                    }
+                    if (Stats.DañoElementalTierra > Mathf.Epsilon)
+                    {
+                        Vida -= Stats.DañoElementalTierra;
+                    }
+                    if (Stats.DañoElementalFuego > Mathf.Epsilon)
+                    {
+                        Vida -= Stats.DañoElementalFuego;
+                    }
+                    break;
+                case "Test":
+                    print(Vida);
+                    break;
+
+            }
+            //        print("Yo: " + gameObject.name + " Y mi vida es de: " + Vida);
+            Mori();
         }
-        //        print("Yo: " + gameObject.name + " Y mi vida es de: " + Vida);
-        Mori();
-
+        
 
     }
     private void Mori()
@@ -163,7 +166,7 @@ public class LifeManager : MonoBehaviour
         if (Vida < Mathf.Epsilon)
         {
             int numero = Random.Range(0, 100);
-            if (gameObject.name != "Jefe fuego")
+            if ((gameObject.name != "Jefe fuego" && gameObject.name != "Jefe Tierra") && !NoPuedoDropear)
             {
                 for (int i = 0; i < items.Length; i++)
                 {
@@ -172,7 +175,7 @@ public class LifeManager : MonoBehaviour
                         print("Spawneo al item: " + items[i].Item + " Con un random de: + " + numero + " < " + items[i].SpawnRate);
                         if (items[i].Item != null && !YaDropie)
                         {
-                            Vector3 Pos = new Vector3(transform.position.x , transform.position.y + 2.4f , transform.position.z);
+                            Vector3 Pos = new Vector3(transform.position.x, transform.position.y + 2.4f, transform.position.z);
                             Instantiate(items[i].Item, Pos, Quaternion.identity);
                             YaDropie = true;
                             Destroy(gameObject);
@@ -194,8 +197,15 @@ public class LifeManager : MonoBehaviour
 
                 controlarPuertasYJefes.ReaparecerPuertas();
 
-                
+
                 this.enabled = false;
+            }
+            else if(gameObject.name == "Jefe Tierra")
+            {
+                JefeRoca c = FindObjectOfType<JefeRoca>();
+                c.anim.SetBool("Morir",true);
+                c.Deshabilitar();
+                c.enabled = false;
             }
             else
             {

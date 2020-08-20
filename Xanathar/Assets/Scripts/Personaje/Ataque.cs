@@ -142,6 +142,14 @@ public class Ataque : MonoBehaviour
                 JefeFuego.RecibirDamage();
                 print("XD");
             }
+            else if(a.tag == "JefeRoca")
+            {
+                GameObject f = Instantiate(AtaqueParticula, a.ClosestPoint(transform.position), Quaternion.identity);
+                Destroy(f, 1);
+                LifeManager c = FindObjectOfType<JefeRoca>().GetComponent<LifeManager>();
+                c.RecibirDamage();
+            }
+            
         }
 
     }

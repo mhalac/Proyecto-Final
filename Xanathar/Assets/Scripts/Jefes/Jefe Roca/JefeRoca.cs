@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class JefeRoca : MonoBehaviour
 {
+    public GameObject ShieldHitBox;
+    public GameObject Shield;
     private VibracionCamara camara;
     public float TiempoEntreRondas;
     public bool SpawnieTodos;
     public Transform[] PuntosSpawnEnemigos;
     public Rounds[] rondas;
-    private Animator anim;
+    public float FuerzaKnockback;
+    public Animator anim;
     private bool Empezar = false;
     private GameObject Personaje;
     public List<GameObject> EnemigosInstanciados = new List<GameObject>();
@@ -23,13 +26,23 @@ public class JefeRoca : MonoBehaviour
         Invoke("Iniciar", 3f);
         anim = GetComponent<Animator>();
         camara = FindObjectOfType<VibracionCamara>();
+        LifeManager c = GetComponent<LifeManager>();
+        c.Inmortal = true;
     }
-   
+
+    public void Deshabilitar()
+    {
+        Shield.SetActive(false);
+        ShieldHitBox.SetActive(false);
+    }
     public void TerminoDeGolpearPiso()
     {
         anim.SetBool("Atacando", false);
-
-        camara.StartCoroutine(camara.Shake(.15f, .4f));
+        LifeManager c = GetComponent<LifeManager>();
+        c.Inmortal = true;
+        ShieldHitBox.SetActive(true);
+        Shield.SetActive(true);
+        camara.StartCoroutine(camara.Shake(.25f, .4f));
 
         if (IndiceRonda < rondas.Length - 1)
             IndiceRonda++;
@@ -60,6 +73,9 @@ public class JefeRoca : MonoBehaviour
                     int Pos = Random.Range(0, PuntosSpawnEnemigos.Length);
                     GameObject c = Instantiate(rondas[IndiceRonda].prefab, PuntosSpawnEnemigos[Pos].position, Quaternion.identity);
                     EnemigosInstanciados.Add(c);
+                    c.GetComponent<LifeManager>().NoPuedoDropear = true;
+                    c.GetComponent<LifeManager>().Vida /= 2;
+
                 }
                 SpawnieTodos = true;
             }
@@ -73,7 +89,10 @@ public class JefeRoca : MonoBehaviour
             }
             else if (!IsInvoking("PasarDeRonda") && !anim.GetBool("Atacando"))
             {
-
+                Shield.SetActive(false);
+                ShieldHitBox.SetActive(false);
+                LifeManager c = GetComponent<LifeManager>();
+                c.Inmortal = false;
                 Invoke("PasarDeRonda", TiempoEntreRondas);
 
             }

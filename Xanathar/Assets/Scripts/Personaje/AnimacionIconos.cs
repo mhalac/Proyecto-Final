@@ -35,7 +35,7 @@ public class AnimacionIconos : MonoBehaviour {
 		{
 			yield return new WaitForEndOfFrame();
 			ImagenDeActiva.fillAmount += (1 / CoolDownHabilidad * Time.deltaTime);
-			Debug.Log(ImagenDeActiva.fillAmount);
+			//Debug.Log(ImagenDeActiva.fillAmount);
 
 			if(ImagenDeActiva.fillAmount >= 1)
 			{

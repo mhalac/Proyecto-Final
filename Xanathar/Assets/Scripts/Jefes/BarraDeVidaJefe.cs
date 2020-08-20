@@ -16,8 +16,8 @@ public class BarraDeVidaJefe : MonoBehaviour
     {
         if (GameObject.FindGameObjectWithTag("JefeFuego") != null)
             return FindObjectOfType<LifeManager>().Vida;
-        else if (GameObject.FindGameObjectWithTag("JefeRoca") != null)
-            return GameObject.FindGameObjectWithTag("JefeRoca").GetComponent<LifeManager>().Vida;
+        else if (GameObject.Find("Jefe Tierra") != null)
+            return GameObject.Find("Jefe Tierra").GetComponent<LifeManager>().Vida ;
         else
             Debug.LogError("FALTA ASIGNAR TAG DEL JEFE");
 
