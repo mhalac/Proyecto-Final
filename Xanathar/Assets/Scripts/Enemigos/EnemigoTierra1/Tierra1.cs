@@ -32,7 +32,7 @@ public class Tierra1 : MonoBehaviour {
 
 
 	public float Damage;
-	public float Vida;
+	
 	// Use this for initialization
 	void Start ()
 	{
@@ -175,14 +175,6 @@ public class Tierra1 : MonoBehaviour {
 			EstadoActual = Estados[1];
 			Agente.isStopped = false;
 			Acercar();
-		}
-	}
-
-	private void Mori()
-	{
-		if(Vida < Mathf.Epsilon)
-		{
-			Destroy(gameObject);
 		}
 	}
 
