@@ -71,7 +71,7 @@ public class Fuego3 : MonoBehaviour
         DelayTeleportInicial = DelayTeleport;
         TermineDeAparecer = true;
         PuedoRestar = true;
-        anim.speed = 4;
+        //anim.speed = 4;
 
     }
 
@@ -121,7 +121,7 @@ public class Fuego3 : MonoBehaviour
         float RandomX = Random.Range(posicionSpawn.x - AreaIdle, AreaIdle + posicionSpawn.x);
         float RandomZ = Random.Range(posicionSpawn.z - AreaIdle, AreaIdle + posicionSpawn.z);
         bool EstaOcupado = false;
-        Vector3 Rpos = new Vector3(RandomX, personaje.transform.position.y + .5f, RandomZ);
+        Vector3 Rpos = new Vector3(RandomX, personaje.transform.position.y + .2f, RandomZ);
         Collider[] Obj = Physics.OverlapSphere(Rpos, .5f);
         foreach (Collider o in Obj)
         {
@@ -133,7 +133,7 @@ public class Fuego3 : MonoBehaviour
         if (!EstaOcupado)
         {
 
-            anim.speed = 5;
+            //anim.speed = 5;
             StartCoroutine(IdleTeleport(Rpos));
 
 
@@ -163,7 +163,7 @@ public class Fuego3 : MonoBehaviour
             float RandomZ = Random.Range(personaje.transform.position.z - radioDisparar, radioDisparar + personaje.transform.position.z);
             bool EstaOcupado = false;
             Vector3 Rpos = new Vector3(RandomX, personaje.transform.position.y, RandomZ);
-            Collider[] Obj = Physics.OverlapSphere(Rpos, 1.3f);
+            Collider[] Obj = Physics.OverlapSphere(Rpos, 0.3f);
             var direccion = (personaje.transform.position - Rpos).normalized;
             if (Physics.Raycast(Rpos, direccion, out hit, radioDisparar))
             {
@@ -279,7 +279,7 @@ public class Fuego3 : MonoBehaviour
     {
         PuedoRestar = true;
         anim.SetBool("Atacando", false);
-        anim.speed = 5;
+        //anim.speed = 5;
     }
 
     private void Disparar()
@@ -328,7 +328,7 @@ public class Fuego3 : MonoBehaviour
     IEnumerator ReproducirAnimacionDeTp()
     {
         anim.SetBool("Tepeo", true);
-        anim.speed = 5;
+        //anim.speed = 5;
         while (!TerminoAnimacion)
         {
             yield return null;

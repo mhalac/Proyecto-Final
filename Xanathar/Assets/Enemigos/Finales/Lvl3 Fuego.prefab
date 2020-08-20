@@ -623,7 +623,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943423416488760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -61.523346, y: 3.461605, z: -14.454239}
+  m_LocalPosition: {x: 94.86, y: 54.77, z: 53.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4751885488176682}
@@ -1547,9 +1547,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dab7ecc63d7b7f42a1ca4b2ef4e2432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoPuedoDropear: 0
   TESTMATAR: 0
-  Vida: 2
+  Vida: 8
   Elemento: Fuego
+  Inmortal: 0
   items:
   - Item: {fileID: 1464367109204864, guid: f8c9cfd5690f2ef46aa7c0c7c0c97fb1, type: 2}
     SpawnRate: 20
@@ -1579,7 +1581,7 @@ MonoBehaviour:
   DelayTeleport: 3
   AreaIdle: 6
   NombreHijo: eje
-  Damage: 15
+  Damage: 14
   rotacion: 30
   radioDisparar: 11
   BalaVelocidad: 35
