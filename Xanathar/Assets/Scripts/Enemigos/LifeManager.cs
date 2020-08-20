@@ -158,7 +158,7 @@ public class LifeManager : MonoBehaviour
             //        print("Yo: " + gameObject.name + " Y mi vida es de: " + Vida);
             Mori();
         }
-        
+
 
     }
     private void Mori()
@@ -190,20 +190,22 @@ public class LifeManager : MonoBehaviour
             if (gameObject.name == "Jefe fuego")
             {
                 Animator c = GetComponentInChildren<Animator>();
-                c.SetBool("Morir", true);
 
                 ControlarPuertasYJefes.JefeDeFuegoMuerto = true;
                 ControlarPuertasYJefes.JefeEliminado = true;
 
                 controlarPuertasYJefes.ReaparecerPuertas();
 
+                FuegoJefe d = FindObjectOfType<FuegoJefe>();
+                d.enabled = false;
+                c.SetBool("Morir", true);
 
-                this.enabled = false;
+                enabled = false;
             }
-            else if(gameObject.name == "Jefe Tierra")
+            else if (gameObject.name == "Jefe Tierra")
             {
                 JefeRoca c = FindObjectOfType<JefeRoca>();
-                c.anim.SetBool("Morir",true);
+                c.anim.SetBool("Morir", true);
                 c.Deshabilitar();
                 c.enabled = false;
             }

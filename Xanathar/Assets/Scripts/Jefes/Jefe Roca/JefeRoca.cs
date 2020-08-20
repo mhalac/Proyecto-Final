@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class JefeRoca : MonoBehaviour
 {
+    public BarraDeVidaJefe barra;
+
     public GameObject ShieldHitBox;
     public GameObject Shield;
     private VibracionCamara camara;
@@ -22,6 +24,8 @@ public class JefeRoca : MonoBehaviour
     void Start()
     {
         //transform.position = new Vector3(transform.position.x,transform.position.y - 0.7f,transform.position.z);
+        barra = FindObjectOfType<BarraDeVidaJefe>();
+        barra.ValorDeVidaMaxima = GetComponent<LifeManager>().Vida;
         Personaje = GameObject.FindGameObjectWithTag("Personaje");
         Invoke("Iniciar", 3f);
         anim = GetComponent<Animator>();
@@ -64,6 +68,8 @@ public class JefeRoca : MonoBehaviour
 
     void Update()
     {
+        barra.ValorDeVidaActual = GetComponent<LifeManager>().Vida;
+
         if (Empezar)
         {
             if (!SpawnieTodos)

@@ -14,21 +14,21 @@ public class BarraDeVidaJefe : MonoBehaviour
     // Use this for initialization
     float BuscarBarra()
     {
-        if (GameObject.FindGameObjectWithTag("JefeFuego") != null)
-            return FindObjectOfType<LifeManager>().Vida;
-        else if (GameObject.Find("Jefe Tierra") != null)
+        //f (GameObject.FindGameObjectWithTag("JefeFuego") != null)
+            //return FindObjectOfType<LifeManager>().Vida;
+        //e/]\lse if (GameObject.Find("Jefe Tierra") != null)
             return GameObject.Find("Jefe Tierra").GetComponent<LifeManager>().Vida ;
-        else
-            Debug.LogError("FALTA ASIGNAR TAG DEL JEFE");
+        //else
+            //Debug.LogError("FALTA ASIGNAR TAG DEL JEFE");
 
-        return 0;
+       // return 0;
 
     }
     void Start()
     {
         //Igualas la vida maxzima a la vida actual
         //ValorDeVidaMaxima = BuscarBarra();
-        ValorDeVidaMaxima = 20;
+        //ValorDeVidaMaxima = 20;
     }
 
     // Update is called once per frame

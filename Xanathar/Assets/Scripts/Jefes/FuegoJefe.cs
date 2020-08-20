@@ -13,7 +13,7 @@ public class FuegoJefe : MonoBehaviour
     public float DamageTrompada;
     public float FuerzaKnockback;
     public Transform SaltoMamado;
-
+    public BarraDeVidaJefe barra;
     public Vector3 AreaCaida;
     public GameObject Arma;
     public string Estado;
@@ -52,12 +52,15 @@ public class FuegoJefe : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         StartCoroutine(EsperarInicio());
         Vibrar = FindObjectOfType<VibracionCamara>();
+        barra = FindObjectOfType<BarraDeVidaJefe>();
+        barra.ValorDeVidaMaxima = GetComponent<LifeManager>().Vida;
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        barra.ValorDeVidaActual = GetComponent<LifeManager>().Vida;
 
         Distancia = Vector3.Distance(transform.position, Personaje.transform.position);
         if (Estado == States.Atacando.ToString() && Distancia < 7.449858f)
@@ -140,7 +143,7 @@ public class FuegoJefe : MonoBehaviour
                 encontro = true;
             }
         }
-        
+
         Vibrar.StartCoroutine(Vibrar.Shake(.15f, .4f));
 
         if (Distancia < 7.449858f)
@@ -208,10 +211,10 @@ public class FuegoJefe : MonoBehaviour
     public void DropearItems()
     {
         int i = 0;
-        foreach(GameObject c in ItemsActivos)
+        foreach (GameObject c in ItemsActivos)
         {
-            Vector3 pos = new Vector3(transform.position.x,transform.position.y + 2,transform.position.z + i);
-            Instantiate(c,pos,Quaternion.identity);
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z + i);
+            Instantiate(c, pos, Quaternion.identity);
             i = 5;
         }
     }
