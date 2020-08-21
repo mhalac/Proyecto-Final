@@ -24,6 +24,7 @@ public class AnimatorDerecha : MonoBehaviour
     }
     public void TerminoDeAplastar()
     {
+        Jefe.AnimatorDerecha.SetBool("Aplastar",false);
         Jefe.EstaAplastando = false;
 
     }

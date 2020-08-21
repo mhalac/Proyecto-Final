@@ -33,7 +33,10 @@ public class AnimatorIzquierda : MonoBehaviour
     private void ResetEmpujar()
     {
         Jefe.AnimatorIzquierda.SetBool("Empujar", false);
+        Jefe.AnimatorDerecha.SetBool("Aplastar", false);
+
         Jefe.AnimatorDerecha.SetBool("Levantate", false);
+
     }
     public void TerminoAnimacionReset()
     {

@@ -72,15 +72,16 @@ public class JefeViento : MonoBehaviour
 
         //print(Vector3.Distance(ManoDerecha.transform.position, pos));
 
-        if (Vector3.Distance(AmbasManos.transform.position, pos) < 2f && !EstaAplastando)
+        if ((Vector3.Distance(AmbasManos.transform.position, pos) < 2f && !EstaAplastando && !AnimatorDerecha.GetBool("Aplastar")))
         {
             AnimatorDerecha.SetBool("Aplastar", true);
+            print("a");
         }
         else if (!EstaAplastando)
         {
             AnimatorDerecha.SetBool("Aplastar", false);
             AmbasManos.transform.position = Vector3.MoveTowards(AmbasManos.transform.position, pos, VelocidadDerecha * Time.deltaTime);
-
+            print("b");
         }
 
     }
