@@ -176,24 +176,6 @@ public class Tierra1 : MonoBehaviour {
 		}
 	}
 
-	/*
-	IEnumerator Parar()
-	{
-		CorrutinaEjecutada = true;
-		Animador.enabled = false;
-
-		Agente.destination = Vector3.zero;
-
-		yield return new WaitForSeconds(2f);
-		
-		EstadoActual = Estados[0];
-
-		CorrutinaEjecutada = false;
-		Animador.enabled = true;
-		Agente.speed = 9;
-	}
-	*/
-
 	void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.blue;
