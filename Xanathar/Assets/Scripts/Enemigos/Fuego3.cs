@@ -218,7 +218,7 @@ public class Fuego3 : MonoBehaviour
     IEnumerator IdleTeleport(Vector3 RPos)
     {
         anim.SetBool("Tepeo", true);
-
+        
         while (!TerminoAnimacion)
         {
             yield return null;
@@ -343,7 +343,7 @@ public class Fuego3 : MonoBehaviour
 
     IEnumerator Disparo()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.9f);
         StartCoroutine(ReproducirAnimacionDeTp());
     }
     private void Mori()
