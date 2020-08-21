@@ -2015,16 +2015,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dab7ecc63d7b7f42a1ca4b2ef4e2432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoPuedoDropear: 0
   TESTMATAR: 0
   Vida: 8
   Elemento: Fuego
+  Inmortal: 0
   items:
   - Item: {fileID: 1464367109204864, guid: f8c9cfd5690f2ef46aa7c0c7c0c97fb1, type: 2}
-    SpawnRate: 15
+    SpawnRate: 20
   - Item: {fileID: 1318464288006614, guid: b68b9b05f25c6f7469da788b8b96a3fc, type: 2}
     SpawnRate: 20
   - Item: {fileID: 0}
-    SpawnRate: 65
+    SpawnRate: 60
 --- !u!135 &135884519852546640
 SphereCollider:
   m_ObjectHideFlags: 1

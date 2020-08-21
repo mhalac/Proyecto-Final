@@ -5,13 +5,18 @@ using UnityEngine;
 public class JefeViento : MonoBehaviour
 {
 
+    public bool EstaAplastando;
     public GameObject Jugador;
     public GameObject AmbasManos;
     public GameObject ManoDerecha;
     public float VelocidadDerecha;
     public Animator AnimatorDerecha;
-    public Transform OjoDerecho;
+
+    [Header("ManoIZQ")]
     public GameObject ManoIzquierda;
+    public Animator AnimatorIzquierda;
+    public bool EstaEmpujando;
+
     //private Animator AnimDerecha;
     private Ray DispararArriba;
     public Estados estado;
@@ -26,9 +31,9 @@ public class JefeViento : MonoBehaviour
     void Start()
     {
         Jugador = GameObject.FindGameObjectWithTag("Personaje");
-        estado = Estados.Fase1;
+        //estado = Estados.Fase1;
         // AnimatorDerecha = GameObject.Find("Manos").GetComponent<Animator>();
-        AnimatorDerecha = GetComponent<Animator>();
+        // AnimatorDerecha = GetComponent<Animator>();
     }
 
 
@@ -61,23 +66,49 @@ public class JefeViento : MonoBehaviour
     }
     private void Fase1()
     {
-        DispararArriba = new Ray(Jugador.transform.position, transform.up);
+        Vector3 PosicionRayo = new Vector3(Jugador.transform.position.x, Jugador.transform.position.y, Jugador.transform.position.z + 4);
+        DispararArriba = new Ray(PosicionRayo, transform.up);
         Vector3 pos = DispararArriba.GetPoint(10);
-        ManoDerecha.transform.position = Vector3.MoveTowards(ManoDerecha.transform.position, pos, VelocidadDerecha * Time.deltaTime);
+
         //print(Vector3.Distance(ManoDerecha.transform.position, pos));
 
-        if (Vector3.Distance(ManoDerecha.transform.position, pos) < 4f)
+        if ((Vector3.Distance(AmbasManos.transform.position, pos) < 2f && !EstaAplastando && !AnimatorDerecha.GetBool("Aplastar")))
         {
             AnimatorDerecha.SetBool("Aplastar", true);
+            print("a");
+        }
+        else if (!EstaAplastando)
+        {
+            AnimatorDerecha.SetBool("Aplastar", false);
+            AmbasManos.transform.position = Vector3.MoveTowards(AmbasManos.transform.position, pos, VelocidadDerecha * Time.deltaTime);
+            print("b");
         }
 
     }
     private void Fase2()
     {
+        Vector3 PosicionRayo = new Vector3(Jugador.transform.position.x - 2, Jugador.transform.position.y + 3.2f, Jugador.transform.position.z);
+        DispararArriba = new Ray(PosicionRayo, transform.forward * -1);
+        Vector3 pos = DispararArriba.GetPoint(10);
+        Debug.DrawRay(DispararArriba.origin, DispararArriba.direction * 99);
+        if (Vector3.Distance(AmbasManos.transform.position, pos) < 1f && !EstaEmpujando)
+        {
+            AnimatorIzquierda.SetBool("Empujar", true);
+            AnimatorDerecha.SetBool("Levantate",true);
+        }
+        else if(!EstaEmpujando)
+        {
+            AmbasManos.transform.position = Vector3.MoveTowards(AmbasManos.transform.position, pos, VelocidadDerecha * Time.deltaTime);
 
+        }
     }
     private void Fase3()
     {
 
     }
+
+    //VARIABLES ANIMATOR
+
+
+
 }
