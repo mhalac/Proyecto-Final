@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class Tierra2 : MonoBehaviour {
 
 	private RaycastHit Hit;
-	private Transform UltimaPosicion;
 
 	[Header("Transforms Seleccionables")]
 	public Transform Heredar;
@@ -34,6 +33,10 @@ public class Tierra2 : MonoBehaviour {
 	private int EMask;
 
 	public int EstadoAtaque;
+	public Tierra2Anim Tierra2Anim;
+
+	public bool PermitirAtaque = false;
+	public bool Activar = false;
 
 	// Use this for initialization
 	void Start ()
@@ -49,35 +52,53 @@ public class Tierra2 : MonoBehaviour {
 		GarraDerecha.enabled = false;
 
 		Animador.SetBool("Corriendo" , false);
+		Animador.SetBool("Idle" , true);
 		EstadoAtaque = 0;
+
+		Tierra2Anim = FindObjectOfType<Tierra2Anim>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		
-		if(Agente.remainingDistance < Mathf.Epsilon && EstadoActual == Estados[1])
+		if(EstadoActual == Estados[0] && Agente.remainingDistance < Mathf.Epsilon)
 		{
 			Debug.Log("Llegue");
-			EstadoActual = Estados[0];
+			Animador.SetBool("Idle" , true);
 			Animador.SetBool("Corriendo" , false);
 		}
-		
-		if(BuscarPersonaje() && PuedoVer() && EstadoActual!= Estados[2])
+
+		if(BuscarPersonaje() && PuedoVer() && PermitirAtaque == false)
 		{
 			EstadoActual = Estados[2];
+			Animador.SetBool("AtaqueIzquierda" , false);
 		}
 
-		if(EstadoActual == Estados[2])
+		if(EstadoActual == Estados[2] && PermitirAtaque == false)
 		{
-			Acercar();
+			Agente.destination = Personaje.transform.position;
+			Animador.SetBool("Idle" , false);
 			Animador.SetBool("Corriendo" , true);
+			DetectarAtaque();
+		}
+	
+		if(EstadoActual == Estados[3])
+		{
+			Agente.destination = Personaje.transform.position;
+
+			if(PermitirAtaque == false && Activar == false)
+			{
+				Activar = true;
+				Animador.SetBool("Corriendo" , false);
+				Animador.SetBool("AtaqueIzquierda" , true);
+				Debug.Log("Esto se ejecuta mcho");
+			}
 		}
 	}
 
 	public void IrAPosRandom()
 	{
-		EstadoActual = Estados[1];
+		EstadoActual = Estados[0];
 		if(Agente.remainingDistance > Mathf.Epsilon)
 		{
 			Agente.destination = Destino;
@@ -124,27 +145,17 @@ public class Tierra2 : MonoBehaviour {
 		return false;
 	}
 
-	public void Acercar()
+	public void DetectarAtaque()
 	{
-		Agente.destination = Personaje.transform.position;
-		EstadoActual = Estados[2];
-		StartCoroutine(GirarAlPersonaje());
-	}
+		Collider [] Obj = Physics.OverlapBox(AreaAtaque.position , new Vector3(rangoAtaque, rangoAtaque, rangoAtaque));
 
-	public void Atacar()
-	{
-		/*
-		Collider [] Obj = Physics.OverlapBox(Heredar.position , new Vector3(rangoAtaque , rangoAtaque , rangoAtaque));
-
-		for(int i = 0; i < Obj.Length; i++)
+		for(int  i = 0; i < Obj.Length; i++)
 		{
 			if(Obj[i].gameObject.layer == PMask)
 			{
 				EstadoActual = Estados[3];
-				Debug.Log("Atacar");
 			}
 		}
-		*/
 	}
 
 	void OnDrawGizmosSelected()
@@ -164,15 +175,16 @@ public class Tierra2 : MonoBehaviour {
 		Gizmos.DrawSphere(Destino ,0.5f);
 	}
 
-
-
-	IEnumerator GirarAlPersonaje()
+	void OnTriggerEnter(Collider c)
 	{
-		Vector3 Dir = Personaje.transform.position - transform.position;
-		Dir.y = 0;
-		Quaternion Rot = Quaternion.LookRotation(Dir);
+		//Detecta Colisiones
+		//Los collider empiezan desactivados
+	}
 
-		transform.rotation = Quaternion.Lerp(transform.rotation , Rot , 4 * Time.deltaTime);
-		yield return new WaitForEndOfFrame();
+	public IEnumerator EsperarMedioSegundo()
+	{
+		yield return new WaitForSeconds(0.1f);
+		Animador.SetBool("AtaqueIzquierda" , false);
+		Activar = false;
 	}
 }
