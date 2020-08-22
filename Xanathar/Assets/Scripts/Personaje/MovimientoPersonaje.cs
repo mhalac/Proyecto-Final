@@ -7,7 +7,9 @@ public class MovimientoPersonaje : MonoBehaviour
 {
 
     //Script para el movimiento del personaje
-
+    public bool PuedoCorrer = true;
+    public bool AfectadoSlowCercano;
+    public bool AfectadoSlowLejano;
     //El controlador de personaje
     public CharacterController Controlador;
 
@@ -72,6 +74,7 @@ public class MovimientoPersonaje : MonoBehaviour
 			ListaDePosicionesAnteriores[i] = Vector3.zero;
 		}
 		*/
+        PuedoCorrer = true;
         Corriendo = false;
 
         VaribaleInmortal = FindObjectOfType<EstadisticasDePersonaje>();
@@ -168,7 +171,7 @@ public class MovimientoPersonaje : MonoBehaviour
             EstaQuieto = true;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && EstaQuieto == false && Corriendo == false)
+        if (Input.GetKey(KeyCode.LeftShift) && EstaQuieto == false && Corriendo == false && PuedoCorrer)
         {
             Ataque c = FindObjectOfType<Ataque>();
             if (!c.anim.GetBool("atacando"))
@@ -179,7 +182,7 @@ public class MovimientoPersonaje : MonoBehaviour
             }
 
         }
-        else if (!Input.GetKey(KeyCode.LeftShift) && Corriendo == true || !Input.GetKey(KeyCode.W) && Corriendo == true)
+        else if (!Input.GetKey(KeyCode.LeftShift) && Corriendo == true || !Input.GetKey(KeyCode.W) && Corriendo == true || !PuedoCorrer && Corriendo)
         {
             Corriendo = false;
             Debug.Log("PARO DE CORRER");

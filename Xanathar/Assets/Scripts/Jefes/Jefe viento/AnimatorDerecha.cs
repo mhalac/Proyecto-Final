@@ -17,6 +17,18 @@ public class AnimatorDerecha : MonoBehaviour
     {
 
     }
+    public void TerminoTornados()
+    {
+        Jefe.TermineAnimTornados();
+    }
+    public void EmpiezoACastearTornados()
+    {
+        Jefe.ApareciendoTornados = true;
+    }
+    public void CasteoTornado()
+    {
+        Jefe.SpawnearTornados();
+    }
 
     public void EmpezoAAplastar()
     {
