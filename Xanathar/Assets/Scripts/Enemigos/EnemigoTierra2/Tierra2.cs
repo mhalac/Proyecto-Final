@@ -71,7 +71,6 @@ public class Tierra2 : MonoBehaviour {
 		if(BuscarPersonaje() && PuedoVer() && PermitirAtaque == false)
 		{
 			EstadoActual = Estados[2];
-			Animador.SetBool("AtaqueIzquierda" , false);
 		}
 
 		if(EstadoActual == Estados[2] && PermitirAtaque == false)
@@ -86,12 +85,18 @@ public class Tierra2 : MonoBehaviour {
 		{
 			Agente.destination = Personaje.transform.position;
 
-			if(PermitirAtaque == false && Activar == false)
+			if(PermitirAtaque == false)
 			{
-				Activar = true;
-				Animador.SetBool("Corriendo" , false);
-				Animador.SetBool("AtaqueIzquierda" , true);
-				Debug.Log("Esto se ejecuta mcho");
+				if(EstadoAtaque == 0)
+				{
+					Animador.SetBool("Corriendo" , false);
+					Animador.SetBool("AtaqueIzquierda" , true);
+				}
+				else
+				{
+					Animador.SetBool("Corriendo" , false);
+					Animador.SetBool("AtaqueDerecha" , true);
+				}
 			}
 		}
 	}
@@ -179,12 +184,5 @@ public class Tierra2 : MonoBehaviour {
 	{
 		//Detecta Colisiones
 		//Los collider empiezan desactivados
-	}
-
-	public IEnumerator EsperarMedioSegundo()
-	{
-		yield return new WaitForSeconds(0.1f);
-		Animador.SetBool("AtaqueIzquierda" , false);
-		Activar = false;
 	}
 }

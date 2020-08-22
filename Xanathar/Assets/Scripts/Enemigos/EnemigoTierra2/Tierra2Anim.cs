@@ -41,29 +41,22 @@ public class Tierra2Anim : MonoBehaviour {
 	public void DesactivarGarraDerecha()
 	{
 		Padre.GarraDerecha.enabled = false;
-		
-		Padre.Animador.SetBool("AtaqueDerecha" , false);
 
-		//Padre.EstadoAtaque = 0;
-
-		//Padre.EstadoActual = Padre.Estados[2];
-
+		Padre.EstadoAtaque = 0;
 		Padre.PermitirAtaque = false;
+
+		Padre.Animador.SetBool("AtaqueDerecha" , false);
+		Padre.Animador.SetBool("Corriendo" , true);
 	}
 
 	public void DesactivarGarraIzquierda()
 	{
 		Padre.GarraIzquierda.enabled = false;
 
-		//Padre.EstadoAtaque += 1;
-
-		//Padre.EstadoActual = Padre.Estados[2];
-
+		Padre.EstadoAtaque += 1;
 		Padre.PermitirAtaque = false;
 
 		Padre.Animador.SetBool("AtaqueIzquierda" , false);
 		Padre.Animador.SetBool("Corriendo" , true);
-
-		StartCoroutine(Padre.EsperarMedioSegundo());
 	}
 }
