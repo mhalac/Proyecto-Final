@@ -177,7 +177,7 @@ public class MovimientoPersonaje : MonoBehaviour
             if (!c.anim.GetBool("atacando"))
             {
                 Corriendo = true;
-                Debug.Log("Esta CORRIENDO");
+                //                Debug.Log("Esta CORRIENDO");
                 Stats.VelocidadDeMovimiento += 6;
             }
 
@@ -185,7 +185,7 @@ public class MovimientoPersonaje : MonoBehaviour
         else if (!Input.GetKey(KeyCode.LeftShift) && Corriendo == true || !Input.GetKey(KeyCode.W) && Corriendo == true || !PuedoCorrer && Corriendo)
         {
             Corriendo = false;
-            Debug.Log("PARO DE CORRER");
+            //Debug.Log("PARO DE CORRER");
             Stats.VelocidadDeMovimiento -= 6;
         }
     }

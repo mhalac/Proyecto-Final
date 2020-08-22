@@ -27,7 +27,7 @@ public class Tornado : MonoBehaviour
     {
         float dis = Vector3.Distance(transform.position, Personaje.transform.position);
 
-
+    
 
         if (dis < 6f && !EstaEnAreaCercana && !movimientoPersonaje.AfectadoSlowLejano)
         {
