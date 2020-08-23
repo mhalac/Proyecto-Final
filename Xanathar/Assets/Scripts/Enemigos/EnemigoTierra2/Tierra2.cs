@@ -34,9 +34,12 @@ public class Tierra2 : MonoBehaviour {
 
 	public int EstadoAtaque;
 	public Tierra2Anim Tierra2Anim;
+	EstadisticasDePersonaje EstadisticasDePersonaje;
 
 	public bool PermitirAtaque = false;
-	public bool Activar = false;
+	public bool ActivarColisiones = false;
+
+	public float Damage;
 
 	// Use this for initialization
 	void Start ()
@@ -56,6 +59,8 @@ public class Tierra2 : MonoBehaviour {
 		EstadoAtaque = 0;
 
 		Tierra2Anim = FindObjectOfType<Tierra2Anim>();
+
+		EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
 	}
 	
 	// Update is called once per frame
@@ -63,7 +68,6 @@ public class Tierra2 : MonoBehaviour {
 	{
 		if(EstadoActual == Estados[0] && Agente.remainingDistance < Mathf.Epsilon)
 		{
-			Debug.Log("Llegue");
 			Animador.SetBool("Idle" , true);
 			Animador.SetBool("Corriendo" , false);
 		}
@@ -156,7 +160,7 @@ public class Tierra2 : MonoBehaviour {
 
 		for(int  i = 0; i < Obj.Length; i++)
 		{
-			if(Obj[i].gameObject.layer == PMask)
+			if(Obj[i].gameObject.tag == "Personaje")
 			{
 				EstadoActual = Estados[3];
 			}
@@ -182,7 +186,10 @@ public class Tierra2 : MonoBehaviour {
 
 	void OnTriggerEnter(Collider c)
 	{
-		//Detecta Colisiones
-		//Los collider empiezan desactivados
+		if(c.gameObject.tag == "Personaje" && ActivarColisiones == false)
+		{
+			ActivarColisiones = true;
+			EstadisticasDePersonaje.RecibirDaño(Damage);
+		}
 	}
 }

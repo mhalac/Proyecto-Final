@@ -183,7 +183,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1536498397056172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.298508, y: 0.41, z: -83.25676}
+  m_LocalPosition: {x: -23.826921, y: 0.58, z: -76.44}
   m_LocalScale: {x: 1.260089, y: 1.260089, z: 1.260089}
   m_Children:
   - {fileID: 4662430693918434}
@@ -475,7 +475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RangoMinimo: {fileID: 4662430693918434}
   AreaIdle: 15
-  AlcanceMaximo: 12
+  AlcanceMaximo: 10
   EstadoActual: 
   Agente: {fileID: 0}
   Animador: {fileID: 95359966566394338}
@@ -485,7 +485,6 @@ MonoBehaviour:
   - Searching
   - Stopped
   Heredar: {fileID: 4667660786510468}
-  Delay: 1
   Damage: 10
 --- !u!135 &135792368328607966
 SphereCollider:

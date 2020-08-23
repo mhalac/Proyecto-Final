@@ -11,11 +11,6 @@ public class Tierra2Anim : MonoBehaviour {
 	{
 		Padre = GetComponentInParent<Tierra2>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	public void IrALugarRandom()
 	{
@@ -27,36 +22,47 @@ public class Tierra2Anim : MonoBehaviour {
 	public void ActivarGarraDerecha()
 	{
 		Padre.GarraDerecha.enabled = true;
-
-		Padre.PermitirAtaque = true;
 	}
 
 	public void ActivarGarraIzquierda()
 	{
 		Padre.GarraIzquierda.enabled = true;
+	}
 
+	public void ActivarElAtaque()
+	{
 		Padre.PermitirAtaque = true;
 	}
 
 	public void DesactivarGarraDerecha()
 	{
-		Padre.GarraDerecha.enabled = false;
-
 		Padre.EstadoAtaque = 0;
 		Padre.PermitirAtaque = false;
 
 		Padre.Animador.SetBool("AtaqueDerecha" , false);
 		Padre.Animador.SetBool("Corriendo" , true);
+
+		Padre.ActivarColisiones = false;
 	}
 
 	public void DesactivarGarraIzquierda()
 	{
-		Padre.GarraIzquierda.enabled = false;
-
 		Padre.EstadoAtaque += 1;
 		Padre.PermitirAtaque = false;
 
 		Padre.Animador.SetBool("AtaqueIzquierda" , false);
 		Padre.Animador.SetBool("Corriendo" , true);
+
+		Padre.ActivarColisiones = false;
+	}
+
+	public void DesactivarColisionGarraDerecha()
+	{
+		Padre.GarraDerecha.enabled = false;
+	}
+
+	public void DesactivarColisionGarraIzquierda()
+	{
+		Padre.GarraIzquierda.enabled = false;
 	}
 }
