@@ -19,6 +19,24 @@ public class AnimatorIzquierda : MonoBehaviour
     {
 
     }
+
+    public void MeEstoyMuriendo()
+    {
+        Jefe.Muriendo = true;
+    }
+    public void Morir()
+    {
+        Jefe.Muriendo = false;
+        Invoke("Revivir",3f);
+    }
+    private void Revivir()
+    {
+        Jefe.Mori = false;
+        Jefe.AnimatorDerecha.SetBool("Morir", false);
+        Jefe.AnimatorIzquierda.SetBool("Morir", false);
+
+
+    }
     public void EmpezoAEmpujar()
     {
         Jefe.EstaEmpujando = true;

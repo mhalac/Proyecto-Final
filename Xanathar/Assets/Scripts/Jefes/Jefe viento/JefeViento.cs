@@ -6,9 +6,12 @@ public class JefeViento : MonoBehaviour
 {
 
 
+    public bool Termine;
+
     public bool ApareciendoTornados;
 
     private int CantidadTornadosActuales;
+    public bool Mori;
 
     public bool EstaAplastando;
     public GameObject Jugador;
@@ -21,6 +24,7 @@ public class JefeViento : MonoBehaviour
 
     public float VelocidadDerecha;
     public Animator AnimatorDerecha;
+    public bool Muriendo;
 
     [Header("ManoIZQ")]
     public GameObject ManoIzquierda;
@@ -44,6 +48,8 @@ public class JefeViento : MonoBehaviour
     // Use this for initialization
     public enum Estados
     {
+        Idle,
+        Morir,
         Fase1,
         Fase2,
         Fase3,
@@ -66,6 +72,10 @@ public class JefeViento : MonoBehaviour
     {
         switch (estado)
         {
+            case Estados.Morir:
+
+                PrepararLaMorision();
+                return;
             case Estados.Fase1:
                 Fase1();
                 return;
@@ -79,19 +89,58 @@ public class JefeViento : MonoBehaviour
                 Fase4();
                 return;
 
+            case Estados.Idle:
+                Idle();
+                return;
         }
 
 
     }
+    private void PrepararLaMorision()
+    {
+        Vector3 PosicionRayo = new Vector3(AmbasManos.transform.position.x, Jugador.transform.position.y, AmbasManos.transform.position.z);
+        DispararArriba = new Ray(PosicionRayo, transform.up);
+        Vector3 pos = DispararArriba.GetPoint(7f);
+    
+        if (!IsInvoking("Morir") && !AnimatorIzquierda.GetBool("Morir"))
+        {
+            ResetAnimaciones();
 
+            Invoke("Morir", 1f);
 
+        }
+        else if (Muriendo && Vector3.Distance(AmbasManos.transform.position, pos) > 1)
+        {
+            AmbasManos.transform.position = Vector3.MoveTowards(AmbasManos.transform.position, pos, 30 * Time.deltaTime);
+        }
+    }
+    private void Idle()
+    {
+        ResetAnimaciones();
+    }
     public void ResetAnimaciones()
     {
+        Termine = false;
+        AnimatorIzquierda.SetBool("Empujar", false);
+        AnimatorIzquierda.SetBool("TerminoReset", true);
+        AnimatorIzquierda.SetBool("Tornado", false);
+        AnimatorIzquierda.SetBool("Morir", false);
+        EstaAplastando = false;
+        EstaEmpujando = false;
+        ApareciendoTornados = false;
 
         AnimatorDerecha.SetBool("Aplastar", false);
-        AnimatorIzquierda.SetBool("Empujar", false);
-        AnimatorIzquierda.SetBool("Tornado", false);
         AnimatorDerecha.SetBool("Tornado", false);
+        AnimatorDerecha.SetBool("Levantate", false);
+        AnimatorDerecha.SetBool("Morir", false);
+
+
+    }
+    private void Morir()
+    {
+        AnimatorIzquierda.SetBool("Morir", true);
+        AnimatorDerecha.SetBool("Morir", true);
+        Mori = true;
 
     }
 
@@ -168,12 +217,13 @@ public class JefeViento : MonoBehaviour
     {
         //transform.rotation = Quaternion.Euler(0,-180,0);
 
-      
 
-        if (Vector3.Distance(AmbasManos.transform.position, PuntoDeOrbita.transform.position) < 20 && Vector3.Distance(AmbasManos.transform.position, PuntoDeOrbita.transform.position) > 3)
-            transform.RotateAround(Jugador.transform.position, Vector3.up, 40 * Time.deltaTime);
-        else
-            AmbasManos.transform.position = Vector3.MoveTowards(AmbasManos.transform.position, PuntoDeOrbita.transform.position, 10 * Time.deltaTime);
+        if (Vector3.Distance(AmbasManos.transform.position, PuntoDeOrbita.transform.position) > 2)
+        {
+            AmbasManos.transform.position = Vector3.MoveTowards(AmbasManos.transform.position, PuntoDeOrbita.transform.position, VelocidadDerecha * Time.deltaTime);
+
+        }
+
 
     }
     private void HabilitarManos()
@@ -210,7 +260,7 @@ public class JefeViento : MonoBehaviour
     }
     private void Fase4()
     {
-
+            print("estas accediendo a una fase que no codeaste ggggovirrr");
     }
 
 }

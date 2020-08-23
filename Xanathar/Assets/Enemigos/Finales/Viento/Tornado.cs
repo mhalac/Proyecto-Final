@@ -5,7 +5,9 @@ using UnityEngine;
 public class Tornado : MonoBehaviour
 {
 
-	
+    public float DistanciaLejana;
+    public float DistanciaCercana;
+    
     public float SlowLejano;
     public float SlowCercano;
     public bool EstaEnArea;
@@ -29,7 +31,7 @@ public class Tornado : MonoBehaviour
 
     
 
-        if (dis < 6f && !EstaEnAreaCercana && !movimientoPersonaje.AfectadoSlowLejano)
+        if (dis < DistanciaLejana && !EstaEnAreaCercana && !movimientoPersonaje.AfectadoSlowLejano)
         {
 			movimientoPersonaje.PuedoCorrer = false;
             movimientoPersonaje.AfectadoSlowLejano = true;
@@ -37,21 +39,21 @@ public class Tornado : MonoBehaviour
             movimientoPersonaje.Stats.VelocidadDeMovimiento -= SlowLejano;
 
         }
-        else if (dis > 6 && EstaEnAreaCercana)
+        else if (dis > DistanciaLejana && EstaEnAreaCercana)
         {
 			movimientoPersonaje.PuedoCorrer = true;
             movimientoPersonaje.AfectadoSlowLejano = false;
             EstaEnAreaCercana = false;
             movimientoPersonaje.Stats.VelocidadDeMovimiento += SlowLejano;
         }
-        if (dis < 3.291406f && !EstaEnArea && !movimientoPersonaje.AfectadoSlowCercano)
+        if (dis < DistanciaLejana && !EstaEnArea && !movimientoPersonaje.AfectadoSlowCercano)
         {
             movimientoPersonaje.AfectadoSlowCercano = true;
 
             movimientoPersonaje.Stats.VelocidadDeMovimiento -= SlowCercano;
             EstaEnArea = true;
         }
-        else if (dis > 3.291406f && EstaEnArea)
+        else if (dis > DistanciaLejana && EstaEnArea)
         {
             movimientoPersonaje.AfectadoSlowCercano = false;
 

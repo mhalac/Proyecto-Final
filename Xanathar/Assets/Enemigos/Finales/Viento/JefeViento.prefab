@@ -23,8 +23,24 @@ GameObject:
   - component: {fileID: 23376635319973760}
   - component: {fileID: 95523785582609504}
   - component: {fileID: 114856753715308482}
-  m_Layer: 0
+  - component: {fileID: 64047290135211642}
+  m_Layer: 18
   m_Name: right
+  m_TagString: JefeViento
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1113089237850266
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4689540405067826}
+  m_Layer: 18
+  m_Name: Frente
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4510025305582828}
   - component: {fileID: 95311418830532050}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: manos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +71,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4927665172242146}
   - component: {fileID: 114545786245398190}
-  m_Layer: 0
+  - component: {fileID: 114167620985513554}
+  m_Layer: 18
   m_Name: JefeViento
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +89,7 @@ GameObject:
   - component: {fileID: 4621680078009476}
   - component: {fileID: 33727592523808486}
   - component: {fileID: 23220408454628286}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +108,7 @@ GameObject:
   - component: {fileID: 23638220673298472}
   - component: {fileID: 95934174753770348}
   - component: {fileID: 114435262364835130}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4150946307388208}
   - component: {fileID: 54148223200964180}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Nexo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +143,7 @@ GameObject:
   - component: {fileID: 23399342670851382}
   - component: {fileID: 95172272637101720}
   - component: {fileID: 65828088226812458}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: 'Book '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +175,7 @@ Transform:
   m_Children:
   - {fileID: 4619396971788854}
   m_Father: {fileID: 4510025305582828}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4510025305582828
 Transform:
@@ -172,6 +189,7 @@ Transform:
   m_Children:
   - {fileID: 4146275622206304}
   - {fileID: 4947387514301126}
+  - {fileID: 4689540405067826}
   - {fileID: 4150946307388208}
   m_Father: {fileID: 4927665172242146}
   m_RootOrder: 0
@@ -203,6 +221,19 @@ Transform:
   m_Father: {fileID: 4619396971788854}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!4 &4689540405067826
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1113089237850266}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 2.7, y: -0.39, z: -0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4510025305582828}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4927665172242146
 Transform:
   m_ObjectHideFlags: 1
@@ -430,6 +461,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 14
   m_CollisionDetection: 0
+--- !u!64 &64047290135211642
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1083216791157060}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300004, guid: f6214d767e123b14b9fd854f1c6738fe, type: 3}
 --- !u!65 &65828088226812458
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -514,6 +559,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114167620985513554
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162376463324216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c669a0ab0b970874c892f0fbd5847d5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EstadoSeleccionado: 0
+  IntervaloInicial: 15
+  ReduccionTiempoXOleada: 2
+  LimiteDeVelocidad: 5
 --- !u!114 &114435262364835130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -536,23 +596,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e611c59fd9fd442a3c9098e66ac0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Termine: 0
   ApareciendoTornados: 0
+  Mori: 0
   EstaAplastando: 0
   Jugador: {fileID: 0}
   AmbasManos: {fileID: 1142016289845642}
   ManoDerecha: {fileID: 1083216791157060}
+  PuntoDeOrbita: {fileID: 0}
   VelocidadDerecha: 17
   AnimatorDerecha: {fileID: 95523785582609504}
   ManoIzquierda: {fileID: 1295878681772490}
   AnimatorIzquierda: {fileID: 95934174753770348}
   EstaEmpujando: 0
-  TiempoDeVidaTornados: 5
+  TiempoDeVidaTornados: 20
   DistanciaDelJugador: 15
   Tornado: {fileID: 1498164188247340, guid: edafae495c26fb84e86dbd7ed8c5f58f, type: 2}
   Rayo: {fileID: 1820696360864846, guid: a84cb58ef7faa67488076810242453b9, type: 2}
   IntervaloEntreTornados: 1.6
-  CantidadTornados: 3
-  estado: 2
+  CantidadTornados: 5
+  estado: 0
 --- !u!114 &114856753715308482
 MonoBehaviour:
   m_ObjectHideFlags: 1
