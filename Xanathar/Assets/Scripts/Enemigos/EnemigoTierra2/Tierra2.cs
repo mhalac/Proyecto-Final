@@ -22,7 +22,6 @@ public class Tierra2 : MonoBehaviour {
 	public NavMeshAgent Agente;
 	public Animator Animador;
 	public Vector3 PosicionEnSpawn;
-	public float DelayEntreAtaques;
 
 	public string [] Estados = {"Idle" , "Searching" , "Chasing" , "Attack"};
 	public string EstadoActual;
@@ -108,7 +107,7 @@ public class Tierra2 : MonoBehaviour {
 	public void IrAPosRandom()
 	{
 		EstadoActual = Estados[0];
-		if(Agente.remainingDistance > Mathf.Epsilon)
+		if(Agente.remainingDistance > 1)
 		{
 			Agente.destination = Destino;
 		}
