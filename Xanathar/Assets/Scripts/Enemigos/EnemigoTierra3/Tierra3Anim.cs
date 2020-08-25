@@ -5,11 +5,6 @@ using UnityEngine;
 public class Tierra3Anim : MonoBehaviour {
 
 	public Tierra3 Padre;
-	// Use this for initialization
-	void Start ()
-	{
-		
-	}
 
 	public void IrALugarRandom()
 	{

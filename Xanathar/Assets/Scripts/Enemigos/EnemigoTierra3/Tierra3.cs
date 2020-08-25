@@ -11,13 +11,14 @@ public class Tierra3 : MonoBehaviour {
 	public Transform Heredar;
 	public Transform PuntoDeAtaque;
 	public Transform AreaDeVision;
-
+	public Transform BrazoAtaque;
 
 	[Header("Parametros")]
 	private NavMeshAgent Agente;
 	public Animator Animador;
 	private Vector3 PosicionEnSpawn;
 	private Vector3 Destino;
+	private Transform UltimaPosicion;
 	private GameObject Personaje;
 	private string [] Estados = {"Idle" , "Searching" , "Chasing" ,  "Attack"};
 
@@ -29,8 +30,10 @@ public class Tierra3 : MonoBehaviour {
 	public string EstadoActual;
 	public float AreaIdle;
 	public float RangoDeVision;
+	public float RangoAtaque;
 	private int Pmask;
 	private int EMask;
+	public bool PermitirAtaque = false;
 	
 	// Use this for initialization
 	void Start ()
@@ -54,6 +57,11 @@ public class Tierra3 : MonoBehaviour {
 		{
 			Animador.SetBool("Idle" , true);
 			Animador.SetBool("Caminando" , false);
+		}
+
+		if(BuscarPersonaje() && PuedoVer())
+		{
+			Acercar();
 		}
 	}
 
@@ -107,6 +115,33 @@ public class Tierra3 : MonoBehaviour {
 		return false;
 	}
 
+	public void DetectarAtaque()
+	{
+		Collider [] Obj = Physics.OverlapBox(PuntoDeAtaque.position , new Vector3(RangoAtaque , RangoAtaque , RangoAtaque));
+
+		for(int i = 0; i < Obj.Length; i++)
+		{
+			if(Obj[i].gameObject.tag == "Personaje")
+			{
+
+			}
+		}
+	}
+
+	public void Acercar()
+	{
+		Agente.destination = Personaje.transform.position;
+		EstadoActual = Estados[2];
+	}
+
+	public void Buscar()
+	{
+		UltimaPosicion = Personaje.transform;
+		Agente.isStopped = false;
+
+		EstadoActual = Estados[1];
+	}
+
 	void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.magenta;
@@ -118,5 +153,9 @@ public class Tierra3 : MonoBehaviour {
 
 		Gizmos.color = Color.red;
 		Gizmos.DrawSphere(Destino , 0.5f);
+
+		Gizmos.color = Color.green;
+		Vector3 AreaAtaque = new Vector3(RangoAtaque , RangoAtaque , RangoAtaque);
+		Gizmos.DrawWireCube(PuntoDeAtaque.position , AreaAtaque);
 	}
 }
