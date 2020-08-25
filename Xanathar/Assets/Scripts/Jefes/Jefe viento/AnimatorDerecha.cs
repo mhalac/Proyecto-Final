@@ -34,6 +34,11 @@ public class AnimatorDerecha : MonoBehaviour
     {
         Jefe.EstaAplastando = true;
     }
+    public void Slam()
+    {
+        Jefe.GolpearElPiso();
+    }
+
     public void TerminoDeAplastar()
     {
         Jefe.AnimatorDerecha.SetBool("Aplastar",false);

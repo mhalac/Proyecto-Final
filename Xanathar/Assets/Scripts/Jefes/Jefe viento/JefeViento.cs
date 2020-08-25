@@ -9,16 +9,18 @@ public class JefeViento : MonoBehaviour
     public bool Termine;
 
     public bool ApareciendoTornados;
-
+    public Transform ReferenciaDerecha;
     private int CantidadTornadosActuales;
     public bool Mori;
 
+    public float SlamKnockback;
     public bool EstaAplastando;
     public GameObject Jugador;
     public GameObject AmbasManos;
     public GameObject ManoDerecha;
     private RaycastHit golpe;
 
+    public Vector3 AplastarSize;
     public GameObject PuntoDeOrbita;
     private bool EstaAbajo;
 
@@ -101,7 +103,7 @@ public class JefeViento : MonoBehaviour
         Vector3 PosicionRayo = new Vector3(AmbasManos.transform.position.x, Jugador.transform.position.y, AmbasManos.transform.position.z);
         DispararArriba = new Ray(PosicionRayo, transform.up);
         Vector3 pos = DispararArriba.GetPoint(7f);
-    
+
         if (!IsInvoking("Morir") && !AnimatorIzquierda.GetBool("Morir"))
         {
             ResetAnimaciones();
@@ -141,6 +143,31 @@ public class JefeViento : MonoBehaviour
         AnimatorIzquierda.SetBool("Morir", true);
         AnimatorDerecha.SetBool("Morir", true);
         Mori = true;
+
+    }
+    public void GolpearElPiso()
+    {
+        Collider[] c = Physics.OverlapBox(ReferenciaDerecha.transform.position, AplastarSize * 2, ManoDerecha.transform.rotation);
+        foreach (Collider b in c)
+        {
+            if (b.gameObject.tag == "Personaje")
+            {
+                Jugador.GetComponent<EstadisticasDePersonaje>().RecibirDaño(9f);
+
+                StartCoroutine(Empujar(Jugador.transform.forward));
+
+                return;
+            }
+        }
+    }
+    IEnumerator Empujar(Vector3 direccion)
+    {
+        for (int i = 1; i < 11; i++)
+        {
+            Jugador.GetComponent<CharacterController>().Move(direccion * -1 * Time.deltaTime * SlamKnockback * 25/i);
+            yield return null;
+        }
+        yield return null;
 
     }
 
@@ -260,7 +287,19 @@ public class JefeViento : MonoBehaviour
     }
     private void Fase4()
     {
-            print("estas accediendo a una fase que no codeaste ggggovirrr");
+        print("estas accediendo a una fase que no codeaste ggggovirrr");
     }
 
+    void OnDrawGizmosSelected()
+
+    {
+        Gizmos.color = Color.cyan;
+
+
+
+        Gizmos.DrawWireCube(ReferenciaDerecha.position, AplastarSize * 2);
+
+
+    }
 }
+
