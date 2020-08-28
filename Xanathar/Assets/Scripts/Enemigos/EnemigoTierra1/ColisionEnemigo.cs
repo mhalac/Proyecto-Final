@@ -13,8 +13,7 @@ public class ColisionEnemigo : MonoBehaviour {
 
 	void Start()
 	{
-		Personaje = GameObject.FindGameObjectWithTag("Personaje");
-		EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
+
 	}
 	void OnCollisionEnter(Collision collision)
 	{
@@ -23,6 +22,9 @@ public class ColisionEnemigo : MonoBehaviour {
 			
 			if(Esperar == false)
 			{
+				Personaje = GameObject.FindGameObjectWithTag("Personaje");
+				EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
+				
 				Esperar = true;
 				ScriptTierra1.EstadoActual = ScriptTierra1.Estados[3];
 

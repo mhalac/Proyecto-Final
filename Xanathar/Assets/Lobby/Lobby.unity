@@ -294,7 +294,7 @@ MeshCollider:
   m_GameObject: {fileID: 19774024}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -1073,7 +1073,7 @@ MeshCollider:
   m_GameObject: {fileID: 141037263}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -1703,7 +1703,7 @@ MeshCollider:
   m_GameObject: {fileID: 243158377}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -1884,7 +1884,7 @@ MeshCollider:
   m_GameObject: {fileID: 264049024}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -7271,7 +7271,7 @@ MeshCollider:
   m_GameObject: {fileID: 338475544}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -7871,7 +7871,7 @@ MeshCollider:
   m_GameObject: {fileID: 450209088}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -8039,7 +8039,7 @@ MeshCollider:
   m_GameObject: {fileID: 461603419}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -19980,7 +19980,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -165.15
+      value: -163.7
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalPosition.y
@@ -19988,27 +19988,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 27.72
+      value: 24.55
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.9572759
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.28917605
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 146.38301
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adb06a4a9bc19c84c90ecebe09396856, type: 2}
@@ -20055,7 +20059,7 @@ MeshCollider:
   m_GameObject: {fileID: 784665275}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -20207,7 +20211,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1459293103}
   - component: {fileID: 787137033}
-  - component: {fileID: 787137034}
   m_Layer: 0
   m_Name: EntradaNivelFuego
   m_TagString: PuertaNivelFuego
@@ -20227,21 +20230,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8856794, y: 13.022804, z: 9.455803}
   m_Center: {x: -0.44283092, y: 6.5549626, z: 0.01681162}
---- !u!114 &787137034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 787137032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ace90c037f5c347a89742ab587e525, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Jugador: {fileID: 0}
-  VariablesDeEscenas: {fileID: 0}
-  AsignadorDeEscenas: {fileID: 0}
-  EvitarCrasheo: 0
 --- !u!1 &788216093
 GameObject:
   m_ObjectHideFlags: 0
@@ -25036,7 +25024,7 @@ MeshCollider:
   m_GameObject: {fileID: 810896426}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -25956,7 +25944,7 @@ MeshCollider:
   m_GameObject: {fileID: 917908638}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -27327,7 +27315,7 @@ MeshCollider:
   m_GameObject: {fileID: 1081778415}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -27526,7 +27514,7 @@ MeshCollider:
   m_GameObject: {fileID: 1120372237}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -34880,7 +34868,7 @@ MeshCollider:
   m_GameObject: {fileID: 1435797612}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -38015,7 +38003,7 @@ MeshCollider:
   m_GameObject: {fileID: 1789247151}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -40332,8 +40320,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2141808937}
   m_LocalRotation: {x: -0, y: 0.66380024, z: -0, w: 0.74790996}
-  m_LocalPosition: {x: -82.41, y: -21.259, z: -61.46}
-  m_LocalScale: {x: 0.23682, y: 0.23682, z: 0.23682}
+  m_LocalPosition: {x: -82.41, y: -21.25, z: -60.91}
+  m_LocalScale: {x: 0.31750458, y: 0.31750458, z: 0.31750458}
   m_Children:
   - {fileID: 338475545}
   - {fileID: 1789247152}
@@ -40427,8 +40415,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2115270379}
   - component: {fileID: 2141808938}
+  - component: {fileID: 2141808939}
   m_Layer: 0
-  m_Name: EntradaRoca
+  m_Name: EntradaNivelRoca
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40443,9 +40432,21 @@ MeshCollider:
   m_GameObject: {fileID: 2141808937}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 0}
+--- !u!65 &2141808939
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2141808937}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9614978, y: 13.31054, z: 9.81604}
+  m_Center: {x: -0.16953127, y: 6.1552715, z: 0.0005746026}

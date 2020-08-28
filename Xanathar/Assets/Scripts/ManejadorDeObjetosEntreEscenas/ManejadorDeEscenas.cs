@@ -8,6 +8,9 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	[Header("EscenasNivelDeFuego")]
 	public string [] EscenasNivelFuego = new string[4];
 
+	[Header("EscenasNivelDeRoca")]
+	public string [] EscenasNivelRoca = new string[4];
+
 	[Header("EscenasDelNivelEnElQueEstas")]
 	public string[] NivelCargado = new string[4];
 
@@ -36,8 +39,28 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			AsignadorDeEscenas.IniciadorDeCambio();
 			EntrasteOSaliste = true;
 		}
+
+		if(col.gameObject.name == "EntradaNivelRoca" && ActivadorDeCambio == false)
+		{
+			NivelCargado = EscenasNivelRoca;
+			ReferenciadorDeEscenas = 0;
+			NombreDeEscena = EscenasNivelRoca[ReferenciadorDeEscenas];
+			AsignadorDeEscenas.IniciadorDeCambio();
+			EntrasteOSaliste = true;
+		}
+
+
+
+
+
+
+
+
+
+
+
 		
-		if(col.gameObject.name == "SalidaSubNivelFuego" && ActivadorDeCambio == false)
+		if(col.gameObject.name == "Salida" && ActivadorDeCambio == false)
 		{
 			ReferenciadorDeEscenas += 1;
 			NombreDeEscena = NivelCargado[ReferenciadorDeEscenas];
@@ -45,7 +68,7 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			EntrasteOSaliste = true;
 		}
 
-		if(col.gameObject.name == "EntradaSubNivelFuego" && ActivadorDeCambio == false)
+		if(col.gameObject.name == "Entrada" && ActivadorDeCambio == false)
 		{
 			if(ReferenciadorDeEscenas == 0)
 			{
