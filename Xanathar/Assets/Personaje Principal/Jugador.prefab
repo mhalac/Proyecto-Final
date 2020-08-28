@@ -1326,7 +1326,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430075857039988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 135.09346, y: 55.71, z: 33.225227}
+  m_LocalPosition: {x: -165.15, y: 3.79, z: 28.27}
   m_LocalScale: {x: 0.59693, y: 0.61537516, z: 0.59693}
   m_Children:
   - {fileID: 4800373830159400}
@@ -3127,31 +3127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64f94f111ec80a47843224938592be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ListaDePrefabs:
-  - {fileID: 1902129817038158, guid: 1b85686f6f703504d9e588c601e36455, type: 2}
-  - {fileID: 1238904931433218, guid: 590ada2f5e8f63c48a2729f0f7e12eae, type: 2}
-  - {fileID: 1663627251961828, guid: befc3dae5f0311549beec8c220025e1c, type: 2}
-  - {fileID: 1007944307537912, guid: f60a2bb96c28fec4db04c5ebf45b3574, type: 2}
-  - {fileID: 1210339613494050, guid: 994fd60de9ef44a4e9f9f54f7f715b2a, type: 2}
-  - {fileID: 1197935325606302, guid: 7ee8c7b18bac2c24fb934040e37dd599, type: 2}
-  - {fileID: 1973218180115376, guid: 087a6e9c143f81446bc3f687ec5ac804, type: 2}
-  - {fileID: 1922420630021884, guid: 27c9faf858ae2564599a93f921baa8ce, type: 2}
-  - {fileID: 1100458144628474, guid: 160b3839d8ceeb04a868d58e53e32537, type: 2}
-  - {fileID: 1714437629615200, guid: 8e2b3de0463b3bd49859f402b26929e3, type: 2}
-  - {fileID: 1318464288006614, guid: b68b9b05f25c6f7469da788b8b96a3fc, type: 2}
-  - {fileID: 1652519319049146, guid: 86285ca991a268243af833b37902a33b, type: 2}
-  - {fileID: 1358216126423458, guid: c59d218f3a5fa314cba0637a08e03469, type: 2}
-  - {fileID: 1298529860349066, guid: 73090219b0488f34cb4449cc71864ea8, type: 2}
-  - {fileID: 1406420459907002, guid: 2018336aaaa707a4b94b88af65facade, type: 2}
-  - {fileID: 1709983425484274, guid: d3aa32dabc6114348b37ef72c8316771, type: 2}
-  - {fileID: 1407034110984540, guid: cb9a66b7d082644468992018bf14b4ff, type: 2}
-  - {fileID: 1464367109204864, guid: f8c9cfd5690f2ef46aa7c0c7c0c97fb1, type: 2}
-  - {fileID: 1541807082480904, guid: 7897b6d5cc2555b42a40477647304f80, type: 2}
-  - {fileID: 1762386104847586, guid: 0447eef30d7f089469eb2b5cd1038ac2, type: 2}
-  - {fileID: 1136223321417622, guid: a671af1ffa449104d91006a534f1939c, type: 2}
-  - {fileID: 1296209505775658, guid: 489e5b58f990281489a76988eac8fc44, type: 2}
-  - {fileID: 1365786387229864, guid: cc77fa0b245ec0c4e968a768de4a385c, type: 2}
-  - {fileID: 1542576829583992, guid: 159643af2657f1e40abd42089c7a5be2, type: 2}
+  ListaDePrefabs: []
 --- !u!114 &114208657177523620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3305,6 +3281,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833d1a6f0b365654685d83076d66c0c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PuedoCorrer: 1
+  AfectadoSlowCercano: 0
+  AfectadoSlowLejano: 0
   Controlador: {fileID: 143524828830951792}
   Stats: {fileID: 114225078043899536}
   Corriendo: 0

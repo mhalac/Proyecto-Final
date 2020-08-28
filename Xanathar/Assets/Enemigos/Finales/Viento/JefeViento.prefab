@@ -150,6 +150,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1881345378289150
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4775422955432090}
+  m_Layer: 18
+  m_Name: ReferenciaHitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4146275622206304
 Transform:
   m_ObjectHideFlags: 1
@@ -234,6 +249,19 @@ Transform:
   m_Father: {fileID: 4510025305582828}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!4 &4775422955432090
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1881345378289150}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.040681932, y: -0.0056381617, z: -0.027413134}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4947387514301126}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4927665172242146
 Transform:
   m_ObjectHideFlags: 1
@@ -241,7 +269,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1162376463324216}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: -171.76, y: 15.037529, z: -34.94}
+  m_LocalPosition: {x: -171.76, y: 12.7, z: -36.9}
   m_LocalScale: {x: 12.925, y: 12.925, z: 12.925}
   m_Children:
   - {fileID: 4510025305582828}
@@ -257,7 +285,8 @@ Transform:
   m_LocalRotation: {x: -1.1641531e-10, y: -0.7071068, z: -0.7071068, w: 1.1641531e-10}
   m_LocalPosition: {x: 1.164979, y: 2.426006, z: -6.142015}
   m_LocalScale: {x: 40.436115, y: 40.436016, z: 40.435997}
-  m_Children: []
+  m_Children:
+  - {fileID: 4775422955432090}
   m_Father: {fileID: 4510025305582828}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
@@ -571,9 +600,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EstadoSeleccionado: 0
-  IntervaloInicial: 15
-  ReduccionTiempoXOleada: 2
-  LimiteDeVelocidad: 5
+  OleadaGetter:
+  - Estado: 0
+    Duracion: 3
+  - Estado: 1
+    Duracion: 5
+  - Estado: 2
+    Duracion: 10
+  - Estado: 3
+    Duracion: 10
+  - Estado: 4
+    Duracion: 15
+  ContadorOldeadas: 0
+  CDinicial: 0
+  CDActual: 0
 --- !u!114 &114435262364835130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -598,23 +638,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Termine: 0
   ApareciendoTornados: 0
+  ReferenciaDerecha: {fileID: 4775422955432090}
   Mori: 0
+  SlamKnockback: 0
   EstaAplastando: 0
   Jugador: {fileID: 0}
   AmbasManos: {fileID: 1142016289845642}
   ManoDerecha: {fileID: 1083216791157060}
+  AplastarSize: {x: 6.09, y: 1.37, z: 4.11}
   PuntoDeOrbita: {fileID: 0}
   VelocidadDerecha: 17
   AnimatorDerecha: {fileID: 95523785582609504}
+  Muriendo: 0
   ManoIzquierda: {fileID: 1295878681772490}
   AnimatorIzquierda: {fileID: 95934174753770348}
   EstaEmpujando: 0
-  TiempoDeVidaTornados: 20
-  DistanciaDelJugador: 15
+  TiempoDeVidaTornados: 280
+  DistanciaDelJugador: 19
   Tornado: {fileID: 1498164188247340, guid: edafae495c26fb84e86dbd7ed8c5f58f, type: 2}
   Rayo: {fileID: 1820696360864846, guid: a84cb58ef7faa67488076810242453b9, type: 2}
-  IntervaloEntreTornados: 1.6
-  CantidadTornados: 5
+  IntervaloEntreTornados: 0.6
+  CantidadTornados: 6
   estado: 0
 --- !u!114 &114856753715308482
 MonoBehaviour:
