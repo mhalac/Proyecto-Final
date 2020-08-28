@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class Tierra3 : MonoBehaviour {
 
+	EstadisticasDePersonaje EstadisticasDePersonaje;
 	private RaycastHit Hit;
 
 	[Header("Transforms Seleccionables")]
@@ -12,32 +13,39 @@ public class Tierra3 : MonoBehaviour {
 	public Transform PuntoDeAtaque;
 	public Transform AreaDeVision;
 	public Transform BrazoAtaque;
+	public Transform Puño;
 
 	[Header("Parametros")]
-	private NavMeshAgent Agente;
+	public NavMeshAgent Agente;
 	public Animator Animador;
 	private Vector3 PosicionEnSpawn;
 	private Vector3 Destino;
 	private Transform UltimaPosicion;
-	private GameObject Personaje;
-	private string [] Estados = {"Idle" , "Searching" , "Chasing" ,  "Attack"};
+	public GameObject Personaje;
+	public string [] Estados = {"Idle" , "Searching" , "Chasing" ,  "Attack"};
 
 
 	[Header("BoxColliderBrazo")]
-	public BoxCollider PunoIzquierdo;
+	public SphereCollider PuñoIzquierdo;
 
 	[Header("Variables")]
 	public string EstadoActual;
 	public float AreaIdle;
 	public float RangoDeVision;
 	public float RangoAtaque;
+	public float Damage;
 	private int Pmask;
 	private int EMask;
 	public bool PermitirAtaque = false;
+	public bool PermitirRotacion = false;
+	public bool InterrumpirCorrutina = false;
+	public bool PermitirColision = false;
 	
 	// Use this for initialization
 	void Start ()
 	{
+		EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
+
 		Agente = GetComponent<NavMeshAgent>();
 		PosicionEnSpawn = Heredar.position;
 		Pmask = LayerMask.NameToLayer("Personaje");
@@ -48,20 +56,40 @@ public class Tierra3 : MonoBehaviour {
 
 		Animador.SetBool("Idle" , true);
 		Animador.SetBool("Caminando" , false);
+
+		PuñoIzquierdo.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if(EstadoActual == Estados[0] && Agente.remainingDistance < 0.2f)
+		if(EstadoActual != Estados[2] && Agente.remainingDistance < 0.2f)
 		{
+			FindObjectOfType<PositionManager>().Llegue(Destino);
 			Animador.SetBool("Idle" , true);
 			Animador.SetBool("Caminando" , false);
 		}
 
-		if(BuscarPersonaje() && PuedoVer())
+
+		if(EstadoActual == Estados[3])
 		{
+			Animador.SetBool("Atacando" , true);
+			Animador.SetBool("Caminando" , false);
+			Agente.isStopped = true;
+			
+		}
+		else if(BuscarPersonaje() && PuedoVer())
+		{
+			//Debug.Log("Te puedo ver");
 			Acercar();
+			Animador.SetBool("Caminando" , true);
+			Animador.SetBool("Idle" , false);
+
+			InterrumpirCorrutina = false;
+		}
+		else if(EstadoActual == Estados[2])
+		{
+			Buscar();
 		}
 	}
 
@@ -101,7 +129,7 @@ public class Tierra3 : MonoBehaviour {
 
 	public bool BuscarPersonaje()
 	{
-		Collider [] Obj = Physics.OverlapSphere(Heredar.position , RangoDeVision);
+		Collider [] Obj = Physics.OverlapSphere(AreaDeVision.position , RangoDeVision);
 
 		for(int i = 0; i < Obj.Length; i++)
 		{
@@ -123,7 +151,13 @@ public class Tierra3 : MonoBehaviour {
 		{
 			if(Obj[i].gameObject.tag == "Personaje")
 			{
+				//Debug.Log("Te vi y te voy a cagar a ñapis");
 
+				if(PermitirRotacion == false)
+				{
+					PermitirRotacion = true;
+					StartCoroutine(Rotar());
+				}
 			}
 		}
 	}
@@ -132,6 +166,11 @@ public class Tierra3 : MonoBehaviour {
 	{
 		Agente.destination = Personaje.transform.position;
 		EstadoActual = Estados[2];
+
+		if(PermitirAtaque == false)
+		{
+			DetectarAtaque();
+		}
 	}
 
 	public void Buscar()
@@ -140,6 +179,8 @@ public class Tierra3 : MonoBehaviour {
 		Agente.isStopped = false;
 
 		EstadoActual = Estados[1];
+
+		InterrumpirCorrutina = true;
 	}
 
 	void OnDrawGizmosSelected()
@@ -157,5 +198,74 @@ public class Tierra3 : MonoBehaviour {
 		Gizmos.color = Color.green;
 		Vector3 AreaAtaque = new Vector3(RangoAtaque , RangoAtaque , RangoAtaque);
 		Gizmos.DrawWireCube(PuntoDeAtaque.position , AreaAtaque);
+	}
+
+	IEnumerator Rotar()
+	{
+		int Contador = 0;
+
+		while(Contador <= 1000)
+		{
+			yield return new WaitForEndOfFrame();
+
+			Contador += 1;
+
+			Vector3 Angulos = new Vector3(0 , 1 , 0);
+
+			if(Vector3.Distance(Puño.transform.position , Personaje.transform.position) <= 1.4f)
+			{
+				Contador = 0;
+				EstadoActual = Estados[3];
+				//Debug.Log("Funciono");
+				InterrumpirCorrutina = false;
+				yield break;
+			}
+			else
+			{
+				transform.Rotate(Angulos);
+			}
+
+			if(InterrumpirCorrutina == true)
+			{
+				Contador = 0;
+				InterrumpirCorrutina = false;
+				yield break;
+			}
+
+			//Debug.Log("Esto anda");
+		}
+		
+		InterrumpirCorrutina = false;
+		Contador = 0;
+		yield return null;
+	}
+
+	void OnCollisionEnter(Collision collision)
+	{
+		if (collision.gameObject.tag == "Personaje")
+		{
+			if(PermitirColision == false)
+			{
+				//Debug.Log("Te meti tremenda ñapi");
+				PermitirColision = true;
+
+				Vector3 dir = transform.forward;
+				dir.y = 3f;
+				float Fuerza = 10;
+
+				StartCoroutine(KnockBack(dir , Fuerza));
+
+				EstadisticasDePersonaje.RecibirDaño(Damage);
+			}
+		}
+	}
+
+	IEnumerator KnockBack(Vector3 Dir , float Fuerza)
+	{
+		for(int i = 0; i < 30; i++)
+		{
+			Personaje.GetComponent<CharacterController>().Move(Dir * Time.deltaTime * Fuerza);
+			yield return null;
+		}
 	}
 }

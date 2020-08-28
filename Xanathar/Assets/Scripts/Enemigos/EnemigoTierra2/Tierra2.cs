@@ -163,6 +163,10 @@ public class Tierra2 : MonoBehaviour {
 			{
 				EstadoActual = Estados[3];
 			}
+			else
+			{
+				EstadoActual = Estados[2];
+			}
 		}
 	}
 

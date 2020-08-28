@@ -12,9 +12,35 @@ public class Tierra3Anim : MonoBehaviour {
 		Padre.Animador.SetBool("Caminando" , true);
 		Padre.Animador.SetBool("Idle" , false);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public void TerminarAtaque()
+	{
+		Padre.Agente.isStopped = false;
+
+		Padre.Animador.SetBool("Atacando" , false);
+		Padre.Animador.SetBool("Caminando" , true);
+
+		Padre.PermitirColision = false;
+		Padre.PermitirAtaque = false;
+		Padre.PermitirRotacion = false;
+
+		if(Vector3.Distance(Padre.Puño.transform.position , Padre.Personaje.transform.position) <= 1.4f)
+		{
+			Padre.EstadoActual = Padre.Estados[3];
+		}
+		else
+		{
+			Padre.EstadoActual = Padre.Estados[2];
+		}
+	}
+
+	public void EncenderColision()
+	{
+		Padre.PuñoIzquierdo.enabled = true;
+	}
+
+	public void ApagarColision()
+	{
+		Padre.PuñoIzquierdo.enabled = false;
 	}
 }
