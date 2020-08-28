@@ -28,7 +28,7 @@ public class GestorFases : MonoBehaviour
 
         if (CDActual < Mathf.Epsilon)
         {
-            if (ContadorOldeadas == 2)
+            if (ContadorOldeadas == 4)
             {
                 GetComponent<JefeViento>().estado = (JefeViento.Estados)1;
                 ContadorOldeadas = 0;
@@ -37,6 +37,7 @@ public class GestorFases : MonoBehaviour
             }
             else
             {
+                GetComponent<JefeViento>().ResetAnimaciones();
                 int RandomState = Random.Range(2, 5);
 				while(RandomState == NumeroPrevio)
 					RandomState = Random.Range(2, 5);

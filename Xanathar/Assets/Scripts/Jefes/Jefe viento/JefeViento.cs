@@ -8,6 +8,9 @@ public class JefeViento : MonoBehaviour
 
     public bool Termine;
 
+    public Collider ColliderIzq;
+    public Collider ColliderDer;
+
     public bool ApareciendoTornados;
     public Transform ReferenciaDerecha;
     private int CantidadTornadosActuales;
@@ -32,6 +35,11 @@ public class JefeViento : MonoBehaviour
     public GameObject ManoIzquierda;
     public Animator AnimatorIzquierda;
     public bool EstaEmpujando;
+    public Transform ReferenciaIzquierda;
+    public bool EmpujandoConFuerza;
+    public Vector3 HitboxIzq;
+
+
 
     [Header("Parametros Tornados")]
 
@@ -72,6 +80,21 @@ public class JefeViento : MonoBehaviour
 
     void Update()
     {
+        if (Mori)
+        {
+            GetComponent<LifeManager>().Inmortal = false;
+            //ColliderIzq.enabled = true;
+            //ColliderDer.enabled = true;
+        }
+        else
+        {
+            GetComponent<LifeManager>().Inmortal = true;
+            //ColliderIzq.enabled = false;
+            //ColliderDer.enabled = false;
+        }
+
+
+
         switch (estado)
         {
             case Estados.Morir:
@@ -130,7 +153,7 @@ public class JefeViento : MonoBehaviour
         EstaAplastando = false;
         EstaEmpujando = false;
         ApareciendoTornados = false;
-
+        EmpujandoConFuerza = false;
         AnimatorDerecha.SetBool("Aplastar", false);
         AnimatorDerecha.SetBool("Tornado", false);
         AnimatorDerecha.SetBool("Levantate", false);
@@ -152,7 +175,7 @@ public class JefeViento : MonoBehaviour
         {
             if (b.gameObject.tag == "Personaje")
             {
-                Jugador.GetComponent<EstadisticasDePersonaje>().RecibirDaño(9f);
+                Jugador.GetComponent<EstadisticasDePersonaje>().RecibirDaño(9);
 
                 StartCoroutine(Empujar(Jugador.transform.forward));
 
@@ -164,7 +187,7 @@ public class JefeViento : MonoBehaviour
     {
         for (int i = 1; i < 11; i++)
         {
-            Jugador.GetComponent<CharacterController>().Move(direccion * -1 * Time.deltaTime * SlamKnockback * 25/i);
+            Jugador.GetComponent<CharacterController>().Move(direccion * -1 * Time.deltaTime * SlamKnockback * 25 / i);
             yield return null;
         }
         yield return null;
@@ -184,6 +207,7 @@ public class JefeViento : MonoBehaviour
         {
             if (Physics.Raycast(Jugador.transform.position, transform.up, out golpe, 999))
             {
+                print(golpe.transform.tag);
                 if (golpe.transform.tag == "JefeViento")
                 {
                     EstaAbajo = true;
@@ -212,7 +236,20 @@ public class JefeViento : MonoBehaviour
         Vector3 pos = DispararArriba.GetPoint(10);
         Debug.DrawRay(DispararArriba.origin, DispararArriba.direction * 99);
 
+        if (EmpujandoConFuerza)
+        {
+            Collider[] c = Physics.OverlapBox(ReferenciaIzquierda.transform.position, HitboxIzq * 2, Quaternion.identity);
+            foreach (Collider b in c)
+            {
+                if (b.gameObject.tag == "Personaje")
+                {
+                    StartCoroutine(Empujar(transform.forward * -1));
+                    EmpujandoConFuerza = false;
+                    Jugador.GetComponent<EstadisticasDePersonaje>().RecibirDaño(9f);
 
+                }
+            }
+        }
         if (Vector3.Distance(AmbasManos.transform.position, pos) < 1f && !EstaEmpujando)
         {
             AnimatorIzquierda.SetBool("Empujar", true);
@@ -294,11 +331,10 @@ public class JefeViento : MonoBehaviour
 
     {
         Gizmos.color = Color.cyan;
-
-
-
         Gizmos.DrawWireCube(ReferenciaDerecha.position, AplastarSize * 2);
 
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(ReferenciaIzquierda.position, HitboxIzq * 2);
 
     }
 }

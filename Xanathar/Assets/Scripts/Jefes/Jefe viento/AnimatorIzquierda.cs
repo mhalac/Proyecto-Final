@@ -19,6 +19,10 @@ public class AnimatorIzquierda : MonoBehaviour
     {
 
     }
+    public void Empujando()
+    {
+        Jefe.EmpujandoConFuerza = true;
+    }
 
     public void MeEstoyMuriendo()
     {
@@ -46,6 +50,7 @@ public class AnimatorIzquierda : MonoBehaviour
     public void TerminoDeEmpujar()
     {
         Invoke("ResetEmpujar", 1f);
+        Jefe.EmpujandoConFuerza = false;
 
     }
     private void ResetEmpujar()
