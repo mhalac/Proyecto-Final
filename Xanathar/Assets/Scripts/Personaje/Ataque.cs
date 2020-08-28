@@ -100,15 +100,18 @@ public class Ataque : MonoBehaviour
     public void HacerDamage()
     {
         Collider[] ataque = Physics.OverlapSphere(Arma.position, AreaAtaque);
+        bool Golpeo = false;
         foreach (Collider a in ataque)
         {
 
-            if (a.tag == "Enemigo")
+            if (a.tag == "Enemigo" && !Golpeo)
             {
+                Golpeo = true;
                 GameObject f = Instantiate(AtaqueParticula, a.ClosestPoint(transform.position), Quaternion.identity);
                 Destroy(f, 1);
                 if (a.GetComponent<LifeManager>() != null)
                 {
+
                     GestorItems c = FindObjectOfType<GestorItems>();
 
                     LifeManager Enemigo = a.GetComponent<LifeManager>();
@@ -136,19 +139,32 @@ public class Ataque : MonoBehaviour
             }
             else if (a.tag == "JefeFuego")
             {
+                Golpeo = true;
+
                 GameObject f = Instantiate(AtaqueParticula, a.ClosestPoint(transform.position), Quaternion.identity);
                 Destroy(f, 1);
                 JefeFuego = FindObjectOfType<FuegoJefe>().GetComponent<LifeManager>();
                 JefeFuego.RecibirDamage();
             }
-            else if(a.tag == "JefeRoca")
+            else if (a.tag == "JefeRoca")
             {
+                Golpeo = true;
+
                 GameObject f = Instantiate(AtaqueParticula, a.ClosestPoint(transform.position), Quaternion.identity);
                 Destroy(f, 1);
                 LifeManager c = FindObjectOfType<JefeRoca>().GetComponent<LifeManager>();
                 c.RecibirDamage();
             }
-            
+            else if (a.tag == "JefeViento")
+            {
+                Golpeo = true;
+
+                GameObject f = Instantiate(AtaqueParticula, a.ClosestPoint(transform.position), Quaternion.identity);
+                Destroy(f, 1);
+                LifeManager c = FindObjectOfType<JefeViento>().GetComponent<LifeManager>();
+                c.RecibirDamage();
+            }
+
         }
 
     }
