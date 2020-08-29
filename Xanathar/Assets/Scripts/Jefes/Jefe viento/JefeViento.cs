@@ -5,6 +5,7 @@ using UnityEngine;
 public class JefeViento : MonoBehaviour
 {
 
+    public BarraDeVidaJefe barra;
 
     public bool Termine;
 
@@ -68,6 +69,8 @@ public class JefeViento : MonoBehaviour
 
     void Start()
     {
+        barra = FindObjectOfType<BarraDeVidaJefe>();
+        barra.ValorDeVidaMaxima = GetComponent<LifeManager>().Vida;
         defaultRotation = transform.rotation;
         Jugador = GameObject.FindGameObjectWithTag("Personaje");
         //estado = Estados.Fase1;
@@ -80,6 +83,7 @@ public class JefeViento : MonoBehaviour
 
     void Update()
     {
+        barra.ValorDeVidaActual = GetComponent<LifeManager>().Vida;
         if (Mori)
         {
             GetComponent<LifeManager>().Inmortal = false;
