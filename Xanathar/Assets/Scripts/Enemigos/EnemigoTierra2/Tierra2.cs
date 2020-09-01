@@ -157,10 +157,7 @@ public class Tierra2 : MonoBehaviour {
 			if(Obj[i].gameObject.tag == "Personaje")
 			{
 				EstadoActual = Estados[3];
-			}
-			else
-			{
-				EstadoActual = Estados[2];
+				//Debug.Log("AAAAAAAAAA");
 			}
 		}
 	}
