@@ -11,6 +11,23 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1519912330349272}
   m_IsPrefabAsset: 1
+--- !u!1 &1050373571946062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4600583684255836}
+  - component: {fileID: 114105357463599212}
+  - component: {fileID: 65546112123665230}
+  m_Layer: 8
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1519912330349272
 GameObject:
   m_ObjectHideFlags: 0
@@ -22,7 +39,7 @@ GameObject:
   - component: {fileID: 33078834207858458}
   - component: {fileID: 23415996018961626}
   - component: {fileID: 65628195023388208}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PosteDeLuz
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4556110371265946}
   - component: {fileID: 108760014624518574}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,10 +69,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1519912330349272}
   m_LocalRotation: {x: -0.364347, y: 0.6060126, z: 0.6060125, w: 0.36434722}
-  m_LocalPosition: {x: -33.20507, y: -7.256508, z: -37.187912}
-  m_LocalScale: {x: 35.00022, y: 35.000328, z: 35.0003}
+  m_LocalPosition: {x: -133.34, y: -8.67, z: -29.08}
+  m_LocalScale: {x: 35.000584, y: 35.000694, z: 35.000664}
   m_Children:
   - {fileID: 4556110371265946}
+  - {fileID: 4600583684255836}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 117.97001}
@@ -71,6 +89,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4018924568623198}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4600583684255836
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050373571946062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0334}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4018924568623198}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23415996018961626
 MeshRenderer:
@@ -115,6 +146,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1519912330349272}
   m_Mesh: {fileID: 4300000, guid: 2e5ff029b2957264fb3ed7e509353304, type: 3}
+--- !u!65 &65546112123665230
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050373571946062}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0904471, y: 0.0911076, z: 0.18768229}
+  m_Center: {x: -0.009204928, y: 0.012953774, z: 0.068357505}
 --- !u!65 &65628195023388208
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -164,3 +207,19 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114105357463599212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050373571946062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 39bf789d771188a45be573854f91b205, type: 2}
+  isGlobal: 0
+  blendDistance: 1
+  weight: 1
+  priority: 20
