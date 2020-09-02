@@ -32,6 +32,7 @@ public class ListasDeItems : MonoBehaviour {
 		ConstruirConsatructores();
 	}
 
+	/*
 	void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.I))
@@ -44,6 +45,7 @@ public class ListasDeItems : MonoBehaviour {
 			InstanciarLosObjetosDelConstructor();
 		}
 	}
+	*/
 
 	private void ConstruirConsatructores()
 	{
