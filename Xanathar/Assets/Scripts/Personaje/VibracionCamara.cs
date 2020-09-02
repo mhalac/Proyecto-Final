@@ -19,6 +19,6 @@ public class VibracionCamara : MonoBehaviour
             yield return null;
         }
         transform.localPosition = PosicionOriginal;
-
+        
     }
 }
