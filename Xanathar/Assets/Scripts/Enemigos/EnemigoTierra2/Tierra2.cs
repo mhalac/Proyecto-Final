@@ -32,7 +32,6 @@ public class Tierra2 : MonoBehaviour {
 	private int EMask;
 
 	public int EstadoAtaque;
-	public Tierra2Anim Tierra2Anim;
 	EstadisticasDePersonaje EstadisticasDePersonaje;
 
 	public bool PermitirAtaque = false;
@@ -56,10 +55,6 @@ public class Tierra2 : MonoBehaviour {
 		Animador.SetBool("Corriendo" , false);
 		Animador.SetBool("Idle" , true);
 		EstadoAtaque = 0;
-
-		Tierra2Anim = FindObjectOfType<Tierra2Anim>();
-
-		EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
 	}
 	
 	// Update is called once per frame
@@ -162,10 +157,7 @@ public class Tierra2 : MonoBehaviour {
 			if(Obj[i].gameObject.tag == "Personaje")
 			{
 				EstadoActual = Estados[3];
-			}
-			else
-			{
-				EstadoActual = Estados[2];
+				//Debug.Log("AAAAAAAAAA");
 			}
 		}
 	}
@@ -191,6 +183,7 @@ public class Tierra2 : MonoBehaviour {
 	{
 		if(c.gameObject.tag == "Personaje" && ActivarColisiones == false)
 		{
+			EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
 			ActivarColisiones = true;
 			EstadisticasDePersonaje.RecibirDaño(Damage);
 		}

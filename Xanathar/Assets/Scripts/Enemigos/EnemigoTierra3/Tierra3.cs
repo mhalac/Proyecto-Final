@@ -44,8 +44,6 @@ public class Tierra3 : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
-
 		Agente = GetComponent<NavMeshAgent>();
 		PosicionEnSpawn = Heredar.position;
 		Pmask = LayerMask.NameToLayer("Personaje");
@@ -246,6 +244,7 @@ public class Tierra3 : MonoBehaviour {
 		{
 			if(PermitirColision == false)
 			{
+				EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
 				//Debug.Log("Te meti tremenda ñapi");
 				PermitirColision = true;
 

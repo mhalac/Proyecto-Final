@@ -56,6 +56,8 @@ public class EstadisticasDePersonaje : MonoBehaviour
         }
         Jugador = this.gameObject;
         GameObject.DontDestroyOnLoad(this.gameObject);
+
+        
     }
 
     //Funcion para rexibir daño en bas a la armadura
