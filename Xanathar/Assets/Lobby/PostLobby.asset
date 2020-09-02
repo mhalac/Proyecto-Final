@@ -15,7 +15,6 @@ MonoBehaviour:
   - {fileID: 114366505891074674}
   - {fileID: 114034426866041608}
   - {fileID: 114356220294957464}
-  - {fileID: 114482403139972810}
   - {fileID: 114770186997256178}
 --- !u!114 &114034426866041608
 MonoBehaviour:
@@ -31,7 +30,7 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 1
+    value: 0
   intensity:
     overrideState: 1
     value: 0.5
@@ -43,7 +42,7 @@ MonoBehaviour:
     value: 0.1
   clamp:
     overrideState: 1
-    value: 65472
+    value: 65422.23
   diffusion:
     overrideState: 1
     value: 7
@@ -156,23 +155,23 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   mixerBlueOutRedIn:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mixerBlueOutGreenIn:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mixerBlueOutBlueIn:
-    overrideState: 0
+    overrideState: 1
     value: 100
   lift:
     overrideState: 1
     value: {x: 1, y: 1, z: 1, w: 0}
   gamma:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 1, y: 1, z: 1, w: -0.12678288}
   gain:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 1, y: 1, z: 1, w: 0.17432645}
   masterCurve:
     overrideState: 0
     value:
@@ -1092,7 +1091,7 @@ MonoBehaviour:
       - 0.5
       - 0.5
   satVsSatCurve:
-    overrideState: 0
+    overrideState: 1
     value:
       curve:
         serializedVersion: 2
@@ -1421,42 +1420,6 @@ MonoBehaviour:
   quality:
     overrideState: 0
     value: 2
---- !u!114 &114482403139972810
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a34fa72bd4185749832024e9c8010bf, type: 3}
-  m_Name: ScreenSpaceReflections
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  preset:
-    overrideState: 1
-    value: 6
-  maximumIterationCount:
-    overrideState: 0
-    value: 16
-  resolution:
-    overrideState: 0
-    value: 0
-  thickness:
-    overrideState: 0
-    value: 8
-  maximumMarchDistance:
-    overrideState: 1
-    value: 100
-  distanceFade:
-    overrideState: 1
-    value: 0.5
-  vignette:
-    overrideState: 1
-    value: 0.5
 --- !u!114 &114770186997256178
 MonoBehaviour:
   m_ObjectHideFlags: 3

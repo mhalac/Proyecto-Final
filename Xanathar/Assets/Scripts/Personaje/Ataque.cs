@@ -33,7 +33,7 @@ public class Ataque : MonoBehaviour
     {
         CoolDownInicial = GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         CDTotal = 0;
-        Arma.position = new Vector3(Arma.position.x, Arma.position.y, Arma.position.z + AreaAtaque);
+        //Arma.position = new Vector3(Arma.position.x, Arma.position.y, Arma.position.z + AreaAtaque);
         anim.speed = 1 / GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         MusicaDuracionActual = MusicaDuracionInicial;
 
