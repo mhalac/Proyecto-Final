@@ -218,7 +218,7 @@ public class MovimientoPersonaje : MonoBehaviour
                 VectorDash = Vector3.zero;
             }
 
-            Controlador.Move(VectorDash * Time.deltaTime * VelocidadDash);
+            Controlador.Move(VectorDash * Time.fixedDeltaTime * VelocidadDash);
 
             tiempoDash -= Time.fixedDeltaTime;
 
