@@ -24,8 +24,8 @@ public class MovimientoCamara : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		MouseX = Input.GetAxis("Mouse X") * Sensibilidad * Time.deltaTime;
-		MouseY = Input.GetAxis("Mouse Y") * Sensibilidad * Time.deltaTime;
+		MouseX = Input.GetAxis("Mouse X") * Sensibilidad * Time.fixedDeltaTime;
+		MouseY = Input.GetAxis("Mouse Y") * Sensibilidad * Time.fixedDeltaTime;
 
 		RotacionX -= MouseY;
 		RotacionX = Mathf.Clamp(RotacionX , -45f , 45f);
