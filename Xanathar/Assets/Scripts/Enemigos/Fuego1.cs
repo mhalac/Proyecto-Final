@@ -217,7 +217,7 @@ public class Fuego1 : MonoBehaviour
     private void Acercar()
     {
 
-        //gameObject.transform.localPosition = Vector3.MoveTowards(transform.position, personaje.transform.position,velocidad * Time.deltaTime);
+        //gameObject.transform.localPosition = Vector3.MoveTowards(transform.position, personaje.transform.position,velocidad * Time.fixedDeltaTime);
         agente.destination = personaje.transform.position;
     }
 
@@ -226,7 +226,7 @@ public class Fuego1 : MonoBehaviour
     {
         Estado = Estados[3];
         //Apuntar(personaje.transform.position);
-        delay -= Time.deltaTime;
+        delay -= Time.fixedDeltaTime;
         agente.SetDestination(personaje.transform.position);
         agente.isStopped = true;
         Vector3 direction = (personaje.transform.position - RayPos.transform.position).normalized;

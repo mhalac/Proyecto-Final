@@ -247,14 +247,14 @@ public class Fuego2 : MonoBehaviour
     private Quaternion Apuntar(Transform Desde, Vector3 Hasta, float velocidad)
     {
         Vector3 direction = (Hasta - Desde.position).normalized;
-        Quaternion rotar = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction), Time.deltaTime * velocidad);
+        Quaternion rotar = Quaternion.Slerp(Cabeza.rotation, Quaternion.LookRotation(direction), Time.fixedDeltaTime * velocidad);
 
         return rotar;
     }
     private Quaternion Apuntar(Transform Desde, float velocidad)
     {
         Vector3 direction = (personaje.transform.position - Desde.position).normalized;
-        Quaternion rotar = Quaternion.Lerp(Desde.rotation, Quaternion.LookRotation(direction), Time.deltaTime * velocidad);
+        Quaternion rotar = Quaternion.Lerp(Desde.rotation, Quaternion.LookRotation(direction), Time.fixedDeltaTime * velocidad);
         return rotar;
     }
 
@@ -265,7 +265,7 @@ public class Fuego2 : MonoBehaviour
 
         Estado = Estados[3];
         if (TiempoDisparando < 0 || delay > 0)
-            delay -= Time.deltaTime;
+            delay -= Time.fixedDeltaTime;
 
         // Raycasteamos y sacamos el punto de vision en base a la cara
         Vector3 direction2 = Vector3.zero;
@@ -301,7 +301,7 @@ public class Fuego2 : MonoBehaviour
         //Shoot shoot mano
         if (delay <= Mathf.Epsilon && TiempoDisparando > Mathf.Epsilon)
         {
-            TiempoDisparando -= Time.deltaTime;
+            TiempoDisparando -= Time.fixedDeltaTime;
             Collider[] objs = null;
             //Debug.DrawRay(RayPos.position, Apuntando * hit.distance, Color.yellow);
             if (Physics.Raycast(RayPos.position, direction2, out hit, Mathf.Infinity))
@@ -322,12 +322,12 @@ public class Fuego2 : MonoBehaviour
                         ManejadorDeItems pj = FindObjectOfType<ManejadorDeItems>();
                         pj.ManejadorDeVida();
 
-                        DamagePorTiempo -= Time.deltaTime;
+                        DamagePorTiempo -= Time.fixedDeltaTime;
                         //animator.speed = 1;
                     }
                 }
             }
-            DamagePorTiempo -= Time.deltaTime;
+            DamagePorTiempo -= Time.fixedDeltaTime;
             if (!FuegoAnim.isPlaying) FuegoAnim.Play();
 
 
