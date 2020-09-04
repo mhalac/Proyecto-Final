@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
+
 
 public class MovimientoPersonaje : MonoBehaviour
 {
-
+    private float fuerzaDesenfoque = .42f;
+    private Vignette dashFade;
+   public PostProcessVolume volume;
     //Script para el movimiento del personaje
     public bool PuedoCorrer = true;
     public bool AfectadoSlowCercano;
@@ -40,7 +44,7 @@ public class MovimientoPersonaje : MonoBehaviour
     public bool EstaEnPiso;
 
     //Variables del Dash
-
+    private float potencia;
     [Header("Variables de Dash")]
     public float VelocidadDash;
     public float DistanciaDeDash = 10;
@@ -55,25 +59,13 @@ public class MovimientoPersonaje : MonoBehaviour
 
 
 
-    //Variables para Determinar si el jugador se esta moviendo o no
-    /*
-	[Header("Variables para chequear si el usuario Se Movio")]
-	public Transform ObjetoReferenciador;
-	public float LimiteDistanciaEntrePosiciones = 0.0001f;
-	private const int FramesParaDetectar = 3;
-	Vector3[] ListaDePosicionesAnteriores = new Vector3[FramesParaDetectar];
-	public bool EstaEnIdle = false;
-	*/
 
     // Use this for initialization
     void Start()
     {
-        /*
-		for(int i = 0; i < ListaDePosicionesAnteriores.Length; i++)
-		{
-			ListaDePosicionesAnteriores[i] = Vector3.zero;
-		}
-		*/
+      
+        volume.profile.TryGetSettings(out dashFade);
+        dashFade.intensity.value = 0;
         PuedoCorrer = true;
         Corriendo = false;
 
@@ -87,6 +79,19 @@ public class MovimientoPersonaje : MonoBehaviour
         EstaEnPiso = Physics.CheckSphere(CheckDePiso.position, DistanciaDePiso, MascaraDePiso);
         X = Input.GetAxis("Horizontal");
         Z = Input.GetAxis("Vertical");
+
+        if(VaribaleInmortal.Inmortalidad && dashFade.intensity.value +  fuerzaDesenfoque <= 1)
+        {
+            potencia = potencia + fuerzaDesenfoque;
+            dashFade.intensity.value = potencia;
+            print(dashFade.intensity.value);
+        }
+        else if(dashFade.intensity.value  - fuerzaDesenfoque >= 0f)
+        {
+            potencia = potencia -fuerzaDesenfoque ;
+            dashFade.intensity.value = potencia;
+            print(dashFade.intensity.value);
+        }
 
         //Movimientos
 
@@ -124,43 +129,7 @@ public class MovimientoPersonaje : MonoBehaviour
 
         //Movimiento eje X y Z
         Controlador.Move(Movimiento * Stats.VelocidadDeMovimiento * Time.deltaTime);
-        /*
-		for(int i = 0; i < ListaDePosicionesAnteriores.Length -1; i++)
-		{
-			ListaDePosicionesAnteriores[i] = ListaDePosicionesAnteriores[i+1];
-		}
-
-		ListaDePosicionesAnteriores[ListaDePosicionesAnteriores.Length - 1] = ObjetoReferenciador.position;
-
-		for(int i = 0; i < ListaDePosicionesAnteriores.Length - 1; i++)
-		{
-			if(Vector3.Distance(ListaDePosicionesAnteriores[i] , ListaDePosicionesAnteriores[i + 1]) <= LimiteDistanciaEntrePosiciones)
-			{
-				EstaEnIdle = false;
-				Debug.Log("Esta Quieto");
-				break;
-			}
-			else
-			{
-				EstaEnIdle = true;
-				Debug.Log("Se Mueve");
-			}
-		}
-		*/
-
-        //Movimiento De Correr
-        /*
-		if(Input.GetKeyDown(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.W))
-		{
-			Stats.VelocidadDeMovimiento += 6;
-			Corriendo = true;
-		}
-		if(Input.GetKeyUp(KeyCode.LeftShift) && Input.GetKeyUp(KeyCode.W))
-		{
-			Stats.VelocidadDeMovimiento -= 6;
-			Corriendo = false;
-		}
-		*/
+        
 
         if (Input.GetKey(KeyCode.W))
         {

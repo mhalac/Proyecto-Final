@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class VibracionCamara : MonoBehaviour
 {
-
+    
     public IEnumerator Shake(float duration, float magnitud)
     {
         Vector3 PosicionOriginal = transform.localPosition;
+        
 
         float tiempoPasado = 0.0f;
         while (tiempoPasado < duration)
