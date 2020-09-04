@@ -26,6 +26,7 @@ public class Viento3 : MonoBehaviour
     [Header("Parametros")]
     public NavMeshAgent Agente;
     public Animator Animador;
+    public GameObject PrefabTornado;
     private Vector3 PosicionInicial;
     private Vector3 Destino;
     private GameObject Personaje;
@@ -74,7 +75,7 @@ public class Viento3 : MonoBehaviour
                 Apuntar();
             }
         }
-        else if(EstadoActual == Estados[1])
+        else if(EstadoActual == Estados[3] || EstadoActual == Estados[1])
         {
             Buscar();
         }
@@ -115,7 +116,9 @@ public class Viento3 : MonoBehaviour
     public void Buscar()
     {
         Agente.isStopped = false;
-        Agente.destination = Personaje.transform.position;
+        //Agente.destination = Personaje.transform.position;
+        Destino = Personaje.transform.position;
+        Agente.destination = Destino;
         EstadoActual = Estados[2];
     }
 
@@ -184,7 +187,7 @@ public class Viento3 : MonoBehaviour
 
     public IEnumerator EsperarParaTirarTornado()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
 
         PuedoDispar = false;
     }
