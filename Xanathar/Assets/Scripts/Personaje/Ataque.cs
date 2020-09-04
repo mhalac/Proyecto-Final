@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+
 
 public class Ataque : MonoBehaviour
 {
@@ -9,7 +9,7 @@ public class Ataque : MonoBehaviour
     // C * ((100 - CDR) / 100)
 
 
-    public PostProcessVolume volume;
+ 
 
     public GameObject AtaqueParticula;
     public LifeManager JefeFuego;
