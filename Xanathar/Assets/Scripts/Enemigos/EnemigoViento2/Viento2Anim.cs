@@ -23,6 +23,8 @@ public class Viento2Anim : MonoBehaviour
         Padre.AtaqueActivado = false;
 
         Padre.PuedoDisparar = false;
+
+        Padre.EstadoActual = Padre.Estados[1];
     }
 
     IEnumerator CoordinarAtaque()
