@@ -49,7 +49,7 @@ public class GestorItems : MonoBehaviour
         {
             if (ItemsEquipados[i].item != null && !TerminoCD(i) && !ItemsEquipados[i].Activado)
             {
-                ItemsEquipados[i].cooldownActual -= Time.deltaTime;
+                ItemsEquipados[i].cooldownActual -= Time.fixedDeltaTime;
 
             }
             else if (ItemsEquipados[i].item != null && ItemsEquipados[i].item.GetComponent<InformacionDeItems>().Nombre == "Sol De La Patria")
@@ -73,7 +73,7 @@ public class GestorItems : MonoBehaviour
                 if (NombreDelObjeto == "Sol De La Patria")
                 {
                     ItemsEquipados[0].cooldownActual = ItemsEquipados[0].cooldownInicial;
-                    ItemsEquipados[0].cooldownActual -= Time.deltaTime;
+                    ItemsEquipados[0].cooldownActual -= Time.fixedDeltaTime;
                     c.ActivaPatria = true;
                     SolPatriaParticula.SetActive(true);
                     ItemsEquipados[0].Activado = true;
@@ -81,7 +81,7 @@ public class GestorItems : MonoBehaviour
                 else
                 {
                     ItemsEquipados[0].cooldownActual = ItemsEquipados[0].cooldownInicial;
-                    ItemsEquipados[0].cooldownActual -= Time.deltaTime;
+                    ItemsEquipados[0].cooldownActual -= Time.fixedDeltaTime;
                     ExplosiveMusic.GetComponent<Animator>().enabled = false;
                     c.ActivaMusica = true;
                     ItemsEquipados[0].Activado = true;
@@ -100,7 +100,7 @@ public class GestorItems : MonoBehaviour
             if (TerminoCD(1))
             {
                 ItemsEquipados[1].cooldownActual = ItemsEquipados[1].cooldownInicial; ;
-                ItemsEquipados[1].cooldownActual -= Time.deltaTime;
+                ItemsEquipados[1].cooldownActual -= Time.fixedDeltaTime;
 
                 //hacer cosas de item
             }

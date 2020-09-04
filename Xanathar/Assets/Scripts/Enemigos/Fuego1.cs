@@ -231,7 +231,7 @@ public class Fuego1 : MonoBehaviour
         agente.isStopped = true;
         Vector3 direction = (personaje.transform.position - RayPos.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.fixedDeltaTime * 5);
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 5);
         
         Debug.DrawRay(RayPos.position, direction * radioDisparar, Color.blue);
 

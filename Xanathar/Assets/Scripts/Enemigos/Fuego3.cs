@@ -291,7 +291,7 @@ public class Fuego3 : MonoBehaviour
         {
             Vector3 direction = (personaje.transform.position - CentroDelCuerpo.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(CentroDelCuerpo.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
+            transform.rotation = Quaternion.Slerp(CentroDelCuerpo.rotation, lookRotation, Time.deltaTime * rotacion);
             Debug.DrawRay(CentroDelCuerpo.transform.position, direction * Vector3.Distance(CentroDelCuerpo.position, personaje.transform.position));
         }
         Vector3 dir = (personaje.transform.position - transform.position).normalized;
