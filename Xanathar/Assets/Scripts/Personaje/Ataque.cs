@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Ataque : MonoBehaviour
 {
 
     // C * ((100 - CDR) / 100)
+
+
+    public PostProcessVolume volume;
 
     public GameObject AtaqueParticula;
     public LifeManager JefeFuego;
@@ -44,6 +48,9 @@ public class Ataque : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        
+
         MovimientoPersonaje c = FindObjectOfType<MovimientoPersonaje>();
         if (ActivaMusica && MusicaDuracionActual > Mathf.Epsilon)
         {
@@ -73,6 +80,7 @@ public class Ataque : MonoBehaviour
     }
     public void FullReset()
     {
+
         GestorItems c = FindObjectOfType<GestorItems>();
 
         for (int i = 0; i < c.ItemsEquipados.Length; i++)
