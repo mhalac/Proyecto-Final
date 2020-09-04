@@ -135,31 +135,6 @@ public class Viento1 : MonoBehaviour {
 		EstadoActual = Estados[1];
 	}
 
-	public bool TengoQueAcercarme()
-	{
-		Collider [] Obj = Physics.OverlapSphere(Vision.position , RangoDeVision);
-
-		for(int i = 0; i < Obj.Length; i++)
-		{
-			if(Obj[i].gameObject.layer == PMask)
-			{
-				return true;
-			}
-
-			if(Obj[i].gameObject.layer == Emask)
-			{
-				float Distancia = Vector3.Distance(Obj[i].gameObject.transform.position , Heredar.transform.position);
-
-				if(Distancia < 2f)
-				{
-					return false;
-				}
-			}
-		}
-
-		return false;
-	}
-
 	public void Buscar()
 	{
 		Agente.isStopped = false;

@@ -5,21 +5,49 @@ using UnityEngine;
 public class Viento2Anim : MonoBehaviour
 {
     public Viento2 Padre;
-
-    // Start is called before the first frame update
-    void Start()
+    public void ActivarParticulas()
     {
-
-    }
-
-    public void IrALugarRandom()
-    {
-        Padre.IrAPosRandom();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        Padre.Particulas.SetActive(true);
+        Padre.AtaqueActivado = true;
         
+        StartCoroutine(CoordinarAtaque());
+    }
+
+    public void TerminarAtaque()
+    {
+        Padre.Animador.SetBool("Flotando" , true);
+        Padre.Animador.SetBool("Atacando" , false);
+
+        Padre.Particulas.SetActive(false);
+
+        Padre.AtaqueActivado = false;
+
+        Padre.PuedoDisparar = false;
+    }
+
+    IEnumerator CoordinarAtaque()
+    {
+        yield return new WaitForSeconds(0.7f);
+
+        StartCoroutine(PermitirAtaque());
+    }
+
+    IEnumerator PermitirAtaque()
+    {
+        while(Padre.AtaqueActivado == true)
+        {
+            yield return new WaitForEndOfFrame();
+
+            yield return new WaitForSeconds(0.3f);
+
+            if(Padre.AtaqueActivado == false)
+            {
+                yield break;
+            }
+
+            Padre.OndasDaño();
+        }
+
+        yield return null;
     }
 }
