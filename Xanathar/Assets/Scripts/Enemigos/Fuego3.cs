@@ -110,7 +110,7 @@ public class Fuego3 : MonoBehaviour
 
         else if (PuedoRestar)
         {
-            DelayTeleport -= Time.fixedDeltaTime;
+            DelayTeleport -= Time.deltaTime;
 
         }
 
@@ -209,7 +209,7 @@ public class Fuego3 : MonoBehaviour
         anim.SetBool("Tepeo", false);
         transform.localScale = Vector3.zero;
         DelayTeleport = DelayTeleportInicial;
-        DelayTeleport -= Time.fixedDeltaTime;
+        DelayTeleport -= Time.deltaTime;
         transform.LookAt(personaje.transform.position);
         TerminoAnimacion = false;
         Debug.DrawRay(transform.position, Vector3.up * 20, Color.magenta, 1);
@@ -228,7 +228,7 @@ public class Fuego3 : MonoBehaviour
         anim.SetBool("Tepeo", false);
         transform.localScale = Vector3.zero;
         DelayTeleport = DelayTeleportInicial;
-        DelayTeleport -= Time.fixedDeltaTime;
+        DelayTeleport -= Time.deltaTime;
         var euler = transform.eulerAngles;
         euler = Vector3.zero;
         euler.y = Random.Range(0.0f, 360.0f);
@@ -286,12 +286,12 @@ public class Fuego3 : MonoBehaviour
     {
         Estado = Estados[1];
         //Apuntar(personaje.transform.position);
-        delay -= Time.fixedDeltaTime;
+        delay -= Time.deltaTime;
         if (Vector3.Distance(transform.position, personaje.transform.position) > 5)
         {
             Vector3 direction = (personaje.transform.position - CentroDelCuerpo.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(CentroDelCuerpo.rotation, lookRotation, Time.fixedDeltaTime * rotacion);
+            transform.rotation = Quaternion.Slerp(CentroDelCuerpo.rotation, lookRotation, Time.deltaTime * rotacion);
             Debug.DrawRay(CentroDelCuerpo.transform.position, direction * Vector3.Distance(CentroDelCuerpo.position, personaje.transform.position));
         }
         Vector3 dir = (personaje.transform.position - transform.position).normalized;

@@ -217,7 +217,7 @@ public class Fuego1 : MonoBehaviour
     private void Acercar()
     {
 
-        //gameObject.transform.localPosition = Vector3.MoveTowards(transform.position, personaje.transform.position,velocidad * Time.fixedDeltaTime);
+        //gameObject.transform.localPosition = Vector3.MoveTowards(transform.position, personaje.transform.position,velocidad * Time.deltaTime);
         agente.destination = personaje.transform.position;
     }
 
@@ -226,12 +226,12 @@ public class Fuego1 : MonoBehaviour
     {
         Estado = Estados[3];
         //Apuntar(personaje.transform.position);
-        delay -= Time.fixedDeltaTime;
+        delay -= Time.deltaTime;
         agente.SetDestination(personaje.transform.position);
         agente.isStopped = true;
         Vector3 direction = (personaje.transform.position - RayPos.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.fixedDeltaTime * 5);
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 5);
         
         Debug.DrawRay(RayPos.position, direction * radioDisparar, Color.blue);
 
