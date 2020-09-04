@@ -13,7 +13,7 @@ public class Viento3Anim : MonoBehaviour
 
     public void IniciarAtaque()
     {
-        
+        Instantiate(Padre.PrefabTornado , Padre.PuntoDisparo.transform.position , Quaternion.identity);
     }
 
     public void VolverIdle()
