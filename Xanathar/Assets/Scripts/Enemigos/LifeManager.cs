@@ -209,6 +209,14 @@ public class LifeManager : MonoBehaviour
                 c.Deshabilitar();
                 c.enabled = false;
             }
+            else if (gameObject.tag == "JefeAgua")
+            {
+                JefeAgua c = FindObjectOfType<JefeAgua>();
+                Destroy(c.gameObject, 6);
+                c.enabled = false;
+                c.animator.SetBool("Morir", true);
+
+            }
             else
             {
                 Destroy(this.gameObject);

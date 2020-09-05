@@ -9,9 +9,11 @@ public class JefeAgua : MonoBehaviour
 
     public int TentaculosRate;
 
+    private BarraDeVidaJefe barra;
+
     public int TentaculosMaximos;
     public GameObject Tentaculo;
-    
+
     public float CDSlap;
     public float Distancia;
     public bool YaAtaque;
@@ -25,7 +27,7 @@ public class JefeAgua : MonoBehaviour
     public List<GameObject> Tentaculos = new List<GameObject>();
     public Transform[] Charcos;
     public EstadosAgua estado;
-    private Animator animator;
+    public Animator animator;
     public float IntervaloEntreTP;
     public float IntervaloLocal;
     public Transform LastPosition = null;
@@ -38,6 +40,8 @@ public class JefeAgua : MonoBehaviour
     }
     void Start()
     {
+        barra = FindObjectOfType<BarraDeVidaJefe>();
+        barra.ValorDeVidaMaxima = GetComponent<LifeManager>().Vida;
         animator = GetComponent<Animator>();
         IntervaloLocal = IntervaloEntreTP;
         Jugador = GameObject.FindGameObjectWithTag("Personaje");
@@ -74,19 +78,31 @@ public class JefeAgua : MonoBehaviour
     }
     void SpawnearTentaculos()
     {
-        int c = Random.Range(0,Charcos.Length);
-
-        Instantiate(Tentaculo,Charcos[c].position,Tentaculo.transform.rotation);
-
+        int c = Random.Range(0, Charcos.Length);
+        foreach (GameObject d in Tentaculos)
+        {
+            if (d == null)
+                Tentaculos.Remove(d);
+        }
+        GameObject b = Instantiate(Tentaculo, Charcos[c].position, Tentaculo.transform.rotation);
+        Tentaculos.Add(b);
     }
     void Update()
     {
-        Distancia = Vector3.Distance(Jugador.transform.position, transform.position);
-        if(Tentaculos.Count < TentaculosMaximos && !IsInvoking("SpawnearTentaculos"))
-        {
-            Invoke("SpawnearTentaculos",TentaculosRate);
-        }
+        
+        
+        barra.ValorDeVidaActual = GetComponent<LifeManager>().Vida;
 
+        Distancia = Vector3.Distance(Jugador.transform.position, transform.position);
+        if (Tentaculos.Count < TentaculosMaximos && !IsInvoking("SpawnearTentaculos"))
+        {
+            Invoke("SpawnearTentaculos", TentaculosRate);
+        }
+        foreach (GameObject c in Tentaculos)
+        {
+            if (c == null)
+                Tentaculos.Remove(c);
+        }
 
         if (!EstaDemasiadoCerca && Distancia < 8f)
         {
@@ -132,7 +148,7 @@ public class JefeAgua : MonoBehaviour
     }
     IEnumerator Empujar()
     {
-        Jugador.GetComponent<EstadisticasDePersonaje>().RecibirDaño(4f);
+        Jugador.GetComponent<EstadisticasDePersonaje>().RecibirDaño(9f);
         Vector3 dir = Mano.transform.forward;
         for (int i = 0; i < 54; i++)
         {

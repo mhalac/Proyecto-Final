@@ -35,12 +35,13 @@ public class BarraDeVidaJefe : MonoBehaviour
     void Update()
     {
         ManejadorDeVidaJefe(ValorDeVidaMaxima);
+        print(ValorDeVidaMaxima);
     }
 
     public void ManejadorDeVidaJefe(float VidaMaximaDelJefe)
     {
         //ValorDeVidaActual = BuscarBarra();
-        ValorDeVidaActual = FindObjectOfType<LifeManager>().Vida;
+        //ValorDeVidaActual = FindObjectOfType<LifeManager>().Vida;
         RellenoDeVida = ValorDeVidaActual / VidaMaximaDelJefe;
         ContenidoBarraDeVida.fillAmount = RellenoDeVida;
 

@@ -17,6 +17,10 @@ public class TentaculoAnimator : MonoBehaviour
     {
         
     }
+    public void Ataque()
+    {
+        parent.Ataque();
+    }
     public void TermineAtacar()
     {
         parent.TermineAtacar();

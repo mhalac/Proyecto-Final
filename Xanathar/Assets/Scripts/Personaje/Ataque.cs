@@ -163,6 +163,15 @@ public class Ataque : MonoBehaviour
                 LifeManager c = FindObjectOfType<JefeViento>().GetComponent<LifeManager>();
                 c.RecibirDamage();
             }
+            else if (a.tag == "JefeAgua")
+            {
+                Golpeo = true;
+
+                GameObject f = Instantiate(AtaqueParticula, a.ClosestPoint(transform.position), Quaternion.identity);
+                Destroy(f, 1);
+                LifeManager c = a.GetComponent<LifeManager>();
+                c.RecibirDamage();
+            }
 
         }
 
