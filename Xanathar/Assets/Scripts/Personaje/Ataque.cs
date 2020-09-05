@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Ataque : MonoBehaviour
 {
 
     // C * ((100 - CDR) / 100)
-
-
- 
 
     public GameObject AtaqueParticula;
     public LifeManager JefeFuego;
@@ -37,7 +33,6 @@ public class Ataque : MonoBehaviour
     {
         CoolDownInicial = GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         CDTotal = 0;
-        //Arma.position = new Vector3(Arma.position.x, Arma.position.y, Arma.position.z + AreaAtaque);
         anim.speed = 1 / GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         MusicaDuracionActual = MusicaDuracionInicial;
 
@@ -48,9 +43,6 @@ public class Ataque : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        
-
         MovimientoPersonaje c = FindObjectOfType<MovimientoPersonaje>();
         if (ActivaMusica && MusicaDuracionActual > Mathf.Epsilon)
         {
@@ -80,7 +72,6 @@ public class Ataque : MonoBehaviour
     }
     public void FullReset()
     {
-
         GestorItems c = FindObjectOfType<GestorItems>();
 
         for (int i = 0; i < c.ItemsEquipados.Length; i++)

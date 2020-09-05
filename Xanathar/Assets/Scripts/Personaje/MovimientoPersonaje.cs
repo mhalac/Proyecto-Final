@@ -84,7 +84,6 @@ public class MovimientoPersonaje : MonoBehaviour
         {
             potencia = potencia + fuerzaDesenfoque;
             dashFade.intensity.value = potencia;
-            print(dashFade.intensity.value);
         }
         else if(dashFade.intensity.value  - fuerzaDesenfoque >= 0f)
         {
