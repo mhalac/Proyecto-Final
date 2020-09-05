@@ -7,6 +7,11 @@ public class JefeAgua : MonoBehaviour
     // Start is called before the first frame update
 
 
+    public int TentaculosRate;
+
+    public int TentaculosMaximos;
+    public GameObject Tentaculo;
+    
     public float CDSlap;
     public float Distancia;
     public bool YaAtaque;
@@ -17,6 +22,7 @@ public class JefeAgua : MonoBehaviour
     public Transform parent;
     public Transform Ojos;
     public GameObject Jugador;
+    public List<GameObject> Tentaculos = new List<GameObject>();
     public Transform[] Charcos;
     public EstadosAgua estado;
     private Animator animator;
@@ -66,9 +72,21 @@ public class JefeAgua : MonoBehaviour
             IntervaloLocal = 0;
         }
     }
+    void SpawnearTentaculos()
+    {
+        int c = Random.Range(0,Charcos.Length);
+
+        Instantiate(Tentaculo,Charcos[c].position,Tentaculo.transform.rotation);
+
+    }
     void Update()
     {
         Distancia = Vector3.Distance(Jugador.transform.position, transform.position);
+        if(Tentaculos.Count < TentaculosMaximos && !IsInvoking("SpawnearTentaculos"))
+        {
+            Invoke("SpawnearTentaculos",TentaculosRate);
+        }
+
 
         if (!EstaDemasiadoCerca && Distancia < 8f)
         {
@@ -118,7 +136,7 @@ public class JefeAgua : MonoBehaviour
         Vector3 dir = Mano.transform.forward;
         for (int i = 0; i < 54; i++)
         {
-            Jugador.GetComponent<CharacterController>().Move(dir * Time.deltaTime * 80);
+            Jugador.GetComponent<CharacterController>().Move(dir * Time.deltaTime * 40);
             yield return null;
         }
         yield return null;
