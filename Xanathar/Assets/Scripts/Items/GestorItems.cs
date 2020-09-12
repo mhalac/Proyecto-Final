@@ -49,7 +49,7 @@ public class GestorItems : MonoBehaviour
         {
             if (ItemsEquipados[i].item != null && !TerminoCD(i) && !ItemsEquipados[i].Activado)
             {
-                ItemsEquipados[i].cooldownActual -= Time.fixedDeltaTime;
+                ItemsEquipados[i].cooldownActual -= Time.deltaTime;
 
             }
             else if (ItemsEquipados[i].item != null && ItemsEquipados[i].item.GetComponent<InformacionDeItems>().Nombre == "Sol De La Patria")
@@ -58,11 +58,7 @@ public class GestorItems : MonoBehaviour
                 d.ActivaDeFuegoCooldown = false;
 
             }
-
-
         }
-
-        
         if (ItemsEquipados[0].item != null && Input.GetKeyDown(KeyCode.Q) && !ItemsEquipados[0].Activado)
         {
             if (TerminoCD(0))
@@ -73,7 +69,7 @@ public class GestorItems : MonoBehaviour
                 if (NombreDelObjeto == "Sol De La Patria")
                 {
                     ItemsEquipados[0].cooldownActual = ItemsEquipados[0].cooldownInicial;
-                    ItemsEquipados[0].cooldownActual -= Time.fixedDeltaTime;
+                    ItemsEquipados[0].cooldownActual -= Time.deltaTime;
                     c.ActivaPatria = true;
                     SolPatriaParticula.SetActive(true);
                     ItemsEquipados[0].Activado = true;
@@ -81,7 +77,7 @@ public class GestorItems : MonoBehaviour
                 else
                 {
                     ItemsEquipados[0].cooldownActual = ItemsEquipados[0].cooldownInicial;
-                    ItemsEquipados[0].cooldownActual -= Time.fixedDeltaTime;
+                    ItemsEquipados[0].cooldownActual -= Time.deltaTime;
                     ExplosiveMusic.GetComponent<Animator>().enabled = false;
                     c.ActivaMusica = true;
                     ItemsEquipados[0].Activado = true;
@@ -95,16 +91,35 @@ public class GestorItems : MonoBehaviour
 
         }
 
-        if (ItemsEquipados[1].item != null && Input.GetKeyDown(KeyCode.E))
+        if (ItemsEquipados[1].item != null && Input.GetKeyDown(KeyCode.E) && !ItemsEquipados[1].Activado)
         {
             if (TerminoCD(1))
             {
-                ItemsEquipados[1].cooldownActual = ItemsEquipados[1].cooldownInicial; ;
-                ItemsEquipados[1].cooldownActual -= Time.fixedDeltaTime;
+                Ataque c = FindObjectOfType<Ataque>();
 
-                //hacer cosas de item
+                string NombreDelObjeto = ItemsEquipados[1].item.GetComponent<InformacionDeItems>().Nombre;
+                if (NombreDelObjeto == "Golem Heart")
+                {
+                    ItemsEquipados[1].cooldownActual = ItemsEquipados[1].cooldownInicial;
+                    ItemsEquipados[1].cooldownActual -= Time.deltaTime;
+                    c.ActivaPatria = true;
+                    SolPatriaParticula.SetActive(true);
+                    ItemsEquipados[1].Activado = true;
+                }
+                else
+                {
+                    ItemsEquipados[1].cooldownActual = ItemsEquipados[0].cooldownInicial;
+                    ItemsEquipados[1].cooldownActual -= Time.deltaTime;
+                    ExplosiveMusic.GetComponent<Animator>().enabled = false;
+                    c.ActivaMusica = true;
+                    ItemsEquipados[1].Activado = true;
+
+                    ExplosiveMusic.SetActive(true);
+
+                }
+
+
             }
-
         }
 
         if (Input.GetKeyDown(KeyCode.R))
