@@ -7,23 +7,25 @@ public class AnimacionIconos : MonoBehaviour {
 
 	[Header("Imagenes De Las Habilidades")]
 	public Image ActivaDeFuego;
+	public Image ActivaDeTierra;
 
 	[Header("Cooldown")]
 	public float CoolDown;
 
 	[Header("Bools De Las Habilidades")]
 	public bool ActivaDeFuegoCooldown = false;
+	public bool ActivaDeTierraCooldown = false;
 
 	// Update is called once per frame
 	void Update ()
 	{
-		
+		/*
 		if(Input.GetKeyDown(KeyCode.N))
 		{
 			ActivaDeFuegoCooldown = true;
 			SeleccionadorDeImagenes(5);
 		}
-		
+		*/
 	}
 
 	IEnumerator CoolDownDeHabilidades(Image ImagenDeActiva , float CoolDownHabilidad)
@@ -51,15 +53,15 @@ public class AnimacionIconos : MonoBehaviour {
 		CoolDown = CooldownP;
 		if(ActivaDeFuegoCooldown)
 		{
-			
 			StartCoroutine(CoolDownDeHabilidades(ActivaDeFuego , CoolDown));
 			return;
 		}
-		//Debug.Log("Este no se deberia de ejecutar");
-	}
 
-	public void ResetIcono()
-	{
-		ActivaDeFuego.fillAmount = 1f;
+		if(ActivaDeTierra)
+		{
+			StartCoroutine(CoolDownDeHabilidades(ActivaDeTierra , CoolDown));
+			return;
+		}
+		//Debug.Log("Este no se deberia de ejecutar");
 	}
 }
