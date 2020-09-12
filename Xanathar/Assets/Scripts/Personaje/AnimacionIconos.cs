@@ -57,7 +57,7 @@ public class AnimacionIconos : MonoBehaviour {
 			return;
 		}
 
-		if(ActivaDeTierra)
+		if(ActivaDeTierraCooldown)
 		{
 			StartCoroutine(CoolDownDeHabilidades(ActivaDeTierra , CoolDown));
 			return;
