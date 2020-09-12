@@ -9,7 +9,7 @@ public class AgarradorDeItems : MonoBehaviour
     float Rango = 5;
     string OrdenDeElemento;
     public GameObject[] ObjetosEquipados = new GameObject[12];
-    public GameObject [] CopiaDeObjetos = new GameObject[12];
+    public GameObject[] CopiaDeObjetos = new GameObject[12];
     public GameObject Instanciador;
     private ManejadorDeItems ManejadorDeHUD;
 
@@ -111,13 +111,13 @@ public class AgarradorDeItems : MonoBehaviour
             CategoriaItemEquipado = ObjetosEquipados[i].GetComponent<InformacionDeItems>().Categoria;
             NombreItemEquipado = ObjetosEquipados[i].GetComponent<InformacionDeItems>().Nombre;
 
-            if(NombreItemEquipado == NombreDelObjetoAgarrado)
+            if (NombreItemEquipado == NombreDelObjetoAgarrado)
             {
                 ObjetosEquipados[i] = ObjetoAgarrado;
                 Destroy(ColisionDeObjeto.collider.gameObject);
 
                 Vector3 PosAInstanciar = new Vector3(Instanciador.transform.position.x, (Instanciador.transform.position.y + 1), Instanciador.transform.position.z);
-                Instantiate(ObjetoAgarrado , PosAInstanciar , Quaternion.identity);
+                Instantiate(ObjetoAgarrado, PosAInstanciar, Quaternion.identity);
                 break;
             }
 
@@ -128,7 +128,7 @@ public class AgarradorDeItems : MonoBehaviour
 
                 EquipadorActivasPasivasYEstadisticas(CategoriaDelObjetoAgarrado, ElementoDelObjetoAgarrado, NombreDelObjetoAgarrado, ObjetoAgarrado);
 
-                DesequiparActivasPasivasYEstadisticas(CategoriaItemEquipado , ElementoItemEquipado , NombreItemEquipado , ObjetoNoAgarrado);
+                DesequiparActivasPasivasYEstadisticas(CategoriaItemEquipado, ElementoItemEquipado, NombreItemEquipado, ObjetoNoAgarrado);
 
                 Vector3 PosAInstanciar = new Vector3(Instanciador.transform.position.x, (Instanciador.transform.position.y + 1), Instanciador.transform.position.z);
                 Instantiate(ObjetoNoAgarrado, PosAInstanciar, Quaternion.identity);
@@ -147,9 +147,9 @@ public class AgarradorDeItems : MonoBehaviour
 
     public void DropeadorDeItems()
     {
-        if(ControlarPuertasYJefes.JefeEliminado == true)
+        if (ControlarPuertasYJefes.JefeEliminado == true)
         {
-            for(int i = 0; i < ObjetosEquipados.Length; i++)
+            for (int i = 0; i < ObjetosEquipados.Length; i++)
             {
                 CopiaDeObjetos[i] = ObjetosEquipados[i];
             }
@@ -190,7 +190,7 @@ public class AgarradorDeItems : MonoBehaviour
                 string NombreDelObjeto = ObjetosEquipados[i].GetComponent<InformacionDeItems>().Nombre;
                 EquiparEstadisticasYPasivas.DesEquiparEstadistica(NombreDelObjeto);
                 EquiparEstadisticasYPasivas.DesEquiparPasiva(NombreDelObjeto);
-                
+
 
                 Instantiate(ObjetosEquipados[i], PosicionObjeto, Quaternion.identity);
                 ObjetosEquipados[i] = null;
@@ -206,16 +206,16 @@ public class AgarradorDeItems : MonoBehaviour
         {
             case "Activa":
 
-         
+
                 GestorItems c = FindObjectOfType<GestorItems>();
                 Ataque b = FindObjectOfType<Ataque>();
-                b.FullReset();
 
-                switch(Elemento)
+
+                switch (Elemento)
                 {
                     case "Fuego":
                         float FuegoCD = GetComponent<EstadisticasDePersonaje>().TiempoCooldownActivas[0];
-
+                        b.Reset(0);
                         if (Nombre == "Sol De La Patria")
                         {
                             c.ItemsEquipados[0].item = ObjetoAgarrado;
@@ -231,86 +231,104 @@ public class AgarradorDeItems : MonoBehaviour
 
                             c.AplicarCDR();
                         }
-                    break;
+                        break;
 
                     case "Viento":
-                    Debug.Log("Activa De Viento");
-                    break;
+                        Debug.Log("Activa De Viento");
+                        break;
 
                     case "Tierra":
-                    Debug.Log("Activa De Tierra");
-                    break;
+                        float TierraCD = GetComponent<EstadisticasDePersonaje>().TiempoCooldownActivas[1];
+                        b.Reset(1);
+
+                        if (Nombre == "Sol De La Patria")
+                        {
+                            c.ItemsEquipados[1].item = ObjetoAgarrado;
+                            c.ItemsEquipados[1].cooldownInicial = TierraCD;
+                            c.ItemsEquipados[1].CooldownOriginal = TierraCD;
+                            c.AplicarCDR();
+                        }
+                        else
+                        {
+                            c.ItemsEquipados[1].item = ObjetoAgarrado;
+                            c.ItemsEquipados[1].cooldownInicial = TierraCD;
+                            c.ItemsEquipados[1].CooldownOriginal = TierraCD;
+
+                            c.AplicarCDR();
+                        }
+
+                        break;
 
                     case "Agua":
-                    Debug.Log("Activa de Agua");
-                    break;
+                        Debug.Log("Activa de Agua");
+                        break;
 
                     default:
-                    Debug.Log("Fallo en reconocer el elemento del objeto");
-                    break;
+                        Debug.Log("Fallo en reconocer el elemento del objeto");
+                        break;
                 }
 
-            break;
+                break;
 
             case "Pasiva":
-            EquiparEstadisticasYPasivas.EquiparPasiva(Nombre);
-            break;
+                EquiparEstadisticasYPasivas.EquiparPasiva(Nombre);
+                break;
 
 
             case "Estadistica":
-            EquiparEstadisticasYPasivas.EquiparEstadistica(Nombre);
-            break;
+                EquiparEstadisticasYPasivas.EquiparEstadistica(Nombre);
+                break;
 
 
             default:
-            Debug.Log("Fallo En reconocer la categoria del objeto");
-            break;
+                Debug.Log("Fallo En reconocer la categoria del objeto");
+                break;
         }
     }
 
     public void DesequiparActivasPasivasYEstadisticas(string Categoria, string Elemento, string Nombre, GameObject ObjetoADesequipar)
     {
-        switch(Categoria)
+        switch (Categoria)
         {
             case "Activa":
 
 
-                switch(Elemento)
+                switch (Elemento)
                 {
                     case "Fuego":
-                    break;
+                        break;
 
                     case "Viento":
-                    break;
+                        break;
 
                     case "Tierra":
-                    break;
+                        break;
 
                     case "Agua":
-                    break;
+                        break;
 
                     default:
-                    Debug.Log("Fallo en reconocer el elemento del Objeto");
-                    break;
+                        Debug.Log("Fallo en reconocer el elemento del Objeto");
+                        break;
                 }
 
-            
-            break;
-            
-            
+
+                break;
+
+
             case "Pasiva":
-            EquiparEstadisticasYPasivas.DesEquiparPasiva(Nombre);
-            break;
-            
+                EquiparEstadisticasYPasivas.DesEquiparPasiva(Nombre);
+                break;
+
 
             case "Estadistica":
-            EquiparEstadisticasYPasivas.DesEquiparEstadistica(Nombre);
-            break;
+                EquiparEstadisticasYPasivas.DesEquiparEstadistica(Nombre);
+                break;
 
 
             default:
-            Debug.Log("Fallo en reconocer la categoria del objeto");
-            break;
+                Debug.Log("Fallo en reconocer la categoria del objeto");
+                break;
         }
     }
 }
