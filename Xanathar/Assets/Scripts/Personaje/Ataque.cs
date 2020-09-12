@@ -36,13 +36,14 @@ public class Ataque : MonoBehaviour
         anim.speed = 1 / GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         MusicaDuracionActual = MusicaDuracionInicial;
 
-        CoolDownActiva = GetComponent<EstadisticasDePersonaje>().TiempoCooldownActivas[0];
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        CoolDownActiva = GetComponent<GestorItems>().ItemsEquipados[0].cooldownInicial;
+
         MovimientoPersonaje c = FindObjectOfType<MovimientoPersonaje>();
         if (ActivaMusica && MusicaDuracionActual > Mathf.Epsilon)
         {
@@ -70,28 +71,26 @@ public class Ataque : MonoBehaviour
 
         Atacar();
     }
-    public void FullReset()
+    public void Reset(int i)
     {
         GestorItems c = FindObjectOfType<GestorItems>();
+        c.ItemsEquipados[i].Activado = false;
+        //c.ItemsEquipados[i].item = null;
 
-        for (int i = 0; i < c.ItemsEquipados.Length; i++)
-        {
-            c.ItemsEquipados[i].Activado = false;
-            c.ItemsEquipados[i].item = null;
-        }
-        Reset(0);
+        ApagarActivas();
     }
-    public void Reset(int i)
+    public void ApagarActivas()
     {
         GestorItems c = FindObjectOfType<GestorItems>();
 
         c.ExplosiveMusic.SetActive(false);
         c.SolPatriaParticula.SetActive(false);
 
+        c.ExtraHeartsActivo = false;
+
         ActivaPatria = false;
         ActivaMusica = false;
 
-        c.ItemsEquipados[i].Activado = false;
 
 
 
