@@ -19,8 +19,8 @@ public class AnimacionIconos : MonoBehaviour {
 	void Start()
 	{
 		
-		ActivaDeTierraCooldown = true;
-		ActivaDeFuegoCooldown = true;
+		//ActivaDeTierraCooldown = true;
+		//ActivaDeFuegoCooldown = true;
 		
 	}
 	// Update is called once per frame
@@ -69,6 +69,8 @@ public class AnimacionIconos : MonoBehaviour {
 			ActivaDeTierraCooldown = false;
 			return;
 		}
+
+		
 		//Debug.Log("Este no se deberia de ejecutar");
 	}
 }
