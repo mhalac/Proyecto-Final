@@ -59,9 +59,12 @@ public class AgarradorDeItems : MonoBehaviour
 
     private void EquipadorDeItems()
     {
+        
+        
         string ElementoDelObjeto = ColisionDeObjeto.collider.gameObject.GetComponent<InformacionDeItems>().Elemento;
         string CategoriaDelObjeto = ColisionDeObjeto.collider.gameObject.GetComponent<InformacionDeItems>().Categoria;
         string NombreDelObjeto = ColisionDeObjeto.collider.gameObject.GetComponent<InformacionDeItems>().Nombre;
+
 
         GameObject[] Objetos = Resources.LoadAll<GameObject>("Objetos");
         GameObject[] AlmacenadorDeObjetos = new GameObject[2];

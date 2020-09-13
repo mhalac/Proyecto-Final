@@ -26,6 +26,11 @@ public class Ataque : MonoBehaviour
     public float DamageMusica;
     public float MusicaDuracionInicial;
     public float MusicaDuracionActual;
+    [Header("Stomper")]
+    public bool ActivoStomper;
+    public GameObject PrefabStomper;
+    public float DamageStomper;
+
 
     // Use this for initialization
     void Start()
@@ -37,7 +42,7 @@ public class Ataque : MonoBehaviour
 
 
     }
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -60,7 +65,6 @@ public class Ataque : MonoBehaviour
 
             d.ExplosiveMusic.SetActive(false);
 
-
         }
 
         if (c.Corriendo)
@@ -69,6 +73,10 @@ public class Ataque : MonoBehaviour
             anim.SetBool("Caminando", false);
 
         Atacar();
+    }
+    void HacerDamageStomper(LifeManager c)
+    {
+        c.RecibirDamage(DamageStomper);
     }
     public void Reset(int i)
     {
@@ -94,6 +102,9 @@ public class Ataque : MonoBehaviour
                 return;
             case 1:
                 c.ExtraHeartsActivo = false;
+                //c.Invoke("GolemHeartOff", 1f);
+                ActivoStomper = false;
+
                 return;
 
         }
@@ -133,6 +144,18 @@ public class Ataque : MonoBehaviour
                     {
                         Enemigo.RecibirDamage(DamageMusica);
                         Instantiate(ParticulaExplosion, a.ClosestPoint(transform.position), Quaternion.identity);
+                    }
+                    else if (ActivoStomper)
+                    {
+                        Vector3 Arriba = new Vector3(a.transform.position.x - 2, transform.position.y + 4f, a.transform.position.z);
+                        GestorItems d = FindObjectOfType<GestorItems>();
+                        GameObject y = Instantiate(PrefabStomper, Arriba, PrefabStomper.transform.rotation);
+                        Invoke("HacerDamageStomper", 0.4f);
+                        Destroy(y, 1.3f);
+                        ActivoStomper = false;
+                        AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
+                        g.ActivaDeTierraCooldown = true;
+                        g.SeleccionadorDeImagenes(d.ItemsEquipados[1].cooldownInicial);
                     }
                     Enemigo.RecibirDamage();
 
@@ -224,11 +247,11 @@ public class Ataque : MonoBehaviour
         EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
         ManejadorDeItems ManejadorDeItems = FindObjectOfType<ManejadorDeItems>();
 
-        if(Estadisticas.RoboDeVida == true)
+        if (Estadisticas.RoboDeVida == true)
         {
-            if(Estadisticas.ContadorRoboDeVida >= 5)
+            if (Estadisticas.ContadorRoboDeVida >= 5)
             {
-                if(Estadisticas.VidaActualPersonaje < Estadisticas.VidaMaximaPersonaje)
+                if (Estadisticas.VidaActualPersonaje < Estadisticas.VidaMaximaPersonaje)
                 {
                     Estadisticas.VidaActualPersonaje += 1;
                     ManejadorDeItems.ManejadorDeVida();
