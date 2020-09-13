@@ -55,12 +55,7 @@ public class GestorItems : MonoBehaviour
                 ItemsEquipados[i].cooldownActual -= Time.deltaTime;
 
             }
-            else if (ItemsEquipados[i].item != null && ItemsEquipados[i].item.GetComponent<InformacionDeItems>().Nombre == "Sol De La Patria")
-            {
-                AnimacionIconos d = FindObjectOfType<AnimacionIconos>();
-                d.ActivaDeFuegoCooldown = false;
-
-            }
+            
         }
         if (ItemsEquipados[0].item != null && Input.GetKeyDown(KeyCode.Q) && !ItemsEquipados[0].Activado)
         {
@@ -103,7 +98,6 @@ public class GestorItems : MonoBehaviour
                 ManejadorDeItems f = FindObjectOfType<ManejadorDeItems>();
                 AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
 
-                g.ActivaDeTierraCooldown = false;
 
 
                 string NombreDelObjeto = ItemsEquipados[1].item.GetComponent<InformacionDeItems>().Nombre;
