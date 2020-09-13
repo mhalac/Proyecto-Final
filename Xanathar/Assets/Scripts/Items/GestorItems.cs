@@ -47,10 +47,7 @@ public class GestorItems : MonoBehaviour
     void Update()
     {
 
-        if(IsInvoking("GolemHeartOff"))
-        {
-            
-        }
+
         for (int i = 0; i < ItemsEquipados.Length; i++)
         {
             if (ItemsEquipados[i].item != null && !TerminoCD(i) && !ItemsEquipados[i].Activado)
@@ -112,14 +109,19 @@ public class GestorItems : MonoBehaviour
                 string NombreDelObjeto = ItemsEquipados[1].item.GetComponent<InformacionDeItems>().Nombre;
                 if (NombreDelObjeto == "Golem Heart")
                 {
-
-
                     Invoke("GolemHeartOff", ItemsEquipados[1].cooldownInicial);
+
+
+
+
                     ItemsEquipados[1].Activado = true;
                     d.VidaMaximaPersonaje += 5;
                     VidaGolden = d.VidaActualPersonaje;
                     d.VidaActualPersonaje += 5;
                     f.ManejadorDeVida();
+                    Color dorado = new Color();
+                    ColorUtility.TryParseHtmlString("#EBC400", out dorado);
+                    f.Contenido.color = dorado;
                     ExtraHeartsActivo = true;
                     ItemsEquipados[1].cooldownActual = ItemsEquipados[1].cooldownInicial;
                     ItemsEquipados[1].cooldownActual -= Time.deltaTime;
@@ -150,12 +152,13 @@ public class GestorItems : MonoBehaviour
     {
         EstadisticasDePersonaje d = FindObjectOfType<EstadisticasDePersonaje>();
         ManejadorDeItems f = FindObjectOfType<ManejadorDeItems>();
+        AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
+
         d.VidaMaximaPersonaje -= 5;
         if (VidaGolden < d.VidaActualPersonaje)
         {
             d.VidaActualPersonaje = VidaGolden;
         }
-        AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
         f.ManejadorDeVida();
         ExtraHeartsActivo = false;
         ItemsEquipados[1].Activado = false;

@@ -38,7 +38,7 @@ public class Ataque : MonoBehaviour
 
 
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -77,21 +77,27 @@ public class Ataque : MonoBehaviour
         c.ItemsEquipados[i].Activado = false;
         //c.ItemsEquipados[i].item = null;
 
-        ApagarActivas();
+        ApagarActivas(i);
     }
-    public void ApagarActivas()
+    public void ApagarActivas(int elemento)
     {
+        //apagar activas dependiendo el elemento
         GestorItems c = FindObjectOfType<GestorItems>();
+        //0 fuego 1 roca 2 aire 3 agua
 
-        c.ExplosiveMusic.SetActive(false);
-        c.SolPatriaParticula.SetActive(false);
+        switch (elemento)
+        {
+            case 0:
+                c.ExplosiveMusic.SetActive(false);
+                c.SolPatriaParticula.SetActive(false);
+                ActivaPatria = false;
+                ActivaMusica = false;
+                return;
+            case 1:
+                c.ExtraHeartsActivo = false;
+                return;
 
-        c.ExtraHeartsActivo = false;
-
-        ActivaPatria = false;
-        ActivaMusica = false;
-
-
+        }
 
 
     }
