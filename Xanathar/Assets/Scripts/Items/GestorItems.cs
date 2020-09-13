@@ -14,8 +14,6 @@ public class GestorItems : MonoBehaviour
     //public List<Slots> EstadoSlots;
     void Start()
     {
-        EstadisticasDePersonaje d = FindObjectOfType<EstadisticasDePersonaje>();
-        d.RecibirDaño(12f);
         //fuego, viento, tierra, agua
     }
     bool TerminoCD(int indice)

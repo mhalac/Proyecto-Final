@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class EquiparEstadisticasYPasivas : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	public static void EquiparEstadistica(string NombreDelItem)
 	{
 		EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
@@ -23,12 +13,23 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 		{
 			case "Estadistica De Fuego 1":
 			Estadisticas.DañoDePersonajeNormal += 2;
-			Estadisticas.Armadura += 5;
+			Estadisticas.Armadura += 2;
 			break;
 
 			case "Estadistica De Fuego 2":
 			Estadisticas.DañoDePersonajeNormal += 2;
 			Estadisticas.TiempoDeRegeneracion -= 2;
+			break;
+
+			case "Estadistica De Tierra 1":
+			Estadisticas.Armadura += 2;
+			Estadisticas.TiempoDeRegeneracion -= 2;
+			break;
+
+			case "Estadistica De Tierra 2":
+			Estadisticas.Armadura += 2;
+			GestorItems Gestor = FindObjectOfType<GestorItems>();
+			Gestor.AplicarCDR(20);
 			break;
 
 			default:
@@ -48,12 +49,23 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 		{
 			case "Estadistica De Fuego 1":
 			Estadisticas.DañoDePersonajeNormal -= 2;
-			Estadisticas.Armadura -= 5;
+			Estadisticas.Armadura -= 2;
 			break;
 
 			case "Estadistica De Fuego 2":
 			Estadisticas.DañoDePersonajeNormal -= 2;
 			Estadisticas.TiempoDeRegeneracion += 2;
+			break;
+
+			case "Estadistica De Tierra 1":
+			Estadisticas.Armadura -= 2;
+			Estadisticas.TiempoDeRegeneracion += 2;
+			break;
+
+			case "Estadistica De Tierra 2":
+			Estadisticas.Armadura -= 2;
+			GestorItems Gestor = FindObjectOfType<GestorItems>();
+			Gestor.AplicarCDR(0);
 			break;
 
 			default:
@@ -72,13 +84,18 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 		switch(NombreDelItem)
 		{
 			case "Fire Chestplate":
-			Estadisticas.DañoDePersonajeNormal -= Estadisticas.DañoDePersonajeInicial / 2;
-			Estadisticas.Armadura += Estadisticas.ArmaduraInicial / 2;
+			Estadisticas.DañoDePersonajeNormal -= Estadisticas.DañoDePersonajeInicialCopia/ 2;
+			Estadisticas.Armadura += Estadisticas.ArmaduraInicialCopia / 2;
 			break;
 
 			case "Old Flame":
-			Estadisticas.Armadura -= Estadisticas.ArmaduraInicial / 2;
-			Estadisticas.DañoDePersonajeNormal += Estadisticas.DañoDePersonajeInicial * 2;
+			Estadisticas.Armadura -= Estadisticas.ArmaduraInicialCopia / 2;
+			Estadisticas.DañoDePersonajeNormal += Estadisticas.DañoDePersonajeInicialCopia * 2;
+			break;
+
+			case "Turtle Shell":
+			Estadisticas.Armadura += Estadisticas.ArmaduraInicialCopia / 3;
+			Estadisticas.VelocidadDeMovimiento -= 3;
 			break;
 		}
 		
@@ -93,13 +110,18 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 		switch(NombreDelItem)
 		{
 			case "Fire Chestplate":
-			Estadisticas.DañoDePersonajeNormal += Estadisticas.DañoDePersonajeInicial / 2;
-			Estadisticas.Armadura -= Estadisticas.ArmaduraInicial / 2;
+			Estadisticas.DañoDePersonajeNormal += Estadisticas.DañoDePersonajeInicialCopia / 2;
+			Estadisticas.Armadura -= Estadisticas.ArmaduraInicialCopia / 2;
 			break;
 
 			case "Old Flame":
-			Estadisticas.Armadura += Estadisticas.ArmaduraInicial / 2;
-			Estadisticas.DañoDePersonajeNormal -= Estadisticas.DañoDePersonajeInicial * 2;
+			Estadisticas.Armadura += Estadisticas.ArmaduraInicialCopia / 2;
+			Estadisticas.DañoDePersonajeNormal -= Estadisticas.DañoDePersonajeInicialCopia * 2;
+			break;
+
+			case "Turtle Shell":
+			Estadisticas.Armadura -= Estadisticas.ArmaduraInicialCopia / 2;
+			Estadisticas.VelocidadDeMovimiento += 3;
 			break;
 		}
 
