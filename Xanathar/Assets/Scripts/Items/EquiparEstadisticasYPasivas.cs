@@ -97,6 +97,10 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 			Estadisticas.Armadura += Estadisticas.ArmaduraInicialCopia / 3;
 			Estadisticas.VelocidadDeMovimiento -= 3;
 			break;
+
+			case "Estalactita":
+			Estadisticas.RoboDeVida = true;
+			break;
 		}
 		
 		manejadorDeItems.ManejadorDeVida();
@@ -122,6 +126,10 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 			case "Turtle Shell":
 			Estadisticas.Armadura -= Estadisticas.ArmaduraInicialCopia / 2;
 			Estadisticas.VelocidadDeMovimiento += 3;
+			break;
+
+			case "Estalactita":
+			Estadisticas.RoboDeVida = false;
 			break;
 		}
 

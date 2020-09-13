@@ -6,7 +6,6 @@ public class Ataque : MonoBehaviour
 {
 
     // C * ((100 - CDR) / 100)
-
     public GameObject AtaqueParticula;
     public LifeManager JefeFuego;
     public Animator anim;
@@ -137,6 +136,7 @@ public class Ataque : MonoBehaviour
                     }
                     Enemigo.RecibirDamage();
 
+                    ContarAtaquesParaRoboDeVida();
                 }
 
 
@@ -149,6 +149,8 @@ public class Ataque : MonoBehaviour
                 Destroy(f, 1);
                 JefeFuego = FindObjectOfType<FuegoJefe>().GetComponent<LifeManager>();
                 JefeFuego.RecibirDamage();
+
+                ContarAtaquesParaRoboDeVida();
             }
             else if (a.tag == "JefeRoca")
             {
@@ -158,6 +160,8 @@ public class Ataque : MonoBehaviour
                 Destroy(f, 1);
                 LifeManager c = FindObjectOfType<JefeRoca>().GetComponent<LifeManager>();
                 c.RecibirDamage();
+
+                ContarAtaquesParaRoboDeVida();
             }
             else if (a.tag == "JefeViento")
             {
@@ -167,6 +171,8 @@ public class Ataque : MonoBehaviour
                 Destroy(f, 1);
                 LifeManager c = FindObjectOfType<JefeViento>().GetComponent<LifeManager>();
                 c.RecibirDamage();
+
+                ContarAtaquesParaRoboDeVida();
             }
             else if (a.tag == "JefeAgua")
             {
@@ -176,6 +182,8 @@ public class Ataque : MonoBehaviour
                 Destroy(f, 1);
                 LifeManager c = a.GetComponent<LifeManager>();
                 c.RecibirDamage();
+
+                ContarAtaquesParaRoboDeVida();
             }
 
         }
@@ -209,6 +217,31 @@ public class Ataque : MonoBehaviour
         }
 
 
+    }
+
+    void ContarAtaquesParaRoboDeVida()
+    {
+        EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+        ManejadorDeItems ManejadorDeItems = FindObjectOfType<ManejadorDeItems>();
+
+        if(Estadisticas.RoboDeVida == true)
+        {
+            if(Estadisticas.ContadorRoboDeVida >= 5)
+            {
+                if(Estadisticas.VidaActualPersonaje < Estadisticas.VidaMaximaPersonaje)
+                {
+                    Estadisticas.VidaActualPersonaje += 1;
+                    ManejadorDeItems.ManejadorDeVida();
+                    Debug.Log("Te robe vida");
+                    Estadisticas.ContadorRoboDeVida = 0;
+                }
+            }
+            else
+            {
+                Estadisticas.ContadorRoboDeVida += 1;
+                Debug.Log("Ataque y ahora el valor del contador es de " + Estadisticas.ContadorRoboDeVida);
+            }
+        }
     }
     void OnDrawGizmosSelected()
     {

@@ -14,6 +14,7 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public float[] TiempoCooldownActivas;
     public int Armadura = 15;
     public float Gravedad = -15f;
+    public int ContadorRoboDeVida = 0;
     public float CoolDownFlash;
     public float TiempoInmortal;
     public bool Inmortalidad = false;
@@ -21,6 +22,7 @@ public class EstadisticasDePersonaje : MonoBehaviour
 
     public bool EstaMuerto = false;
     public bool MurioDespuesDeMatarJefe = false;
+    public bool RoboDeVida = false;
 
     public float VelocidadDeMovimiento = 10f;
     public float CoolDownAtaque = 1f;
