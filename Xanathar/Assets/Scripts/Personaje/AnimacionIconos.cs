@@ -19,8 +19,8 @@ public class AnimacionIconos : MonoBehaviour {
 	void Start()
 	{
 		
-		ActivaDeTierraCooldown = true;
-		ActivaDeFuegoCooldown = true;
+		//ActivaDeTierraCooldown = true;
+		//ActivaDeFuegoCooldown = true;
 		
 	}
 	// Update is called once per frame
@@ -56,18 +56,17 @@ public class AnimacionIconos : MonoBehaviour {
 
 	public void SeleccionadorDeImagenes(float CooldownP)
 	{
-		CoolDown = CooldownP;
 		if(ActivaDeFuegoCooldown)
 		{
-			StartCoroutine(CoolDownDeHabilidades(ActivaDeFuego , CoolDown));
-			ActivaDeFuegoCooldown = false;
+			StartCoroutine(CoolDownDeHabilidades(ActivaDeFuego , CooldownP));
+			//ActivaDeFuegoCooldown = false;
 			return;
 		}
 
 		if(ActivaDeTierraCooldown)
 		{
-			StartCoroutine(CoolDownDeHabilidades(ActivaDeTierra , CoolDown));
-			ActivaDeTierraCooldown = false;
+			StartCoroutine(CoolDownDeHabilidades(ActivaDeTierra , CooldownP));
+			//ActivaDeTierraCooldown = false;
 			return;
 		}
 		//Debug.Log("Este no se deberia de ejecutar");
