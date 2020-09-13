@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: tronco 1
+  m_Name: tronco
   m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: _NORMALMAP _PARALLAXMAP _SPECGLOSSMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -19,7 +19,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: abf354f395eeacf4491f47d943700e26, type: 3}
+        m_Texture: {fileID: 2800000, guid: 995a91e097791cc49aa8f0cc5a6db8bd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -36,26 +36,26 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1.44, y: 1.18}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ccd3afe6ae888874abf081d418694e65, type: 3}
-        m_Scale: {x: 1.44, y: 1.18}
+        m_Texture: {fileID: 2800000, guid: 1e1ba6b1c5fe34348b7814b2151161c0, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: be9be29ad244fa542bb7a79fa735327c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 84a9d70192f726943b43725108c983f9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: 69e0e275951ae8747ac2490d5c88d713, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8564e0a9f1f991f49b95c5ecafb2d30d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: 3e4671a14c0a84340b03f23972cc9c7e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5f35bb1ec12a013488f4cb29504c757e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -63,13 +63,13 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _GlossMapScale: 0.177
+    - _GlossMapScale: 0.885
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Parallax: 0.08
+    - _Parallax: 0.0245
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

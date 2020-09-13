@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1663627251961828
+--- !u!1 &6278104504978501982
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,13 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4297551978694466}
-  - component: {fileID: 33289290301479468}
-  - component: {fileID: 23373374494706108}
-  - component: {fileID: 65073149287310686}
-  - component: {fileID: 54985538952433240}
-  - component: {fileID: 114171326919499942}
+  - component: {fileID: 3802529486245695960}
+  - component: {fileID: 2169838290871410161}
+  - component: {fileID: 9031674260270136512}
+  - component: {fileID: 3609514546488135741}
+  - component: {fileID: 7567444119465607433}
+  - component: {fileID: 2942551308781859276}
+  - component: {fileID: 8878107167348530312}
   m_Layer: 16
   m_Name: GolemHeart
   m_TagString: Items
@@ -21,35 +22,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4297551978694466
+--- !u!4 &3802529486245695960
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663627251961828}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.05, y: 1.51, z: -0.538}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_GameObject: {fileID: 6278104504978501982}
+  m_LocalRotation: {x: 0.02350584, y: -0.9989704, z: -0.0009129168, w: 0.038791668}
+  m_LocalPosition: {x: 6.059, y: 1.424, z: -1.6}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &33289290301479468
+  m_LocalEulerAnglesHint: {x: 0, y: -175.552, z: -2.696}
+--- !u!33 &2169838290871410161
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663627251961828}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &23373374494706108
+  m_GameObject: {fileID: 6278104504978501982}
+  m_Mesh: {fileID: 4300000, guid: 7a36cffd4f6ea9744ad7180e9bf5a872, type: 3}
+--- !u!23 &9031674260270136512
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663627251961828}
+  m_GameObject: {fileID: 6278104504978501982}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -62,7 +63,10 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c619ee168c3364640878d558ca5aa90e, type: 2}
+  - {fileID: 2100000, guid: 17a3b2fb129a83b46a56a8dc6e3cc68d, type: 2}
+  - {fileID: 2100000, guid: 17a3b2fb129a83b46a56a8dc6e3cc68d, type: 2}
+  - {fileID: 2100000, guid: 45d51d8d13e1d6a4fa87ef8174e46586, type: 2}
+  - {fileID: 2100000, guid: 9efe93378aa3e4748b818882cd917622, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,42 +88,61 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &65073149287310686
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663627251961828}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &54985538952433240
+--- !u!54 &3609514546488135741
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663627251961828}
+  m_GameObject: {fileID: 6278104504978501982}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 10
+  m_Constraints: 62
   m_CollisionDetection: 0
---- !u!114 &114171326919499942
+--- !u!65 &7567444119465607433
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6278104504978501982}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0337344, y: 1.0790299, z: 0.40102562}
+  m_Center: {x: 0.012609781, y: -0.12854704, z: 0.20051247}
+--- !u!95 &2942551308781859276
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6278104504978501982}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 88abe6ebea2dda44b9975eb912c21479, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8878107167348530312
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663627251961828}
+  m_GameObject: {fileID: 6278104504978501982}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cea3ea5e89c05f54293415c35428eccc, type: 3}
@@ -129,4 +152,4 @@ MonoBehaviour:
   Descripcion: Al ser utilizado, el usuario recibe 20 puntos de vida
   Categoria: Activa
   Elemento: Tierra
-  Icono: {fileID: 21300000, guid: e9d4143c19529834981ac6821a04aecd, type: 3}
+  Icono: {fileID: 21300000, guid: eecd2497e0e9c3b488e4f644ae9df6d6, type: 3}

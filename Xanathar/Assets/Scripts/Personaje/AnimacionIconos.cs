@@ -16,14 +16,19 @@ public class AnimacionIconos : MonoBehaviour {
 	public bool ActivaDeFuegoCooldown = false;
 	public bool ActivaDeTierraCooldown = false;
 
+	void Start()
+	{
+		
+		ActivaDeTierraCooldown = true;
+		ActivaDeFuegoCooldown = true;
+		
+	}
 	// Update is called once per frame
 	void Update ()
 	{
 		
 		if(Input.GetKeyDown(KeyCode.N))
 		{
-			ActivaDeTierraCooldown = true;
-			//ActivaDeFuegoCooldown = true;
 			SeleccionadorDeImagenes(5);
 		}
 		
@@ -55,12 +60,14 @@ public class AnimacionIconos : MonoBehaviour {
 		if(ActivaDeFuegoCooldown)
 		{
 			StartCoroutine(CoolDownDeHabilidades(ActivaDeFuego , CoolDown));
+			ActivaDeFuegoCooldown = false;
 			return;
 		}
 
 		if(ActivaDeTierraCooldown)
 		{
 			StartCoroutine(CoolDownDeHabilidades(ActivaDeTierra , CoolDown));
+			ActivaDeTierraCooldown = false;
 			return;
 		}
 		//Debug.Log("Este no se deberia de ejecutar");
