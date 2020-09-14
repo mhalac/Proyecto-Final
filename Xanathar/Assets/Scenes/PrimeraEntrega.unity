@@ -3417,7 +3417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1162376463324216, guid: 1887760bda5c02d41ac65bd4e867f5d7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1295878681772490, guid: 1887760bda5c02d41ac65bd4e867f5d7, type: 3}
       propertyPath: m_TagString
@@ -4391,6 +4391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dab7ecc63d7b7f42a1ca4b2ef4e2432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NombresJefes: []
   NoPuedoDropear: 1
   TESTMATAR: 0
   Vida: 10
@@ -5015,6 +5016,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: JefeAguaEntero
       objectReference: {fileID: 0}
+    - target: {fileID: 270559617888998746, guid: ab771c7f2b3c2304eb0a40e4bdb9ad31,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 270559617888998747, guid: ab771c7f2b3c2304eb0a40e4bdb9ad31,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5130,5 +5136,10 @@ PrefabInstance:
       propertyPath: Charcos.Array.data[11]
       value: 
       objectReference: {fileID: 1998697915}
+    - target: {fileID: 565029195500330320, guid: ab771c7f2b3c2304eb0a40e4bdb9ad31,
+        type: 3}
+      propertyPath: RadioMano
+      value: 3.19
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab771c7f2b3c2304eb0a40e4bdb9ad31, type: 3}
