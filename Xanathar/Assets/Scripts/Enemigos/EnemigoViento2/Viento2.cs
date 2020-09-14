@@ -173,6 +173,8 @@ public class Viento2 : MonoBehaviour
 
     public void Apuntar()
     {
+        BuscarPersonaje();
+
         EstadoActual = Estados[3];
         Vector3 Direccion = (Personaje.transform.position - Vision.transform.position).normalized;
         Quaternion Mirar = Quaternion.LookRotation(Direccion);

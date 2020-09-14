@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class GestorItems : MonoBehaviour
 {
+    public bool TESTMASOQUISTA;
+    public float VidaGolden;
+    public bool ExtraHeartsActivo;
     public float CooldownReduction;
     public GameObject ExplosiveMusic;
     public GameObject SolPatriaParticula;
-    public bool test;
     public Item[] ItemsEquipados;
     //public List<Slots> EstadoSlots;
     void Start()
     {
-
         //fuego, viento, tierra, agua
     }
     bool TerminoCD(int indice)
@@ -45,24 +46,17 @@ public class GestorItems : MonoBehaviour
 
     void Update()
     {
+        AplicarCDR();
+
         for (int i = 0; i < ItemsEquipados.Length; i++)
         {
             if (ItemsEquipados[i].item != null && !TerminoCD(i) && !ItemsEquipados[i].Activado)
             {
-                ItemsEquipados[i].cooldownActual -= Time.fixedDeltaTime;
+                ItemsEquipados[i].cooldownActual -= Time.deltaTime;
 
             }
-            else if (ItemsEquipados[i].item != null && ItemsEquipados[i].item.GetComponent<InformacionDeItems>().Nombre == "Sol De La Patria")
-            {
-                AnimacionIconos d = FindObjectOfType<AnimacionIconos>();
-                d.ActivaDeFuegoCooldown = false;
-
-            }
-
 
         }
-
-        
         if (ItemsEquipados[0].item != null && Input.GetKeyDown(KeyCode.Q) && !ItemsEquipados[0].Activado)
         {
             if (TerminoCD(0))
@@ -73,7 +67,7 @@ public class GestorItems : MonoBehaviour
                 if (NombreDelObjeto == "Sol De La Patria")
                 {
                     ItemsEquipados[0].cooldownActual = ItemsEquipados[0].cooldownInicial;
-                    ItemsEquipados[0].cooldownActual -= Time.fixedDeltaTime;
+                    ItemsEquipados[0].cooldownActual -= Time.deltaTime;
                     c.ActivaPatria = true;
                     SolPatriaParticula.SetActive(true);
                     ItemsEquipados[0].Activado = true;
@@ -81,7 +75,7 @@ public class GestorItems : MonoBehaviour
                 else
                 {
                     ItemsEquipados[0].cooldownActual = ItemsEquipados[0].cooldownInicial;
-                    ItemsEquipados[0].cooldownActual -= Time.fixedDeltaTime;
+                    ItemsEquipados[0].cooldownActual -= Time.deltaTime;
                     ExplosiveMusic.GetComponent<Animator>().enabled = false;
                     c.ActivaMusica = true;
                     ItemsEquipados[0].Activado = true;
@@ -95,16 +89,46 @@ public class GestorItems : MonoBehaviour
 
         }
 
-        if (ItemsEquipados[1].item != null && Input.GetKeyDown(KeyCode.E))
+
+        if (ItemsEquipados[1].item != null && Input.GetKeyDown(KeyCode.R) && !ItemsEquipados[1].Activado)
         {
             if (TerminoCD(1))
             {
-                ItemsEquipados[1].cooldownActual = ItemsEquipados[1].cooldownInicial; ;
-                ItemsEquipados[1].cooldownActual -= Time.fixedDeltaTime;
+                EstadisticasDePersonaje d = FindObjectOfType<EstadisticasDePersonaje>();
+                ManejadorDeItems f = FindObjectOfType<ManejadorDeItems>();
+                AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
+                Ataque c = FindObjectOfType<Ataque>();
 
-                //hacer cosas de item
+
+
+                string NombreDelObjeto = ItemsEquipados[1].item.GetComponent<InformacionDeItems>().Nombre;
+                if (NombreDelObjeto == "Golem Heart")
+                {
+                    Invoke("GolemHeartOff", ItemsEquipados[1].cooldownInicial);
+
+
+
+                    ItemsEquipados[1].Activado = true;
+                    d.VidaMaximaPersonaje += 5;
+                    VidaGolden = d.VidaActualPersonaje;
+                    d.VidaActualPersonaje += 5;
+                    f.ManejadorDeVida();
+                    Color dorado = new Color();
+                    ColorUtility.TryParseHtmlString("#EBC400", out dorado);
+                    f.Contenido.color = dorado;
+                    ExtraHeartsActivo = true;
+                    ItemsEquipados[1].cooldownActual = ItemsEquipados[1].cooldownInicial;
+                    ItemsEquipados[1].cooldownActual -= Time.deltaTime;
+                }
+                else
+                {
+                    ItemsEquipados[1].cooldownActual = ItemsEquipados[1].cooldownInicial;
+                    ItemsEquipados[1].cooldownActual -= Time.deltaTime;
+                    ItemsEquipados[1].Activado = true;
+                    c.ActivoStomper = true;
+
+                }
             }
-
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -117,7 +141,27 @@ public class GestorItems : MonoBehaviour
         }
 
     }
+    public void GolemHeartOff()
+    {
+        EstadisticasDePersonaje d = FindObjectOfType<EstadisticasDePersonaje>();
+        ManejadorDeItems f = FindObjectOfType<ManejadorDeItems>();
+        AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
 
+        d.VidaMaximaPersonaje -= 5;
+        if (VidaGolden < d.VidaActualPersonaje)
+        {
+            d.VidaActualPersonaje = VidaGolden;
+        }
+        f.ManejadorDeVida();
+        ExtraHeartsActivo = false;
+        ItemsEquipados[1].Activado = false;
+
+        g.ActivaDeTierraCooldown = true;
+
+        g.SeleccionadorDeImagenes(ItemsEquipados[1].cooldownInicial);
+
+
+    }
     [System.Serializable]
     public class Item
     {

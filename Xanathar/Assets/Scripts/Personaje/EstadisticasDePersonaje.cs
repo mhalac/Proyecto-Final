@@ -14,6 +14,7 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public float[] TiempoCooldownActivas;
     public int Armadura = 15;
     public float Gravedad = -15f;
+    public int ContadorRoboDeVida = 0;
     public float CoolDownFlash;
     public float TiempoInmortal;
     public bool Inmortalidad = false;
@@ -21,6 +22,7 @@ public class EstadisticasDePersonaje : MonoBehaviour
 
     public bool EstaMuerto = false;
     public bool MurioDespuesDeMatarJefe = false;
+    public bool RoboDeVida = false;
 
     public float VelocidadDeMovimiento = 10f;
     public float CoolDownAtaque = 1f;
@@ -37,15 +39,17 @@ public class EstadisticasDePersonaje : MonoBehaviour
 
 
     [Header("Variables que guardan las estadisticas iniciales")]
-    public int ArmaduraInicial;
-    public float DañoDePersonajeInicial;
-    public float VidaMaximaDePersonajeInicial;
+    public int ArmaduraInicialCopia;
+    public float DañoDePersonajeInicialCopia;
+    public float VidaMaximaDePersonajeInicialCopia;
+    public float VelocidadDeMovimientoInicialCopia;
     void Start()
     {
         //Igualamos las variables que guardan las estadisticas 
-        ArmaduraInicial = Armadura;
-        DañoDePersonajeInicial = DañoDePersonajeNormal;
-        VidaMaximaDePersonajeInicial = VidaMaximaPersonaje;
+        ArmaduraInicialCopia = Armadura;
+        DañoDePersonajeInicialCopia= DañoDePersonajeNormal;
+        VidaMaximaDePersonajeInicialCopia = VidaMaximaPersonaje;
+        VelocidadDeMovimientoInicialCopia = VelocidadDeMovimiento;
 
 
         //Funcion para mantener al Jugador entre escenas

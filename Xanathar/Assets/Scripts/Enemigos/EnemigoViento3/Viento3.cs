@@ -124,6 +124,8 @@ public class Viento3 : MonoBehaviour
 
     public void Apuntar()
     {
+        BuscarPersonaje();
+
         Vector3 Direccion  = (Personaje.transform.position - Heredar.transform.position).normalized;
         Quaternion Mirar = Quaternion.LookRotation(Direccion);
 

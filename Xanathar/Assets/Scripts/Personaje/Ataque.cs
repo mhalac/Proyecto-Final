@@ -6,7 +6,6 @@ public class Ataque : MonoBehaviour
 {
 
     // C * ((100 - CDR) / 100)
-
     public GameObject AtaqueParticula;
     public LifeManager JefeFuego;
     public Animator anim;
@@ -27,6 +26,11 @@ public class Ataque : MonoBehaviour
     public float DamageMusica;
     public float MusicaDuracionInicial;
     public float MusicaDuracionActual;
+    [Header("Stomper")]
+    public bool ActivoStomper;
+    public GameObject PrefabStomper;
+    public float DamageStomper;
+
 
     // Use this for initialization
     void Start()
@@ -36,13 +40,14 @@ public class Ataque : MonoBehaviour
         anim.speed = 1 / GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         MusicaDuracionActual = MusicaDuracionInicial;
 
-        CoolDownActiva = GetComponent<EstadisticasDePersonaje>().TiempoCooldownActivas[0];
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        CoolDownActiva = GetComponent<GestorItems>().ItemsEquipados[0].cooldownInicial;
+
         MovimientoPersonaje c = FindObjectOfType<MovimientoPersonaje>();
         if (ActivaMusica && MusicaDuracionActual > Mathf.Epsilon)
         {
@@ -60,7 +65,6 @@ public class Ataque : MonoBehaviour
 
             d.ExplosiveMusic.SetActive(false);
 
-
         }
 
         if (c.Corriendo)
@@ -70,29 +74,40 @@ public class Ataque : MonoBehaviour
 
         Atacar();
     }
-    public void FullReset()
+    void HacerDamageStomper(LifeManager c)
     {
-        GestorItems c = FindObjectOfType<GestorItems>();
-
-        for (int i = 0; i < c.ItemsEquipados.Length; i++)
-        {
-            c.ItemsEquipados[i].Activado = false;
-            c.ItemsEquipados[i].item = null;
-        }
-        Reset(0);
+        c.RecibirDamage(DamageStomper);
     }
     public void Reset(int i)
     {
         GestorItems c = FindObjectOfType<GestorItems>();
-
-        c.ExplosiveMusic.SetActive(false);
-        c.SolPatriaParticula.SetActive(false);
-
-        ActivaPatria = false;
-        ActivaMusica = false;
-
         c.ItemsEquipados[i].Activado = false;
+        //c.ItemsEquipados[i].item = null;
 
+        ApagarActivas(i);
+    }
+    public void ApagarActivas(int elemento)
+    {
+        //apagar activas dependiendo el elemento
+        GestorItems c = FindObjectOfType<GestorItems>();
+        //0 fuego 1 roca 2 aire 3 agua
+
+        switch (elemento)
+        {
+            case 0:
+                c.ExplosiveMusic.SetActive(false);
+                c.SolPatriaParticula.SetActive(false);
+                ActivaPatria = false;
+                ActivaMusica = false;
+                return;
+            case 1:
+                c.ExtraHeartsActivo = false;
+                //c.Invoke("GolemHeartOff", 1f);
+                ActivoStomper = false;
+
+                return;
+
+        }
 
 
     }
@@ -130,8 +145,21 @@ public class Ataque : MonoBehaviour
                         Enemigo.RecibirDamage(DamageMusica);
                         Instantiate(ParticulaExplosion, a.ClosestPoint(transform.position), Quaternion.identity);
                     }
+                    else if (ActivoStomper)
+                    {
+                        Vector3 Arriba = new Vector3(a.transform.position.x - 2, transform.position.y + 4f, a.transform.position.z);
+                        GestorItems d = FindObjectOfType<GestorItems>();
+                        GameObject y = Instantiate(PrefabStomper, Arriba, PrefabStomper.transform.rotation);
+                        Invoke("HacerDamageStomper", 0.4f);
+                        Destroy(y, 1.3f);
+                        ActivoStomper = false;
+                        AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
+                        g.ActivaDeTierraCooldown = true;
+                        g.SeleccionadorDeImagenes(d.ItemsEquipados[1].cooldownInicial);
+                    }
                     Enemigo.RecibirDamage();
 
+                    ContarAtaquesParaRoboDeVida();
                 }
 
 
@@ -144,6 +172,8 @@ public class Ataque : MonoBehaviour
                 Destroy(f, 1);
                 JefeFuego = FindObjectOfType<FuegoJefe>().GetComponent<LifeManager>();
                 JefeFuego.RecibirDamage();
+
+                ContarAtaquesParaRoboDeVida();
             }
             else if (a.tag == "JefeRoca")
             {
@@ -153,6 +183,8 @@ public class Ataque : MonoBehaviour
                 Destroy(f, 1);
                 LifeManager c = FindObjectOfType<JefeRoca>().GetComponent<LifeManager>();
                 c.RecibirDamage();
+
+                ContarAtaquesParaRoboDeVida();
             }
             else if (a.tag == "JefeViento")
             {
@@ -162,6 +194,8 @@ public class Ataque : MonoBehaviour
                 Destroy(f, 1);
                 LifeManager c = FindObjectOfType<JefeViento>().GetComponent<LifeManager>();
                 c.RecibirDamage();
+
+                ContarAtaquesParaRoboDeVida();
             }
             else if (a.tag == "JefeAgua")
             {
@@ -171,6 +205,8 @@ public class Ataque : MonoBehaviour
                 Destroy(f, 1);
                 LifeManager c = a.GetComponent<LifeManager>();
                 c.RecibirDamage();
+
+                ContarAtaquesParaRoboDeVida();
             }
 
         }
@@ -204,6 +240,31 @@ public class Ataque : MonoBehaviour
         }
 
 
+    }
+
+    void ContarAtaquesParaRoboDeVida()
+    {
+        EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+        ManejadorDeItems ManejadorDeItems = FindObjectOfType<ManejadorDeItems>();
+
+        if (Estadisticas.RoboDeVida == true)
+        {
+            if (Estadisticas.ContadorRoboDeVida >= 5)
+            {
+                if (Estadisticas.VidaActualPersonaje < Estadisticas.VidaMaximaPersonaje)
+                {
+                    Estadisticas.VidaActualPersonaje += 1;
+                    ManejadorDeItems.ManejadorDeVida();
+                    Debug.Log("Te robe vida");
+                    Estadisticas.ContadorRoboDeVida = 0;
+                }
+            }
+            else
+            {
+                Estadisticas.ContadorRoboDeVida += 1;
+                Debug.Log("Ataque y ahora el valor del contador es de " + Estadisticas.ContadorRoboDeVida);
+            }
+        }
     }
     void OnDrawGizmosSelected()
     {
