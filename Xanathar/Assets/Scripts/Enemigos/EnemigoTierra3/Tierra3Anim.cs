@@ -8,13 +8,16 @@ public class Tierra3Anim : MonoBehaviour {
 
 	public void IrALugarRandom()
 	{
+		
 		Padre.IrAPosicionRandom();
 		Padre.Animador.SetBool("Caminando" , true);
 		Padre.Animador.SetBool("Idle" , false);
+		
 	}
 
 	public void TerminarAtaque()
 	{
+		
 		Padre.Agente.isStopped = false;
 
 		Padre.Animador.SetBool("Atacando" , false);
@@ -32,6 +35,7 @@ public class Tierra3Anim : MonoBehaviour {
 		{
 			Padre.EstadoActual = Padre.Estados[2];
 		}
+		
 	}
 
 	public void EncenderColision()

@@ -48,9 +48,8 @@ public class Tierra3 : MonoBehaviour {
 		PosicionEnSpawn = Heredar.position;
 		Pmask = LayerMask.NameToLayer("Personaje");
 		EMask = LayerMask.NameToLayer("Enemigo");
-		EstadoActual = Estados[0];
 
-		AreaDeVision.position = new Vector3(Heredar.position.x , Heredar.position.y , Heredar.position.z + RangoDeVision);
+		EstadoActual = Estados[0];
 
 		Animador.SetBool("Idle" , true);
 		Animador.SetBool("Caminando" , false);
@@ -61,36 +60,38 @@ public class Tierra3 : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if(EstadoActual != Estados[2] && Agente.remainingDistance < 0.2f)
+
+		if(Agente.remainingDistance < 0.1f && EstadoActual != Estados[2])
 		{
 			FindObjectOfType<PositionManager>().Llegue(Destino);
 			Animador.SetBool("Idle" , true);
 			Animador.SetBool("Caminando" , false);
 		}
 
-
 		if(EstadoActual == Estados[3])
 		{
-			Animador.SetBool("Atacando" , true);
-			Animador.SetBool("Caminando" , false);
-			Agente.isStopped = true;
-			
+			if(PermitirRotacion == false)
+			{
+				PermitirRotacion = true;
+				Agente.isStopped = true;
+				Debug.Log("Aca roto");
+
+				StartCoroutine(Rotar());
+			}
 		}
 		else if(BuscarPersonaje() && PuedoVer())
 		{
-			//Debug.Log("Te puedo ver");
 			Acercar();
 			Animador.SetBool("Caminando" , true);
 			Animador.SetBool("Idle" , false);
 
-			InterrumpirCorrutina = false;
+			EstarRangoAtaque();
 		}
 		else if(EstadoActual == Estados[2])
 		{
 			Buscar();
 		}
 	}
-
 	public void IrAPosicionRandom()
 	{
 		EstadoActual = Estados[0];
@@ -111,17 +112,32 @@ public class Tierra3 : MonoBehaviour {
 		}
 	}
 
-	public bool PuedoVer()
+	public void Acercar()
 	{
-		var direccion = Personaje.transform.position - Heredar.position;
+		Agente.isStopped = false;
+		Destino = Personaje.transform.position;
+		Agente.destination = Destino;
+		EstadoActual = Estados[2];
+	}
 
-		if(Physics.Raycast(Heredar.position , direccion , out Hit , RangoDeVision , EMask) && Hit.collider.gameObject.tag != "Personaje")
+	public void Buscar()
+	{
+		Destino = Personaje.transform.position;
+		Agente.destination = Destino;
+		EstadoActual = Estados[1];
+	}
+
+	public void EstarRangoAtaque()
+	{
+		Collider [] Obj = Physics.OverlapSphere(PuntoDeAtaque.transform.position , RangoAtaque);
+
+		for(int i = 0; i < Obj.Length; i++)
 		{
-			return false;
-		}
-		else
-		{
-			return true;
+			if(Obj[i].gameObject.tag == "Personaje")
+			{
+				//Debug.Log("TE VOY A CAGAR A PIÑAS LEIBO");
+				EstadoActual = Estados[3];
+			}
 		}
 	}
 
@@ -141,80 +157,21 @@ public class Tierra3 : MonoBehaviour {
 		return false;
 	}
 
-	public void DetectarAtaque()
-	{
-		Collider [] Obj = Physics.OverlapBox(PuntoDeAtaque.position , new Vector3(RangoAtaque , RangoAtaque , RangoAtaque));
-
-		for(int i = 0; i < Obj.Length; i++)
-		{
-			if(Obj[i].gameObject.tag == "Personaje")
-			{
-				//Debug.Log("Te vi y te voy a cagar a ñapis");
-
-				if(PermitirRotacion == false)
-				{
-					PermitirRotacion = true;
-					StartCoroutine(Rotar());
-				}
-			}
-		}
-	}
-
-	public void Acercar()
-	{
-		Agente.destination = Personaje.transform.position;
-		EstadoActual = Estados[2];
-
-		if(PermitirAtaque == false)
-		{
-			DetectarAtaque();
-		}
-	}
-
-	public void Buscar()
-	{
-		UltimaPosicion = Personaje.transform;
-		Agente.isStopped = false;
-
-		EstadoActual = Estados[1];
-
-		InterrumpirCorrutina = true;
-	}
-
-	void OnDrawGizmosSelected()
-	{
-		Gizmos.color = Color.magenta;
-		Gizmos.DrawWireSphere(AreaDeVision.position , RangoDeVision);
-
-		Gizmos.color = Color.black;
-		Vector3 AreaCubo = new Vector3(AreaIdle * 2 , 2 , AreaIdle * 2);
-		Gizmos.DrawWireCube(PosicionEnSpawn , AreaCubo);
-
-		Gizmos.color = Color.red;
-		Gizmos.DrawSphere(Destino , 0.5f);
-
-		Gizmos.color = Color.green;
-		Vector3 AreaAtaque = new Vector3(RangoAtaque , RangoAtaque , RangoAtaque);
-		Gizmos.DrawWireCube(PuntoDeAtaque.position , AreaAtaque);
-	}
-
 	IEnumerator Rotar()
 	{
+		Debug.Log("Corrutina finalizada");
 		int Contador = 0;
+		Vector3 Angulos = new Vector3(0,1,0);
 
 		while(Contador <= 1000)
 		{
 			yield return new WaitForEndOfFrame();
 
-			Contador += 1;
-
-			Vector3 Angulos = new Vector3(0 , 1 , 0);
-
 			if(Vector3.Distance(Puño.transform.position , Personaje.transform.position) <= 1.4f)
 			{
 				Contador = 0;
-				EstadoActual = Estados[3];
-				//Debug.Log("Funciono");
+				Animador.SetBool("Caminando" , false);
+				Animador.SetBool("Atacando" , true);
 				InterrumpirCorrutina = false;
 				yield break;
 			}
@@ -227,15 +184,54 @@ public class Tierra3 : MonoBehaviour {
 			{
 				Contador = 0;
 				InterrumpirCorrutina = false;
+				PermitirRotacion = false;
+				PermitirAtaque = false;
 				yield break;
 			}
-
-			//Debug.Log("Esto anda");
 		}
-		
+
 		InterrumpirCorrutina = false;
 		Contador = 0;
 		yield return null;
+	}
+
+	IEnumerator KnockBack(Vector3 Dir , float Fuerza)
+	{
+		for(int i = 0; i < 30; i++)
+		{
+			Personaje.GetComponent<CharacterController>().Move(Dir * Time.fixedDeltaTime * Fuerza);
+			yield return null;
+		}
+	}
+
+	public bool PuedoVer()
+	{
+		var direccion = Personaje.transform.position - Heredar.position;
+
+		if(Physics.Raycast(Heredar.position , direccion , out Hit , RangoDeVision , EMask) && Hit.collider.gameObject.tag != "Personaje")
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.magenta;
+		Gizmos.DrawWireSphere(AreaDeVision.position , RangoDeVision);
+
+		Gizmos.color = Color.red;
+		Vector3 AreaCubo = new Vector3(AreaIdle * 2 , 2 , AreaIdle * 2);
+		Gizmos.DrawWireCube(PosicionEnSpawn , AreaCubo);
+
+		Gizmos.color = Color.magenta;
+		Gizmos.DrawSphere(Destino , 0.5f);
+
+		Gizmos.color = Color.blue;
+		Gizmos.DrawWireSphere(PuntoDeAtaque.position , RangoAtaque);
 	}
 
 	void OnCollisionEnter(Collision collision)
@@ -256,15 +252,6 @@ public class Tierra3 : MonoBehaviour {
 
 				EstadisticasDePersonaje.RecibirDaño(Damage);
 			}
-		}
-	}
-
-	IEnumerator KnockBack(Vector3 Dir , float Fuerza)
-	{
-		for(int i = 0; i < 30; i++)
-		{
-			Personaje.GetComponent<CharacterController>().Move(Dir * Time.deltaTime * Fuerza);
-			yield return null;
 		}
 	}
 }

@@ -1261,7 +1261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.49
+      value: -4.26
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1269,7 +1269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -67.75
+      value: -69.03
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1402,12 +1402,12 @@ PrefabInstance:
     - target: {fileID: 114225078043899536, guid: adb06a4a9bc19c84c90ecebe09396856,
         type: 3}
       propertyPath: VidaMaximaPersonaje
-      value: 200
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 114225078043899536, guid: adb06a4a9bc19c84c90ecebe09396856,
         type: 3}
       propertyPath: VidaActualPersonaje
-      value: 200
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 114946133869092594, guid: adb06a4a9bc19c84c90ecebe09396856,
         type: 3}
@@ -1510,19 +1510,16 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 18
       objectReference: {fileID: 0}
-    - target: {fileID: 23459105355481376, guid: d8a66409f053ecc4298f8b2c3ba0a2b4,
-        type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 4179833246290344, guid: d8a66409f053ecc4298f8b2c3ba0a2b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114853653742393598, guid: d8a66409f053ecc4298f8b2c3ba0a2b4,
-        type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 4179833246290344, guid: d8a66409f053ecc4298f8b2c3ba0a2b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 195443137801357946, guid: d8a66409f053ecc4298f8b2c3ba0a2b4,
-        type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 4179833246290344, guid: d8a66409f053ecc4298f8b2c3ba0a2b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1654,12 +1651,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1771196639521092, guid: 5e505940923f4c74bb391816e40c02be, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: m_Name
+      value: Lv3 Tierra
       objectReference: {fileID: 0}
     - target: {fileID: 4790937723716290, guid: 5e505940923f4c74bb391816e40c02be, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.82
+      value: -17.74
       objectReference: {fileID: 0}
     - target: {fileID: 4790937723716290, guid: 5e505940923f4c74bb391816e40c02be, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1689,14 +1686,16 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 21
       objectReference: {fileID: 0}
-    - target: {fileID: 114024147155290626, guid: 5e505940923f4c74bb391816e40c02be,
-        type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 4790937723716290, guid: 5e505940923f4c74bb391816e40c02be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 195319176692143714, guid: 5e505940923f4c74bb391816e40c02be,
-        type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 4790937723716290, guid: 5e505940923f4c74bb391816e40c02be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790937723716290, guid: 5e505940923f4c74bb391816e40c02be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3471,6 +3470,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1506375920303206, guid: 612257b83d498ba4ba0e117ecc1f09c8, type: 3}
+      propertyPath: m_Name
+      value: Lv2 Tierra
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506375920303206, guid: 612257b83d498ba4ba0e117ecc1f09c8, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -3506,14 +3509,16 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 114752843144536980, guid: 612257b83d498ba4ba0e117ecc1f09c8,
-        type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 4081599389976098, guid: 612257b83d498ba4ba0e117ecc1f09c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 195487504375086984, guid: 612257b83d498ba4ba0e117ecc1f09c8,
-        type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 4081599389976098, guid: 612257b83d498ba4ba0e117ecc1f09c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081599389976098, guid: 612257b83d498ba4ba0e117ecc1f09c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4595,6 +4600,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lv2 Viento
       objectReference: {fileID: 0}
+    - target: {fileID: 2938558105425136211, guid: 7d1feb157c6f23b469ca700e0ea588fa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d1feb157c6f23b469ca700e0ea588fa, type: 3}
 --- !u!1001 &4404077338561029042
@@ -4608,6 +4618,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Lv3 Viento
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404077338042998119, guid: 41c7f9e850be2d94f979b7abb817f1d4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4404077338042998122, guid: 41c7f9e850be2d94f979b7abb817f1d4,
         type: 3}
