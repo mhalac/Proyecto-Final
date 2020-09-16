@@ -46,7 +46,7 @@ public class GestorItems : MonoBehaviour
 
     void Update()
     {
-
+        AplicarCDR();
 
         for (int i = 0; i < ItemsEquipados.Length; i++)
         {
@@ -55,7 +55,7 @@ public class GestorItems : MonoBehaviour
                 ItemsEquipados[i].cooldownActual -= Time.deltaTime;
 
             }
-            
+
         }
         if (ItemsEquipados[0].item != null && Input.GetKeyDown(KeyCode.Q) && !ItemsEquipados[0].Activado)
         {
@@ -97,6 +97,7 @@ public class GestorItems : MonoBehaviour
                 EstadisticasDePersonaje d = FindObjectOfType<EstadisticasDePersonaje>();
                 ManejadorDeItems f = FindObjectOfType<ManejadorDeItems>();
                 AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
+                Ataque c = FindObjectOfType<Ataque>();
 
 
 
@@ -104,7 +105,6 @@ public class GestorItems : MonoBehaviour
                 if (NombreDelObjeto == "Golem Heart")
                 {
                     Invoke("GolemHeartOff", ItemsEquipados[1].cooldownInicial);
-
 
 
 
@@ -122,11 +122,10 @@ public class GestorItems : MonoBehaviour
                 }
                 else
                 {
-                    ItemsEquipados[1].cooldownActual = ItemsEquipados[0].cooldownInicial;
+                    ItemsEquipados[1].cooldownActual = ItemsEquipados[1].cooldownInicial;
                     ItemsEquipados[1].cooldownActual -= Time.deltaTime;
-                    ExplosiveMusic.GetComponent<Animator>().enabled = false;
                     ItemsEquipados[1].Activado = true;
-
+                    c.ActivoStomper = true;
 
                 }
             }
@@ -142,7 +141,7 @@ public class GestorItems : MonoBehaviour
         }
 
     }
-    void GolemHeartOff()
+    public void GolemHeartOff()
     {
         EstadisticasDePersonaje d = FindObjectOfType<EstadisticasDePersonaje>();
         ManejadorDeItems f = FindObjectOfType<ManejadorDeItems>();

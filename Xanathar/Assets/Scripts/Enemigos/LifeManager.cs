@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class LifeManager : MonoBehaviour
 {
+    public List<string> NombresJefes = new List<string>();
     public bool NoPuedoDropear;
     public bool TESTMATAR;
     public float Vida;
@@ -15,7 +16,11 @@ public class LifeManager : MonoBehaviour
     ControlarPuertasYJefes controlarPuertasYJefes;
     public PropiedadesItem[] items;
     void Start()
-    {
+    {   
+        NombresJefes.Add("JefeFuego");
+        NombresJefes.Add("JefeAgua");
+        NombresJefes.Add("JefeRoca");
+        NombresJefes.Add("JefeViento");
         for (int i = 1; i < items.Length; i++)
         {
             items[i].SpawnRate += items[i - 1].SpawnRate;
@@ -165,8 +170,9 @@ public class LifeManager : MonoBehaviour
     {
         if (Vida < Mathf.Epsilon)
         {
+            
             int numero = Random.Range(0, 100);
-            if ((gameObject.name != "Jefe fuego" && gameObject.name != "Jefe Tierra") && !NoPuedoDropear)
+            if (!NombresJefes.Contains(gameObject.tag) && !NoPuedoDropear)
             {
                 for (int i = 0; i < items.Length; i++)
                 {
@@ -212,11 +218,12 @@ public class LifeManager : MonoBehaviour
             else if (gameObject.tag == "JefeAgua")
             {
                 JefeAgua c = FindObjectOfType<JefeAgua>();
-                Destroy(c.gameObject, 6);
+                Destroy(c.gameObject, 9);
                 c.enabled = false;
                 c.animator.SetBool("Morir", true);
 
             }
+            
             else
             {
                 Destroy(this.gameObject);

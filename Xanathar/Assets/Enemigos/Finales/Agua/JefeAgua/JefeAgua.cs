@@ -14,6 +14,8 @@ public class JefeAgua : MonoBehaviour
     public int TentaculosMaximos;
     public GameObject Tentaculo;
 
+    
+
     public float CDSlap;
     public float Distancia;
     public bool YaAtaque;

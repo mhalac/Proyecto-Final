@@ -29,6 +29,8 @@ public class Fuego3 : MonoBehaviour
     public float Vida;
     public Vector3 Escala;
 
+    
+
     private string[] Estados = { "Idle", "Shooting" };
     private float DelayTeleportInicial;
     private Vector3 posicionSpawn;
