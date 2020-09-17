@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ataque : MonoBehaviour
 {
 
+    private LifeManager stomperTarget;
     // C * ((100 - CDR) / 100)
     public GameObject AtaqueParticula;
     public LifeManager JefeFuego;
@@ -30,7 +31,7 @@ public class Ataque : MonoBehaviour
     public bool ActivoStomper;
     public GameObject PrefabStomper;
     public float DamageStomper;
-
+    
 
     // Use this for initialization
     void Start()
@@ -74,9 +75,9 @@ public class Ataque : MonoBehaviour
 
         Atacar();
     }
-    void HacerDamageStomper(LifeManager c)
+    void HacerDamageStomper()
     {
-        c.RecibirDamage(DamageStomper);
+        stomperTarget.RecibirDamage(DamageStomper);
     }
     public void Reset(int i)
     {
@@ -104,6 +105,7 @@ public class Ataque : MonoBehaviour
                 c.ExtraHeartsActivo = false;
                 //c.Invoke("GolemHeartOff", 1f);
                 ActivoStomper = false;
+                c.StomperParticula.SetActive(false);
 
                 return;
 
@@ -147,15 +149,19 @@ public class Ataque : MonoBehaviour
                     }
                     else if (ActivoStomper)
                     {
+
                         Vector3 Arriba = new Vector3(a.transform.position.x - 2, transform.position.y + 4f, a.transform.position.z);
                         GestorItems d = FindObjectOfType<GestorItems>();
                         GameObject y = Instantiate(PrefabStomper, Arriba, PrefabStomper.transform.rotation);
-                        Invoke("HacerDamageStomper", 0.4f);
+                        stomperTarget = Enemigo.GetComponent<LifeManager>();
+                        Invoke("HacerDamageStomper", 0.7f);
                         Destroy(y, 1.3f);
                         ActivoStomper = false;
                         AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
                         g.ActivaDeTierraCooldown = true;
+                        d.ItemsEquipados[1].Activado = false;
                         g.SeleccionadorDeImagenes(d.ItemsEquipados[1].cooldownInicial);
+                        d.StomperParticula.SetActive(false);
                     }
                     Enemigo.RecibirDamage();
 
