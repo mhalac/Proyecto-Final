@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.PostProcessing;
-//UnityEngine.PostProcessing.MinAttribute
 
 namespace UnityEditor.PostProcessing
 {
