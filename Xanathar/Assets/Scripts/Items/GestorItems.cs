@@ -10,6 +10,7 @@ public class GestorItems : MonoBehaviour
     public float CooldownReduction;
     public GameObject ExplosiveMusic;
     public GameObject SolPatriaParticula;
+    public GameObject StomperParticula;
     public Item[] ItemsEquipados;
     //public List<Slots> EstadoSlots;
     void Start()
@@ -126,6 +127,7 @@ public class GestorItems : MonoBehaviour
                     ItemsEquipados[1].cooldownActual -= Time.deltaTime;
                     ItemsEquipados[1].Activado = true;
                     c.ActivoStomper = true;
+                    StomperParticula.SetActive(true);
 
                 }
             }
