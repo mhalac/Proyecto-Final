@@ -36,7 +36,7 @@ public class JefeRoca : MonoBehaviour
 
     public void Deshabilitar()
     {
-
+        
         Shield.SetActive(false);
         ShieldHitBox.SetActive(false);
     }
