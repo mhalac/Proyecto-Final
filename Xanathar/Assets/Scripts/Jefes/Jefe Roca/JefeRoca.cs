@@ -36,6 +36,7 @@ public class JefeRoca : MonoBehaviour
 
     public void Deshabilitar()
     {
+
         Shield.SetActive(false);
         ShieldHitBox.SetActive(false);
     }
@@ -47,7 +48,8 @@ public class JefeRoca : MonoBehaviour
         ShieldHitBox.SetActive(true);
         Shield.SetActive(true);
         camara.StartCoroutine(camara.Shake(.25f, .4f));
-
+       
+       
         if (IndiceRonda < rondas.Length - 1)
             IndiceRonda++;
         else

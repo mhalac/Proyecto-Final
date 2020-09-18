@@ -22,8 +22,8 @@ public class AnimacionIconos : MonoBehaviour {
 		
 		//ActivaDeTierraCooldown = true;
 		//ActivaDeFuegoCooldown = true;
-		ActivaDeVientoCooldown = true;
-		ActivaDeAguaCooldown = true;
+		//ActivaDeVientoCooldown = true;
+		//ActivaDeAguaCooldown = true;
 		
 	}
 	// Update is called once per frame

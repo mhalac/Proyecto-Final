@@ -5,6 +5,8 @@ using UnityEngine;
 public class GestorItems : MonoBehaviour
 {
     public bool TESTMASOQUISTA;
+
+    private GameObject Clon;
     public float VidaGolden;
     public bool ExtraHeartsActivo;
     public float CooldownReduction;
@@ -12,6 +14,10 @@ public class GestorItems : MonoBehaviour
     public GameObject SolPatriaParticula;
     public GameObject StomperParticula;
     public Item[] ItemsEquipados;
+
+
+
+
     //public List<Slots> EstadoSlots;
     void Start()
     {
@@ -133,8 +139,47 @@ public class GestorItems : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (ItemsEquipados[2].item != null && Input.GetKeyDown(KeyCode.Mouse1) && !ItemsEquipados[2].Activado)
         {
+            if (TerminoCD(2))
+            {
+                EstadisticasDePersonaje d = FindObjectOfType<EstadisticasDePersonaje>();
+                ManejadorDeItems f = FindObjectOfType<ManejadorDeItems>();
+                AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
+                Ataque c = FindObjectOfType<Ataque>();
+
+
+                string NombreDelObjeto = ItemsEquipados[2].item.GetComponent<InformacionDeItems>().Nombre;
+                if (NombreDelObjeto == "ClonadorInador")
+                {
+                    Clon = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cylinder), transform.position, Quaternion.identity);
+                    Clon.tag = "Personaje";
+                    Clon.layer = LayerMask.NameToLayer("Personaje");
+                    int capa = LayerMask.NameToLayer("Default");
+                    ItemsEquipados[2].Activado = true;
+                    gameObject.layer = capa;
+
+                    foreach (Transform obj in transform)
+                    {
+                        obj.gameObject.layer = capa;
+                    }
+                    transform.tag = "Items";
+                    ItemsEquipados[2].cooldownActual = ItemsEquipados[2].cooldownInicial;
+                    ItemsEquipados[2].cooldownActual -= Time.deltaTime;
+                    Invoke("DesaparecerClon", 5f);
+                    EstadisticasDePersonaje stats = FindObjectOfType<EstadisticasDePersonaje>();
+                    stats.Armadura += 8;
+                }
+                else
+                {
+                    ItemsEquipados[1].cooldownActual = ItemsEquipados[1].cooldownInicial;
+                    ItemsEquipados[1].cooldownActual -= Time.deltaTime;
+                    ItemsEquipados[1].Activado = true;
+                    c.ActivoStomper = true;
+                    StomperParticula.SetActive(true);
+
+                }
+            }
 
         }
         if (Input.GetKeyDown(KeyCode.T))
@@ -143,6 +188,33 @@ public class GestorItems : MonoBehaviour
         }
 
     }
+    public void DesaparecerClon()
+    {
+
+        ManejadorDeItems f = FindObjectOfType<ManejadorDeItems>();
+        AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
+
+
+        g.ActivaDeTierraCooldown = true;
+        g.SeleccionadorDeImagenes(ItemsEquipados[2].cooldownInicial);
+        Destroy(Clon);
+        ItemsEquipados[2].Activado = false;
+
+        gameObject.tag = "Personaje";
+        int capa = LayerMask.NameToLayer("Personaje");
+
+        EstadisticasDePersonaje stats = FindObjectOfType<EstadisticasDePersonaje>();
+        stats.Armadura -= 8;
+
+        gameObject.layer = capa;
+        foreach (Transform obj in transform)
+        {
+            obj.gameObject.layer = capa;
+        }
+
+        CancelInvoke("DesaparecerClon");
+    }
+
     public void GolemHeartOff()
     {
         EstadisticasDePersonaje d = FindObjectOfType<EstadisticasDePersonaje>();

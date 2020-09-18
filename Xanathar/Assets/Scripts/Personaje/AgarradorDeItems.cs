@@ -59,8 +59,8 @@ public class AgarradorDeItems : MonoBehaviour
 
     private void EquipadorDeItems()
     {
-        
-        
+
+
         string ElementoDelObjeto = ColisionDeObjeto.collider.gameObject.GetComponent<InformacionDeItems>().Elemento;
         string CategoriaDelObjeto = ColisionDeObjeto.collider.gameObject.GetComponent<InformacionDeItems>().Categoria;
         string NombreDelObjeto = ColisionDeObjeto.collider.gameObject.GetComponent<InformacionDeItems>().Nombre;
@@ -237,6 +237,11 @@ public class AgarradorDeItems : MonoBehaviour
                         break;
 
                     case "Viento":
+                        float VientoCD = GetComponent<EstadisticasDePersonaje>().TiempoCooldownActivas[2];
+                        c.ItemsEquipados[2].item = ObjetoAgarrado;
+                        c.ItemsEquipados[2].cooldownInicial = VientoCD;
+                        c.ItemsEquipados[2].CooldownOriginal = VientoCD;
+                        c.AplicarCDR();
                         Debug.Log("Activa De Viento");
                         break;
 
