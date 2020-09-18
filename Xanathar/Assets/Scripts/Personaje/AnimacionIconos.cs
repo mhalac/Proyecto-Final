@@ -8,19 +8,22 @@ public class AnimacionIconos : MonoBehaviour {
 	[Header("Imagenes De Las Habilidades")]
 	public Image ActivaDeFuego;
 	public Image ActivaDeTierra;
-
-	[Header("Cooldown")]
-	public float CoolDown;
+	public Image ActivaDeViento;
+	public Image ActivaDeAgua;
 
 	[Header("Bools De Las Habilidades")]
 	public bool ActivaDeFuegoCooldown = false;
 	public bool ActivaDeTierraCooldown = false;
+	public bool ActivaDeVientoCooldown = false;
+	public bool ActivaDeAguaCooldown = false;
 
 	void Start()
 	{
 		
 		//ActivaDeTierraCooldown = true;
 		//ActivaDeFuegoCooldown = true;
+		ActivaDeVientoCooldown = true;
+		ActivaDeAguaCooldown = true;
 		
 	}
 	// Update is called once per frame
@@ -70,7 +73,19 @@ public class AnimacionIconos : MonoBehaviour {
 			return;
 		}
 
-		
+		if(ActivaDeVientoCooldown)
+		{
+			StartCoroutine(CoolDownDeHabilidades(ActivaDeViento , CooldownP));
+			ActivaDeVientoCooldown = false;
+			return;
+		}
+
+		if(ActivaDeAguaCooldown)
+		{
+			StartCoroutine(CoolDownDeHabilidades(ActivaDeAgua , CooldownP));
+			ActivaDeAguaCooldown = false;
+			return;
+		}
 		//Debug.Log("Este no se deberia de ejecutar");
 	}
 }

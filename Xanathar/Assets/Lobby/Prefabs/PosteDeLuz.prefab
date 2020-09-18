@@ -125,7 +125,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 190be62410fa2c2408e7bd158458fad6, type: 2}
-  - {fileID: 2100002, guid: 2e5ff029b2957264fb3ed7e509353304, type: 3}
+  - {fileID: 2100000, guid: 1ff2a5f5af570b945a070b743e77c906, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -185,7 +185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591277170524618}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.1114}
+  m_LocalPosition: {x: 0.00047, y: -0.00098, z: 0.1114}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4018924568623198}
@@ -203,8 +203,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.73333335, b: 0.4509804, a: 1}
-  m_Intensity: 4.1
-  m_Range: 26.12
+  m_Intensity: 3
+  m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -242,13 +242,14 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 9.06, y: 8.23}
+  m_AreaSize: {x: 7.8, y: 12.48}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1.1306983e+24, y: 1.0764005e+10, z: 3.5439108e-12,
+    w: 1.7589295e+22}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

@@ -914,14 +914,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: db2bb595681396541aa92287211f416d, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillClockwise: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1414111678879028
@@ -2455,9 +2455,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivaDeFuego: {fileID: 114754030556002612}
   ActivaDeTierra: {fileID: 114334437157250080}
-  CoolDown: 5
+  ActivaDeViento: {fileID: 114466232586471346}
+  ActivaDeAgua: {fileID: 114223536552402780}
   ActivaDeFuegoCooldown: 0
   ActivaDeTierraCooldown: 0
+  ActivaDeVientoCooldown: 0
+  ActivaDeAguaCooldown: 0
 --- !u!1 &1858322363716922
 GameObject:
   m_ObjectHideFlags: 0
