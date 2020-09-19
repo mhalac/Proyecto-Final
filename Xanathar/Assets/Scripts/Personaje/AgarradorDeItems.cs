@@ -242,7 +242,6 @@ public class AgarradorDeItems : MonoBehaviour
                         c.ItemsEquipados[2].cooldownInicial = VientoCD;
                         c.ItemsEquipados[2].CooldownOriginal = VientoCD;
                         c.AplicarCDR();
-                        Debug.Log("Activa De Viento");
                         break;
 
                     case "Tierra":

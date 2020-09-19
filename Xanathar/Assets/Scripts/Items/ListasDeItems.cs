@@ -158,7 +158,6 @@ public class ListasDeItems : MonoBehaviour {
 			break;
 
 			default:
-			Debug.Log("ERROR ACA NO HAY NADA");
 			break;
 		}
 

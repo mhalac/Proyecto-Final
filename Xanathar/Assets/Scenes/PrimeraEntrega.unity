@@ -3365,6 +3365,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1067105079, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
+      propertyPath: isGlobal
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1430075857039988, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
       propertyPath: m_Name
       value: Jugador
@@ -3413,6 +3417,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114043925143711018, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 3}
+      propertyPath: volume
+      value: 
+      objectReference: {fileID: 1856758044}
     - target: {fileID: 114946133869092594, guid: adb06a4a9bc19c84c90ecebe09396856,
         type: 3}
       propertyPath: DamageStomper
@@ -4974,6 +4983,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1856758044 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1067105079, guid: adb06a4a9bc19c84c90ecebe09396856,
+    type: 3}
+  m_PrefabInstance: {fileID: 1238014998}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1864821955 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1162376463324216, guid: 1887760bda5c02d41ac65bd4e867f5d7,

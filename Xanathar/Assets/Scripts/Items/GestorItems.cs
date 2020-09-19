@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class GestorItems : MonoBehaviour
 {
-    public bool TESTMASOQUISTA;
+
+    public ChromaticAberration ca;
+    public PostProcessVolume volume;
 
     private GameObject Clon;
     public float VidaGolden;
@@ -53,6 +56,8 @@ public class GestorItems : MonoBehaviour
 
     void Update()
     {
+
+
         AplicarCDR();
 
         for (int i = 0; i < ItemsEquipados.Length; i++)
@@ -139,7 +144,7 @@ public class GestorItems : MonoBehaviour
             }
         }
 
-        if (ItemsEquipados[2].item != null && Input.GetKeyDown(KeyCode.Mouse1) && !ItemsEquipados[2].Activado)
+        if (ItemsEquipados[2].item != null && Input.GetKeyDown(KeyCode.F) && !ItemsEquipados[2].Activado)
         {
             if (TerminoCD(2))
             {
@@ -158,6 +163,8 @@ public class GestorItems : MonoBehaviour
                     int capa = LayerMask.NameToLayer("Default");
                     ItemsEquipados[2].Activado = true;
                     gameObject.layer = capa;
+                    volume.profile.TryGetSettings(out ca);
+                    ca.enabled.value = true;
 
                     foreach (Transform obj in transform)
                     {
@@ -168,7 +175,6 @@ public class GestorItems : MonoBehaviour
                     ItemsEquipados[2].cooldownActual -= Time.deltaTime;
                     Invoke("DesaparecerClon", 5f);
                     EstadisticasDePersonaje stats = FindObjectOfType<EstadisticasDePersonaje>();
-                    stats.Armadura += 8;
                 }
                 else
                 {
@@ -182,7 +188,7 @@ public class GestorItems : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.C))
         {
 
         }
@@ -195,7 +201,8 @@ public class GestorItems : MonoBehaviour
         AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
 
 
-        g.ActivaDeTierraCooldown = true;
+        g.ActivaDeVientoCooldown = true;
+
         g.SeleccionadorDeImagenes(ItemsEquipados[2].cooldownInicial);
         Destroy(Clon);
         ItemsEquipados[2].Activado = false;
@@ -203,8 +210,10 @@ public class GestorItems : MonoBehaviour
         gameObject.tag = "Personaje";
         int capa = LayerMask.NameToLayer("Personaje");
 
+        volume.profile.TryGetSettings(out ca);
+        ca.enabled.value = false;
+
         EstadisticasDePersonaje stats = FindObjectOfType<EstadisticasDePersonaje>();
-        stats.Armadura -= 8;
 
         gameObject.layer = capa;
         foreach (Transform obj in transform)
@@ -212,7 +221,7 @@ public class GestorItems : MonoBehaviour
             obj.gameObject.layer = capa;
         }
 
-        CancelInvoke("DesaparecerClon");
+        //CancelInvoke("DesaparecerClon");
     }
 
     public void GolemHeartOff()
