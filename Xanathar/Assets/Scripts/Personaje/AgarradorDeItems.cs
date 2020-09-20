@@ -242,27 +242,19 @@ public class AgarradorDeItems : MonoBehaviour
                         c.ItemsEquipados[2].cooldownInicial = VientoCD;
                         c.ItemsEquipados[2].CooldownOriginal = VientoCD;
                         c.AplicarCDR();
+                        b.Reset(2);
                         break;
 
                     case "Tierra":
                         float TierraCD = GetComponent<EstadisticasDePersonaje>().TiempoCooldownActivas[1];
                         b.Reset(1);
 
-                        if (Nombre == "Sol De La Patria")
-                        {
-                            c.ItemsEquipados[1].item = ObjetoAgarrado;
-                            c.ItemsEquipados[1].cooldownInicial = TierraCD;
-                            c.ItemsEquipados[1].CooldownOriginal = TierraCD;
-                            c.AplicarCDR();
-                        }
-                        else
-                        {
-                            c.ItemsEquipados[1].item = ObjetoAgarrado;
-                            c.ItemsEquipados[1].cooldownInicial = TierraCD;
-                            c.ItemsEquipados[1].CooldownOriginal = TierraCD;
+                        c.ItemsEquipados[1].item = ObjetoAgarrado;
+                        c.ItemsEquipados[1].cooldownInicial = TierraCD;
+                        c.ItemsEquipados[1].CooldownOriginal = TierraCD;
 
-                            c.AplicarCDR();
-                        }
+                        c.AplicarCDR();
+
 
                         break;
 

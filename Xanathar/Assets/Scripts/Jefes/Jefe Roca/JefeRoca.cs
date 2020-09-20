@@ -6,6 +6,8 @@ public class JefeRoca : MonoBehaviour
 {
     public BarraDeVidaJefe barra;
 
+    public float TESTRADIO;
+
     public GameObject ShieldHitBox;
     public GameObject Shield;
     private VibracionCamara camara;
@@ -18,6 +20,7 @@ public class JefeRoca : MonoBehaviour
     private bool Empezar = false;
     private GameObject Personaje;
     public List<GameObject> EnemigosInstanciados = new List<GameObject>();
+    private GameObject Jugador;
     public int IndiceRonda;
     // Use this for initialization
 
@@ -32,11 +35,13 @@ public class JefeRoca : MonoBehaviour
         camara = FindObjectOfType<VibracionCamara>();
         LifeManager c = GetComponent<LifeManager>();
         c.Inmortal = true;
+        Jugador = GameObject.FindGameObjectWithTag("Personaje");
+
     }
 
     public void Deshabilitar()
     {
-        
+
         Shield.SetActive(false);
         ShieldHitBox.SetActive(false);
     }
@@ -45,17 +50,32 @@ public class JefeRoca : MonoBehaviour
         anim.SetBool("Atacando", false);
         LifeManager c = GetComponent<LifeManager>();
         c.Inmortal = true;
-        ShieldHitBox.SetActive(true);
-        Shield.SetActive(true);
+        
         camara.StartCoroutine(camara.Shake(.25f, .4f));
-       
-       
+        if (Vector3.Distance(Jugador.transform.position, transform.position) < TESTRADIO)
+        {
+            StartCoroutine(Empujar(Jugador.transform.forward));
+        }
+
         if (IndiceRonda < rondas.Length - 1)
             IndiceRonda++;
         else
             IndiceRonda = 0;
 
         SpawnieTodos = false;
+    }
+    IEnumerator Empujar(Vector3 direccion)
+    {
+        for (int i = 1; i < 40; i++)
+        {
+            Jugador.GetComponent<CharacterController>().Move(direccion * -1 * Time.deltaTime * 80);
+            print("xxddxxd");
+            yield return null;
+        }
+        ShieldHitBox.SetActive(true);
+        Shield.SetActive(true);
+        yield return null;
+
     }
     void PasarDeRonda()
     {
@@ -105,6 +125,10 @@ public class JefeRoca : MonoBehaviour
 
             }
         }
+    }
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position,TESTRADIO);
     }
     [System.Serializable]
     public class Rounds

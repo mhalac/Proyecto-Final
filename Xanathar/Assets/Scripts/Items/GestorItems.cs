@@ -9,6 +9,8 @@ public class GestorItems : MonoBehaviour
     public ChromaticAberration ca;
     public PostProcessVolume volume;
 
+    public Vector3 ClonadorPosicion;
+
     private GameObject Clon;
     public float VidaGolden;
     public bool ExtraHeartsActivo;
@@ -165,7 +167,7 @@ public class GestorItems : MonoBehaviour
                     gameObject.layer = capa;
                     volume.profile.TryGetSettings(out ca);
                     ca.enabled.value = true;
-
+                    ClonadorPosicion = transform.position;
                     foreach (Transform obj in transform)
                     {
                         obj.gameObject.layer = capa;
@@ -178,11 +180,15 @@ public class GestorItems : MonoBehaviour
                 }
                 else
                 {
-                    ItemsEquipados[1].cooldownActual = ItemsEquipados[1].cooldownInicial;
-                    ItemsEquipados[1].cooldownActual -= Time.deltaTime;
-                    ItemsEquipados[1].Activado = true;
-                    c.ActivoStomper = true;
-                    StomperParticula.SetActive(true);
+                    volume.profile.TryGetSettings(out ca);
+                    ca.enabled.value = true;
+                    Invoke("RemoverInmortalidad", 5f);
+                    EstadisticasDePersonaje est = FindObjectOfType<EstadisticasDePersonaje>();
+                    est.Inmortalidad = true;
+                    ItemsEquipados[2].cooldownActual = ItemsEquipados[2].cooldownInicial;
+                    ItemsEquipados[2].cooldownActual -= Time.deltaTime;
+                    ItemsEquipados[2].Activado = true;
+
 
                 }
             }
@@ -194,6 +200,19 @@ public class GestorItems : MonoBehaviour
         }
 
     }
+    public void RemoverInmortalidad()
+    {
+        EstadisticasDePersonaje est = FindObjectOfType<EstadisticasDePersonaje>();
+        est.Inmortalidad = false;
+        AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
+
+        g.ActivaDeVientoCooldown = true;
+        g.SeleccionadorDeImagenes(ItemsEquipados[2].cooldownInicial);
+        ItemsEquipados[2].Activado = false;
+        ca.enabled.value = false;
+
+    }
+    
     public void DesaparecerClon()
     {
 
@@ -206,6 +225,8 @@ public class GestorItems : MonoBehaviour
         g.SeleccionadorDeImagenes(ItemsEquipados[2].cooldownInicial);
         Destroy(Clon);
         ItemsEquipados[2].Activado = false;
+        if(ClonadorPosicion != Vector3.zero)
+            transform.position = ClonadorPosicion;
 
         gameObject.tag = "Personaje";
         int capa = LayerMask.NameToLayer("Personaje");
@@ -220,6 +241,7 @@ public class GestorItems : MonoBehaviour
         {
             obj.gameObject.layer = capa;
         }
+        ClonadorPosicion = Vector3.zero;
 
         //CancelInvoke("DesaparecerClon");
     }

@@ -31,7 +31,7 @@ public class Ataque : MonoBehaviour
     public bool ActivoStomper;
     public GameObject PrefabStomper;
     public float DamageStomper;
-    
+
 
     // Use this for initialization
     void Start()
@@ -107,6 +107,37 @@ public class Ataque : MonoBehaviour
                 ActivoStomper = false;
                 c.StomperParticula.SetActive(false);
 
+                return;
+            case 2:
+                int capa = LayerMask.NameToLayer("Personaje");
+                gameObject.layer = capa;
+                if (c.IsInvoking("DesaparecerClon"))
+                {
+                    foreach (Transform obj in c.transform)
+                    {
+                        obj.gameObject.layer = capa;
+                    }
+                    c.ItemsEquipados[2].Activado = false;
+                    c.CancelInvoke("DesaparecerClon");
+                    ManejadorDeItems f = FindObjectOfType<ManejadorDeItems>();
+                    AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
+                    g.ActivaDeVientoCooldown = true;
+                    g.SeleccionadorDeImagenes(c.ItemsEquipados[2].cooldownInicial);
+                }
+                else if (c.IsInvoking("RemoverInmortalidad"))
+                {
+                    c.ItemsEquipados[2].Activado = false;
+
+                    EstadisticasDePersonaje b = FindObjectOfType<EstadisticasDePersonaje>();
+                    b.Inmortalidad = false;
+                    c.CancelInvoke("RemoverInmortalidad");
+                    c.ca.enabled.value = false;
+                    ManejadorDeItems f = FindObjectOfType<ManejadorDeItems>();
+                    AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
+                    g.ActivaDeVientoCooldown = true;
+                    g.SeleccionadorDeImagenes(c.ItemsEquipados[2].cooldownInicial);
+
+                }
                 return;
 
         }

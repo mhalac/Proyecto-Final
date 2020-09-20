@@ -7,9 +7,8 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class MovimientoPersonaje : MonoBehaviour
 {
-    private float fuerzaDesenfoque = .42f;
     private Vignette dashFade;
-   public PostProcessVolume volume;
+    public PostProcessVolume volume;
     //Script para el movimiento del personaje
     public bool PuedoCorrer = true;
     public bool AfectadoSlowCercano;
@@ -63,13 +62,12 @@ public class MovimientoPersonaje : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-      
+
         volume.profile.TryGetSettings(out dashFade);
         dashFade.intensity.value = 0;
         PuedoCorrer = true;
         Corriendo = false;
 
-        VaribaleInmortal = FindObjectOfType<EstadisticasDePersonaje>();
     }
 
     // Update is called once per frame
@@ -80,17 +78,7 @@ public class MovimientoPersonaje : MonoBehaviour
         X = Input.GetAxis("Horizontal");
         Z = Input.GetAxis("Vertical");
 
-        if(VaribaleInmortal.Inmortalidad && dashFade.intensity.value +  fuerzaDesenfoque <= 1)
-        {
-            potencia = potencia + fuerzaDesenfoque;
-            dashFade.intensity.value = potencia;
-        }
-        else if(dashFade.intensity.value  - fuerzaDesenfoque >= 0f)
-        {
-            potencia = potencia -fuerzaDesenfoque ;
-            dashFade.intensity.value = potencia;
-            print(dashFade.intensity.value);
-        }
+
 
         //Movimientos
 
@@ -128,7 +116,7 @@ public class MovimientoPersonaje : MonoBehaviour
 
         //Movimiento eje X y Z
         Controlador.Move(Movimiento * Stats.VelocidadDeMovimiento * Time.deltaTime);
-        
+
 
         if (Input.GetKey(KeyCode.W))
         {
