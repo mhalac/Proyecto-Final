@@ -60,7 +60,6 @@ public class Tierra3 : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-
 		if(Agente.remainingDistance < 0.1f && EstadoActual != Estados[2])
 		{
 			FindObjectOfType<PositionManager>().Llegue(Destino);
@@ -74,7 +73,7 @@ public class Tierra3 : MonoBehaviour {
 			{
 				PermitirRotacion = true;
 				Agente.isStopped = true;
-				Debug.Log("Aca roto");
+				//Debug.Log("Aca roto");
 
 				StartCoroutine(Rotar());
 			}
@@ -159,11 +158,10 @@ public class Tierra3 : MonoBehaviour {
 
 	IEnumerator Rotar()
 	{
-		Debug.Log("Corrutina finalizada");
 		int Contador = 0;
 		Vector3 Angulos = new Vector3(0,1,0);
 
-		while(Contador <= 1000)
+		while(Contador <= 500)
 		{
 			yield return new WaitForEndOfFrame();
 
@@ -173,6 +171,7 @@ public class Tierra3 : MonoBehaviour {
 				Animador.SetBool("Caminando" , false);
 				Animador.SetBool("Atacando" , true);
 				InterrumpirCorrutina = false;
+				//Debug.Log("Corrutina Finalizada");
 				yield break;
 			}
 			else
@@ -188,16 +187,20 @@ public class Tierra3 : MonoBehaviour {
 				PermitirAtaque = false;
 				yield break;
 			}
+
+			Contador += 1;
 		}
 
 		InterrumpirCorrutina = false;
+		PermitirRotacion = false;
+		PermitirAtaque = false;
 		Contador = 0;
 		yield return null;
 	}
 
 	IEnumerator KnockBack(Vector3 Dir , float Fuerza)
 	{
-		for(int i = 0; i < 30; i++)
+		for(int i = 0; i < 20; i++)
 		{
 			Personaje.GetComponent<CharacterController>().Move(Dir * Time.fixedDeltaTime * Fuerza);
 			yield return null;

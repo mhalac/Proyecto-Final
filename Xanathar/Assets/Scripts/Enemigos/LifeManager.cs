@@ -37,6 +37,17 @@ public class LifeManager : MonoBehaviour
                 controlarPuertasYJefes.ReaparecerPuertas();
             }
         }
+        else if (gameObject.name == "Jefe Tierra")
+        {
+            controlarPuertasYJefes = FindObjectOfType<ControlarPuertasYJefes>();
+            controlarPuertasYJefes.OcultarTodasLasPuertas();
+
+            if (ControlarPuertasYJefes.JefeDeTierraMuerto == true)
+            {
+                Destroy(gameObject);
+                controlarPuertasYJefes.ReaparecerPuertas();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -211,6 +222,14 @@ public class LifeManager : MonoBehaviour
             else if (gameObject.name == "Jefe Tierra")
             {
                 JefeRoca c = FindObjectOfType<JefeRoca>();
+
+                
+                ControlarPuertasYJefes.JefeDeTierraMuerto = true;
+                ControlarPuertasYJefes.JefeEliminado = true;
+
+                controlarPuertasYJefes.ReaparecerPuertas();
+
+
                 c.anim.SetBool("Morir", true);
                 c.Deshabilitar();
                 c.enabled = false;

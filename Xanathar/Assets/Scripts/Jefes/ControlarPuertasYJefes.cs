@@ -5,6 +5,7 @@ using UnityEngine;
 public class ControlarPuertasYJefes : MonoBehaviour {
 
 	public static bool JefeDeFuegoMuerto = false;
+	public static bool JefeDeTierraMuerto = false;
 
 	public GameObject [] Puertas = new GameObject [2];
 

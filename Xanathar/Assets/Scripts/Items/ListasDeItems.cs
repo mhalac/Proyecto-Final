@@ -14,6 +14,10 @@ public class ListasDeItems : MonoBehaviour {
 	ConstructorEscenas SubNivelFuego2;
 	ConstructorEscenas SubNivelFuego3;
 	ConstructorEscenas SubNivelFuego4;
+	ConstructorEscenas SubNivelTierra1;
+	ConstructorEscenas SubNivelTierra2;
+	ConstructorEscenas SubNivelTierra3;
+	ConstructorEscenas SubNivelTierra4;
 
 	public List <GameObject> ListaDePrefabs = new List<GameObject>();
 
@@ -52,11 +56,17 @@ public class ListasDeItems : MonoBehaviour {
 		//Constructor Del TestMenda
 		Lobby = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
 
-		//Constructores De SubNivelesFuego
+		//Constructores del nivel de fuego
 		SubNivelFuego1 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
 		SubNivelFuego2 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
 		SubNivelFuego3 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
 		SubNivelFuego4 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+
+		//Constructores del nivel de tierra
+		SubNivelTierra1 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+		SubNivelTierra2 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+		SubNivelTierra3 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+		SubNivelTierra4 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
 	}
 
 	public void LlenarElConstructor()
@@ -85,7 +95,7 @@ public class ListasDeItems : MonoBehaviour {
 			}
 		}
 
-		Debug.Log(ListaDeObjetosSeleccionados.Count + "Prestar atrencion a esto");
+		//Debug.Log(ListaDeObjetosSeleccionados.Count + "Prestar atrencion a esto");
 
 		ConstructorEscenas ConstructorEjemplo = new ConstructorEscenas(ListaDeObjetosSeleccionados , ListaDePosicionesEnLaEscena);
 
