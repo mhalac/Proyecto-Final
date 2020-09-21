@@ -4,98 +4,73 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Tierra3 : MonoBehaviour {
-
-	EstadisticasDePersonaje EstadisticasDePersonaje;
-	private RaycastHit Hit;
-
+	
 	[Header("Transforms Seleccionables")]
 	public Transform Heredar;
-	public Transform PuntoDeAtaque;
-	public Transform AreaDeVision;
-	public Transform BrazoAtaque;
-	public Transform Puño;
+	public Transform PuntoDeVision;
+	public Transform PuntoAtaque;
 
-	[Header("Parametros")]
-	public NavMeshAgent Agente;
-	public Animator Animador;
-	private Vector3 PosicionEnSpawn;
-	private Vector3 Destino;
-	private Transform UltimaPosicion;
-	public GameObject Personaje;
-	public string [] Estados = {"Idle" , "Searching" , "Chasing" ,  "Attack"};
-
-
-	[Header("BoxColliderBrazo")]
-	public SphereCollider PuñoIzquierdo;
+	[Header("Collider Puño")]
+	public SphereCollider ColisionMameta;
 
 	[Header("Variables")]
+	public float AreaDeVision;
+	public float RangoIdle;
+	public string [] Estados = {"Idle" , "Searching" , "Chasing" , "Attack"};
 	public string EstadoActual;
-	public float AreaIdle;
-	public float RangoDeVision;
-	public float RangoAtaque;
-	public float Damage;
-	private int Pmask;
-	private int EMask;
-	public bool PermitirAtaque = false;
 	public bool PermitirRotacion = false;
-	public bool InterrumpirCorrutina = false;
-	public bool PermitirColision = false;
-	
+
+	[Header("Parametros")]
+	Vector3 Destino;
+	NavMeshAgent Agente;
+	public Animator Animador;
+	GameObject Personaje;
+
+
 	// Use this for initialization
 	void Start ()
 	{
-		Agente = GetComponent<NavMeshAgent>();
-		PosicionEnSpawn = Heredar.position;
-		Pmask = LayerMask.NameToLayer("Personaje");
-		EMask = LayerMask.NameToLayer("Enemigo");
-
 		EstadoActual = Estados[0];
+
+		Agente = GetComponent<NavMeshAgent>();
+		ColisionMameta.enabled = false;
 
 		Animador.SetBool("Idle" , true);
 		Animador.SetBool("Caminando" , false);
-
-		PuñoIzquierdo.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if(Agente.remainingDistance < 0.1f && EstadoActual != Estados[2])
+		if(EstadoActual == Estados[0] && Agente.remainingDistance < Mathf.Epsilon)
 		{
-			FindObjectOfType<PositionManager>().Llegue(Destino);
-			Animador.SetBool("Idle" , true);
 			Animador.SetBool("Caminando" , false);
+			Animador.SetBool("Idle" , true);
 		}
 
-		if(EstadoActual == Estados[3])
+		if(DetectarPersonaje() && PermitirRotacion == false)
 		{
-			if(PermitirRotacion == false)
-			{
-				PermitirRotacion = true;
-				Agente.isStopped = true;
-				//Debug.Log("Aca roto");
+			PermitirRotacion = true;
+			Agente.isStopped = true;
+			StartCoroutine(Rotar());
+			//transform.LookAt(Personaje.transform);
+			/*
+			Vector3 PosRelativa = Personaje.transform.position - transform.position;
 
-				StartCoroutine(Rotar());
-			}
-		}
-		else if(BuscarPersonaje() && PuedoVer())
-		{
-			Acercar();
-			Animador.SetBool("Caminando" , true);
-			Animador.SetBool("Idle" , false);
+			Quaternion Rotacion = Quaternion.LookRotation(PosRelativa , Vector3.up);
 
-			EstarRangoAtaque();
-		}
-		else if(EstadoActual == Estados[2])
-		{
-			Buscar();
+			Rotacion.x = 0;
+			Rotacion.z = 0;
+			transform.rotation = Rotacion;
+			*/
 		}
 	}
-	public void IrAPosicionRandom()
+
+	public void IrAPosRandom()
 	{
 		EstadoActual = Estados[0];
 
-		if(Agente.remainingDistance > Mathf.Epsilon)
+		if(Agente.remainingDistance > 1)
 		{
 			Agente.destination = Destino;
 		}
@@ -105,48 +80,19 @@ public class Tierra3 : MonoBehaviour {
 			{
 				FindObjectOfType<PositionManager>().Llegue(Destino);
 			}
-
-			Destino = FindObjectOfType<PositionManager>().GenerarPosicionRandom(PosicionEnSpawn , AreaIdle , Heredar.position);
+			
+			Destino = FindObjectOfType<PositionManager>().GenerarPosicionRandom(Heredar.position , RangoIdle , Heredar.position);
 			Agente.destination = Destino;
 		}
 	}
 
-	public void Acercar()
+	public bool DetectarPersonaje()
 	{
-		Agente.isStopped = false;
-		Destino = Personaje.transform.position;
-		Agente.destination = Destino;
-		EstadoActual = Estados[2];
-	}
+		Collider [] Obj = Physics.OverlapSphere(PuntoDeVision.position ,AreaDeVision);
 
-	public void Buscar()
-	{
-		Destino = Personaje.transform.position;
-		Agente.destination = Destino;
-		EstadoActual = Estados[1];
-	}
-
-	public void EstarRangoAtaque()
-	{
-		Collider [] Obj = Physics.OverlapSphere(PuntoDeAtaque.transform.position , RangoAtaque);
-
-		for(int i = 0; i < Obj.Length; i++)
+		for(int i = 0 ; i < Obj.Length; i++)
 		{
 			if(Obj[i].gameObject.tag == "Personaje")
-			{
-				//Debug.Log("TE VOY A CAGAR A PIÑAS LEIBO");
-				EstadoActual = Estados[3];
-			}
-		}
-	}
-
-	public bool BuscarPersonaje()
-	{
-		Collider [] Obj = Physics.OverlapSphere(AreaDeVision.position , RangoDeVision);
-
-		for(int i = 0; i < Obj.Length; i++)
-		{
-			if(Obj[i].gameObject.layer == Pmask)
 			{
 				Personaje = Obj[i].gameObject;
 				return true;
@@ -159,102 +105,38 @@ public class Tierra3 : MonoBehaviour {
 	IEnumerator Rotar()
 	{
 		int Contador = 0;
-		Vector3 Angulos = new Vector3(0,1,0);
+		Vector3 Angulos = new Vector3(0,120,0);
+		transform.LookAt(Personaje.transform);
 
-		while(Contador <= 500)
+		while (Contador <= 30)
 		{
 			yield return new WaitForEndOfFrame();
 
-			if(Vector3.Distance(Puño.transform.position , Personaje.transform.position) <= 1.4f)
+			if(Vector3.Distance(PuntoAtaque.transform.position , Personaje.transform.position) < 1.5f)
 			{
-				Contador = 0;
-				Animador.SetBool("Caminando" , false);
-				Animador.SetBool("Atacando" , true);
-				InterrumpirCorrutina = false;
-				//Debug.Log("Corrutina Finalizada");
+				Debug.Log("XDDDD");
 				yield break;
 			}
 			else
 			{
-				transform.Rotate(Angulos);
+				transform.Rotate(Angulos * Time.deltaTime);
 			}
-
-			if(InterrumpirCorrutina == true)
-			{
-				Contador = 0;
-				InterrumpirCorrutina = false;
-				PermitirRotacion = false;
-				PermitirAtaque = false;
-				yield break;
-			}
-
 			Contador += 1;
 		}
 
-		InterrumpirCorrutina = false;
-		PermitirRotacion = false;
-		PermitirAtaque = false;
-		Contador = 0;
+		Debug.Log("Esto nmo deberia");
 		yield return null;
 	}
-
-	IEnumerator KnockBack(Vector3 Dir , float Fuerza)
-	{
-		for(int i = 0; i < 20; i++)
-		{
-			Personaje.GetComponent<CharacterController>().Move(Dir * Time.fixedDeltaTime * Fuerza);
-			yield return null;
-		}
-	}
-
-	public bool PuedoVer()
-	{
-		var direccion = Personaje.transform.position - Heredar.position;
-
-		if(Physics.Raycast(Heredar.position , direccion , out Hit , RangoDeVision , EMask) && Hit.collider.gameObject.tag != "Personaje")
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
-	}
-
 	void OnDrawGizmosSelected()
 	{
-		Gizmos.color = Color.magenta;
-		Gizmos.DrawWireSphere(AreaDeVision.position , RangoDeVision);
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(PuntoDeVision.position , AreaDeVision);
 
-		Gizmos.color = Color.red;
-		Vector3 AreaCubo = new Vector3(AreaIdle * 2 , 2 , AreaIdle * 2);
-		Gizmos.DrawWireCube(PosicionEnSpawn , AreaCubo);
-
-		Gizmos.color = Color.magenta;
-		Gizmos.DrawSphere(Destino , 0.5f);
+		Gizmos.color = Color.white;
+		Vector3 AreaIdle = new Vector3(RangoIdle * 2 , 2 , RangoIdle * 2);
+		Gizmos.DrawWireCube(Heredar.position , AreaIdle);
 
 		Gizmos.color = Color.blue;
-		Gizmos.DrawWireSphere(PuntoDeAtaque.position , RangoAtaque);
-	}
-
-	void OnCollisionEnter(Collision collision)
-	{
-		if (collision.gameObject.tag == "Personaje")
-		{
-			if(PermitirColision == false)
-			{
-				EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
-				//Debug.Log("Te meti tremenda ñapi");
-				PermitirColision = true;
-
-				Vector3 dir = transform.forward;
-				dir.y = 3f;
-				float Fuerza = 10;
-
-				StartCoroutine(KnockBack(dir , Fuerza));
-
-				EstadisticasDePersonaje.RecibirDaño(Damage);
-			}
-		}
+		Gizmos.DrawSphere(Destino , 0.5f);
 	}
 }
