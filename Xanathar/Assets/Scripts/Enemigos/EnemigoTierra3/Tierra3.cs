@@ -48,13 +48,14 @@ public class Tierra3 : MonoBehaviour {
 			Animador.SetBool("Idle" , true);
 		}
 
+		/*
 		if(DetectarPersonaje() && PermitirRotacion == false)
 		{
 			PermitirRotacion = true;
 			Agente.isStopped = true;
 			StartCoroutine(Rotar());
 			//transform.LookAt(Personaje.transform);
-			/*
+			
 			Vector3 PosRelativa = Personaje.transform.position - transform.position;
 
 			Quaternion Rotacion = Quaternion.LookRotation(PosRelativa , Vector3.up);
@@ -62,8 +63,9 @@ public class Tierra3 : MonoBehaviour {
 			Rotacion.x = 0;
 			Rotacion.z = 0;
 			transform.rotation = Rotacion;
-			*/
+			
 		}
+		*/
 	}
 
 	public void IrAPosRandom()
@@ -102,6 +104,7 @@ public class Tierra3 : MonoBehaviour {
 		return false;
 	}
 
+	/*
 	IEnumerator Rotar()
 	{
 		int Contador = 0;
@@ -127,6 +130,7 @@ public class Tierra3 : MonoBehaviour {
 		Debug.Log("Esto nmo deberia");
 		yield return null;
 	}
+	*/
 	void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.green;
