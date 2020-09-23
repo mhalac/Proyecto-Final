@@ -32,11 +32,17 @@ public class JefeRoca : MonoBehaviour
         Personaje = GameObject.FindGameObjectWithTag("Personaje");
         Invoke("Iniciar", 3f);
         anim = GetComponent<Animator>();
-        camara = FindObjectOfType<VibracionCamara>();
+        
         LifeManager c = GetComponent<LifeManager>();
         c.Inmortal = true;
-        Jugador = GameObject.FindGameObjectWithTag("Personaje");
+        
+        Invoke("VerCamara" , .5f);
+    }
 
+    void VerCamara()
+    {
+        camara = FindObjectOfType<VibracionCamara>();
+        Jugador = GameObject.FindGameObjectWithTag("Personaje");
     }
 
     public void Deshabilitar()

@@ -46,7 +46,6 @@ public class CambiadorDeNivel : MonoBehaviour {
 			
 			if(SceneManager.GetActiveScene().name == "Lobby")
 			{
-				
 				if(ControlarPuertasYJefes.JefeEliminado == true)
 				{
 					EstadisticasDePersonaje estadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
@@ -68,8 +67,14 @@ public class CambiadorDeNivel : MonoBehaviour {
 
 				if(ControlarPuertasYJefes.JefeDeFuegoMuerto == true)
 				{
-					GameObject PuertaDeFuego = GameObject.FindGameObjectWithTag("PuertaNivelFuego");
+					GameObject PuertaDeFuego = GameObject.Find("EntradaNivelFuego");
 					PuertaDeFuego.SetActive(false);
+				}
+
+				if(ControlarPuertasYJefes.JefeDeTierraMuerto == true)
+				{
+					GameObject PuertaDeTierra = GameObject.Find("EntradaNivelRoca");
+					PuertaDeTierra.SetActive(false);
 				}
 			}
 		}

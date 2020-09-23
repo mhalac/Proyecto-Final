@@ -126,6 +126,26 @@ public class ListasDeItems : MonoBehaviour {
 			Debug.Log(SubNivelFuego4.ConseguirListaYPos());
 			break;
 
+			case "SubNivelTierra1":
+			SubNivelTierra1.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			Debug.Log(SubNivelTierra1.ConseguirListaYPos());
+			break;
+
+			case "SubNivelTierra2":
+			SubNivelTierra2.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			Debug.Log(SubNivelTierra2.ConseguirListaYPos());
+			break;
+
+			case "SubNivelTierra3":
+			SubNivelTierra3.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			Debug.Log(SubNivelTierra3.ConseguirListaYPos());
+			break;
+
+			case "SubNivelTierra4":
+			SubNivelTierra4.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			Debug.Log(SubNivelTierra4.ConseguirListaYPos());
+			break;
+
 			default:
 			Debug.Log("ERROR ACA NO HAY NADA");
 			break;
@@ -167,7 +187,28 @@ public class ListasDeItems : MonoBehaviour {
 			SubNivelFuego4.ConseguirListaDePosiciones(PosicionesAInstanciar);
 			break;
 
+			case "SubNivelTierra1":
+			SubNivelTierra1.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			SubNivelTierra1.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
+			case "SubNivelTierra2":
+			SubNivelTierra2.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			SubNivelTierra2.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
+			case "SubNivelTierra3":
+			SubNivelTierra3.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			SubNivelTierra3.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
+			case "SubNivelTierra4":
+			SubNivelTierra4.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			SubNivelTierra4.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
 			default:
+			Debug.Log("ERROR ACA NO HAY NADA");
 			break;
 		}
 

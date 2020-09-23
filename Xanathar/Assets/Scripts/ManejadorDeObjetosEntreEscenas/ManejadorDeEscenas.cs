@@ -23,6 +23,9 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	public static string NombreDeEscena = "";
 	CambiadorDeNivel AsignadorDeEscenas;
 
+	public static bool EntreNivelFuego = false;
+	public static bool EntreNivelTierra = false;
+
 	void Awake()
 	{
 		AsignadorDeEscenas = FindObjectOfType<CambiadorDeNivel>();
@@ -33,6 +36,8 @@ public class ManejadorDeEscenas : MonoBehaviour {
 		
 		if(col.gameObject.name == "EntradaNivelFuego" && ActivadorDeCambio == false)
 		{
+			EntreNivelFuego = true;
+
 			NivelCargado = EscenasNivelFuego;
 			ReferenciadorDeEscenas = 0;
 			NombreDeEscena = EscenasNivelFuego[ReferenciadorDeEscenas];
@@ -42,6 +47,8 @@ public class ManejadorDeEscenas : MonoBehaviour {
 
 		if(col.gameObject.name == "EntradaNivelRoca" && ActivadorDeCambio == false)
 		{
+			EntreNivelTierra = true;
+
 			NivelCargado = EscenasNivelRoca;
 			ReferenciadorDeEscenas = 0;
 			NombreDeEscena = EscenasNivelRoca[ReferenciadorDeEscenas];
