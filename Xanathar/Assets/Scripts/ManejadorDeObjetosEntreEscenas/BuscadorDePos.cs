@@ -28,7 +28,7 @@ public class BuscadorDePos : MonoBehaviour {
 	{
 		PosInicial = GameObject.Find("PosicionInicial");
 		PosFinal = GameObject.Find("PosicionFinal");
-		Jugador = GameObject.FindGameObjectWithTag("Personaje");
+		Jugador = GameObject.Find("Jugador");
 
 		if(PosInicial != null && PosFinal != null)
 		{

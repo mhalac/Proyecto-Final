@@ -75,7 +75,12 @@ public class ListasDeItems : MonoBehaviour {
 
 		List <GameObject> ListaDeTodosLosObjetosEnLaEscena = new List <GameObject>(GameObject.FindGameObjectsWithTag("Items"));
 
-		//Debug.Log("Los objetos encontrados en la escena son:" + ListaDeTodosLosObjetosEnLaEscena.Count);
+		Debug.Log("Los objetos encontrados en la escena son:" + ListaDeTodosLosObjetosEnLaEscena.Count);
+
+		for(int i = 0; i < ListaDeTodosLosObjetosEnLaEscena.Count; i++)
+		{
+			Debug.Log(ListaDeTodosLosObjetosEnLaEscena[i].name);
+		}
 
 		List <Vector3> ListaDePosicionesEnLaEscena = new List<Vector3>();
 

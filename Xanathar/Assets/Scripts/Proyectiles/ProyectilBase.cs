@@ -53,7 +53,7 @@ public class ProyectilBase : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, IrPosicion, speed * Time.deltaTime);
+            
             RaycastHit Golpe;
             var direccion = (IrPosicion - transform.position).normalized;
             
@@ -63,15 +63,19 @@ public class ProyectilBase : MonoBehaviour
                 //print("Ir a: "+ IrPosicion + " - current pos:" + transform.position + " = " + direccionGolpo);
                     
                 Debug.DrawRay(PuntoDisparo.position, direccionGolpe * Golpe.distance, Color.blue);
-                if (Vector3.Distance(Golpe.point, PuntoDisparo.position) < speed * Time.deltaTime)
+                if (Vector3.Distance(Golpe.point, PuntoDisparo.position) < 0.9f)
                 {
                     if (Golpe.transform.gameObject.tag == "Personaje")
                     {
-                        Golpe.transform.gameObject.GetComponent<EstadisticasDePersonaje>().RecibirDaño(DamageFinal);
+                        FindObjectOfType<EstadisticasDePersonaje>().RecibirDaño(DamageFinal);
                         DestroyImmediate(gameObject);
                     }
                     else
                         DestroyImmediate(gameObject);
+                }
+                else
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, IrPosicion, speed * Time.deltaTime);
                 }
                    
             }

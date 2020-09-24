@@ -25,6 +25,8 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	public static bool EntrasteOSaliste = false;
 	public static string NombreDeEscena = "";
 	CambiadorDeNivel AsignadorDeEscenas;
+	public GestorItems c;
+	public Ataque AtaqueVariables;
 
 	public static bool EntreNivelFuego = false;
 	public static bool EntreNivelTierra = false;
@@ -33,12 +35,15 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	void Awake()
 	{
 		AsignadorDeEscenas = FindObjectOfType<CambiadorDeNivel>();
+
+		c = FindObjectOfType<GestorItems>();
+		AtaqueVariables = FindObjectOfType<Ataque>();
 	}
 	
 	void OnCollisionEnter(Collision col)
 	{
 		
-		if(col.gameObject.name == "EntradaNivelFuego" && ActivadorDeCambio == false)
+		if(col.gameObject.name == "EntradaNivelFuego" && ActivadorDeCambio == false && !c.IsInvoking("DesaparecerClon"))
 		{
 			EntreNivelFuego = true;
 
@@ -49,7 +54,7 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			EntrasteOSaliste = true;
 		}
 
-		if(col.gameObject.name == "EntradaNivelRoca" && ActivadorDeCambio == false)
+		if(col.gameObject.name == "EntradaNivelRoca" && ActivadorDeCambio == false && !c.IsInvoking("DesaparecerClon"))
 		{
 			EntreNivelTierra = true;
 
@@ -60,7 +65,7 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			EntrasteOSaliste = true;
 		}
 
-		if(col.gameObject.name == "EntradaNivelViento" && ActivadorDeCambio == false)
+		if(col.gameObject.name == "EntradaNivelViento" && ActivadorDeCambio == false && !c.IsInvoking("DesaparecerClon"))
 		{
 			EntreNivelViento = true;
 
@@ -76,7 +81,7 @@ public class ManejadorDeEscenas : MonoBehaviour {
 
 
 		
-		if(col.gameObject.name == "Salida" && ActivadorDeCambio == false)
+		if(col.gameObject.name == "Salida" && ActivadorDeCambio == false && !c.IsInvoking("DesaparecerClon"))
 		{
 			ReferenciadorDeEscenas += 1;
 			NombreDeEscena = NivelCargado[ReferenciadorDeEscenas];
@@ -84,7 +89,7 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			EntrasteOSaliste = true;
 		}
 
-		if(col.gameObject.name == "Entrada" && ActivadorDeCambio == false)
+		if(col.gameObject.name == "Entrada" && ActivadorDeCambio == false && !c.IsInvoking("DesaparecerClon"))
 		{
 			if(ReferenciadorDeEscenas == 0)
 			{
@@ -101,7 +106,7 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			}
 		}
 
-		if(col.gameObject.name == "PuertaLobby")
+		if(col.gameObject.name == "PuertaLobby" && ActivadorDeCambio == false && !c.IsInvoking("DesaparecerClon"))
 		{
 			ReferenciadorDeEscenas = 0;
 			NombreDeEscena = Lobby;
@@ -112,6 +117,15 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	}
 	public void VolverAlLobby()
 	{
+		AtaqueVariables.Reset(0);
+		AtaqueVariables.Reset(1);
+		AtaqueVariables.Reset(2);
+		AtaqueVariables.Reset(3);
+
+		Debug.Log("Esto se ejecuta x veces");
+
+		//c.CancelInvoke("DesaparecerClon");
+
 		ReferenciadorDeEscenas = 0;
 		NombreDeEscena = Lobby;
 		AsignadorDeEscenas.IniciadorDeCambio();

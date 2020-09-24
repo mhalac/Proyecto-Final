@@ -86,6 +86,8 @@ public class Ataque : MonoBehaviour
         //c.ItemsEquipados[i].item = null;
 
         ApagarActivas(i);
+
+        Debug.Log("Esto se ejecuto");
     }
     public void ApagarActivas(int elemento)
     {
@@ -123,6 +125,8 @@ public class Ataque : MonoBehaviour
                     AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
                     g.ActivaDeVientoCooldown = true;
                     g.SeleccionadorDeImagenes(c.ItemsEquipados[2].cooldownInicial);
+
+                    Debug.Log("Se ejecuto el primer if");
                 }
                 else if (c.IsInvoking("RemoverInmortalidad"))
                 {
@@ -137,7 +141,11 @@ public class Ataque : MonoBehaviour
                     g.ActivaDeVientoCooldown = true;
                     g.SeleccionadorDeImagenes(c.ItemsEquipados[2].cooldownInicial);
 
+                    Debug.Log("Se ejecuto el segundo if");
+
                 }
+
+                Debug.Log("Al menos se ejecuto el case 2");
                 return;
 
         }

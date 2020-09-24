@@ -160,6 +160,7 @@ public class GestorItems : MonoBehaviour
                 string NombreDelObjeto = ItemsEquipados[2].item.GetComponent<InformacionDeItems>().Nombre;
                 if (NombreDelObjeto == "Clonadorinador")
                 {
+                    d.Inmortalidad = true;
                     Clon = Instantiate(ClonEffect, transform.position, Quaternion.identity);
                     Clon.tag = "Personaje";
                     Clon.layer = LayerMask.NameToLayer("Personaje");
@@ -173,7 +174,7 @@ public class GestorItems : MonoBehaviour
                     {
                         obj.gameObject.layer = capa;
                     }
-                    transform.tag = "Items";
+                    transform.tag = "Untagged";
                     ItemsEquipados[2].cooldownActual = ItemsEquipados[2].cooldownInicial;
                     ItemsEquipados[2].cooldownActual -= Time.deltaTime;
                     Invoke("DesaparecerClon", 5f);
@@ -217,10 +218,11 @@ public class GestorItems : MonoBehaviour
     public void DesaparecerClon()
     {
 
+        EstadisticasDePersonaje d = FindObjectOfType<EstadisticasDePersonaje>();
         ManejadorDeItems f = FindObjectOfType<ManejadorDeItems>();
         AnimacionIconos g = FindObjectOfType<AnimacionIconos>();
-
-
+        
+        d.Inmortalidad = false;
         g.ActivaDeVientoCooldown = true;
 
         g.SeleccionadorDeImagenes(ItemsEquipados[2].cooldownInicial);
@@ -245,6 +247,8 @@ public class GestorItems : MonoBehaviour
         ClonadorPosicion = Vector3.zero;
 
         //CancelInvoke("DesaparecerClon");
+
+        print("xddddddd");
     }
 
     public void GolemHeartOff()
