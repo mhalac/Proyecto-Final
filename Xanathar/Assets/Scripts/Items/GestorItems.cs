@@ -158,9 +158,9 @@ public class GestorItems : MonoBehaviour
 
 
                 string NombreDelObjeto = ItemsEquipados[2].item.GetComponent<InformacionDeItems>().Nombre;
-                if (NombreDelObjeto == "ClonadorInador")
+                if (NombreDelObjeto == "Clonadorinador")
                 {
-                    Clon = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cylinder), transform.position, Quaternion.identity);
+                    Clon = Instantiate(ClonEffect, transform.position, Quaternion.identity);
                     Clon.tag = "Personaje";
                     Clon.layer = LayerMask.NameToLayer("Personaje");
                     int capa = LayerMask.NameToLayer("Default");
