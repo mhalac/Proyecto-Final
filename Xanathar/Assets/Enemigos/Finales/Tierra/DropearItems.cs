@@ -6,6 +6,7 @@ public class DropearItems : MonoBehaviour {
 
 	// Use this for initialization
 	public GameObject[] ItemsActivos;
+	
 	public void DropearItemsEnemigo()
     {
 		EstadisticasDePersonaje d = FindObjectOfType<EstadisticasDePersonaje>();

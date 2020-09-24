@@ -11,6 +11,7 @@ public class GestorItems : MonoBehaviour
 
     public Vector3 ClonadorPosicion;
 
+    public GameObject ClonEffect;
     private GameObject Clon;
     public float VidaGolden;
     public bool ExtraHeartsActivo;

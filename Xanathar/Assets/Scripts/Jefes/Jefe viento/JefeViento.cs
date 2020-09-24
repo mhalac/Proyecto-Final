@@ -143,6 +143,11 @@ public class JefeViento : MonoBehaviour
             AmbasManos.transform.position = Vector3.MoveTowards(AmbasManos.transform.position, pos, 30 * Time.deltaTime);
         }
     }
+    public void Deshabilitar()
+    {
+        DropearItems c = GetComponent<DropearItems>();
+        c.DropearItemsEnemigo();
+    }
     private void Idle()
     {
         ResetAnimaciones();
