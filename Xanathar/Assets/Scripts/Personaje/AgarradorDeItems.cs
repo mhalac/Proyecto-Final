@@ -27,16 +27,6 @@ public class AgarradorDeItems : MonoBehaviour
     {
         RaycastDeItems();
 
-        /*
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            DropeadorDeItems();
-        }
-        */
-    }
-
-    void FixedUpdate()
-    {
         if (Input.GetKeyDown(KeyCode.J))
         {
             DropeadorDeItems();

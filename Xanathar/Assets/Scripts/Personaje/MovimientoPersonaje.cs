@@ -57,17 +57,29 @@ public class MovimientoPersonaje : MonoBehaviour
 
 
 
+    //Prueba
 
+    //public PostProcessVolume Volumen;
+    //public PostProcessVolume Volumen2;
+    //GameObject PostVol;
 
     // Use this for initialization
     void Start()
     {
-
         volume.profile.TryGetSettings(out dashFade);
         dashFade.intensity.value = 0;
         PuedoCorrer = true;
         Corriendo = false;
 
+        /*
+        Bloom bloom;
+        Bloom bloom2;
+
+        Volumen.profile.TryGetSettings(out bloom);
+
+        Volumen2.profile.TryGetSettings(out bloom2);
+        bloom = bloom2;
+        */
     }
 
     // Update is called once per frame

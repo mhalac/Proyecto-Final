@@ -1190,7 +1190,7 @@ PrefabInstance:
     - target: {fileID: 224737527635199834, guid: 23e8947a03a677a47a932e8b02c1aa02,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 224737527635199834, guid: 23e8947a03a677a47a932e8b02c1aa02,
         type: 3}
@@ -9208,7 +9208,7 @@ MeshCollider:
   m_GameObject: {fileID: 316912718}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -11062,7 +11062,7 @@ MeshCollider:
   m_GameObject: {fileID: 500783279}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -25025,7 +25025,7 @@ MeshCollider:
   m_GameObject: {fileID: 787087824}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -32439,7 +32439,7 @@ MeshCollider:
   m_GameObject: {fileID: 1001580409}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -33057,7 +33057,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 171.289, y: -90, z: -90}
 --- !u!4 &1035207731 stripped
 Transform:
@@ -35325,7 +35325,7 @@ MeshCollider:
   m_GameObject: {fileID: 1210216833}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -35442,8 +35442,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1226207723}
   - component: {fileID: 1226207724}
+  - component: {fileID: 1226207725}
   m_Layer: 0
-  m_Name: EntradaViento
+  m_Name: EntradaNivelViento
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35458,8 +35459,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226207722}
   m_LocalRotation: {x: -0, y: 0.8281546, z: -0, w: -0.56049967}
-  m_LocalPosition: {x: -106.65, y: -10.01, z: 227.21}
-  m_LocalScale: {x: 0.3472897, y: 0.3472895, z: 0.3472897}
+  m_LocalPosition: {x: -106.43, y: -9.97, z: 226.66}
+  m_LocalScale: {x: 0.41817155, y: 0.4181713, z: 0.41817155}
   m_Children:
   - {fileID: 316912719}
   - {fileID: 1828314241}
@@ -35482,11 +35483,24 @@ MeshCollider:
   m_GameObject: {fileID: 1226207722}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!65 &1226207725
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226207722}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8618588, y: 13.273504, z: 9.689698}
+  m_Center: {x: -0.6575903, y: 6.136751, z: -0.08373387}
 --- !u!1 &1228104144
 GameObject:
   m_ObjectHideFlags: 0
@@ -35629,7 +35643,7 @@ Transform:
   - {fileID: 886436868}
   - {fileID: 668555355}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1238192459
 GameObject:
@@ -36462,7 +36476,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 26.971, y: 184.764, z: 12.478}
 --- !u!1001 &1271665225
 PrefabInstance:
@@ -42493,7 +42507,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 171.289, y: -90, z: -90}
 --- !u!4 &1424335564 stripped
 Transform:
@@ -47361,7 +47375,7 @@ Transform:
   - {fileID: 994967918}
   - {fileID: 1860396562}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 155, z: 0}
 --- !u!4 &1731421802 stripped
 Transform:
@@ -48467,7 +48481,7 @@ MeshCollider:
   m_GameObject: {fileID: 1828314240}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -51143,7 +51157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -51167,6 +51181,36 @@ PrefabInstance:
       propertyPath: stopNaNPropagation
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114543381720079614, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 3}
+      propertyPath: EscenasNivelViento.Array.data[0]
+      value: SubNivelViento1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114543381720079614, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 3}
+      propertyPath: EscenasNivelViento.Array.data[1]
+      value: SubNivelViento2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114543381720079614, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 3}
+      propertyPath: EscenasNivelViento.Array.data[2]
+      value: SubNivelViento3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114543381720079614, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 3}
+      propertyPath: EscenasNivelViento.Array.data[3]
+      value: SubNivelViento4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748977380680902, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 3}
+      propertyPath: Volumen
+      value: 
+      objectReference: {fileID: 2020403983}
+    - target: {fileID: 114748977380680902, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 3}
+      propertyPath: Volumen2
+      value: 
+      objectReference: {fileID: 1147078253}
     - target: {fileID: 1835620893850559021, guid: adb06a4a9bc19c84c90ecebe09396856,
         type: 3}
       propertyPath: m_StaticEditorFlags

@@ -76,6 +76,12 @@ public class CambiadorDeNivel : MonoBehaviour {
 					GameObject PuertaDeTierra = GameObject.Find("EntradaNivelRoca");
 					PuertaDeTierra.SetActive(false);
 				}
+
+				if(ControlarPuertasYJefes.JefeDeVientoMuero == true)
+				{
+					GameObject PuertaDeViento = GameObject.Find("EntradaNivelViento");
+					PuertaDeViento.SetActive(false);
+				}
 			}
 		}
 	}

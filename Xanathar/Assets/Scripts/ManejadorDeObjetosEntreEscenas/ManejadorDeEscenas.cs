@@ -11,6 +11,9 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	[Header("EscenasNivelDeRoca")]
 	public string [] EscenasNivelRoca = new string[4];
 
+	[Header("EscenasNivelDeViento")]
+	public string [] EscenasNivelViento = new string[4];
+
 	[Header("EscenasDelNivelEnElQueEstas")]
 	public string[] NivelCargado = new string[4];
 
@@ -25,6 +28,7 @@ public class ManejadorDeEscenas : MonoBehaviour {
 
 	public static bool EntreNivelFuego = false;
 	public static bool EntreNivelTierra = false;
+	public static bool EntreNivelViento = false;
 
 	void Awake()
 	{
@@ -56,11 +60,16 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			EntrasteOSaliste = true;
 		}
 
+		if(col.gameObject.name == "EntradaNivelViento" && ActivadorDeCambio == false)
+		{
+			EntreNivelViento = true;
 
-
-
-
-
+			NivelCargado = EscenasNivelViento;
+			ReferenciadorDeEscenas = 0;
+			NombreDeEscena = EscenasNivelViento[ReferenciadorDeEscenas];
+			AsignadorDeEscenas.IniciadorDeCambio();
+			EntrasteOSaliste = true;
+		}
 
 
 
