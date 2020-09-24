@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 657645147916209184}
   - component: {fileID: 872482358559143930}
   - component: {fileID: 2395424027923067620}
+  - component: {fileID: 7771091732538384297}
   m_Layer: 16
   m_Name: EstadisticaTierra1
   m_TagString: Items
@@ -109,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 609133113898756892}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 6.029, y: 1.17, z: -5.014}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.7109, y: 1.7109, z: 1.7109}
   m_Children:
   - {fileID: 604257352910187576}
   m_Father: {fileID: 0}
@@ -162,8 +163,24 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8452358, y: 0.8615613, z: 0.88579464}
-  m_Center: {x: 0.006360531, y: 0.02097559, z: -0.033437252}
+  m_Size: {x: 0.8452358, y: 0.8615613, z: 0.3450141}
+  m_Center: {x: 0.006360531, y: 0.02097559, z: -0.045660257}
+--- !u!54 &7771091732538384297
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609133113898756892}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &609154525671495332
 GameObject:
   m_ObjectHideFlags: 0

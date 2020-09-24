@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 4950112074228004122}
   - component: {fileID: 4950112074228004121}
   - component: {fileID: 4950112074228004120}
+  - component: {fileID: 8920796490083376925}
   m_Layer: 17
   m_Name: Whirlwind
   m_TagString: Items
@@ -245,7 +246,7 @@ Transform:
   m_GameObject: {fileID: 8045461774805582269}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.00013, y: 1.52, z: 6.04}
-  m_LocalScale: {x: 0.17515, y: 0.17515, z: 0.17515}
+  m_LocalScale: {x: 0.48006672, y: 0.48006672, z: 0.48006672}
   m_Children:
   - {fileID: 7506798707526498002}
   m_Father: {fileID: 0}
@@ -315,6 +316,22 @@ MonoBehaviour:
   Categoria: Pasiva
   Elemento: Viento
   Icono: {fileID: 21300000, guid: 00dfcfee378ef4a47ad05ad56fc24000, type: 3}
+--- !u!54 &8920796490083376925
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8045461774805582269}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &8045461775201630332
 GameObject:
   m_ObjectHideFlags: 0
