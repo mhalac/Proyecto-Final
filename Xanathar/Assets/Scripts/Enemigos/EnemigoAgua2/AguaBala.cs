@@ -30,6 +30,7 @@ public class AguaBala : MonoBehaviour
         */
     }
 
+    
     void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Personaje")
@@ -39,9 +40,10 @@ public class AguaBala : MonoBehaviour
             Estadisticas.RecibirDaño(Padre.Damage);
             Destroy(gameObject);
         }
-        else
+        else if(collision.gameObject.tag != "Bala")
         {
             Destroy(gameObject);
         }
     }
+    
 }

@@ -41,7 +41,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bcfe974e20aad74381b106859b3d65e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Padre: {fileID: 0}
 --- !u!1001 &6899909605584836657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -391,6 +390,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 626b44a69b2f70947b8b7297ea5d0624, type: 3}
       propertyPath: m_Name
       value: lv 2 bala  Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 626b44a69b2f70947b8b7297ea5d0624, type: 3}
+      propertyPath: m_TagString
+      value: Bala
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 626b44a69b2f70947b8b7297ea5d0624, type: 3}
       propertyPath: m_LocalPosition.x
