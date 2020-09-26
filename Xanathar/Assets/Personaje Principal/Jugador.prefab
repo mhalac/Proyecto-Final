@@ -6181,6 +6181,7 @@ GameObject:
   - component: {fileID: 114751857480715882}
   - component: {fileID: 114886356545085760}
   - component: {fileID: 114058321497239492}
+  - component: {fileID: 2020403983}
   m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6299,7 +6300,7 @@ MonoBehaviour:
     m_Bits: 256
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
-  antialiasingMode: 2
+  antialiasingMode: 1
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.25
@@ -6341,6 +6342,23 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &2020403983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344820468862976}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 3bad9b1e9e3210e4784797875b623448, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1 &1372376312573248
 GameObject:
   m_ObjectHideFlags: 0
@@ -16290,10 +16308,10 @@ MonoBehaviour:
   - SubNivelTierra3
   - SubNivelTierra4
   EscenasNivelViento:
-  - 
-  - 
-  - 
-  - 
+  - SubNivelViento1
+  - SubNivelViento2
+  - SubNivelViento3
+  - SubNivelViento4
   NivelCargado:
   - v
   - v
@@ -16301,6 +16319,8 @@ MonoBehaviour:
   - v
   Lobby: Lobby
   ReferenciadorDeEscenas: 0
+  c: {fileID: 0}
+  AtaqueVariables: {fileID: 0}
 --- !u!114 &114236399020521722
 MonoBehaviour:
   m_ObjectHideFlags: 0

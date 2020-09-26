@@ -23,11 +23,12 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public bool EstaMuerto = false;
     public bool MurioDespuesDeMatarJefe = false;
     public bool RoboDeVida = false;
+    public bool LanzarMisiles = false;
 
     public float VelocidadDeMovimiento = 10f;
     public float CoolDownAtaque = 1f;
     public float FuerzaDeSalto = 3f;
-    public float VelocidadDeDash;
+    public float VelocidadDeDash = 8;
 
     [Header("Daños Elementales")]
 

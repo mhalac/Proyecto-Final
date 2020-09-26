@@ -181,8 +181,8 @@ public class AgarradorDeItems : MonoBehaviour
             if (PosicionValida == true)
             {
                 string NombreDelObjeto = ObjetosEquipados[i].GetComponent<InformacionDeItems>().Nombre;
-                EquiparEstadisticasYPasivas.DesEquiparEstadistica(NombreDelObjeto);
-                EquiparEstadisticasYPasivas.DesEquiparPasiva(NombreDelObjeto);
+                FindObjectOfType<EquiparEstadisticasYPasivas>().DesEquiparEstadistica(NombreDelObjeto);
+                FindObjectOfType<EquiparEstadisticasYPasivas>().DesEquiparPasiva(NombreDelObjeto);
 
 
                 Instantiate(ObjetosEquipados[i], PosicionObjeto, Quaternion.identity);
@@ -260,12 +260,14 @@ public class AgarradorDeItems : MonoBehaviour
                 break;
 
             case "Pasiva":
-                EquiparEstadisticasYPasivas.EquiparPasiva(Nombre);
+                //EquiparEstadisticasYPasivas.EquiparPasiva(Nombre);
+                FindObjectOfType<EquiparEstadisticasYPasivas>().EquiparPasiva(Nombre);
                 break;
 
 
             case "Estadistica":
-                EquiparEstadisticasYPasivas.EquiparEstadistica(Nombre);
+                //EquiparEstadisticasYPasivas.EquiparEstadistica(Nombre);
+                FindObjectOfType<EquiparEstadisticasYPasivas>().EquiparEstadistica(Nombre);
                 break;
 
 
@@ -306,12 +308,14 @@ public class AgarradorDeItems : MonoBehaviour
 
 
             case "Pasiva":
-                EquiparEstadisticasYPasivas.DesEquiparPasiva(Nombre);
+                //EquiparEstadisticasYPasivas.DesEquiparPasiva(Nombre);
+                FindObjectOfType<EquiparEstadisticasYPasivas>().DesEquiparPasiva(Nombre);
                 break;
 
 
             case "Estadistica":
-                EquiparEstadisticasYPasivas.DesEquiparEstadistica(Nombre);
+                //EquiparEstadisticasYPasivas.DesEquiparEstadistica(Nombre);
+                FindObjectOfType<EquiparEstadisticasYPasivas>().DesEquiparEstadistica(Nombre);
                 break;
 
 

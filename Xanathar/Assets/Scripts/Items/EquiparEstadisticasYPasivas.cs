@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class EquiparEstadisticasYPasivas : MonoBehaviour {
 
-	public static void EquiparEstadistica(string NombreDelItem)
+	public GameObject PrefabMisil;
+
+	public void EquiparEstadistica(string NombreDelItem)
 	{
 		EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
 		ManejadorDeItems manejadorDeItems = FindObjectOfType<ManejadorDeItems>();
+		GestorItems Gestor = FindObjectOfType<GestorItems>();
 
 		switch(NombreDelItem)
 		{
@@ -28,8 +31,17 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 
 			case "Estadistica De Tierra 2":
 			Estadisticas.Armadura += 2;
-			GestorItems Gestor = FindObjectOfType<GestorItems>();
 			Gestor.AplicarCDR(20);
+			break;
+
+			case "Estadistica De Viento 1":
+			Estadisticas.VelocidadDeMovimiento += 2;
+			Gestor.AplicarCDR(20);
+			break;
+
+			case "Estadistica de Viento 2":
+			Estadisticas.VelocidadDeMovimiento += 2;
+			Estadisticas.DañoDePersonajeNormal += 2;
 			break;
 
 			default:
@@ -40,10 +52,11 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 		manejadorDeItems.ManejadorDeVida();
 	}
 
-	public static void DesEquiparEstadistica(string NombreDelItem)
+	public void DesEquiparEstadistica(string NombreDelItem)
 	{
 		EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
 		ManejadorDeItems manejadorDeItems = FindObjectOfType<ManejadorDeItems>();
+		GestorItems Gestor = FindObjectOfType<GestorItems>();
 
 		switch(NombreDelItem)
 		{
@@ -64,8 +77,17 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 
 			case "Estadistica De Tierra 2":
 			Estadisticas.Armadura -= 2;
-			GestorItems Gestor = FindObjectOfType<GestorItems>();
 			Gestor.AplicarCDR(0);
+			break;
+
+			case "Estadistica De Viento 1":
+			Estadisticas.VelocidadDeMovimiento += 2;
+			Gestor.AplicarCDR(0);
+			break;
+
+			case "Estadistica de Viento 2":
+			Estadisticas.VelocidadDeMovimiento -= 2;
+			Estadisticas.DañoDePersonajeNormal -= 2;
 			break;
 
 			default:
@@ -76,7 +98,7 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 		manejadorDeItems.ManejadorDeVida();
 	}
 
-	public static void EquiparPasiva(string NombreDelItem)
+	public void EquiparPasiva(string NombreDelItem)
 	{
 		EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
 		ManejadorDeItems manejadorDeItems = FindObjectOfType<ManejadorDeItems>();
@@ -101,12 +123,21 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 			case "Estalactita":
 			Estadisticas.RoboDeVida = true;
 			break;
+
+			case "Windigo":
+			Estadisticas.LanzarMisiles = true;
+			StartCoroutine("EsperarParaMisiles");
+			break;
+
+			case "Whirlwind":
+			Estadisticas.VelocidadDeDash += 3;
+			break;
 		}
 		
 		manejadorDeItems.ManejadorDeVida();
 	}
 
-	public static void DesEquiparPasiva(string NombreDelItem)
+	public void DesEquiparPasiva(string NombreDelItem)
 	{
 		EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
 		ManejadorDeItems manejadorDeItems = FindObjectOfType<ManejadorDeItems>();
@@ -130,9 +161,44 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 
 			case "Estalactita":
 			Estadisticas.RoboDeVida = false;
+			Estadisticas.ContadorRoboDeVida = 0;
+			break;
+
+			case "Windigo":
+			Estadisticas.LanzarMisiles = false;
+			StopCoroutine("EsperarParaMisiles");
+			break;
+
+			case "Whirlwind":
+			Estadisticas.VelocidadDeDash -= 3;
 			break;
 		}
 
 		manejadorDeItems.ManejadorDeVida();
+	}
+
+	public IEnumerator EsperarParaMisiles()
+	{
+		yield return new WaitForSeconds(10f);
+
+		if(FindObjectOfType<EstadisticasDePersonaje>().LanzarMisiles == true)
+		{
+			CastearMisil();
+			yield return null;
+		}
+		else
+		{
+			yield return null;
+		}
+	}
+
+	public void CastearMisil()
+	{
+		GameObject Personaje = GameObject.FindGameObjectWithTag("Personaje");
+		
+		var Bala = Instantiate(PrefabMisil , Personaje.transform.position , Quaternion.identity);
+		Destroy(Bala , 5);
+
+		StartCoroutine(EsperarParaMisiles());
 	}
 }
