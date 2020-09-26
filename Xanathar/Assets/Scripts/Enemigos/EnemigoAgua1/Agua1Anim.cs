@@ -32,4 +32,14 @@ public class Agua1Anim : MonoBehaviour
     {
         Padre.VolverAlIdle();
     }
+
+    public void Disparar()
+    {
+        Padre.Disparar();
+    }
+
+    public void TerminarAtaque()
+    {
+        Padre.TerminarDisparo();
+    }
 }

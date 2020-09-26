@@ -15,11 +15,14 @@ public class Agua1 : MonoBehaviour
     public string [] Estados = {"Idle" , "Attacking" , "Warping"};
     public bool PermitirDisparo = false;
     public bool PermitirVision = false;
+    public float VelocidadBala;
+    public float Damage;
 
     [Header("Parametros")]
     private GameObject Personaje;
     private Vector3 Destino;
     public Animator Animador;
+    public GameObject PrefabBala;
 
     // Start is called before the first frame update
     void Start()
@@ -27,32 +30,20 @@ public class Agua1 : MonoBehaviour
         EstadoActual = Estados[0];
 
         Animador.SetBool("Idle" , true);
-
-        /*
-        Destino = Pos1.position;
-        if(Destino == transform.position)
-        {
-            Debug.Log("Misma Pos");
-        }
-        */
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        if(Input.GetKeyDown(KeyCode.N))
+        if(PuedoVer() && PermitirVision == false)
         {
-            IrAposRandom();
+            Apuntar();
+
+            if(PermitirDisparo == false && PermitirVision == false)
+            {
+                InciarDisparo();
+            }
         }
-        */
-        
-        /*
-        if(PuedoVer())
-        {
-            Debug.Log("Te puedo ver");
-        }
-        */
     }
 
     public void PonerPosRandomYSumergirse()
@@ -142,8 +133,7 @@ public class Agua1 : MonoBehaviour
         Animador.SetBool("Idle" , true);
         Animador.SetBool("Aparecer" , false);
 
-        PermitirVision = false;
-        PermitirDisparo = false;
+        StartCoroutine(Esperar());
     }
 
     public bool PuedoVer()
@@ -160,6 +150,48 @@ public class Agua1 : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void Apuntar()
+    {
+        Vector3 Direccion = (Personaje.transform.position - transform.position).normalized;
+
+        Quaternion Mirar = Quaternion.LookRotation(Direccion);
+        transform.rotation = Quaternion.Lerp(transform.rotation , Mirar , Time.fixedDeltaTime * 2);
+    }
+
+    public void Disparar()
+    {
+        GameObject Bala = Instantiate(PrefabBala , PuntoDeAtaque.position , Quaternion.identity);
+
+        Bala.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+        Destroy(Bala , 6);
+    }
+
+    public void InciarDisparo()
+    {
+        PermitirDisparo = true;
+
+        Animador.SetBool("Idle" , false);
+        Animador.SetBool("Atacando" , true);
+    }
+
+    public void TerminarDisparo()
+    {
+        Animador.SetBool("Atacando" , false);
+        Animador.SetBool("Sumergirse" , true);
+
+        PonerPosRandomYSumergirse();
+    }
+
+    IEnumerator Esperar()
+    {
+        yield return new WaitForSeconds (0.5f);
+
+        PermitirVision = false;
+        PermitirDisparo = false;
+
+        EstadoActual = Estados[0];
     }
 
     void OnDrawGizmosSelected()
