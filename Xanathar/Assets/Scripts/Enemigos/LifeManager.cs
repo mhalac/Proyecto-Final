@@ -50,11 +50,21 @@ public class LifeManager : MonoBehaviour
         }
         else if (gameObject.name == "JefeViento")
         {
-            Debug.Log("Esto se ejecutoxd");
             ControladorDePuertas = FindObjectOfType<ControlarPuertasYJefes>();
             ControladorDePuertas.OcultarTodasLasPuertas();
 
             if (ControlarPuertasYJefes.JefeDeVientoMuero == true)
+            {
+                Destroy(gameObject);
+                ControladorDePuertas.ReaparecerPuertas();
+            }
+        }
+        else if(gameObject.name == "JefeAgua")
+        {
+            ControladorDePuertas = FindObjectOfType<ControlarPuertasYJefes>();
+            ControladorDePuertas.OcultarTodasLasPuertas();
+
+            if(ControlarPuertasYJefes.JefeDeAguaMuerto == true)
             {
                 Destroy(gameObject);
                 ControladorDePuertas.ReaparecerPuertas();
@@ -250,8 +260,10 @@ public class LifeManager : MonoBehaviour
             else if (gameObject.name == "JefeViento")
             {
                 JefeViento c = FindObjectOfType<JefeViento>();
+
                 ControlarPuertasYJefes.JefeDeVientoMuero = true;
                 ControlarPuertasYJefes.JefeEliminado = true;
+
                 c.Deshabilitar();
                 c.enabled = false;
 
@@ -260,6 +272,11 @@ public class LifeManager : MonoBehaviour
             else if (gameObject.tag == "JefeAgua")
             {
                 JefeAgua c = FindObjectOfType<JefeAgua>();
+
+                ControlarPuertasYJefes.JefeDeAguaMuerto = true;
+                ControlarPuertasYJefes.JefeEliminado = true;
+
+
                 Destroy(c.gameObject, 9);
                 c.enabled = false;
                 c.animator.SetBool("Morir", true);

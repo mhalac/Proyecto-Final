@@ -7,6 +7,7 @@ public class ControlarPuertasYJefes : MonoBehaviour {
 	public static bool JefeDeFuegoMuerto = false;
 	public static bool JefeDeTierraMuerto = false;
 	public static bool JefeDeVientoMuero = false;
+	public static bool JefeDeAguaMuerto = false;
 
 	public GameObject [] Puertas = new GameObject [2];
 

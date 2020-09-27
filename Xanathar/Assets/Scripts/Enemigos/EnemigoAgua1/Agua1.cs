@@ -30,6 +30,9 @@ public class Agua1 : MonoBehaviour
         EstadoActual = Estados[0];
 
         Animador.SetBool("Idle" , true);
+
+        transform.position = ListaDePos[0].position;
+        //Debug.Log(transform.position);
     }
 
     // Update is called once per frame

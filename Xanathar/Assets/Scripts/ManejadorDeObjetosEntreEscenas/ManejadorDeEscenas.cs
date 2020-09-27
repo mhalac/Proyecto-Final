@@ -14,6 +14,9 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	[Header("EscenasNivelDeViento")]
 	public string [] EscenasNivelViento = new string[4];
 
+	[Header("EscenasNivelDeAgua")]
+	public string [] EscenasNivelAgua = new string[4];
+
 	[Header("EscenasDelNivelEnElQueEstas")]
 	public string[] NivelCargado = new string[4];
 
@@ -28,6 +31,7 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	public GestorItems c;
 	public Ataque AtaqueVariables;
 
+	public static bool EntreNivelAgua = false;
 	public static bool EntreNivelFuego = false;
 	public static bool EntreNivelTierra = false;
 	public static bool EntreNivelViento = false;
@@ -76,7 +80,16 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			EntrasteOSaliste = true;
 		}
 
+		if(col.gameObject.name == "EntradaNivelAgua" && ActivadorDeCambio == false && !c.IsInvoking("DesaparecerClon"))
+		{
+			EntreNivelAgua = true;
 
+			NivelCargado = EscenasNivelAgua;
+			ReferenciadorDeEscenas = 0;
+			NombreDeEscena = EscenasNivelAgua[ReferenciadorDeEscenas];
+			AsignadorDeEscenas.IniciadorDeCambio();
+			EntrasteOSaliste = true;
+		}
 
 
 

@@ -82,6 +82,12 @@ public class CambiadorDeNivel : MonoBehaviour {
 					GameObject PuertaDeViento = GameObject.Find("EntradaNivelViento");
 					PuertaDeViento.SetActive(false);
 				}
+
+				if(ControlarPuertasYJefes.JefeDeAguaMuerto == true)
+				{
+					GameObject PuertaDeAgua = GameObject.Find("EntradaNivelAgua");
+					PuertaDeAgua.SetActive(false);
+				}
 			}
 		}
 	}
