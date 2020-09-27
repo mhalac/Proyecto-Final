@@ -105,8 +105,8 @@ GameObject:
   - component: {fileID: 5272406651829449764}
   - component: {fileID: 5272406651829449766}
   - component: {fileID: 5272406651829449763}
-  - component: {fileID: 5272406651829449767}
   - component: {fileID: 5272406651829449784}
+  - component: {fileID: 5496403935927249520}
   m_Layer: 11
   m_Name: Lv2Agua
   m_TagString: Enemigo
@@ -198,19 +198,6 @@ MonoBehaviour:
   Animador: {fileID: 5968206324066855719}
   PrefabBala: {fileID: 7462913346903447522, guid: 258fcfdc3497b8145b22d9a4f20ebb7c,
     type: 3}
---- !u!65 &5272406651829449767
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5272406651829449762}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.7052174, y: 3.1542015, z: 5.30838}
-  m_Center: {x: -0.043082237, y: 1.5366611, z: -0.028717041}
 --- !u!114 &5272406651829449784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +217,20 @@ MonoBehaviour:
   Elemento: 
   Inmortal: 0
   items: []
+--- !u!136 &5496403935927249520
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272406651829449762}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.2817593
+  m_Height: 2.7301216
+  m_Direction: 1
+  m_Center: {x: 0.11534119, y: 0.90350246, z: 0}
 --- !u!1 &5272406651848998451
 GameObject:
   m_ObjectHideFlags: 0

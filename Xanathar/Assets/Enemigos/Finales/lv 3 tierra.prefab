@@ -679,8 +679,8 @@ GameObject:
   - component: {fileID: 5739262677590687831}
   - component: {fileID: 5739262677590687824}
   - component: {fileID: 5739262677590687825}
-  - component: {fileID: 5739262677590687827}
   - component: {fileID: 5739262677590687826}
+  - component: {fileID: 2020185048}
   m_Layer: 11
   m_Name: lv 3 tierra
   m_TagString: Enemigo
@@ -792,19 +792,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!65 &5739262677590687827
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5739262677590687830}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5741385, y: 0.3989705, z: 0.5647023}
-  m_Center: {x: -0.02905159, y: 0.23247367, z: 0.05272871}
 --- !u!114 &5739262677590687826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,6 +817,20 @@ MonoBehaviour:
     SpawnRate: 35
   - Item: {fileID: 0}
     SpawnRate: 30
+--- !u!136 &2020185048
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5739262677590687830}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.19904791
+  m_Height: 0.4735339
+  m_Direction: 1
+  m_Center: {x: -0.0014893531, y: 0.22668263, z: 0}
 --- !u!1 &5739341666020754266
 GameObject:
   m_ObjectHideFlags: 0

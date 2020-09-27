@@ -24,6 +24,7 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public bool MurioDespuesDeMatarJefe = false;
     public bool RoboDeVida = false;
     public bool LanzarMisiles = false;
+    public bool PermitirFrostWalkers = false;
 
     public float VelocidadDeMovimiento = 10f;
     public float CoolDownAtaque = 1f;

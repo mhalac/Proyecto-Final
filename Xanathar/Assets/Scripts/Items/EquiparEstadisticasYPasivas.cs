@@ -5,6 +5,7 @@ using UnityEngine;
 public class EquiparEstadisticasYPasivas : MonoBehaviour {
 
 	public GameObject PrefabMisil;
+	public GameObject FrostWalkersParticle;
 
 	public void EquiparEstadistica(string NombreDelItem)
 	{
@@ -42,6 +43,16 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 			case "Estadistica de Viento 2":
 			Estadisticas.VelocidadDeMovimiento += 2;
 			Estadisticas.DañoDePersonajeNormal += 2;
+			break;
+
+			case "Estadistica De Agua 1":
+			Estadisticas.TiempoDeRegeneracion -= 2;
+			Estadisticas.VelocidadDeMovimiento += 2;
+			break;
+
+			case "Estadistica De Agua 2":
+			Estadisticas.TiempoDeRegeneracion -= 2;
+			Gestor.AplicarCDR(20);
 			break;
 
 			default:
@@ -90,6 +101,16 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 			Estadisticas.DañoDePersonajeNormal -= 2;
 			break;
 
+			case "Estadistica De Agua 1":
+			Estadisticas.TiempoDeRegeneracion += 2;
+			Estadisticas.VelocidadDeMovimiento -= 2;
+			break;
+
+			case "Estadistica De Agua 2":
+			Estadisticas.TiempoDeRegeneracion += 2;
+			Gestor.AplicarCDR(0);
+			break;
+
 			default:
 			Debug.Log("Nombre no encontrado");
 			break;
@@ -132,6 +153,18 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 			case "Whirlwind":
 			Estadisticas.VelocidadDeDash += 3;
 			break;
+
+			case "Heal Heart":
+			Estadisticas.TiempoDeRegeneracion -= 5;
+			break;
+
+			case "Frost Walkers":
+			Estadisticas.PermitirFrostWalkers = true;
+			FrostWalkersParticle.SetActive(true);
+
+			SistemaDeColisionFrostWalkers sistema = FindObjectOfType<SistemaDeColisionFrostWalkers>();
+			StartCoroutine(sistema.LanzarCorrutina());
+			break;
 		}
 		
 		manejadorDeItems.ManejadorDeVida();
@@ -171,6 +204,15 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 
 			case "Whirlwind":
 			Estadisticas.VelocidadDeDash -= 3;
+			break;
+
+			case "Heal Heart":
+			Estadisticas.TiempoDeRegeneracion += 5;
+			break;
+
+			case "Frost Walkers":
+			Estadisticas.PermitirFrostWalkers = false;
+			FrostWalkersParticle.SetActive(false);
 			break;
 		}
 
