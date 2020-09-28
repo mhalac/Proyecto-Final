@@ -14,19 +14,25 @@ public class SistemaDeColisionFrostWalkers : MonoBehaviour
         
         if(EnemigosAlcanzados.Count == 0)
         {
-            EnemigosAlcanzados.Add(Collision);
-            VelocidadEnemigosAlcanzados.Add(Collision.GetComponent<NavMeshAgent>().speed);
-            Collision.GetComponent<NavMeshAgent>().speed -= 4;
-            //Collision.GetComponent<NavMeshAgent>().speed;
+            if(Collision.GetComponent<NavMeshAgent>() != null)
+            {
+                EnemigosAlcanzados.Add(Collision);
+                VelocidadEnemigosAlcanzados.Add(Collision.GetComponent<NavMeshAgent>().speed);
+                Collision.GetComponent<NavMeshAgent>().speed -= 4;
+                //Collision.GetComponent<NavMeshAgent>().speed;
+            }
         }
         
         for(int i = 0; i < EnemigosAlcanzados.Count; i++)
         {
             if(EnemigosAlcanzados[i].gameObject.name != Collision.name)
             {
-                EnemigosAlcanzados.Add(Collision);
-                VelocidadEnemigosAlcanzados.Add(Collision.GetComponent<NavMeshAgent>().speed);
-                Collision.GetComponent<NavMeshAgent>().speed -= 4;
+                if(Collision.GetComponent<NavMeshAgent>() != null)
+                {
+                    EnemigosAlcanzados.Add(Collision);
+                    VelocidadEnemigosAlcanzados.Add(Collision.GetComponent<NavMeshAgent>().speed);
+                    Collision.GetComponent<NavMeshAgent>().speed -= 4;
+                }
             }
         }
     }

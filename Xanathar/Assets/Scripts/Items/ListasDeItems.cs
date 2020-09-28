@@ -18,6 +18,14 @@ public class ListasDeItems : MonoBehaviour {
 	ConstructorEscenas SubNivelTierra2;
 	ConstructorEscenas SubNivelTierra3;
 	ConstructorEscenas SubNivelTierra4;
+	ConstructorEscenas SubNivelViento1;
+	ConstructorEscenas SubNivelViento2;
+	ConstructorEscenas SubNivelViento3;
+	ConstructorEscenas SubNivelViento4;
+	ConstructorEscenas SubNivelAgua1;
+	ConstructorEscenas SubNivelAgua2;
+	ConstructorEscenas SubNivelAgua3;
+	ConstructorEscenas SubNivelAgua4;
 
 	public List <GameObject> ListaDePrefabs = new List<GameObject>();
 
@@ -67,6 +75,18 @@ public class ListasDeItems : MonoBehaviour {
 		SubNivelTierra2 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
 		SubNivelTierra3 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
 		SubNivelTierra4 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+
+		//Constructores del nivel de viento
+		SubNivelViento1 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+		SubNivelViento2 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+		SubNivelViento3 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+		SubNivelViento4 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+
+		//Constructores del nivel de agua
+		SubNivelAgua1 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+		SubNivelAgua2 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+		SubNivelAgua3 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+		SubNivelAgua4 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
 	}
 
 	public void LlenarElConstructor()
@@ -108,47 +128,87 @@ public class ListasDeItems : MonoBehaviour {
 		{
 			case "Lobby":
 			Lobby.ReemplazarConstructorConOtro(ConstructorEjemplo);
-			Debug.Log(Lobby.ConseguirListaYPos());
+			//Debug.Log(Lobby.ConseguirListaYPos());
 			break;
 
 			case "SubNivelFuego1":
 			SubNivelFuego1.ReemplazarConstructorConOtro(ConstructorEjemplo);
-			Debug.Log(SubNivelFuego1.ConseguirListaYPos());
+			//Debug.Log(SubNivelFuego1.ConseguirListaYPos());
 			break;
 
 			case "SubNivelFuego2":
 			SubNivelFuego2.ReemplazarConstructorConOtro(ConstructorEjemplo);
-			Debug.Log(SubNivelFuego2.ConseguirListaYPos());
+			//Debug.Log(SubNivelFuego2.ConseguirListaYPos());
 			break;
 
 			case "SubNivelFuego3":
 			SubNivelFuego3.ReemplazarConstructorConOtro(ConstructorEjemplo);
-			Debug.Log(SubNivelFuego3.ConseguirListaYPos());
+			//Debug.Log(SubNivelFuego3.ConseguirListaYPos());
 			break;
 
 			case "SubNivelFuego4":
 			SubNivelFuego4.ReemplazarConstructorConOtro(ConstructorEjemplo);
-			Debug.Log(SubNivelFuego4.ConseguirListaYPos());
+			//Debug.Log(SubNivelFuego4.ConseguirListaYPos());
 			break;
 
 			case "SubNivelTierra1":
 			SubNivelTierra1.ReemplazarConstructorConOtro(ConstructorEjemplo);
-			Debug.Log(SubNivelTierra1.ConseguirListaYPos());
+			//Debug.Log(SubNivelTierra1.ConseguirListaYPos());
 			break;
 
 			case "SubNivelTierra2":
 			SubNivelTierra2.ReemplazarConstructorConOtro(ConstructorEjemplo);
-			Debug.Log(SubNivelTierra2.ConseguirListaYPos());
+			//Debug.Log(SubNivelTierra2.ConseguirListaYPos());
 			break;
 
 			case "SubNivelTierra3":
 			SubNivelTierra3.ReemplazarConstructorConOtro(ConstructorEjemplo);
-			Debug.Log(SubNivelTierra3.ConseguirListaYPos());
+			//Debug.Log(SubNivelTierra3.ConseguirListaYPos());
 			break;
 
 			case "SubNivelTierra4":
 			SubNivelTierra4.ReemplazarConstructorConOtro(ConstructorEjemplo);
-			Debug.Log(SubNivelTierra4.ConseguirListaYPos());
+			//Debug.Log(SubNivelTierra4.ConseguirListaYPos());
+			break;
+
+			case "SubNivelViento1":
+			SubNivelViento1.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			//Debug.Log(SubNivelViento1.ConseguirListaYPos());
+			break;
+			
+			case "SubNivelViento2":
+			SubNivelViento2.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			//Debug.Log(SubNivelViento2.ConseguirListaYPos());
+			break;
+
+			case "SubNivelViento3":
+			SubNivelViento3.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			//Debug.Log(SubNivelViento3.ConseguirListaYPos());
+			break;
+
+			case "SubNivelViento4":
+			SubNivelViento4.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			//Debug.Log(SubNivelViento4.ConseguirListaYPos());
+			break;
+
+			case "SubNivelAgua1":
+			SubNivelAgua1.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			//Debug.Log(SubNivelAgua1.ConseguirListaYPos());
+			break;
+
+			case "SubNivelAgua2":
+			SubNivelAgua2.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			//Debug.Log(SubNivelAgua2.ConseguirListaYPos());
+			break;
+
+			case "SubNivelAgua3":
+			SubNivelAgua3.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			//Debug.Log(SubNivelAgua3.ConseguirListaYPos());
+			break;
+
+			case "SubNivelAgua4":
+			SubNivelAgua4.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			//Debug.Log(SubNivelAgua4.ConseguirListaYPos());
 			break;
 
 			default:
@@ -210,6 +270,46 @@ public class ListasDeItems : MonoBehaviour {
 			case "SubNivelTierra4":
 			SubNivelTierra4.ConseguirListaDeObjetos(ObjetosAInstanciar);
 			SubNivelTierra4.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
+			case "SubNivelViento1":
+			SubNivelViento1.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			SubNivelViento1.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
+			case "SubNivelViento2":
+			SubNivelViento2.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			SubNivelViento2.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
+			case "SubNivelViento3":
+			SubNivelViento3.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			SubNivelViento3.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
+			case "SubNivelViento4":
+			SubNivelViento4.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			SubNivelViento4.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
+			case "SubNivelAgua1":
+			SubNivelAgua1.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			SubNivelAgua1.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
+			case "SubNivelAgua2":
+			SubNivelAgua2.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			SubNivelAgua2.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
+			case "SubNivelAgua3":
+			SubNivelAgua3.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			SubNivelAgua3.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
+			case "SubNivelAgua4":
+			SubNivelAgua4.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			SubNivelAgua4.ConseguirListaDePosiciones(PosicionesAInstanciar);
 			break;
 
 			default:
