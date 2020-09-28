@@ -10,6 +10,8 @@ public class BuscadorDePos : MonoBehaviour {
 
 	GameObject PosNivelFuego;
 	GameObject PosNivelTierra;
+	GameObject PosNivelAgua;
+	GameObject PosNivelViento;
 
 	ManejadorDeEscenas Manejador;
 
@@ -56,6 +58,8 @@ public class BuscadorDePos : MonoBehaviour {
 		{
 			PosNivelFuego = GameObject.Find("PosicionFuego");
 			PosNivelTierra = GameObject.Find("PosicionTierra");
+			PosNivelAgua = GameObject.Find("PosicionAgua");
+			PosNivelViento = GameObject.Find("PosicionViento");
 
 			if(ManejadorDeEscenas.EntreNivelFuego == true)
 			{
@@ -82,6 +86,32 @@ public class BuscadorDePos : MonoBehaviour {
 				Jugador.transform.rotation = Quaternion.Euler(0f,RotacionY,0f);
 
 				ManejadorDeEscenas.EntreNivelTierra = false;
+			}
+			else if(ManejadorDeEscenas.EntreNivelViento == true)
+			{
+				PosicionX = Mathf.RoundToInt(PosNivelViento.transform.position.x);
+				PosicionY = Mathf.RoundToInt(PosNivelViento.transform.position.y);
+				PosicionZ = Mathf.RoundToInt(PosNivelViento.transform.position.z);
+		
+				RotacionY = Mathf.RoundToInt(PosNivelViento.transform.eulerAngles.y);
+
+				Jugador.transform.position = new Vector3(PosicionX,PosicionY,PosicionZ);
+				Jugador.transform.rotation = Quaternion.Euler(0f,RotacionY,0f);
+
+				ManejadorDeEscenas.EntreNivelViento = false;
+			}
+			else if(ManejadorDeEscenas.EntreNivelAgua == true)
+			{
+				PosicionX = Mathf.RoundToInt(PosNivelAgua.transform.position.x);
+				PosicionY = Mathf.RoundToInt(PosNivelAgua.transform.position.y);
+				PosicionZ = Mathf.RoundToInt(PosNivelAgua.transform.position.z);
+		
+				RotacionY = Mathf.RoundToInt(PosNivelAgua.transform.eulerAngles.y);
+
+				Jugador.transform.position = new Vector3(PosicionX,PosicionY,PosicionZ);
+				Jugador.transform.rotation = Quaternion.Euler(0f,RotacionY,0f);
+
+				ManejadorDeEscenas.EntreNivelAgua = false;
 			}
 			else
 			{

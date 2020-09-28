@@ -43,7 +43,10 @@ public class CambiadorDeNivel : MonoBehaviour {
 			BuscadorDePos.ManejadorDePos();
 			PermitirCambios = false;
 			MuerteEnVacios.Caiste = false;
-			
+
+			PostProcessManager CambiarPostPros = FindObjectOfType<PostProcessManager>();
+			CambiarPostPros.CambiarElPPL(SceneManager.GetActiveScene().name);
+
 			if(SceneManager.GetActiveScene().name == "Lobby")
 			{
 				if(ControlarPuertasYJefes.JefeEliminado == true)
