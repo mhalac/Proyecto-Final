@@ -87,7 +87,7 @@ public class Ataque : MonoBehaviour
 
         ApagarActivas(i);
 
-        Debug.Log("Esto se ejecuto");
+        //Debug.Log("Esto se ejecuto");
     }
     public void ApagarActivas(int elemento)
     {

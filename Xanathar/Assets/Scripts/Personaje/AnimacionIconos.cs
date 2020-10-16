@@ -29,12 +29,12 @@ public class AnimacionIconos : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		
+		/*
 		if(Input.GetKeyDown(KeyCode.N))
 		{
 			SeleccionadorDeImagenes(5);
 		}
-		
+		*/
 	}
 
 	IEnumerator CoolDownDeHabilidades(Image ImagenDeActiva , float CoolDownHabilidad)

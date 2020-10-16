@@ -249,7 +249,16 @@ public class AgarradorDeItems : MonoBehaviour
                         break;
 
                     case "Agua":
-                        Debug.Log("Activa de Agua");
+                        //Debug.Log("Activa de Agua");
+                        float AguaCD = GetComponent<EstadisticasDePersonaje>().TiempoCooldownActivas[3];
+                        b.Reset(3);
+
+                        c.ItemsEquipados[3].item = ObjetoAgarrado;
+                        c.ItemsEquipados[3].cooldownInicial = AguaCD;
+                        c.ItemsEquipados[3].CooldownOriginal = AguaCD;
+
+                        c.AplicarCDR();
+
                         break;
 
                     default:

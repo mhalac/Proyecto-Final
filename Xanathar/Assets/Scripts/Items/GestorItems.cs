@@ -21,8 +21,7 @@ public class GestorItems : MonoBehaviour
     public GameObject StomperParticula;
     public Item[] ItemsEquipados;
 
-
-
+    public GameObject PrefabPlanta;
 
     //public List<Slots> EstadoSlots;
     void Start()
@@ -196,9 +195,57 @@ public class GestorItems : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.C))
+        if (ItemsEquipados[3] != null && Input.GetKeyDown(KeyCode.C) && !ItemsEquipados[3].Activado)
         {
+            //Debug.Log("itemEJECUTADO");
+            if(TerminoCD(3))
+            {
+                //Debug.Log("Esto se ejecuto");
 
+                ManejadorDeItems ManejadorDeItems = FindObjectOfType<ManejadorDeItems>();
+                AnimacionIconos Animaciones = FindObjectOfType<AnimacionIconos>();
+                EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+                ManejadorDeItems ManejadorHUD = FindObjectOfType<ManejadorDeItems>();
+
+                GameObject Personaje = GameObject.FindGameObjectWithTag("Personaje");
+
+                string NombreDelObjeto = ItemsEquipados[3].item.GetComponent<InformacionDeItems>().Nombre;
+
+                if(NombreDelObjeto == "Toxic Plant")
+                {
+                    //Debug.Log("Esto se ejecuto");
+                    Animaciones.ActivaDeAguaCooldown = true;
+                    GameObject PlantaAnterior = GameObject.FindGameObjectWithTag("PlantaActiva");
+
+                    if(PlantaAnterior != null)
+                    {
+                        Destroy(PlantaAnterior);
+                    }
+
+                    Vector3 Posicion = new Vector3(Personaje.transform.position.x , Personaje.transform.position.y - 0.6f , Personaje.transform.position.z);
+
+                    Instantiate(PrefabPlanta , Posicion , Quaternion.identity);
+
+                    Animaciones.SeleccionadorDeImagenes(ItemsEquipados[3].cooldownInicial);
+                    ItemsEquipados[3].cooldownActual = ItemsEquipados[3].cooldownInicial;
+                    ItemsEquipados[3].cooldownActual -= Time.deltaTime;
+
+                    Invoke("ReactivarPlanta" , ItemsEquipados[3].cooldownInicial);
+                }
+                else
+                {
+                    Animaciones.ActivaDeAguaCooldown = true;
+
+                    Estadisticas.VidaActualPersonaje = Estadisticas.VidaMaximaPersonaje;
+                    ManejadorHUD.ManejadorDeVida();
+
+                    Animaciones.SeleccionadorDeImagenes(ItemsEquipados[3].cooldownInicial);
+                    ItemsEquipados[3].cooldownActual = ItemsEquipados[3].cooldownInicial;
+                    ItemsEquipados[3].cooldownActual -= Time.deltaTime;
+
+                    Invoke("ReactivarPosion" , ItemsEquipados[3].cooldownInicial);
+                }
+            }
         }
 
     }
@@ -251,6 +298,20 @@ public class GestorItems : MonoBehaviour
         print("xddddddd");
     }
 
+    public void ReactivarPlanta()
+    {
+        AnimacionIconos Animaciones = FindObjectOfType<AnimacionIconos>();
+
+        Animaciones.ActivaDeAguaCooldown = true;
+    }
+
+    public void ReactivarPosion()
+    {
+        AnimacionIconos Animaciones = FindObjectOfType<AnimacionIconos>();
+
+        Animaciones.ActivaDeAguaCooldown = true;
+    }
+
     public void GolemHeartOff()
     {
         EstadisticasDePersonaje d = FindObjectOfType<EstadisticasDePersonaje>();
@@ -272,6 +333,7 @@ public class GestorItems : MonoBehaviour
 
 
     }
+
     [System.Serializable]
     public class Item
     {
