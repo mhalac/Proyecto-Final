@@ -40,7 +40,7 @@ public class Ataque : MonoBehaviour
         CDTotal = 0;
         anim.speed = 1 / GetComponent<EstadisticasDePersonaje>().CoolDownAtaque;
         MusicaDuracionActual = MusicaDuracionInicial;
-
+        Application.targetFrameRate = 60;
 
     }
 
