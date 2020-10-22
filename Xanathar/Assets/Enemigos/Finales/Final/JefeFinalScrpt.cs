@@ -18,6 +18,14 @@ public class JefeFinalScrpt : MonoBehaviour
     [Header("Fuego")]
     public GameObject FuegoParticula;
     private bool InicieCorrutinaFuego;
+    [Header("Roca")]
+    public GameObject Roca1;
+    public GameObject Roca2;
+    public GameObject Roca3;
+    public bool InicieCorrutinaRoca;
+    [Header("Agua")]
+    public bool InicieCorrutinaAgua;
+    public GameObject AguaPrefab;
     public enum estados
     {
         Fuego,
@@ -49,14 +57,67 @@ public class JefeFinalScrpt : MonoBehaviour
             case estados.Fuego:
                 EstadoFuego();
                 return;
+            case estados.Tierra:
+                EstadoTierra();
+                return;
+            case estados.Agua:
+                EstadoAgua();
+                return;
         }
 
 
     }
 
+    estados NuevoEstado(int i)
+    {
+        int f = Random.Range(0, 3);
+        switch (f)
+        {
+            case 0:
+                if (i != 0)
+                    return estados.Agua;
+                else
+                    return NuevoEstado(i);
+            case 1:
+                if (i != 1)
+                    return estados.Tierra;
+                else
+                    return NuevoEstado(i);
+            case 2:
+                if (i != 2)
+                    return estados.Fuego;
+                else
+                    return NuevoEstado(i);
+            case 3:
+                if (i != 3)
+                    return estados.Viento;
+                else
+                    return NuevoEstado(i);
+            default:
+                return estados.Viento;
+        }
+
+    }
+    void EstadoAgua()
+    {
+        if (!InicieCorrutinaAgua)
+        {
+            InicieCorrutinaAgua = true;
+            StartCoroutine(AtaqueAgua());
+        }
+    }
+    void EstadoTierra()
+    {
+        if (!InicieCorrutinaRoca)
+        {
+            InicieCorrutinaRoca = true;
+            StartCoroutine(AtaqueRoca());
+        }
+    }
+
     void EstadoFuego()
     {
-        if(!InicieCorrutinaFuego)
+        if (!InicieCorrutinaFuego)
         {
             StartCoroutine(AtaqueFuego());
             InicieCorrutinaFuego = true;
@@ -70,17 +131,105 @@ public class JefeFinalScrpt : MonoBehaviour
             InicieCorrutina = true;
         }
     }
+    IEnumerator AtaqueAgua()
+    {
+        for (int contador = 0; contador < 20; contador++)
+        {
+            Ray c = new Ray(Personaje.transform.position, Personaje.transform.up);
+            Vector3 pos = c.GetPoint(15);
+            transform.LookAt(Personaje.transform.position);
+
+
+            while (Vector3.Distance(pos, transform.position) > 12)
+            {
+                c = new Ray(Personaje.transform.position, Personaje.transform.up);
+                pos = c.GetPoint(15);
+                transform.position = Vector3.MoveTowards(transform.position, pos, 38 * Time.deltaTime);
+                yield return new WaitForEndOfFrame();
+            }
+            Physics.Raycast(transform.position, transform.up * -1, out hit, Mathf.Infinity);
+            GameObject inst = Instantiate(AguaPrefab, hit.point, AguaPrefab.transform.rotation);
+            Destroy(inst, 9f);
+
+            var lookPos = Personaje.transform.position - inst.transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            inst.transform.rotation = Quaternion.Slerp(inst.transform.rotation, rotation, Time.deltaTime * Mathf.Infinity);
+
+            yield return new WaitForSeconds(0.9f);
+        }
+        estado = NuevoEstado(0);
+
+        InicieCorrutinaAgua = false;
+    }
+    IEnumerator AtaqueRoca()
+    {
+        List<GameObject> RocasPrefab = new List<GameObject>();
+        RocasPrefab.Add(Roca1);
+        RocasPrefab.Add(Roca2);
+        RocasPrefab.Add(Roca3);
+        RocasPrefab.Add(Roca1);
+        RocasPrefab.Add(Roca2);
+        RocasPrefab.Add(Roca3);
+
+        for (int repeticiones = 0; repeticiones < 4; repeticiones++)
+        {
+            List<GameObject> Rocas = new List<GameObject>();
+            foreach (GameObject prefab in RocasPrefab)
+            {
+                Ray ray = new Ray(Personaje.transform.position, Vector3.up);
+
+                Vector3 pos = ray.GetPoint(30);
+                pos = new Vector3(pos.x + Random.Range(-2, 2) * 1.4f, pos.y, pos.z + Random.Range(-2, 2) * 2.3f);
+                Destroy(Instantiate(prefab, pos, Quaternion.identity), 6f);
+                yield return new WaitForSeconds(.8f);
+
+            }
+            yield return new WaitForSeconds(4f);
+
+        }
+        estado = NuevoEstado(1);
+        InicieCorrutinaRoca = false;
+    }
     IEnumerator AtaqueFuego()
     {
-        for(int i = 0; i < 9;i++)
+        for (int i = 0; i < 4; i++)
         {
-            
-            Physics.Raycast(transform.position,transform.up * -1,out hit, Mathf.Infinity);
-            Vector3 pos = new Vector3(Personaje.transform.position.x, hit.point.y,Personaje.transform.position.z);
-            vibracion.StartCoroutine(vibracion.Shake(.15f, .4f));
-            yield return new WaitForSeconds(1.6f);
-            GameObject c = Instantiate(FuegoParticula,pos,FuegoParticula.transform.rotation);
-            Destroy(c,4f);
+
+            Physics.Raycast(transform.position, transform.up * -1, out hit, Mathf.Infinity);
+            Vector3 pos = new Vector3(Personaje.transform.position.x + 1.4f, hit.point.y, Personaje.transform.position.z - 2);
+            vibracion.StartCoroutine(vibracion.Shake(.25f, .9f));
+            yield return new WaitForSeconds(0.40f);
+            GameObject c = Instantiate(FuegoParticula, pos, FuegoParticula.transform.rotation);
+            Vector3 size = new Vector3(12, 8, 13) / 2;
+            Destroy(c, 4f);
+            bool Golpie = false;
+            Collider[] col = Physics.OverlapBox(pos, size);
+            foreach (Collider obj in col)
+            {
+
+                if (obj.CompareTag("Personaje"))
+                {
+                    for (int b = 0; b < 30; b++)
+                    {
+                        if (!Golpie)
+                        {
+                            EstadisticasDePersonaje EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
+                            EstadisticasDePersonaje.RecibirDaño(10f);
+                            Golpie = true;
+                        }
+                        Personaje.GetComponent<CharacterController>().Move(Vector3.up * Time.deltaTime * 35);
+
+                        yield return new WaitForEndOfFrame();
+                    }
+
+                }
+
+            }
+
+            estado = NuevoEstado(2);
+            InicieCorrutinaFuego = false;
+
             yield return new WaitForSeconds(4);
         }
     }
@@ -162,14 +311,14 @@ public class JefeFinalScrpt : MonoBehaviour
 
         }
         InicieCorrutina = false;
-        estado = estados.Fuego;
+        estado = NuevoEstado(3);
 
     }
 
 
     void OrbitAroundPlayer()
     {
-        transform.RotateAround(Personaje.transform.position, Vector3.up, 59 * Time.deltaTime);
+        transform.RotateAround(Personaje.transform.position, Vector3.up, 20 * Time.deltaTime);
         transform.LookAt(Personaje.transform.position);
     }
 }

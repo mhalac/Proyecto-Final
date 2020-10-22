@@ -135,7 +135,7 @@ public class ManejadorDeEscenas : MonoBehaviour {
 		AtaqueVariables.Reset(2);
 		AtaqueVariables.Reset(3);
 
-		Debug.Log("Esto se ejecuta x veces");
+//		Debug.Log("Esto se ejecuta x veces");
 
 		//c.CancelInvoke("DesaparecerClon");
 
