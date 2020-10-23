@@ -9,11 +9,11 @@ public class Hielo : MonoBehaviour
     private bool golpie = false;
     void Start()
     {
-        Invoke("Ejecutar", 2.1f);
+        Invoke("Ejecutar", .45f);
     }
     void Ejecutar()
     {
-        Vector3 size = new Vector3(10, 6, 8);
+        Vector3 size = new Vector3(6, 5, 6);
         Collider[] colls = Physics.OverlapBox(transform.position, size);
         foreach (Collider obj in colls)
         {

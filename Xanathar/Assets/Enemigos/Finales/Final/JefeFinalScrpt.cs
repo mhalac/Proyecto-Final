@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JefeFinalScrpt : MonoBehaviour
 {
-
+    private BarraDeVidaJefe barra;
     private VibracionCamara vibracion;
     private LayerMask Pmask;
     private RaycastHit hit;
@@ -26,6 +26,8 @@ public class JefeFinalScrpt : MonoBehaviour
     [Header("Agua")]
     public bool InicieCorrutinaAgua;
     public GameObject AguaPrefab;
+    private float timer;
+    private LifeManager life;
     public enum estados
     {
         Fuego,
@@ -38,39 +40,47 @@ public class JefeFinalScrpt : MonoBehaviour
     }
     void Start()
     {
+        life = FindObjectOfType<LifeManager>();
         Personaje = GameObject.FindGameObjectWithTag("Personaje");
         Pmask = LayerMask.NameToLayer("Personaje");
         vibracion = FindObjectOfType<VibracionCamara>();
+        barra = FindObjectOfType<BarraDeVidaJefe>();
+        barra.ValorDeVidaMaxima = GetComponent<LifeManager>().Vida;
     }
 
     void Update()
     {
-
-        switch (estado)
+        barra.ValorDeVidaActual = GetComponent<LifeManager>().Vida;
+        if (timer > 4f)
         {
-            case estados.Orbiting:
-                OrbitAroundPlayer();
-                return;
-            case estados.Viento:
-                ShootViento();
-                return;
-            case estados.Fuego:
-                EstadoFuego();
-                return;
-            case estados.Tierra:
-                EstadoTierra();
-                return;
-            case estados.Agua:
-                EstadoAgua();
-                return;
+            switch (estado)
+            {
+                case estados.Orbiting:
+                    OrbitAroundPlayer();
+                    return;
+                case estados.Viento:
+                    ShootViento();
+                    return;
+                case estados.Fuego:
+                    EstadoFuego();
+                    return;
+                case estados.Tierra:
+                    EstadoTierra();
+                    return;
+                case estados.Agua:
+                    EstadoAgua();
+                    return;
+            }
         }
+        else
+            timer += Time.deltaTime;
 
 
     }
 
     estados NuevoEstado(int i)
     {
-        int f = Random.Range(0, 3);
+        int f = Random.Range(0, 4);
         switch (f)
         {
             case 0:
@@ -133,7 +143,7 @@ public class JefeFinalScrpt : MonoBehaviour
     }
     IEnumerator AtaqueAgua()
     {
-        for (int contador = 0; contador < 20; contador++)
+        for (int contador = 0; contador < 6; contador++)
         {
             Ray c = new Ray(Personaje.transform.position, Personaje.transform.up);
             Vector3 pos = c.GetPoint(15);
@@ -144,22 +154,24 @@ public class JefeFinalScrpt : MonoBehaviour
             {
                 c = new Ray(Personaje.transform.position, Personaje.transform.up);
                 pos = c.GetPoint(15);
-                transform.position = Vector3.MoveTowards(transform.position, pos, 38 * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, pos, 50 * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
             }
             Physics.Raycast(transform.position, transform.up * -1, out hit, Mathf.Infinity);
             GameObject inst = Instantiate(AguaPrefab, hit.point, AguaPrefab.transform.rotation);
             Destroy(inst, 9f);
 
-            var lookPos = Personaje.transform.position - inst.transform.position;
+            var lookPos = (Personaje.transform.position - inst.transform.position).normalized;
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(lookPos);
-            inst.transform.rotation = Quaternion.Slerp(inst.transform.rotation, rotation, Time.deltaTime * Mathf.Infinity);
+            inst.transform.rotation = Quaternion.Slerp(inst.transform.rotation, rotation, Mathf.Infinity);
 
-            yield return new WaitForSeconds(0.9f);
+            yield return new WaitForSeconds(1.9f);
         }
-        estado = NuevoEstado(0);
+        yield return new WaitForSeconds(3f);
 
+        estado = NuevoEstado(0);
+        life.Vida -= 15;
         InicieCorrutinaAgua = false;
     }
     IEnumerator AtaqueRoca()
@@ -185,10 +197,13 @@ public class JefeFinalScrpt : MonoBehaviour
                 yield return new WaitForSeconds(.8f);
 
             }
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(1f);
 
         }
+        yield return new WaitForSeconds(3f);
+
         estado = NuevoEstado(1);
+        life.Vida -= 15;
         InicieCorrutinaRoca = false;
     }
     IEnumerator AtaqueFuego()
@@ -226,16 +241,19 @@ public class JefeFinalScrpt : MonoBehaviour
                 }
 
             }
+            yield return new WaitForSeconds(2f);
 
-            estado = NuevoEstado(2);
-            InicieCorrutinaFuego = false;
-
-            yield return new WaitForSeconds(4);
         }
+        yield return new WaitForSeconds(3f);
+
+        estado = NuevoEstado(2);
+        InicieCorrutinaFuego = false;
+
+        life.Vida -= 15;
     }
     IEnumerator AtaqueViento()
     {
-        for (int indice = 0; indice < 6; indice++)
+        for (int indice = 0; indice < 4; indice++)
         {
             Ray c = new Ray(Personaje.transform.position, Personaje.transform.up);
             Vector3 pos = c.GetPoint(15);
@@ -310,8 +328,11 @@ public class JefeFinalScrpt : MonoBehaviour
             }
 
         }
+        yield return new WaitForSeconds(3f);
+
         InicieCorrutina = false;
         estado = NuevoEstado(3);
+        life.Vida -= 15;
 
     }
 
