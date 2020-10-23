@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class JefeFinalScrpt : MonoBehaviour
 {
+    public float Y;
     private BarraDeVidaJefe barra;
     private VibracionCamara vibracion;
     private LayerMask Pmask;
@@ -34,13 +36,16 @@ public class JefeFinalScrpt : MonoBehaviour
         Tierra,
         Viento,
         Agua,
-        Orbiting
+        Orbiting,
+        Muriendo
 
 
     }
     void Start()
     {
-        life = FindObjectOfType<LifeManager>();
+        Physics.Raycast(transform.position, transform.up * -1, out hit, Mathf.Infinity);
+        Y = hit.point.y;
+        life = GetComponent<LifeManager>();
         Personaje = GameObject.FindGameObjectWithTag("Personaje");
         Pmask = LayerMask.NameToLayer("Personaje");
         vibracion = FindObjectOfType<VibracionCamara>();
@@ -69,6 +74,8 @@ public class JefeFinalScrpt : MonoBehaviour
                     return;
                 case estados.Agua:
                     EstadoAgua();
+                    return;
+                case estados.Muriendo:
                     return;
             }
         }
@@ -141,6 +148,34 @@ public class JefeFinalScrpt : MonoBehaviour
             InicieCorrutina = true;
         }
     }
+    void TerminarJuego()
+    {
+        print("guniagnaing");
+    }
+    IEnumerator Subir()
+    {
+        while (true)
+        {
+            transform.Translate(0, 0.04f, 0);
+            yield return new WaitForEndOfFrame();
+        }
+
+    }
+    void Mori()
+    {
+        if (life.Vida <= 0)
+        {
+            estado = estados.Muriendo;
+            InicieCorrutina = true;
+            InicieCorrutinaAgua = true;
+            InicieCorrutinaRoca = true;
+            InicieCorrutinaFuego = true;
+            Animator c = GetComponentInChildren<Animator>();
+            c.SetBool("die", true);
+            Invoke("TerminarJuego", 7f);
+            StartCoroutine(Subir());
+        }
+    }
     IEnumerator AtaqueAgua()
     {
         for (int contador = 0; contador < 6; contador++)
@@ -157,8 +192,17 @@ public class JefeFinalScrpt : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, pos, 50 * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
             }
+            while (Vector3.Distance(pos, transform.position) < 10.7f)
+            {
+                c = new Ray(Personaje.transform.position, Personaje.transform.up);
+                pos = c.GetPoint(15);
+                transform.position = Vector3.MoveTowards(transform.position, pos,- 1 * 50 * Time.deltaTime);
+                yield return new WaitForEndOfFrame();
+            }
+
             Physics.Raycast(transform.position, transform.up * -1, out hit, Mathf.Infinity);
-            GameObject inst = Instantiate(AguaPrefab, hit.point, AguaPrefab.transform.rotation);
+            Vector3 obj = new Vector3(hit.point.x, Y, hit.point.z);
+            GameObject inst = Instantiate(AguaPrefab, obj, AguaPrefab.transform.rotation);
             Destroy(inst, 9f);
 
             var lookPos = (Personaje.transform.position - inst.transform.position).normalized;
@@ -173,6 +217,8 @@ public class JefeFinalScrpt : MonoBehaviour
         estado = NuevoEstado(0);
         life.Vida -= 15;
         InicieCorrutinaAgua = false;
+        Mori();
+
     }
     IEnumerator AtaqueRoca()
     {
@@ -205,14 +251,16 @@ public class JefeFinalScrpt : MonoBehaviour
         estado = NuevoEstado(1);
         life.Vida -= 15;
         InicieCorrutinaRoca = false;
+        Mori();
+
     }
     IEnumerator AtaqueFuego()
     {
         for (int i = 0; i < 4; i++)
         {
 
-            Physics.Raycast(transform.position, transform.up * -1, out hit, Mathf.Infinity);
-            Vector3 pos = new Vector3(Personaje.transform.position.x + 1.4f, hit.point.y, Personaje.transform.position.z - 2);
+            //Physics.Raycast(transform.position, transform.up * -1, out hit, Mathf.Infinity, Pmask);
+            Vector3 pos = new Vector3(Personaje.transform.position.x + 1.4f, Y, Personaje.transform.position.z - 2);
             vibracion.StartCoroutine(vibracion.Shake(.25f, .9f));
             yield return new WaitForSeconds(0.40f);
             GameObject c = Instantiate(FuegoParticula, pos, FuegoParticula.transform.rotation);
@@ -250,6 +298,11 @@ public class JefeFinalScrpt : MonoBehaviour
         InicieCorrutinaFuego = false;
 
         life.Vida -= 15;
+        print("1: " + life.Vida);
+        Mori();
+        print("2: " + life.Vida);
+
+
     }
     IEnumerator AtaqueViento()
     {
@@ -333,7 +386,7 @@ public class JefeFinalScrpt : MonoBehaviour
         InicieCorrutina = false;
         estado = NuevoEstado(3);
         life.Vida -= 15;
-
+        Mori();
     }
 
 

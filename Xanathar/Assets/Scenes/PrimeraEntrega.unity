@@ -2527,31 +2527,6 @@ Transform:
   m_Father: {fileID: 910002984}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1098065177 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7827703750756263738, guid: d1d2a26328d497e49a2a660bca0fe3d2,
-    type: 3}
-  m_PrefabInstance: {fileID: 7827703751843693091}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1098065180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098065177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dab7ecc63d7b7f42a1ca4b2ef4e2432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NombresJefes: []
-  NoPuedoDropear: 0
-  TESTMATAR: 0
-  Vida: 100
-  Elemento: 
-  Inmortal: 0
-  items: []
 --- !u!1 &1120356100
 GameObject:
   m_ObjectHideFlags: 0
@@ -2800,12 +2775,12 @@ PrefabInstance:
     - target: {fileID: 114225078043899536, guid: adb06a4a9bc19c84c90ecebe09396856,
         type: 3}
       propertyPath: VidaActualPersonaje
-      value: 9999
+      value: 9e+9
       objectReference: {fileID: 0}
     - target: {fileID: 114225078043899536, guid: adb06a4a9bc19c84c90ecebe09396856,
         type: 3}
       propertyPath: VidaMaximaPersonaje
-      value: 999
+      value: 1e+9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
@@ -4809,10 +4784,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1098065179, guid: d1d2a26328d497e49a2a660bca0fe3d2, type: 3}
-      propertyPath: estado
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 7827703750756263737, guid: d1d2a26328d497e49a2a660bca0fe3d2,
         type: 3}
       propertyPath: m_LocalPosition.x
