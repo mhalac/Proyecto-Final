@@ -275,7 +275,7 @@ public class LifeManager : MonoBehaviour
 
                 ControlarPuertasYJefes.JefeDeAguaMuerto = true;
                 ControlarPuertasYJefes.JefeEliminado = true;
-
+                c.Deshabilitar();
 
                 Destroy(c.gameObject, 9);
                 c.enabled = false;
