@@ -5,7 +5,7 @@ using UnityEngine;
 public class JefeAgua : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    public GameObject[] Activas;
 
     public int TentaculosRate;
 
@@ -14,7 +14,7 @@ public class JefeAgua : MonoBehaviour
     public int TentaculosMaximos;
     public GameObject Tentaculo;
 
-    
+
 
     public float CDSlap;
     public float Distancia;
@@ -89,10 +89,22 @@ public class JefeAgua : MonoBehaviour
         GameObject b = Instantiate(Tentaculo, Charcos[c].position, Tentaculo.transform.rotation);
         Tentaculos.Add(b);
     }
+    public void Deshabilitar()
+    {
+        int i = -4;
+        foreach (GameObject b in Activas)
+        {
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z + i);
+            Instantiate(b, pos, Quaternion.identity);
+            i = 3;
+        }
+
+    }
+
     void Update()
     {
-        
-        
+
+
         barra.ValorDeVidaActual = GetComponent<LifeManager>().Vida;
 
         Distancia = Vector3.Distance(Jugador.transform.position, transform.position);
