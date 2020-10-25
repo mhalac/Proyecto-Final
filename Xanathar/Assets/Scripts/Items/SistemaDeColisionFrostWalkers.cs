@@ -10,8 +10,9 @@ public class SistemaDeColisionFrostWalkers : MonoBehaviour
 
     void OnParticleCollision(GameObject Collision)
     {
-        //Debug.Log("Colision Realizada");
-        
+        Debug.Log("Colision Realizada");
+        bool EnemigoIgual = false;
+
         if(EnemigosAlcanzados.Count == 0)
         {
             if(Collision.GetComponent<NavMeshAgent>() != null)
@@ -19,21 +20,30 @@ public class SistemaDeColisionFrostWalkers : MonoBehaviour
                 EnemigosAlcanzados.Add(Collision);
                 VelocidadEnemigosAlcanzados.Add(Collision.GetComponent<NavMeshAgent>().speed);
                 Collision.GetComponent<NavMeshAgent>().speed -= 4;
-                //Collision.GetComponent<NavMeshAgent>().speed;
             }
         }
-        
+
         for(int i = 0; i < EnemigosAlcanzados.Count; i++)
         {
-            if(EnemigosAlcanzados[i].gameObject.name != Collision.name)
+            if(EnemigosAlcanzados[i] == null)
             {
-                if(Collision.GetComponent<NavMeshAgent>() != null)
-                {
-                    EnemigosAlcanzados.Add(Collision);
-                    VelocidadEnemigosAlcanzados.Add(Collision.GetComponent<NavMeshAgent>().speed);
-                    Collision.GetComponent<NavMeshAgent>().speed -= 4;
-                }
+                EnemigosAlcanzados.RemoveAt(i);
+                VelocidadEnemigosAlcanzados.RemoveAt(i);
+                break;
             }
+
+            if(Collision.name == EnemigosAlcanzados[i].name)
+            {
+                EnemigoIgual = true;
+            }
+        }
+
+        if(EnemigoIgual != true)
+        {
+            EnemigosAlcanzados.Add(Collision);
+            VelocidadEnemigosAlcanzados.Add(Collision.GetComponent<NavMeshAgent>().speed);
+            Collision.GetComponent<NavMeshAgent>().speed -= 4;
+            EnemigoIgual = false;
         }
     }
 
@@ -58,6 +68,7 @@ public class SistemaDeColisionFrostWalkers : MonoBehaviour
         VelocidadEnemigosAlcanzados.Clear();
 
         StartCoroutine(LanzarCorrutina());
+        
     }
 
     public IEnumerator LanzarCorrutina()

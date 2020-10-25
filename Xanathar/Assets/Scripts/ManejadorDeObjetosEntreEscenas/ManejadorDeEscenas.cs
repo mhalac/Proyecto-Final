@@ -90,8 +90,11 @@ public class ManejadorDeEscenas : MonoBehaviour {
 			AsignadorDeEscenas.IniciadorDeCambio();
 			EntrasteOSaliste = true;
 		}
-
-
+		
+		if(col.gameObject.name == "EntradaBoss" && ActivadorDeCambio == false && !c.IsInvoking("DesaparecerClon") && ControlarPuertasYJefes.JefeDeAguaMuerto == true && ControlarPuertasYJefes.JefeDeFuegoMuerto == true && ControlarPuertasYJefes.JefeDeTierraMuerto == true && ControlarPuertasYJefes.JefeDeVientoMuero == true)
+		{
+			Debug.Log("Preparate para ser re contra re funado");
+		}
 
 		
 		if(col.gameObject.name == "Salida" && ActivadorDeCambio == false && !c.IsInvoking("DesaparecerClon"))
