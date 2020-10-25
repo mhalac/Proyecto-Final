@@ -10,7 +10,7 @@ public class SistemaDeColisionFrostWalkers : MonoBehaviour
 
     void OnParticleCollision(GameObject Collision)
     {
-        Debug.Log("Colision Realizada");
+        //Debug.Log("Colision Realizada");
         
         if(EnemigosAlcanzados.Count == 0)
         {
@@ -45,7 +45,8 @@ public class SistemaDeColisionFrostWalkers : MonoBehaviour
         {
             if(EnemigosAlcanzados[i] == null)
             {
-                continue;
+                EnemigosAlcanzados.RemoveAt(i);
+                VelocidadEnemigosAlcanzados.RemoveAt(i);
             }
             else
             {

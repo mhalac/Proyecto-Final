@@ -69,7 +69,7 @@ public class Proyectil : MonoBehaviour
 
     IEnumerator TimerTornado()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(6f);
 
         TornadoDesapareciendo = true;
         StartCoroutine(DesaparecerTornado());
