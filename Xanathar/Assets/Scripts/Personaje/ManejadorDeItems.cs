@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ManejadorDeItems : MonoBehaviour {
 
+
+	public AudioSource RuidoMuerte;
 	//Variables para ocultar y mostrar el HUD
 	public bool OcultadorDeHud = false;
 	public bool OcultadorDeMensaje = false;
@@ -296,6 +298,7 @@ public class ManejadorDeItems : MonoBehaviour {
 				
 				if(EstadisticasDePersonaje.EstaMuerto == false)
 				{
+					RuidoMuerte.Play();
 					ManejadorDeEscenas.VolverAlLobby();
 					StartCoroutine(RecargarVida());
 				}

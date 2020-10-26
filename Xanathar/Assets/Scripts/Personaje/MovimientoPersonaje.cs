@@ -7,6 +7,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class MovimientoPersonaje : MonoBehaviour
 {
+    public AudioSource DashSound;
     private Vignette dashFade;
     public PostProcessVolume volume;
     //Script para el movimiento del personaje
@@ -165,6 +166,7 @@ public class MovimientoPersonaje : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && YaDasheo == false)
         {
+            DashSound.Play();
             VelocidadDash = Stats.VelocidadDeDash;
             YaDasheo = true;
             tiempoDash = Stats.CoolDownFlash;
