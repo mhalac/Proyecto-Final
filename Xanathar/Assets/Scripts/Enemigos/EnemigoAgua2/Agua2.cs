@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class Agua2 : MonoBehaviour
 {
     [Header("Transforms Seleccionables")]
+
+    public AudioSource DisparoSound;
     public Transform PuntoDeDisparo;
     public Transform PuntoDeVision;
     public Transform Heredar;
@@ -156,7 +158,7 @@ public class Agua2 : MonoBehaviour
     {
         Particulas.Play();
         var BalaDisparo = Instantiate(PrefabBala , PuntoDeDisparo.position , Quaternion.identity);
-
+        DisparoSound.Play();
         BalaDisparo.GetComponent<Rigidbody>().velocity = TrayectoriaBala(Personaje2 , AnguloDeDisparo);
         Destroy(BalaDisparo , 10);
     }

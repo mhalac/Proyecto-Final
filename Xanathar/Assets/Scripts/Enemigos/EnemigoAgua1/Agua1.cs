@@ -7,6 +7,8 @@ public class Agua1 : MonoBehaviour
     [Header("Transforms Seleccionables")]
     public Transform PuntoDeVision;
     public Transform PuntoDeAtaque;
+    public AudioSource TPSound;
+    public AudioSource DisparoSonido;
     public Transform [] ListaDePos;
 
     [Header("Variables")]
@@ -126,7 +128,7 @@ public class Agua1 : MonoBehaviour
     public void Tepearse()
     {
         transform.position = Destino;
-
+        TPSound.Play();
         Animador.SetBool("Sumergirse" , false);
         Animador.SetBool("Aparecer" , true);
     }
@@ -166,7 +168,7 @@ public class Agua1 : MonoBehaviour
     public void Disparar()
     {
         GameObject Bala = Instantiate(PrefabBala , PuntoDeAtaque.position , Quaternion.identity);
-
+        DisparoSonido.Play();
         Bala.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
         Destroy(Bala , 6);
     }

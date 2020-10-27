@@ -5,6 +5,8 @@ using UnityEngine;
 public class JefeViento : MonoBehaviour
 {
 
+    public AudioSource GolpeSound;
+
     public BarraDeVidaJefe barra;
 
     public bool Termine;
@@ -180,6 +182,7 @@ public class JefeViento : MonoBehaviour
     public void GolpearElPiso()
     {
         Collider[] c = Physics.OverlapBox(ReferenciaDerecha.transform.position, AplastarSize * 2, ManoDerecha.transform.rotation);
+        GolpeSound.Play();
         foreach (Collider b in c)
         {
             if (b.gameObject.tag == "Personaje")
@@ -199,6 +202,7 @@ public class JefeViento : MonoBehaviour
             Jugador.GetComponent<CharacterController>().Move(direccion * -1 * Time.deltaTime * SlamKnockback * 25 / i);
             yield return null;
         }
+        
         yield return null;
 
     }

@@ -9,6 +9,8 @@ public class CaidaRocas : MonoBehaviour
     public Vector3 hit;
     public bool YaGolpie;
 
+    public AudioSource Strike;
+
     private Ray rasho;
     // Start is called before the first frame update
     void Start()
@@ -38,6 +40,8 @@ public class CaidaRocas : MonoBehaviour
             transform.Translate(0, -1, 0);
 
         }
+        else
+            Strike.Play();
     }
     IEnumerator Knockback()
     {

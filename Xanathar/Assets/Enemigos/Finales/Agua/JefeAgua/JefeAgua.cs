@@ -14,7 +14,8 @@ public class JefeAgua : MonoBehaviour
     public int TentaculosMaximos;
     public GameObject Tentaculo;
 
-
+    public AudioSource TeleportSound;
+    public AudioSource ILikeYourCutG;
 
     public float CDSlap;
     public float Distancia;
@@ -131,6 +132,7 @@ public class JefeAgua : MonoBehaviour
             {
                 if (b.tag == "Personaje")
                 {
+                    ILikeYourCutG.Play();
                     YaGolpie = true;
                     StartCoroutine(Empujar());
                 }
@@ -174,6 +176,8 @@ public class JefeAgua : MonoBehaviour
     public void TermineEntrar()
     {
         //cuando baja
+        TeleportSound.Play();
+
         animator.SetBool("Salir", false);
         YaGolpie = false;
         GoToRandomPos();
