@@ -740,6 +740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Heredar: {fileID: 7769464380925140009}
   PuntoVision: {fileID: 7769464381277220374}
+  Swing: {fileID: 546404404621096252}
   PuntoAtaque: {fileID: 7769464380349246873}
   RangoVision: 6
   RangoIdle: 6
@@ -844,17 +845,17 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 410cc1e5e30a6d0439dc4a2f2725d0d4, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_PlayOnAwake: 1
+  m_Volume: 0.425
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
-  MinDistance: 3
-  MaxDistance: 20
+  DopplerLevel: 0
+  MinDistance: 1.85
+  MaxDistance: 18.68
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -889,7 +890,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -948,9 +949,9 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
-  MinDistance: 3
-  MaxDistance: 20
+  DopplerLevel: 0
+  MinDistance: 5.4
+  MaxDistance: 48.85
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -985,7 +986,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

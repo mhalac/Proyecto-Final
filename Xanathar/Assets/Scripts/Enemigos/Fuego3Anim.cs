@@ -31,13 +31,14 @@ public class Fuego3Anim : MonoBehaviour
     {
         Padre.TerminoAnimacion = true;
         Padre.anim.SetBool("Tepeo", false);
-        
+       // Padre.Desparecer.Play();
 
     }
     public void RecienAparezco()
     {
         Padre.transform.localScale = Padre.Escala;
         Padre.anim.SetBool("Aparecio", false);
+        Padre.Aparecer.Play();
        // Padre.anim.speed = 5;
 
     }

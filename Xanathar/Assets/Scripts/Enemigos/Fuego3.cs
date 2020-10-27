@@ -6,6 +6,13 @@ using UnityEngine.AI;
 public class Fuego3 : MonoBehaviour
 {
 
+    public AudioSource Aparecer;
+
+    public AudioSource Desparecer;
+
+    public AudioSource DispararSonido;
+
+
     public bool TargetLock;
     public bool TerminoAnimacion;
     public bool ListoParaDisparar;
@@ -29,7 +36,7 @@ public class Fuego3 : MonoBehaviour
     public float Vida;
     public Vector3 Escala;
 
-    
+
 
     private string[] Estados = { "Idle", "Shooting" };
     private float DelayTeleportInicial;
@@ -47,7 +54,7 @@ public class Fuego3 : MonoBehaviour
     private int PMask;
     private GameObject personaje;
     private bool PuedoRestar;
-    
+
     private Vector3 PInical;
     public string Estado;
 
@@ -80,7 +87,7 @@ public class Fuego3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
+
 
         if (transform.Find(NombreHijo) != null)
         {
@@ -90,7 +97,7 @@ public class Fuego3 : MonoBehaviour
         if (TargetLock && DelayTeleport < Mathf.Epsilon || !(BuscarPersonaje() || PuedoVer()) && Estado == Estados[1])
         {
             DelayTeleport = DelayTeleportInicial;
-            
+
             IdleTarget();
         }
 
@@ -220,7 +227,7 @@ public class Fuego3 : MonoBehaviour
     IEnumerator IdleTeleport(Vector3 RPos)
     {
         anim.SetBool("Tepeo", true);
-        
+
         while (!TerminoAnimacion)
         {
             yield return null;
@@ -318,7 +325,7 @@ public class Fuego3 : MonoBehaviour
         {
             ListoParaDisparar = false;
             var direccion = (personaje.transform.position - PuntoDisparo.position).normalized;
-
+            DispararSonido.Play();
             GameObject bala = Instantiate(balaPrefab, PuntoDisparo.position, Quaternion.identity);
             bala.GetComponent<ProyectilBase>().Lanzar(direccion, BalaVelocidad, Damage);
             StartCoroutine(Disparo());

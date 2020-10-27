@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class Fuego2 : MonoBehaviour
 {
 
+    public AudioSource Lanzallamas;
     private RaycastHit hit;
     private Transform UltimaPosicion;
 
@@ -329,6 +330,8 @@ public class Fuego2 : MonoBehaviour
             }
             DamagePorTiempo -= Time.deltaTime;
             if (!FuegoAnim.isPlaying) FuegoAnim.Play();
+            if (!Lanzallamas.isPlaying) Lanzallamas.Play();
+
 
 
         }
@@ -340,6 +343,7 @@ public class Fuego2 : MonoBehaviour
             animator.enabled = true;
             animator.speed = 1;
             FuegoAnim.Stop();
+            Lanzallamas.Stop();
         }
 
     }

@@ -1224,6 +1224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baaa28368a9510f45a4b2ee6f2945970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Disparo: {fileID: 125066252387134558}
   Heredar: {fileID: 2938558105694086436}
   Vision: {fileID: 2938558106334156624}
   PuntoDisparo: {fileID: 2938558106347100688}
@@ -1290,14 +1291,14 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 3
-  MaxDistance: 20
+  MaxDistance: 17.29
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1332,7 +1333,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -9,7 +9,7 @@ public class Viento2Anim : MonoBehaviour
     {
         Padre.Particulas.SetActive(true);
         Padre.AtaqueActivado = true;
-        
+        Padre.Disparo.Play();
         StartCoroutine(CoordinarAtaque());
     }
 
@@ -23,7 +23,7 @@ public class Viento2Anim : MonoBehaviour
         Padre.AtaqueActivado = false;
 
         Padre.PuedoDisparar = false;
-
+        Padre.Disparo.Stop();
         Padre.EstadoActual = Padre.Estados[1];
     }
 

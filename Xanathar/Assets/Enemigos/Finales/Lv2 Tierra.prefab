@@ -935,6 +935,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 523efb88601dc2b4ebd72c1766565de3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Atacar: {fileID: 4655556416688290701}
+  Correr: {fileID: 9061583919811281212}
   Heredar: {fileID: 4583122036361238}
   AreaAtaque: {fileID: 4782726932459066}
   GarraIzquierda: {fileID: 65497756062113272}
@@ -1051,7 +1053,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 3
   MaxDistance: 20
   Pan2D: 0
@@ -1088,7 +1090,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1142,12 +1144,12 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 3
   MaxDistance: 20
   Pan2D: 0
@@ -1184,7 +1186,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Tierra2 : MonoBehaviour {
 
 	private RaycastHit Hit;
+	public AudioSource Atacar;
 
 	[Header("Transforms Seleccionables")]
 	public Transform Heredar;
@@ -112,7 +113,6 @@ public class Tierra2 : MonoBehaviour {
 			{
 				FindObjectOfType<PositionManager>().Llegue(Destino);
 			}
-
 			Destino = FindObjectOfType<PositionManager>().GenerarPosicionRandom(PosicionEnSpawn , RangoIdle , Heredar.position);
 			Agente.destination = Destino;
 		}
@@ -151,7 +151,7 @@ public class Tierra2 : MonoBehaviour {
 	public void DetectarAtaque()
 	{
 		Collider [] Obj = Physics.OverlapBox(AreaAtaque.position , new Vector3(rangoAtaque, rangoAtaque, rangoAtaque));
-
+		Atacar.Play();
 		for(int  i = 0; i < Obj.Length; i++)
 		{
 			if(Obj[i].gameObject.tag == "Personaje")

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Fuego1 : MonoBehaviour
 {
 
-
+    public AudioSource disparo;
 
 
     private RaycastHit hit;
@@ -241,6 +241,7 @@ public class Fuego1 : MonoBehaviour
             var direccion = (personaje.transform.position - RayPos.position).normalized;
             delay = DelayInicial;
             GameObject bala = Instantiate(balaPrefab, RayPos.position, Quaternion.identity);
+            disparo.Play();
             //Vector3 PosicionDisparada = personaje.transform.position;
             bala.GetComponent<ProyectilBase>().Lanzar(direccion, BalaVelocidad, Damage);
 

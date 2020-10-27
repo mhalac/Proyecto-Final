@@ -24375,6 +24375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c993e9c87d18f8d4e94cfcca08bc5a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disparo: {fileID: -5656847495311534536}
   balaPrefab: {fileID: 1602966824379906, guid: f285dd99a543e264ca30235e32ad0b78, type: 3}
   RayPos: {fileID: 4164151769703966}
   VisionDisparo: {fileID: 4184105832589448}
@@ -24476,14 +24477,14 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3864393a82e4ca64ba2491d9489c4939, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.887
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 3
   MaxDistance: 20
   Pan2D: 0
@@ -24520,7 +24521,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Viento2 : MonoBehaviour
 {
     private RaycastHit Hit;
+    public AudioSource Disparo;
 
     [Header("Transforms Seleccionables")]
     public Transform Heredar;
