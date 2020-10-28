@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class JefeFinalScrpt : MonoBehaviour
 {
+    public AudioSource FuegoSound;
+    public AudioSource HieloSound;
+
+
+    public AudioSource PreTerremoto;
+
     public float Y;
     private BarraDeVidaJefe barra;
     private VibracionCamara vibracion;
@@ -209,7 +215,7 @@ public class JefeFinalScrpt : MonoBehaviour
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(lookPos);
             inst.transform.rotation = Quaternion.Slerp(inst.transform.rotation, rotation, Mathf.Infinity);
-
+            HieloSound.Play();
             yield return new WaitForSeconds(1.9f);
         }
         yield return new WaitForSeconds(3f);
@@ -262,7 +268,10 @@ public class JefeFinalScrpt : MonoBehaviour
             //Physics.Raycast(transform.position, transform.up * -1, out hit, Mathf.Infinity, Pmask);
             Vector3 pos = new Vector3(Personaje.transform.position.x + 1.4f, Y, Personaje.transform.position.z - 2);
             vibracion.StartCoroutine(vibracion.Shake(.25f, .9f));
+            PreTerremoto.Play();
             yield return new WaitForSeconds(0.40f);
+            FuegoSound.Play();
+            PreTerremoto.Stop();
             GameObject c = Instantiate(FuegoParticula, pos, FuegoParticula.transform.rotation);
             Vector3 size = new Vector3(12, 8, 13) / 2;
             Destroy(c, 4f);
@@ -315,7 +324,7 @@ public class JefeFinalScrpt : MonoBehaviour
             {
                 c = new Ray(Personaje.transform.position, Personaje.transform.up);
                 pos = c.GetPoint(15);
-                transform.position = Vector3.MoveTowards(transform.position, pos, 20 * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, pos, 40 * Time.deltaTime);
 
                 yield return new WaitForEndOfFrame();
             }

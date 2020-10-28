@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class TentaculoScript : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    public AudioSource Movimiento;
+    public AudioSource Strike;
     public GameObject PuntoGolpe;
     public GameObject Jugador;
     private Animator animator;
@@ -43,6 +44,8 @@ public class TentaculoScript : MonoBehaviour
         {
             if (b.tag == "Personaje")
             {
+                Strike.Play();
+
                 StartCoroutine(Empujar());
                 Jugador.GetComponent<EstadisticasDePersonaje>().RecibirDaño(10f);
                 return;
@@ -52,12 +55,13 @@ public class TentaculoScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    
+
     {
         dist = Vector3.Distance(transform.position, Jugador.transform.position);
 
         if (dist > 3.2f && estado == Estados.Chasing)
         {
+            if (!Movimiento.isPlaying) Movimiento.Play();
             //agente.enabled = true;
             agente.isStopped = false;
             agente.destination = Jugador.transform.position;
@@ -67,7 +71,7 @@ public class TentaculoScript : MonoBehaviour
         {
             //agente.enabled = false;
             agente.isStopped = true;
-
+            Movimiento.Stop();
             estado = Estados.Atacking;
             animator.SetBool("Atacando", true);
             Vector3 direction = (Jugador.transform.position - transform.position).normalized;

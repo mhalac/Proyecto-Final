@@ -6,6 +6,7 @@ public class JefeRoca : MonoBehaviour
 {
     public BarraDeVidaJefe barra;
 
+    public AudioSource GolpeSopi;
     public float TESTRADIO;
 
     public GameObject ShieldHitBox;
@@ -56,8 +57,10 @@ public class JefeRoca : MonoBehaviour
         anim.SetBool("Atacando", false);
         LifeManager c = GetComponent<LifeManager>();
         c.Inmortal = true;
-        
+        GolpeSopi.Play();
         camara.StartCoroutine(camara.Shake(.25f, .4f));
+        ShieldHitBox.SetActive(true);
+        Shield.SetActive(true);
         if (Vector3.Distance(Jugador.transform.position, transform.position) < TESTRADIO)
         {
             StartCoroutine(Empujar(Jugador.transform.forward));
@@ -78,8 +81,7 @@ public class JefeRoca : MonoBehaviour
             print("xxddxxd");
             yield return null;
         }
-        ShieldHitBox.SetActive(true);
-        Shield.SetActive(true);
+        
         yield return null;
 
     }
