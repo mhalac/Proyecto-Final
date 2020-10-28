@@ -239,5 +239,7 @@ public class EnemigoTierra3 : MonoBehaviour
             Personaje.GetComponent<CharacterController>().Move(Dir * Time.fixedDeltaTime * Fuerza);
             yield return null;
         }
+
+        yield return null;
     }
 }

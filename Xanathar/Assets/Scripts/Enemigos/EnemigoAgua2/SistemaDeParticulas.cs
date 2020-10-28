@@ -23,7 +23,7 @@ public class SistemaDeParticulas : MonoBehaviour
                 VelocidadDeMovimientoActual += 6;
             }
 
-            Estadisticas.VelocidadDeMovimiento -= VelocidadDeMovimientoActual / 2;
+            Estadisticas.VelocidadDeMovimiento -= 3;
 
             StartCoroutine(Esperar());
         }
@@ -34,7 +34,7 @@ public class SistemaDeParticulas : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
-        Estadisticas.VelocidadDeMovimiento += VelocidadDeMovimientoActual / 2;
+        Estadisticas.VelocidadDeMovimiento += 3;
         JugadorTocoBaba = false;
     }
 }

@@ -267,7 +267,9 @@ public class LifeManager : MonoBehaviour
                 c.Deshabilitar();
                 c.enabled = false;
 
-                //ControladorDePuertas.ReaparecerPuertas();
+                //Debug.Log("Mori xd");
+
+                ControladorDePuertas.ReaparecerPuertas();
             }
             else if (gameObject.tag == "JefeAgua")
             {

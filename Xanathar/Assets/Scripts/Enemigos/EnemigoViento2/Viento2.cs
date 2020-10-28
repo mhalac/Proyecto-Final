@@ -180,7 +180,7 @@ public class Viento2 : MonoBehaviour
         Vector3 Direccion = (Personaje.transform.position - Vision.transform.position).normalized;
         Quaternion Mirar = Quaternion.LookRotation(Direccion);
 
-        transform.rotation = Quaternion.Lerp(transform.rotation , Mirar , Time.fixedDeltaTime * 2);
+        transform.rotation = Quaternion.Lerp(transform.rotation , Mirar , Time.fixedDeltaTime * 6);
     }
 
     public void Disparar()

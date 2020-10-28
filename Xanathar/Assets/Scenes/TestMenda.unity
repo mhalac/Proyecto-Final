@@ -1469,6 +1469,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -4.4
       objectReference: {fileID: 0}
+    - target: {fileID: 2728948233658798218, guid: be86685427662d14985f6c87a5676202,
+        type: 3}
+      propertyPath: AreaDeAtaque
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 2728948234038409061, guid: be86685427662d14985f6c87a5676202,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -1630,13 +1635,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2020403983, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1430075857039988, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
       propertyPath: m_Name
       value: Jugador
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -104
+      value: -98.4
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1644,7 +1653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -63.2
+      value: -4.6
       objectReference: {fileID: 0}
     - target: {fileID: 4149306548527282, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1678,6 +1687,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114058321497239492, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114225078043899536, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 3}
+      propertyPath: VidaMaximaPersonaje
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114225078043899536, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 3}
+      propertyPath: VidaActualPersonaje
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114225078043899536, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 3}
+      propertyPath: "Da\xF1oDePersonajeNormal"
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114225078043899536, guid: adb06a4a9bc19c84c90ecebe09396856,
+        type: 3}
+      propertyPath: VelocidadDeMovimiento
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adb06a4a9bc19c84c90ecebe09396856, type: 3}
 --- !u!1001 &603715576
@@ -1690,10 +1724,6 @@ PrefabInstance:
     - target: {fileID: 1536498397056172, guid: d8a66409f053ecc4298f8b2c3ba0a2b4, type: 3}
       propertyPath: m_Name
       value: Lv1 Tierra
-      objectReference: {fileID: 0}
-    - target: {fileID: 1536498397056172, guid: d8a66409f053ecc4298f8b2c3ba0a2b4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4179833246290344, guid: d8a66409f053ecc4298f8b2c3ba0a2b4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1739,11 +1769,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114853653742393598, guid: d8a66409f053ecc4298f8b2c3ba0a2b4,
-        type: 3}
-      propertyPath: Damage
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8a66409f053ecc4298f8b2c3ba0a2b4, type: 3}
 --- !u!1001 &661353752
@@ -1756,6 +1781,10 @@ PrefabInstance:
     - target: {fileID: 1642012317069446, guid: f526ecd006e3b7146890a63911626166, type: 3}
       propertyPath: m_Name
       value: Lv1 Viento
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642012317069446, guid: f526ecd006e3b7146890a63911626166, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4443711218423204, guid: f526ecd006e3b7146890a63911626166, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3335,7 +3364,7 @@ GameObject:
   - component: {fileID: 1124530025}
   - component: {fileID: 1124530024}
   - component: {fileID: 1124530023}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlanoEnemigoDeTierra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3894,7 +3923,7 @@ GameObject:
   - component: {fileID: 1384246527}
   - component: {fileID: 1384246526}
   - component: {fileID: 1384246525}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlanoEnemigosDeViento
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3988,10 +4017,6 @@ PrefabInstance:
     - target: {fileID: 1506375920303206, guid: 612257b83d498ba4ba0e117ecc1f09c8, type: 3}
       propertyPath: m_Name
       value: Lv2 Tierra
-      objectReference: {fileID: 0}
-    - target: {fileID: 1506375920303206, guid: 612257b83d498ba4ba0e117ecc1f09c8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4081599389976098, guid: 612257b83d498ba4ba0e117ecc1f09c8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4780,7 +4805,7 @@ GameObject:
   - component: {fileID: 2035053005}
   - component: {fileID: 2035053004}
   - component: {fileID: 2035053003}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlanoEnemigosDeAgua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5430,6 +5455,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lv2 Viento
       objectReference: {fileID: 0}
+    - target: {fileID: 2938558105425136211, guid: 7d1feb157c6f23b469ca700e0ea588fa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d1feb157c6f23b469ca700e0ea588fa, type: 3}
 --- !u!4 &3104506745730006779 stripped
@@ -5812,6 +5842,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Lv2Agua
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272406651829449762, guid: 7bc6a6d3c31901e418e64d8a82f5a06d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5272406651829449765, guid: 7bc6a6d3c31901e418e64d8a82f5a06d,
         type: 3}
@@ -6455,11 +6490,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: lv 3 tierra
-      objectReference: {fileID: 0}
-    - target: {fileID: 5739262677590687830, guid: da733e59b45ca60419a71d6adbf72f89,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5741619845118774770, guid: da733e59b45ca60419a71d6adbf72f89,
         type: 3}
