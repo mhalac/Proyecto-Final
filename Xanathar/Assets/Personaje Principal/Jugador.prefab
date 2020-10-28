@@ -11009,6 +11009,7 @@ GameObject:
   - component: {fileID: 114886356545085760}
   - component: {fileID: 114058321497239492}
   - component: {fileID: 2020403983}
+  - component: {fileID: 195567912}
   m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -11176,7 +11177,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1344820468862976}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
@@ -11186,6 +11187,36 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
+--- !u!114 &195567912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344820468862976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eda60c7a0e1ca10408c887211f4ead6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PPCamara: {fileID: 2020403983}
+  Lobby: {fileID: 11400000, guid: 417b86affdfa1a149818af389ded6e4a, type: 2}
+  SubNivelFuego1: {fileID: 11400000, guid: 678c5e4376d2e7e42a86aa1dd315ba18, type: 2}
+  SubNivelFuego2: {fileID: 11400000, guid: 678c5e4376d2e7e42a86aa1dd315ba18, type: 2}
+  SubNivelFuego3: {fileID: 11400000, guid: 678c5e4376d2e7e42a86aa1dd315ba18, type: 2}
+  SubNivelFuego4: {fileID: 11400000, guid: 678c5e4376d2e7e42a86aa1dd315ba18, type: 2}
+  SubNivelTierra1: {fileID: 11400000, guid: a75da7c4a7fdb984e9da99b20b59123c, type: 2}
+  SubNivelTierra2: {fileID: 11400000, guid: baa87301a89f1f64b8546590ebf113ec, type: 2}
+  SubNivelTierra3: {fileID: 11400000, guid: e596e8da45fb9cd4da514f8c8b4ce816, type: 2}
+  SubNivelTierra4: {fileID: 11400000, guid: d61c8009c9607334f90e4a4fa9c66a50, type: 2}
+  SubNivelViento1: {fileID: 11400000, guid: 19fac1c6bddc50744a3a028d762b7f2a, type: 2}
+  SubNivelViento2: {fileID: 11400000, guid: 53e302ec6456b4541a8a2cd658ef0368, type: 2}
+  SubNivelViento3: {fileID: 11400000, guid: 41746cb39285e7f44afb4ce13ed645ca, type: 2}
+  SubNivelViento4: {fileID: 11400000, guid: 622ef9a1cd1236648b1123b803c2dcf6, type: 2}
+  SubNivelAgua1: {fileID: 11400000, guid: 41b467ee9125315438be616e727396d8, type: 2}
+  SubNivelAgua2: {fileID: 11400000, guid: 77c817aa6233564438418a1c4367aee0, type: 2}
+  SubNivelAgua3: {fileID: 11400000, guid: 728e92eee0e789548927aa82b6cecf01, type: 2}
+  SubNivelAgua4: {fileID: 11400000, guid: 258643051d4c53c40b78acb90cb5c55e, type: 2}
 --- !u!1 &1372376312573248
 GameObject:
   m_ObjectHideFlags: 0
@@ -21003,9 +21034,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86567f4a7e3d3144985ead8cd6e66cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VidaMaximaPersonaje: 20
-  VidaActualPersonaje: 20
-  "Da\xF1oDePersonajeNormal": 2
+  VidaMaximaPersonaje: 30
+  VidaActualPersonaje: 30
+  "Da\xF1oDePersonajeNormal": 3
   TiempoCooldownActivas:
   - 5
   - 4
@@ -21146,10 +21177,10 @@ MonoBehaviour:
   - SubNivelViento3
   - SubNivelViento4
   EscenasNivelAgua:
-  - 
-  - 
-  - 
-  - 
+  - SubNivelAgua1
+  - SubNivelAgua2
+  - SubNivelAgua3
+  - SubNivelAgua4
   NivelCargado:
   - v
   - v
