@@ -12,6 +12,7 @@ public class BuscadorDePos : MonoBehaviour {
 	GameObject PosNivelTierra;
 	GameObject PosNivelAgua;
 	GameObject PosNivelViento;
+	GameObject PosNivelFinal;
 
 	ManejadorDeEscenas Manejador;
 
@@ -60,6 +61,7 @@ public class BuscadorDePos : MonoBehaviour {
 			PosNivelTierra = GameObject.Find("PosicionTierra");
 			PosNivelAgua = GameObject.Find("PosicionAgua");
 			PosNivelViento = GameObject.Find("PosicionViento");
+			PosNivelFinal = GameObject.Find("PosicionArenaFinal");
 
 			if(ManejadorDeEscenas.EntreNivelFuego == true)
 			{
@@ -113,8 +115,22 @@ public class BuscadorDePos : MonoBehaviour {
 
 				ManejadorDeEscenas.EntreNivelAgua = false;
 			}
+			else if(ManejadorDeEscenas.EntreNivelFinal == true)
+			{
+				PosicionX = Mathf.RoundToInt(PosNivelFinal.transform.position.x);
+				PosicionY = Mathf.RoundToInt(PosNivelFinal.transform.position.y);
+				PosicionZ = Mathf.RoundToInt(PosNivelFinal.transform.position.z);
+
+				RotacionY = Mathf.RoundToInt(PosNivelFinal.transform.eulerAngles.y);
+
+				Jugador.transform.position = new Vector3(PosicionX,PosicionY,PosicionZ);
+				Jugador.transform.rotation = Quaternion.Euler(0f,RotacionY,0f);
+
+				ManejadorDeEscenas.EntreNivelFinal = false;
+			}
 			else
 			{
+				//Para el lobby
 				ContenedorPos = GameObject.Find("ContenedorPos");
 
 				PosicionX = Mathf.RoundToInt(ContenedorPos.transform.position.x);

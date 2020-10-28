@@ -23,6 +23,9 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	[Header("LobbyDeNivel")]
 	public string Lobby;
 
+	[Header("NivelFinal")]
+	public string ArenaFinal;
+
 	public int ReferenciadorDeEscenas = 0;
 	public static bool ActivadorDeCambio = false;
 	public static bool EntrasteOSaliste = false;
@@ -35,6 +38,7 @@ public class ManejadorDeEscenas : MonoBehaviour {
 	public static bool EntreNivelFuego = false;
 	public static bool EntreNivelTierra = false;
 	public static bool EntreNivelViento = false;
+	public static bool EntreNivelFinal = false;
 
 	void Awake()
 	{
@@ -94,6 +98,11 @@ public class ManejadorDeEscenas : MonoBehaviour {
 		if(col.gameObject.name == "EntradaBoss" && ActivadorDeCambio == false && !c.IsInvoking("DesaparecerClon") && ControlarPuertasYJefes.JefeDeAguaMuerto == true && ControlarPuertasYJefes.JefeDeFuegoMuerto == true && ControlarPuertasYJefes.JefeDeTierraMuerto == true && ControlarPuertasYJefes.JefeDeVientoMuero == true)
 		{
 			Debug.Log("Preparate para ser re contra re funado");
+
+			EntreNivelFinal = true;
+			NombreDeEscena = ArenaFinal;
+			AsignadorDeEscenas.IniciadorDeCambio();
+			EntrasteOSaliste = true;
 		}
 
 		
