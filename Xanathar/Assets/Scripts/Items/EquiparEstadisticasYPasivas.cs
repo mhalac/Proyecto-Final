@@ -92,7 +92,7 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 			break;
 
 			case "Estadistica De Viento 1":
-			Estadisticas.VelocidadDeMovimiento += 2;
+			Estadisticas.VelocidadDeMovimiento -= 2;
 			Gestor.AplicarCDR(0);
 			break;
 

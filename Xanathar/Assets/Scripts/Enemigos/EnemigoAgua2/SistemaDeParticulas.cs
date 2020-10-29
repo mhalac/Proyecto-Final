@@ -5,36 +5,16 @@ using UnityEngine;
 public class SistemaDeParticulas : MonoBehaviour
 {
     public static bool JugadorTocoBaba = false;
-    float VelocidadDeMovimientoActual;
+    public float VelocidadDeMovimientoActual;
+    public GameObject Personaje;
 
     void OnParticleCollision(GameObject Collision)
     {
-        //Debug.Log("Colision emitida");
-
-        
-        if(JugadorTocoBaba == false)
+        if(Personaje == null)
         {
-            JugadorTocoBaba = true;
-            EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
-            VelocidadDeMovimientoActual = Estadisticas.VelocidadDeMovimiento;
-
-            if(!Input.GetKey(KeyCode.LeftShift))
-            {
-                VelocidadDeMovimientoActual += 6;
-            }
-
-            Estadisticas.VelocidadDeMovimiento -= 3;
-
-            StartCoroutine(Esperar());
+            Personaje = Collision.gameObject;
         }
-    }
 
-    IEnumerator Esperar()
-    {
-        yield return new WaitForSeconds(1f);
-
-        EstadisticasDePersonaje Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
-        Estadisticas.VelocidadDeMovimiento += 3;
-        JugadorTocoBaba = false;
+        Personaje.GetComponent<EstadisticasDePersonaje>().DetectoColisionParticulas();
     }
 }

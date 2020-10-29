@@ -45,6 +45,8 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public float DañoDePersonajeInicialCopia;
     public float VidaMaximaDePersonajeInicialCopia;
     public float VelocidadDeMovimientoInicialCopia;
+
+    float VelocidadParticula;
     void Start()
     {
         //Igualamos las variables que guardan las estadisticas 
@@ -81,6 +83,32 @@ public class EstadisticasDePersonaje : MonoBehaviour
             VidaActualPersonaje -= Mathf.RoundToInt(RestadorDeDaño);
             
             ActualizadorDeVida.ManejadorDeVida();
+        }
+    }
+
+    public IEnumerator Esperar()
+    {
+        yield return new WaitForSeconds(1f);
+
+        VelocidadDeMovimiento += 3;
+        SistemaDeParticulas.JugadorTocoBaba = false;
+    }
+
+    public void DetectoColisionParticulas()
+    {
+        if(SistemaDeParticulas.JugadorTocoBaba == false)
+        {
+            SistemaDeParticulas.JugadorTocoBaba = true;
+            VelocidadParticula = VelocidadDeMovimiento;
+
+            if(!Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                VelocidadParticula += 6;
+            }
+            
+            VelocidadDeMovimiento -= 3;
+
+            StartCoroutine(Esperar());
         }
     }
 }
