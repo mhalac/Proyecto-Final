@@ -259,7 +259,6 @@ GameObject:
   - component: {fileID: 114167620985513554}
   - component: {fileID: 1864821959}
   - component: {fileID: 1915818825840952962}
-  - component: {fileID: 1305476834}
   - component: {fileID: 7424389005188590255}
   - component: {fileID: 7059706464791934136}
   - component: {fileID: 928683713028449262}
@@ -371,7 +370,7 @@ MonoBehaviour:
   NombresJefes: []
   NoPuedoDropear: 1
   TESTMATAR: 0
-  Vida: 10
+  Vida: 40
   Elemento: 
   Inmortal: 0
   items: []
@@ -390,21 +389,6 @@ MonoBehaviour:
   ItemsActivos:
   - {fileID: 1936948235069484680, guid: 27c9faf858ae2564599a93f921baa8ce, type: 3}
   - {fileID: 3891179679949307715, guid: 590ada2f5e8f63c48a2729f0f7e12eae, type: 3}
---- !u!114 &1305476834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1162376463324216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e87b7502e1ded24a973e3c27f1fb869, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemsActivos:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!82 &7424389005188590255
 AudioSource:
   m_ObjectHideFlags: 0

@@ -261,6 +261,11 @@ public class LifeManager : MonoBehaviour
             else if (gameObject.name == "JefeViento")
             {
                 JefeViento c = FindObjectOfType<JefeViento>();
+                GameObject[] tornados = GameObject.FindGameObjectsWithTag("Enemigo");
+                foreach(GameObject b in tornados)
+                {
+                    Destroy(b.gameObject);
+                }
 
                 ControlarPuertasYJefes.JefeDeVientoMuero = true;
                 ControlarPuertasYJefes.JefeEliminado = true;
