@@ -26,6 +26,7 @@ public class PostProcessManager : MonoBehaviour
     public PostProcessProfile SubNivelAgua2;
     public PostProcessProfile SubNivelAgua3;
     public PostProcessProfile SubNivelAgua4;
+    public PostProcessProfile LvlFinal;
 
     public void CambiarElPPL(string NombreDeEscena)
     {
@@ -97,6 +98,14 @@ public class PostProcessManager : MonoBehaviour
 
             case "SubNivelAgua4":
             PPCamara.profile = SubNivelAgua4;
+            break;
+
+            case "LvlFinal":
+            PPCamara.profile = LvlFinal;
+            break;
+
+            default:
+            Debug.Log("Se jodio el Post Processing");
             break;
         }
         
