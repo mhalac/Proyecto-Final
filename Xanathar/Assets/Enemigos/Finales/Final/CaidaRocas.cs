@@ -37,7 +37,7 @@ public class CaidaRocas : MonoBehaviour
                     StartCoroutine(Knockback());
                 }
             }
-            transform.Translate(0, -1, 0);
+            transform.Translate(0, -1.9f, 0);
 
         }
         else

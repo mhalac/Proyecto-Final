@@ -59,12 +59,12 @@ public class LifeManager : MonoBehaviour
                 ControladorDePuertas.ReaparecerPuertas();
             }
         }
-        else if(gameObject.name == "JefeAgua")
+        else if (gameObject.name == "JefeAgua")
         {
             ControladorDePuertas = FindObjectOfType<ControlarPuertasYJefes>();
             ControladorDePuertas.OcultarTodasLasPuertas();
 
-            if(ControlarPuertasYJefes.JefeDeAguaMuerto == true)
+            if (ControlarPuertasYJefes.JefeDeAguaMuerto == true)
             {
                 Destroy(gameObject);
                 ControladorDePuertas.ReaparecerPuertas();
@@ -75,7 +75,7 @@ public class LifeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         if (TESTMATAR)
         {
             Vida = 0;
@@ -235,7 +235,7 @@ public class LifeManager : MonoBehaviour
                 ControlarPuertasYJefes.JefeEliminado = true;
 
                 ControladorDePuertas.ReaparecerPuertas();
-
+                FindObjectOfType<BarraDeVidaJefe>().ValorDeVidaActual = 0;
                 FuegoJefe d = FindObjectOfType<FuegoJefe>();
                 d.enabled = false;
                 c.SetBool("Morir", true);
@@ -251,6 +251,7 @@ public class LifeManager : MonoBehaviour
                 ControlarPuertasYJefes.JefeEliminado = true;
 
                 ControladorDePuertas.ReaparecerPuertas();
+                FindObjectOfType<BarraDeVidaJefe>().ValorDeVidaActual = 0;
 
 
                 c.anim.SetBool("Morir", true);
@@ -263,6 +264,7 @@ public class LifeManager : MonoBehaviour
 
                 ControlarPuertasYJefes.JefeDeVientoMuero = true;
                 ControlarPuertasYJefes.JefeEliminado = true;
+                FindObjectOfType<BarraDeVidaJefe>().ValorDeVidaActual = 0;
 
                 c.Deshabilitar();
                 c.enabled = false;
@@ -278,6 +280,7 @@ public class LifeManager : MonoBehaviour
                 ControlarPuertasYJefes.JefeDeAguaMuerto = true;
                 ControlarPuertasYJefes.JefeEliminado = true;
                 c.Deshabilitar();
+                FindObjectOfType<BarraDeVidaJefe>().ValorDeVidaActual = 0;
 
                 Destroy(c.gameObject, 9);
                 c.enabled = false;

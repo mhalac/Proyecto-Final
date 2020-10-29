@@ -287,7 +287,7 @@ public class JefeFinalScrpt : MonoBehaviour
                         if (!Golpie)
                         {
                             EstadisticasDePersonaje EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
-                            EstadisticasDePersonaje.RecibirDaño(10f);
+                            EstadisticasDePersonaje.RecibirDaño(15f);
                             Golpie = true;
                         }
                         Personaje.GetComponent<CharacterController>().Move(Vector3.up * Time.deltaTime * 35);
@@ -324,11 +324,11 @@ public class JefeFinalScrpt : MonoBehaviour
             {
                 c = new Ray(Personaje.transform.position, Personaje.transform.up);
                 pos = c.GetPoint(15);
-                transform.position = Vector3.MoveTowards(transform.position, pos, 40 * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, pos, 80 * Time.deltaTime);
 
                 yield return new WaitForEndOfFrame();
             }
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 6; i++)
             {
                 Vector3 direction = (Personaje.transform.position - transform.position).normalized;
                 Quaternion lookRotation = Quaternion.LookRotation(direction);
@@ -376,7 +376,7 @@ public class JefeFinalScrpt : MonoBehaviour
                         if (f.CompareTag("Personaje"))
                         {
                             EstadisticasDePersonaje EstadisticasDePersonaje = FindObjectOfType<EstadisticasDePersonaje>();
-                            EstadisticasDePersonaje.RecibirDaño(5f);
+                            EstadisticasDePersonaje.RecibirDaño(12f);
                         }
                     }
 
