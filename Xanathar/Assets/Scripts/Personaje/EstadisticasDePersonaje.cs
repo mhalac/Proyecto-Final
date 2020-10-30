@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EstadisticasDePersonaje : MonoBehaviour
 {
-    static GameObject Jugador;
+    public static GameObject Jugador;
 
     //Estadisticas Basicas
     [Header("Estadisticas Basicas")]

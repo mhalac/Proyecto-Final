@@ -52,7 +52,7 @@ public class ManejadorDeItems : MonoBehaviour {
 	float RellenoDeVida;
 	public Gradient TabletaDeColores;
 	public Text TextoDeVida;
-	static GameObject CanvasHUD;
+	public static GameObject CanvasHUD;
 	public bool ActivadorRegeneracionDeVida = false;
 	public bool CorrutinaFuncionando = false;
 	RegeneracionVida regeneracionDeVida;
@@ -326,6 +326,7 @@ public class ManejadorDeItems : MonoBehaviour {
 
 		MensajeNotificador.alpha = 1f;
 		OcultadorDeMensaje = true;
+		Debug.Log(MensajeNotificador.alpha);
 	}
 
 	

@@ -102,6 +102,14 @@ public class MovimientoPersonaje : MonoBehaviour
         Dash();
 
         //Debug.Log(1.0f / Time.deltaTime);
+
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            ControlarPuertasYJefes.JefeDeFuegoMuerto = true;
+            ControlarPuertasYJefes.JefeDeVientoMuero = true;
+            ControlarPuertasYJefes.JefeDeAguaMuerto = true;
+            ControlarPuertasYJefes.JefeDeTierraMuerto = true;
+        }
     }
 
     void Saltar()

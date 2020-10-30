@@ -291,6 +291,7 @@ public class LifeManager : MonoBehaviour
                 c.enabled = false;
                 c.animator.SetBool("Morir", true);
 
+                ControladorDePuertas.ReaparecerPuertas();
             }
 
             else

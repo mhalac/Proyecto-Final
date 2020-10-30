@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class JefeFinalScrpt : MonoBehaviour
 {
+    public Animator AnimadorDesaparecer;
     public AudioSource FuegoSound;
     public AudioSource HieloSound;
 
@@ -48,6 +49,20 @@ public class JefeFinalScrpt : MonoBehaviour
 
     }
     void Start()
+    {
+        Physics.Raycast(transform.position, transform.up * -1, out hit, Mathf.Infinity);
+        Y = hit.point.y;
+        life = GetComponent<LifeManager>();
+        Personaje = GameObject.FindGameObjectWithTag("Personaje");
+        Pmask = LayerMask.NameToLayer("Personaje");
+        vibracion = FindObjectOfType<VibracionCamara>();
+        barra = FindObjectOfType<BarraDeVidaJefe>();
+        barra.ValorDeVidaMaxima = GetComponent<LifeManager>().Vida;
+
+        Invoke("AsignarCosas" , 1.7f);
+    }
+
+    void AsignarCosas()
     {
         Physics.Raycast(transform.position, transform.up * -1, out hit, Mathf.Infinity);
         Y = hit.point.y;
@@ -180,6 +195,10 @@ public class JefeFinalScrpt : MonoBehaviour
             c.SetBool("die", true);
             Invoke("TerminarJuego", 7f);
             StartCoroutine(Subir());
+
+            StartCoroutine(EsperarParaIrACreditos());
+            EstadisticasDePersonaje.Jugador = null;
+            ManejadorDeItems.CanvasHUD = null;
         }
     }
     IEnumerator AtaqueAgua()
@@ -403,5 +422,12 @@ public class JefeFinalScrpt : MonoBehaviour
     {
         transform.RotateAround(Personaje.transform.position, Vector3.up, 20 * Time.deltaTime);
         transform.LookAt(Personaje.transform.position);
+    }
+
+    IEnumerator EsperarParaIrACreditos()
+    {
+        yield return new WaitForSeconds(10f);
+        AnimadorDesaparecer.SetBool("AparecerCreditos" , true);
+        CodigoCambio.NombreDeEscena = "Creditos";
     }
 }

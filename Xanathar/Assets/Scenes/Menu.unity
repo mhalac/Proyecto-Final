@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 110695194}
   - component: {fileID: 110695193}
   - component: {fileID: 110695196}
+  - component: {fileID: 110695197}
   m_Layer: 5
   m_Name: CreditosBtn
   m_TagString: Untagged
@@ -159,7 +160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -295, y: -105.43}
+  m_AnchoredPosition: {x: -268, y: -37}
   m_SizeDelta: {x: 260.4074, y: 49.570404}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &110695193
@@ -204,7 +205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 110695194}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 110695197}
+        m_TargetAssemblyTypeName: PulsarBoton, Assembly-CSharp
+        m_MethodName: Creditos
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &110695194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +275,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &110695197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110695191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b7923566983922488a066efeeed3122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimacionDesaparecer: {fileID: 307949913}
 --- !u!1 &122965602
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,10 +570,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 307949911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eacfc67f5fcef7546a719e01a0d60b17, type: 3}
+  m_Script: {fileID: 11500000, guid: 3498057cd236ba74fb58df3a3901d074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimacionIniciarJuego: {fileID: 307949913}
 --- !u!1 &408974046
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,6 +652,7 @@ GameObject:
   - component: {fileID: 779865689}
   - component: {fileID: 779865688}
   - component: {fileID: 779865691}
+  - component: {fileID: 779865692}
   m_Layer: 5
   m_Name: SalirBtn
   m_TagString: Untagged
@@ -650,7 +676,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -295, y: -147.59}
+  m_AnchoredPosition: {x: -268, y: -91}
   m_SizeDelta: {x: 255.70532, y: 48.675323}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &779865688
@@ -695,7 +721,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 779865689}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 779865692}
+        m_TargetAssemblyTypeName: PulsarBoton, Assembly-CSharp
+        m_MethodName: SalirDelJuego
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &779865689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -753,6 +791,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &779865692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779865686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b7923566983922488a066efeeed3122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimacionDesaparecer: {fileID: 307949913}
 --- !u!1 &1130487591
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,7 +823,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1130487592
 RectTransform:
   m_ObjectHideFlags: 0
@@ -929,7 +980,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -294.44, y: -18.393}
+  m_AnchoredPosition: {x: -267.44, y: 18}
   m_SizeDelta: {x: 256.1767, y: 48.765045}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1776370937
@@ -995,8 +1046,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1776370941}
-        m_TargetAssemblyTypeName: BotonJugar, Assembly-CSharp
-        m_MethodName: BotonApretado
+        m_TargetAssemblyTypeName: PulsarBoton, Assembly-CSharp
+        m_MethodName: IniciarJuego
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1053,11 +1104,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1776370935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ae4954bcd92d6840b96a27641137662, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b7923566983922488a066efeeed3122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pulsoboton: 0
-  Iniciar: {fileID: 307949917}
+  AnimacionDesaparecer: {fileID: 307949913}
 --- !u!1 &1942827042
 GameObject:
   m_ObjectHideFlags: 0
