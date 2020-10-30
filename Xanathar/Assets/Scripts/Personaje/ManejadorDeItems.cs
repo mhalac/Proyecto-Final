@@ -325,8 +325,9 @@ public class ManejadorDeItems : MonoBehaviour {
 		TextoDescripcion.text = DescripcionDelObjeto;
 
 		MensajeNotificador.alpha = 1f;
-		OcultadorDeMensaje = true;
-		Debug.Log(MensajeNotificador.alpha);
+		OcultadorDeMensaje = false;
+
+		StartCoroutine(Esperar());
 	}
 
 	
@@ -340,5 +341,12 @@ public class ManejadorDeItems : MonoBehaviour {
 		EstadisticasDePersonaje.EstaMuerto = false;
 		CorrutinaFuncionando = false;
 		AntiCRASH = false;
+	}
+
+		IEnumerator Esperar()
+	{
+		yield return new WaitForSeconds(0.3f);
+
+		OcultadorDeMensaje = true;
 	}
 }
