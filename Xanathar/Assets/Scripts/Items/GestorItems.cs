@@ -195,7 +195,7 @@ public class GestorItems : MonoBehaviour
             }
 
         }
-        if (ItemsEquipados[3] != null && Input.GetKeyDown(KeyCode.C) && !ItemsEquipados[3].Activado)
+        if (ItemsEquipados[3].item != null && Input.GetKeyDown(KeyCode.C) && !ItemsEquipados[3].Activado)
         {
             //Debug.Log("itemEJECUTADO");
             if(TerminoCD(3))

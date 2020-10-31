@@ -30,6 +30,7 @@ public class LifeManager : MonoBehaviour
         {
             ControladorDePuertas = FindObjectOfType<ControlarPuertasYJefes>();
             ControladorDePuertas.OcultarTodasLasPuertas();
+            Invoke("AumentarVida" , 1f);
 
             if (ControlarPuertasYJefes.JefeDeFuegoMuerto == true)
             {
@@ -41,6 +42,7 @@ public class LifeManager : MonoBehaviour
         {
             ControladorDePuertas = FindObjectOfType<ControlarPuertasYJefes>();
             ControladorDePuertas.OcultarTodasLasPuertas();
+            Invoke("AumentarVida" , 1f);
 
             if (ControlarPuertasYJefes.JefeDeTierraMuerto == true)
             {
@@ -52,6 +54,7 @@ public class LifeManager : MonoBehaviour
         {
             ControladorDePuertas = FindObjectOfType<ControlarPuertasYJefes>();
             ControladorDePuertas.OcultarTodasLasPuertas();
+            Invoke("AumentarVida" , 1f);
 
             if (ControlarPuertasYJefes.JefeDeVientoMuero == true)
             {
@@ -63,6 +66,7 @@ public class LifeManager : MonoBehaviour
         {
             ControladorDePuertas = FindObjectOfType<ControlarPuertasYJefes>();
             ControladorDePuertas.OcultarTodasLasPuertas();
+            Invoke("AumentarVida" , 1f);
 
             if (ControlarPuertasYJefes.JefeDeAguaMuerto == true)
             {
@@ -229,6 +233,8 @@ public class LifeManager : MonoBehaviour
             //funcion para JEFES
             if (gameObject.name == "Jefe fuego")
             {
+                EstadisticasDePersonaje estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+                estadisticas.JefesEliminados += 1;
                 Animator c = GetComponentInChildren<Animator>();
 
                 ControlarPuertasYJefes.JefeDeFuegoMuerto = true;
@@ -244,6 +250,9 @@ public class LifeManager : MonoBehaviour
             }
             else if (gameObject.name == "Jefe Tierra")
             {
+                EstadisticasDePersonaje estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+                estadisticas.JefesEliminados += 1;
+
                 JefeRoca c = FindObjectOfType<JefeRoca>();
 
 
@@ -260,6 +269,9 @@ public class LifeManager : MonoBehaviour
             }
             else if (gameObject.name == "JefeViento")
             {
+                EstadisticasDePersonaje estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+                estadisticas.JefesEliminados += 1;
+
                 JefeViento c = FindObjectOfType<JefeViento>();
                 GameObject[] tornados = GameObject.FindGameObjectsWithTag("Enemigo");
                 foreach(GameObject b in tornados)
@@ -274,12 +286,13 @@ public class LifeManager : MonoBehaviour
                 c.Deshabilitar();
                 c.enabled = false;
 
-                //Debug.Log("Mori xd");
-
                 ControladorDePuertas.ReaparecerPuertas();
             }
             else if (gameObject.tag == "JefeAgua")
             {
+                EstadisticasDePersonaje estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+                estadisticas.JefesEliminados += 1;
+
                 JefeAgua c = FindObjectOfType<JefeAgua>();
 
                 ControlarPuertasYJefes.JefeDeAguaMuerto = true;
@@ -308,6 +321,54 @@ public class LifeManager : MonoBehaviour
     {
         public GameObject Item;
         public int SpawnRate;
+    }
+
+    public void AumentarVida()
+    {
+        EstadisticasDePersonaje estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+        int AumentoDeVida = 0;
+        int Cant = estadisticas.JefesEliminados;
+        Debug.Log(Cant);
+        switch(Cant)
+        {
+            case 0:
+            Debug.Log("No hay aumento de vida");
+            break;
+
+            case 1:
+            AumentoDeVida = 20;
+            break;
+
+            case 2:
+            AumentoDeVida = 40;
+            break;
+
+            case 3:
+            AumentoDeVida = 60;
+            break;
+        }
+
+        GameObject JefeDeFuego = GameObject.Find("Jefe fuego");
+        GameObject JefeDeViento = GameObject.Find("JefeViento");
+        GameObject JefeDeAgua = GameObject.Find("JefeAgua");
+        GameObject JefeDeTierra = GameObject.Find("Jefe Tierra");
+
+        if(JefeDeFuego != null)
+        {
+            JefeDeFuego.GetComponent<LifeManager>().Vida += AumentoDeVida;
+        }
+        else if(JefeDeViento != null)
+        {
+            JefeDeViento.GetComponent<LifeManager>().Vida += AumentoDeVida;
+        }
+        else if(JefeDeAgua != null)
+        {
+            JefeDeAgua.GetComponent<LifeManager>().Vida += AumentoDeVida;
+        }
+        else if(JefeDeTierra != null)
+        {
+            JefeDeTierra.GetComponent<LifeManager>().Vida += AumentoDeVida;
+        }
     }
 
 }

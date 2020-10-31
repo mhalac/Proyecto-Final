@@ -16,13 +16,13 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 		switch(NombreDelItem)
 		{
 			case "Estadistica De Fuego 1":
-			Estadisticas.DañoDePersonajeNormal += 2;
-			Estadisticas.Armadura += 2;
+			Estadisticas.DañoDePersonajeNormal += 1;
+			Estadisticas.Armadura += 1;
 			break;
 
 			case "Estadistica De Fuego 2":
-			Estadisticas.DañoDePersonajeNormal += 2;
-			Estadisticas.TiempoDeRegeneracion -= 2;
+			Estadisticas.DañoDePersonajeNormal += 1;
+			Estadisticas.TiempoDeRegeneracion -= 1;
 			break;
 
 			case "Estadistica De Tierra 1":
@@ -72,13 +72,13 @@ public class EquiparEstadisticasYPasivas : MonoBehaviour {
 		switch(NombreDelItem)
 		{
 			case "Estadistica De Fuego 1":
-			Estadisticas.DañoDePersonajeNormal -= 2;
-			Estadisticas.Armadura -= 2;
+			Estadisticas.DañoDePersonajeNormal -= 1;
+			Estadisticas.Armadura -= 1;
 			break;
 
 			case "Estadistica De Fuego 2":
-			Estadisticas.DañoDePersonajeNormal -= 2;
-			Estadisticas.TiempoDeRegeneracion += 2;
+			Estadisticas.DañoDePersonajeNormal -= 1;
+			Estadisticas.TiempoDeRegeneracion += 1;
 			break;
 
 			case "Estadistica De Tierra 1":

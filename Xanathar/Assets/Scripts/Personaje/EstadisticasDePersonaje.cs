@@ -46,6 +46,9 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public float VidaMaximaDePersonajeInicialCopia;
     public float VelocidadDeMovimientoInicialCopia;
 
+    [Header("ContadorDeJefes")]
+    public int JefesEliminados = 0;
+
     float VelocidadParticula;
     void Start()
     {

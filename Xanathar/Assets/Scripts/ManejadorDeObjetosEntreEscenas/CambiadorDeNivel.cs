@@ -4,11 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class CambiadorDeNivel : MonoBehaviour
 {
-
+    EstadisticasDePersonaje Estadisticas;
     public bool PermitirCambios = false;
     public Animator AnimacionDeCambioDeNivel;
     public BuscadorDePos BuscadorDePos;
     AsyncOperation asyncOperation;
+
+    void Start()
+    {
+        Estadisticas = FindObjectOfType<EstadisticasDePersonaje>();
+    }
+
     public void IniciadorDeCambio()
     {
         if (PermitirCambios == false)
@@ -16,6 +22,7 @@ public class CambiadorDeNivel : MonoBehaviour
             PermitirCambios = true;
             AnimacionDeCambioDeNivel.SetTrigger("Desaparecer");
             ManejadorDeEscenas.ActivadorDeCambio = true;
+            StartCoroutine(InmortalEnLaPuerta());
         }
     }
 
@@ -117,5 +124,17 @@ public class CambiadorDeNivel : MonoBehaviour
     {
         ListasDeItems FuncionParaCargar = FindObjectOfType<ListasDeItems>();
         FuncionParaCargar.InstanciarLosObjetosDelConstructor();
+    }
+
+    public IEnumerator InmortalEnLaPuerta()
+    {
+        while( ManejadorDeEscenas.ActivadorDeCambio == true)
+        {
+            Estadisticas.Inmortalidad = true;
+            yield return new WaitForEndOfFrame();
+        }
+
+        Estadisticas.Inmortalidad = false;
+        yield return null;
     }
 }

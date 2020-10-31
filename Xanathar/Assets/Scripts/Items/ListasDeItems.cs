@@ -26,6 +26,7 @@ public class ListasDeItems : MonoBehaviour {
 	ConstructorEscenas SubNivelAgua2;
 	ConstructorEscenas SubNivelAgua3;
 	ConstructorEscenas SubNivelAgua4;
+	ConstructorEscenas NivelFinal;
 
 	public List <GameObject> ListaDePrefabs = new List<GameObject>();
 
@@ -87,6 +88,9 @@ public class ListasDeItems : MonoBehaviour {
 		SubNivelAgua2 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
 		SubNivelAgua3 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
 		SubNivelAgua4 = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
+
+		//Constructor NivelFinal
+		NivelFinal = new ConstructorEscenas(ObjetosEnEscena , PosicionesEnEscena);
 	}
 
 	public void LlenarElConstructor()
@@ -211,6 +215,10 @@ public class ListasDeItems : MonoBehaviour {
 			//Debug.Log(SubNivelAgua4.ConseguirListaYPos());
 			break;
 
+			case "LvlFinal":
+			NivelFinal.ReemplazarConstructorConOtro(ConstructorEjemplo);
+			break;
+
 			default:
 			Debug.Log("ERROR ACA NO HAY NADA");
 			break;
@@ -310,6 +318,11 @@ public class ListasDeItems : MonoBehaviour {
 			case "SubNivelAgua4":
 			SubNivelAgua4.ConseguirListaDeObjetos(ObjetosAInstanciar);
 			SubNivelAgua4.ConseguirListaDePosiciones(PosicionesAInstanciar);
+			break;
+
+			case "LvlFinal":
+			NivelFinal.ConseguirListaDeObjetos(ObjetosAInstanciar);
+			NivelFinal.ConseguirListaDePosiciones(PosicionesAInstanciar);
 			break;
 
 			default:
