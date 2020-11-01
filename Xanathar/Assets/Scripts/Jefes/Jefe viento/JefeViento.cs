@@ -52,7 +52,7 @@ public class JefeViento : MonoBehaviour
     public GameObject Rayo;
     public float IntervaloEntreTornados;
     public int CantidadTornados;
-
+    public float VelocidadJugadorInicial;
     private Quaternion defaultRotation;
 
     //private Animator AnimDerecha;
@@ -75,12 +75,15 @@ public class JefeViento : MonoBehaviour
         barra.ValorDeVidaMaxima = GetComponent<LifeManager>().Vida;
         defaultRotation = transform.rotation;
         Jugador = GameObject.FindGameObjectWithTag("Personaje");
+        Invoke("Guardar", 1f);
         //estado = Estados.Fase1;
         // AnimatorDerecha = GameObject.Find("Manos").GetComponent<Animator>();
         // AnimatorDerecha = GetComponent<Animator>();
     }
-
-
+    void Guardar()
+    {
+        VelocidadJugadorInicial = Jugador.GetComponent<MovimientoPersonaje>().Stats.VelocidadDeMovimiento;
+    }
     // Update is called once per frame
 
     void Update()
@@ -148,6 +151,8 @@ public class JefeViento : MonoBehaviour
     public void Deshabilitar()
     {
         DropearItems c = GetComponent<DropearItems>();
+        Jugador.GetComponent<MovimientoPersonaje>().Stats.VelocidadDeMovimiento = VelocidadJugadorInicial;
+
         c.DropearItemsEnemigo();
     }
     private void Idle()
@@ -202,7 +207,7 @@ public class JefeViento : MonoBehaviour
             Jugador.GetComponent<CharacterController>().Move(direccion * -1 * Time.deltaTime * SlamKnockback * 25 / i);
             yield return null;
         }
-        
+
         yield return null;
 
     }
