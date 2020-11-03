@@ -8,9 +8,9 @@ public class EstadisticasDePersonaje : MonoBehaviour
 
     //Estadisticas Basicas
     [Header("Estadisticas Basicas")]
-    public float VidaMaximaPersonaje = 20;
-    public float VidaActualPersonaje = 20;
-    public float DañoDePersonajeNormal = 10f;
+    public float VidaMaximaPersonaje = 30;
+    public float VidaActualPersonaje = 30;
+    public float DañoDePersonajeNormal = 2f;
     public float[] TiempoCooldownActivas;
     public int Armadura = 15;
     public float Gravedad = -15f;
@@ -18,7 +18,7 @@ public class EstadisticasDePersonaje : MonoBehaviour
     public float CoolDownFlash;
     public float TiempoInmortal;
     public bool Inmortalidad = false;
-    public float TiempoDeRegeneracion = 10f;
+    public float TiempoDeRegeneracion = 15f;
 
     public bool EstaMuerto = false;
     public bool MurioDespuesDeMatarJefe = false;
