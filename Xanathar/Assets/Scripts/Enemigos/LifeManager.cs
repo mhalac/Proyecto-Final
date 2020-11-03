@@ -32,6 +32,11 @@ public class LifeManager : MonoBehaviour
             ControladorDePuertas.OcultarTodasLasPuertas();
             Invoke("AumentarVida" , 1f);
 
+            StartCoroutine(EsperarParaRecargar());
+
+            //BarraDeVidaJefe RestedDeBarra = FindObjectOfType<BarraDeVidaJefe>();
+            //RestedDeBarra.ManejadorDeVidaJefe(gameObject.GetComponent<LifeManager>().Vida);
+
             if (ControlarPuertasYJefes.JefeDeFuegoMuerto == true)
             {
                 Destroy(gameObject);
@@ -43,6 +48,11 @@ public class LifeManager : MonoBehaviour
             ControladorDePuertas = FindObjectOfType<ControlarPuertasYJefes>();
             ControladorDePuertas.OcultarTodasLasPuertas();
             Invoke("AumentarVida" , 1f);
+
+            StartCoroutine(EsperarParaRecargar());
+
+            //BarraDeVidaJefe RestedDeBarra = FindObjectOfType<BarraDeVidaJefe>();
+            //RestedDeBarra.ManejadorDeVidaJefe(gameObject.GetComponent<LifeManager>().Vida);
 
             if (ControlarPuertasYJefes.JefeDeTierraMuerto == true)
             {
@@ -56,6 +66,11 @@ public class LifeManager : MonoBehaviour
             ControladorDePuertas.OcultarTodasLasPuertas();
             Invoke("AumentarVida" , 1f);
 
+            StartCoroutine(EsperarParaRecargar());
+
+            //BarraDeVidaJefe RestedDeBarra = FindObjectOfType<BarraDeVidaJefe>();
+            //RestedDeBarra.ManejadorDeVidaJefe(gameObject.GetComponent<LifeManager>().Vida);
+
             if (ControlarPuertasYJefes.JefeDeVientoMuero == true)
             {
                 Destroy(gameObject);
@@ -67,6 +82,8 @@ public class LifeManager : MonoBehaviour
             ControladorDePuertas = FindObjectOfType<ControlarPuertasYJefes>();
             ControladorDePuertas.OcultarTodasLasPuertas();
             Invoke("AumentarVida" , 1f);
+
+            StartCoroutine(EsperarParaRecargar());
 
             if (ControlarPuertasYJefes.JefeDeAguaMuerto == true)
             {
@@ -340,11 +357,11 @@ public class LifeManager : MonoBehaviour
             break;
 
             case 2:
-            AumentoDeVida = 40;
+            AumentoDeVida = 30;
             break;
 
             case 3:
-            AumentoDeVida = 60;
+            AumentoDeVida = 40;
             break;
         }
 
@@ -371,4 +388,13 @@ public class LifeManager : MonoBehaviour
         }
     }
 
+
+    IEnumerator EsperarParaRecargar()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        BarraDeVidaJefe RestedDeBarra = FindObjectOfType<BarraDeVidaJefe>();
+        Debug.Log(RestedDeBarra.gameObject.name);
+        RestedDeBarra.ValorDeVidaMaxima = gameObject.GetComponent<LifeManager>().Vida;
+    }
 }

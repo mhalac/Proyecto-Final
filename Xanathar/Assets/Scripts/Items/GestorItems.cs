@@ -236,7 +236,7 @@ public class GestorItems : MonoBehaviour
                 {
                     Animaciones.ActivaDeAguaCooldown = true;
 
-                    Estadisticas.VidaActualPersonaje = Estadisticas.VidaMaximaPersonaje;
+                    Estadisticas.VidaActualPersonaje += 5;
                     ManejadorHUD.ManejadorDeVida();
 
                     Animaciones.SeleccionadorDeImagenes(ItemsEquipados[3].cooldownInicial);

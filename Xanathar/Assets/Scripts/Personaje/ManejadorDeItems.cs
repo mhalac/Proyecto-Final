@@ -343,7 +343,7 @@ public class ManejadorDeItems : MonoBehaviour {
 		AntiCRASH = false;
 	}
 
-		IEnumerator Esperar()
+	IEnumerator Esperar()
 	{
 		yield return new WaitForSeconds(0.3f);
 
